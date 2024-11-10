@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>blog.vanillajava</groupId>
+        <artifactId>vanilla-java-blog-examples</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>advanced-topics</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Advanced Topics</name>
+    <description>Examples of advanced Java topics, including concurrency and collections, based on the Vanilla Java blog</description>
+
+    <dependencies>
+        <!-- SLF4J API inherited from the parent. Additional dependencies for advanced Java topics are listed below. -->
+
+        <!-- Java Concurrency Utilities -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
+        </dependency>
+
+        <!-- Google Guava for advanced collections and utilities -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.0.1-jre</version>
+        </dependency>
+
+        <!-- Apache Commons Lang for additional utilities -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+    </dependencies>
+</project>

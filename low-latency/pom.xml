@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>blog.vanillajava</groupId>
+        <artifactId>vanilla-java-blog-examples</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>low-latency</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Low Latency</name>
+    <description>Examples and techniques for achieving low-latency in Java applications, based on content from the Vanilla Java blog</description>
+
+    <dependencies>
+        <!-- SLF4J API is inherited from the parent. Additional dependencies for low-latency programming are listed below. -->
+
+        <!-- Chronicle Queue for low-latency, high-throughput messaging -->
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-queue</artifactId>
+            <version>5.26ea8</version>
+        </dependency>
+
+        <!-- Chronicle Map for off-heap data storage -->
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-map</artifactId>
+            <version>3.26ea4</version>
+        </dependency>
+    </dependencies>
+</project>
