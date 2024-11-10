@@ -32,7 +32,7 @@ Each module contains a `README.adoc` file with detailed explanations for each ex
 
 === Prerequisites
 
-* Java 11 or later
+* Java 8 or later
 * Apache Maven 3.6+ 
 
 === Cloning the Repository
