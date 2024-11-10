@@ -13,6 +13,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
+/* RUn on a Ryzen 5950X running Linux with Azul JDK v23
+Benchmark                                          Mode  Cnt        Score        Error  Units
+MyBenchmark.bigDecimalMidPriceDivide              thrpt   25    83467.627 ±    529.667  ops/s
+MyBenchmark.bigDecimalMidPriceMultiply            thrpt   25    90053.410 ±    785.010  ops/s
+MyBenchmark.bigDecimalMidPriceMultiplyWORounding  thrpt   25   114612.951 ±    963.940  ops/s
+MyBenchmark.deltixDecimal64MidPrice               thrpt   25    63605.847 ±    434.017  ops/s
+MyBenchmark.doubleMidPrice                        thrpt   25   855706.255 ±   3239.675  ops/s
+MyBenchmark.doubleMidPriceWORounding              thrpt   25  9751458.388 ± 782845.714  ops/s
+ */
 /**
  * Benchmark class to compare performance of different mid-price calculation methods
  * using double, BigDecimal, and Decimal64 representations.
