@@ -1,0 +1,70 @@
+= Mid Price Benchmarking
+:toc: left
+:icons: font
+:source-highlighter: pygments
+
+== Overview
+
+This project benchmarks different methods for calculating the mid price of two values using different numeric types: `double`, `BigDecimal`, and `Decimal64`. It compares the performance of these methods with different rounding strategies, including rounding to six decimal places.
+
+The benchmarks are implemented using the [Java Microbenchmarking Harness (JMH)](https://openjdk.java.net/projects/code-tools/jmh/). It tests the speed and accuracy of mid-price calculations on a fixed-size data set.
+
+== Benchmark Methods
+
+The following mid-price calculation methods are compared:
+
+* **Double Precision (with rounding)**: Uses primitive `double` types to calculate the mid-price and rounds to 6 decimal places.
+* **Double Precision (without rounding)**: Uses primitive `double` types to calculate the mid-price without any rounding.
+* **BigDecimal (Divide by 2)**: Uses the `BigDecimal` class to calculate the mid-price by dividing the sum of two values by 2 and rounding to 6 decimal places.
+* **BigDecimal (Multiply by 0.5)**: Uses the `BigDecimal` class to calculate the mid-price by multiplying the sum of two values by 0.5 and rounding to 6 decimal places.
+* **BigDecimal (Multiply by 0.5 without rounding)**: Uses the `BigDecimal` class to calculate the mid-price by multiplying the sum of two values by 0.5 without rounding.
+* **Decimal64 (with rounding)**: Uses `Decimal64` (from the `deltix` library) to calculate the mid-price and rounds to 6 decimal places.
+
+== Results
+
+The benchmark was run on a system with the following configuration:
+
+* **Processor**: AMD Ryzen 5950X
+* **Operating System**: Linux
+* **Java Version**: Azul JDK v23
+
+Benchmark Results (measured in operations per second):
+
+[cols="3",options="header"]
+|===
+| Benchmark | Score (ops/s) | Error (ops/s)
+| `MyBenchmark.bigDecimalMidPriceDivide`           >| 83,467     >| ± 529
+| `MyBenchmark.bigDecimalMidPriceMultiply`         >| 90,053     >| ± 785
+| `MyBenchmark.bigDecimalMidPriceMultiplyWORounding` >| 114,612    >| ± 963
+| `MyBenchmark.deltixDecimal64MidPrice`            >| 63,605     >| ± 434
+| `MyBenchmark.doubleMidPrice`                     >| 855,706    >| ± 3,239
+| `MyBenchmark.doubleMidPriceWORounding`           >| 9,751,458  >| ± 782,845
+|===
+
+== Usage
+
+To run the benchmark, you can execute the following command:
+
+[source,bash]
+----
+mvn clean install
+java -jar target/benchmarks.jar
+----
+
+This will compile and run the benchmark suite, showing results for each of the methods being tested.
+
+== How it Works
+
+The benchmarking class, `MyBenchmark`, initializes three sets of data representing the same values using `double`, `BigDecimal`, and `Decimal64`. The calculations are done using different mid-price calculation techniques.
+
+The results for each type are stored in separate arrays (`ap`, `bp` for `double`, `ap2`, `bp2` for `BigDecimal`, and `ap3`, `bp3` for `Decimal64`). After calculating the mid-prices, the values are compared across the different data types to ensure consistency.
+
+== License
+
+This project is licensed under the Apache 2.0 License.
+
+== Conclusion
+
+This benchmarking suite provides valuable insights into the performance and accuracy of different numeric types and calculation methods in Java. The results indicate that `double` and `BigDecimal` are typically faster than `Decimal64` for simple mid-price calculations, but `BigDecimal` may offer more precision and flexibility for financial and high-accuracy computations.
+
+For more details on JMH and performance benchmarking, refer to the official [JMH documentation](https://openjdk.java.net/projects/code-tools/jmh/).
