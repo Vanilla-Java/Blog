@@ -3,7 +3,7 @@ package blog.vanillajava;
 import java.util.Arrays;
 
 /**
- * Based on the post https://blog.vanillajava.blog/2024/11/some-common-java-gotchas.html by Peter Lawrey.
+ * Based on the post <a href="https://blog.vanillajava.blog/2024/11/some-common-java-gotchas.html">some-common-java-gotchas.html</a> by Peter Lawrey.
  */
 
 public class CommonJavaGotchas {

@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
- * Based on the post https://blog.vanillajava.blog/2024/11/java-arrays-wat.html by Peter Lawrey.
+ * Based on the post <a href="https://blog.vanillajava.blog/2024/11/java-arrays-wat.html">java-arrays-wat.html</a> by Peter Lawrey.
  */
 public class JavaArraySurprises {
 

@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 /**
  * Illustrates puzzles from the post "Uncomparable puzzles in Java" by Peter Lawrey.
- * https://blog.vanillajava.blog/2014/05/uncomparable-puzzles-in-java.html
+ * <a href="https://blog.vanillajava.blog/2014/05/uncomparable-puzzles-in-java.html">uncomparable-puzzles-in-java.html</a>
  */
 public class UncomparablePuzzles {
 
