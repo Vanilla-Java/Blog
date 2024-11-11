@@ -1,6 +1,7 @@
 package blog.vanillajava.decimal;
 
 import com.epam.deltix.dfp.Decimal64;
+import org.decimal4j.immutable.Decimal6f;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
@@ -19,6 +20,7 @@ MyBenchmark.bigDecimalMidPriceDivide              thrpt   25    83467.627 ±    
 MyBenchmark.bigDecimalMidPriceMultiply            thrpt   25    90053.410 ±    785.010  ops/s
 MyBenchmark.bigDecimalMidPriceMultiplyWORounding  thrpt   25   114612.951 ±    963.940  ops/s
 MyBenchmark.deltixDecimal64MidPrice               thrpt   25    63605.847 ±    434.017  ops/s
+MyBenchmark.decimal6fMidPrice                     thrpt   25   181474.967 ±   2444.549  ops/s
 MyBenchmark.doubleMidPrice                        thrpt   25   855706.255 ±   3239.675  ops/s
 MyBenchmark.doubleMidPriceWORounding              thrpt   25  9751458.388 ± 782845.714  ops/s
  */
@@ -47,6 +49,10 @@ public class MyBenchmark {
     final Decimal64[] bp3 = new Decimal64[SIZE];
     final Decimal64[] mp3 = new Decimal64[SIZE];
 
+    final Decimal6f[] ap4 = new Decimal6f[SIZE];
+    final Decimal6f[] bp4 = new Decimal6f[SIZE];
+    final Decimal6f[] mp4 = new Decimal6f[SIZE];
+
     public MyBenchmark() {
         Random rand = new Random(1);
         for (int i = 0; i < SIZE; i++) {
@@ -56,11 +62,14 @@ public class MyBenchmark {
             bp2[i] = BigDecimal.valueOf(bp[i] = (x + y) / 1e5);
             ap3[i] = Decimal64.fromBigDecimal(ap2[i]);
             bp3[i] = Decimal64.fromBigDecimal(bp2[i]);
+            ap4[i] = Decimal6f.valueOf(ap[i]);
+            bp4[i] = Decimal6f.valueOf(bp[i]);
         }
 
         // Initial benchmark runs to populate result arrays
         doubleMidPrice();
         deltixDecimal64MidPrice();
+        decimal6fMidPrice();
         bigDecimalMidPriceDivide();
 
         // Validate that results across different representations match
@@ -69,6 +78,8 @@ public class MyBenchmark {
                 throw new AssertionError(mp[i] + " " + mp2[i]);
             if (mp[i] != mp3[i].doubleValue())
                 throw new AssertionError(mp[i] + " " + mp3[i]);
+            if (mp[i] != mp4[i].doubleValue())
+                throw new AssertionError(mp[i] + " " + mp4[i]);
         }
     }
 
@@ -90,6 +101,16 @@ public class MyBenchmark {
             mp3[i] = ap3[i].add(bp3[i])
                     .multiply(HALF64)
                     .round(6, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Benchmark method that computes the mid-price using Decimal6f precision values.
+     */
+    @Benchmark
+    public void decimal6fMidPrice() {
+        for (int i = 0; i < SIZE; i++)
+            mp4[i] = ap4[i].add(bp4[i])
+                    .divide(2);
     }
 
     /**
@@ -149,7 +170,7 @@ public class MyBenchmark {
     public static void main(String[] args) throws RunnerException {
         System.out.println("Double vs BigDecimal mid price, with -Dsize=" + SIZE);
         Options opt = new OptionsBuilder()
-                .include(".*" + MyBenchmark.class.getSimpleName() + ".*")
+                .include(".*" + MyBenchmark.class.getSimpleName() + ".decimal6fMidPrice")
                 .forks(5)
                 .build();
 
