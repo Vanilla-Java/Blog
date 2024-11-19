@@ -24,6 +24,44 @@ After sleep 10 ms: Took 301 us to serialise/deserialise GregorianCalendar
 After sleep 20 ms: Took 298 us to serialise/deserialise GregorianCalendar
 After sleep 50 ms: Took 297 us to serialise/deserialise GregorianCalendar
 After sleep 100 ms: Took 353 us to serialise/deserialise GregorianCalendar
+
+Ryzon 5950X, Ubuntu, Azul 21.0.5, performance power governor
+0: Took 70,263 us to serialise/deserialise GregorianCalendar
+1: Took 1,241 us to serialise/deserialise GregorianCalendar
+10: Took 595 us to serialise/deserialise GregorianCalendar
+100: Took 194 us to serialise/deserialise GregorianCalendar
+1,000: Took 115 us to serialise/deserialise GregorianCalendar
+10,000: Took 42 us to serialise/deserialise GregorianCalendar
+20,000: Took 26 us to serialise/deserialise GregorianCalendar
+100,001: Took 25 us to serialise/deserialise GregorianCalendar
+After sleep 0 ms: Took 27 us to serialise/deserialise GregorianCalendar
+After sleep 1 ms: Took 29 us to serialise/deserialise GregorianCalendar
+After sleep 2 ms: Took 29 us to serialise/deserialise GregorianCalendar
+After sleep 5 ms: Took 31 us to serialise/deserialise GregorianCalendar
+After sleep 10 ms: Took 30 us to serialise/deserialise GregorianCalendar
+After sleep 20 ms: Took 31 us to serialise/deserialise GregorianCalendar
+After sleep 50 ms: Took 40 us to serialise/deserialise GregorianCalendar
+After sleep 100 ms: Took 39 us to serialise/deserialise GregorianCalendar
+
+power save governor
+After sleep 0 ms: Took 27 us to serialise/deserialise GregorianCalendar
+After sleep 1 ms: Took 30 us to serialise/deserialise GregorianCalendar
+After sleep 2 ms: Took 31 us to serialise/deserialise GregorianCalendar
+After sleep 5 ms: Took 32 us to serialise/deserialise GregorianCalendar
+After sleep 10 ms: Took 36 us to serialise/deserialise GregorianCalendar
+After sleep 20 ms: Took 41 us to serialise/deserialise GregorianCalendar
+After sleep 50 ms: Took 44 us to serialise/deserialise GregorianCalendar
+After sleep 100 ms: Took 44 us to serialise/deserialise GregorianCalendar
+
+conservative governor
+After sleep 0 ms: Took 27 us to serialise/deserialise GregorianCalendar
+After sleep 1 ms: Took 29 us to serialise/deserialise GregorianCalendar
+After sleep 2 ms: Took 34 us to serialise/deserialise GregorianCalendar
+After sleep 5 ms: Took 38 us to serialise/deserialise GregorianCalendar
+After sleep 10 ms: Took 35 us to serialise/deserialise GregorianCalendar
+After sleep 20 ms: Took 44 us to serialise/deserialise GregorianCalendar
+After sleep 50 ms: Took 47 us to serialise/deserialise GregorianCalendar
+After sleep 100 ms: Took 49 us to serialise/deserialise GregorianCalendar
  */
 public class FastAndSlowMain {
     public static void main(String[] args) throws Exception {

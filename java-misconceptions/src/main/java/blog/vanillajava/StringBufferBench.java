@@ -1,11 +1,24 @@
 package blog.vanillajava;
 
+/*
+Ryzen 5950X, Ubuntu, Azul 21.0.5, performance governor
+StringBuffer took an average of 456 ns
+StringBuilder took an average of 125 ns
+StringBuffer took an average of 461 ns
+StringBuilder took an average of 162 ns
+StringBuffer took an average of 400 ns
+StringBuilder took an average of 97 ns
+StringBuffer took an average of 387 ns
+StringBuilder took an average of 98 ns
+StringBuffer took an average of 388 ns
+StringBuilder took an average of 97 ns
+ */
 public class StringBufferBench {
     public static void main(String... args) {
         String text = "A short piece of text for copying";
         int runs = 1000000;
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 5; i++) {
             {
                 long start = System.nanoTime();
                 StringBuffer sb = new StringBuffer(text);
