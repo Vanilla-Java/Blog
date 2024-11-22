@@ -16,4 +16,12 @@
     <name>Core Concepts</name>
     <description>Examples on core Java concepts from the Vanilla Java blog</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-core</artifactId>
+            <version>2.26ea2</version>
+        </dependency>
+    </dependencies>
+
 </project>
