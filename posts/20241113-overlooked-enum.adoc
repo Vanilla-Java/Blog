@@ -1,0 +1,64 @@
+= Two Overlooked Uses of Enums in Java
+
+Enums in Java are commonly used to represent a fixed set of constants. However, they offer more versatility than often realised. In this article, we'll explore two practical yet often overlooked uses of enums: creating utility classes and implementing singletons.
+
+=== 1. Using Enums as Utility Classes
+
+Utility classes contain static methods and are not meant to be instantiated. A typical approach is to define a class with a private constructor to prevent instantiation. Enums provide a more straightforward way to achieve this by leveraging their inherent characteristics.
+
+Here's how you can define a utility class using an enum:
+
+[source,java]
+----
+public enum MyUtils {
+    ;
+
+    public static String process(String text) {
+        // Your utility method implementation
+        return text.trim().toLowerCase();
+    }
+}
+----
+
+By declaring an enum with no instances (note the semicolon after the enum name), you prevent instantiation naturally. This approach simplifies the code and clearly indicates that the class is intended solely for its static methods.
+
+=== 2. Implementing Singletons with Enums
+
+The singleton pattern ensures that a class has only one instance and provides a global point of access to it. Traditional implementations can be complex and may not handle serialisation or reflection attacks effectively. Using an enum simplifies this process.
+
+Here's an example of a singleton implemented with an enum:
+
+[source,java]
+----
+public enum SingletonService {
+    INSTANCE;
+
+    public String instanceMethod(String text) {
+        // Your singleton method implementation
+        return "Processed: " + text;
+    }
+}
+----
+
+To use the singleton, you reference `SingletonService.INSTANCE`. This method is thread-safe, handles serialisation automatically, and guards against multiple instantiation—even in complex scenarios.
+
+=== Benefits of Using Enums for Singletons and Utilities
+
+- *Simplicity:* Enums provide a concise syntax for defining singletons and utility classes without extra boilerplate code.
+- *Thread Safety:* Enum instances are inherently thread-safe, ensuring safe lazy initialisation.
+- *Serialisation:* Enums handle serialisation out of the box, preserving the singleton property during deserialisation.
+- *Clarity:* Using enums in this way makes the intent of your code explicit and easy to understand.
+
+=== Conclusion
+
+Enums in Java are more powerful than they might first appear. By utilising enums to create utility classes and singletons, you can write cleaner and more maintainable code. Consider this approach the next time you're implementing a singleton or utility class.
+
+Have you used enums in unconventional ways? Share your experiences or questions below!
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

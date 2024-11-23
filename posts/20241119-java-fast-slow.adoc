@@ -1,0 +1,111 @@
+= What can make Java code go faster, and then slower?
+Peter Lawrey, CEO of Chronicle Software
+
+It's well-known that the JVM optimises code during execution, resulting in faster performance over time. However, less commonly understood is how operations performed *before* a code section can negatively impact its execution speed. In this post, I'll use practical examples to explore how warming up and cooling down code affects performance.
+
+The https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/coldcode/FastAndSlowMain.java[code is available here] for you to run.
+
+== Warming Up Code
+
+When code is executed repeatedly, the JVM optimizes performance. Consider the following code snippet:
+
+```java
+int[] display = {0, 1, 10, 100, 1_000, 10_000, 20_000, 100_001};
+for (int i = 0; i &lt;= display[display.length - 1]; i++) {
+    long start = System.nanoTime();
+    doTask();
+    long time = System.nanoTime() - start;
+    if (Arrays.binarySearch(display, i) &gt;= 0)
+        System.out.printf("%,d: Took %,d us to serialise/deserialise GregorianCalendar%n", i, time / 1_000);
+}
+```
+
+This code measures the time taken to execute `doTask()` over multiple iterations, printing the results at specific intervals. Running this on a Windows 10 machine with an i7-10710U processor and Azul JDK 21.0.2 yields:
+
+```
+0: Took 93,204 us to serialise/deserialise GregorianCalendar
+1: Took 1,876 us to serialise/deserialise GregorianCalendar
+10: Took 782 us to serialise/deserialise GregorianCalendar
+100: Took 549 us to serialise/deserialise GregorianCalendar
+1,000: Took 112 us to serialise/deserialise GregorianCalendar
+10,000: Took 45 us to serialise/deserialise GregorianCalendar
+20,000: Took 39 us to serialise/deserialise GregorianCalendar
+100,001: Took 41 us to serialise/deserialise GregorianCalendar
+```
+
+Notice how the execution time decreases dramatically with more iterations. This is due to the JVM's Just-In-Time (JIT) compiler optimising the code during runtime.
+
+== Cooling Down Code
+
+Conversely, certain operations can degrade performance by affecting the CPU caches and power settings. Even a simple `Thread.sleep()` or blocking call can slow down subsequent code execution. Here's an example:
+
+```java
+// Run immediately after the previous section where the code has warmed up.
+for (int i : new int[]{0, 1, 2, 5, 10, 20, 50, 100}) {
+    int runs = i &lt; 10 ? 1_000 : 100;
+    long total = 0;
+    for (int j = 0; j &lt; runs; j++) {
+        Thread.sleep(i);
+        long start = System.nanoTime();
+        doTask();
+        long time = System.nanoTime() - start;
+        total += time;
+    }
+    System.out.printf("After sleep %d ms: Took %,d us to serialise/deserialise GregorianCalendar%n", i, total / runs / 1_000);
+}
+```
+
+The output demonstrates how increasing the sleep duration impacts performance:
+
+```
+After sleep 0 ms: Took 42 us to serialise/deserialise GregorianCalendar
+After sleep 1 ms: Took 201 us to serialise/deserialise GregorianCalendar
+After sleep 2 ms: Took 210 us to serialise/deserialise GregorianCalendar
+After sleep 5 ms: Took 235 us to serialise/deserialise GregorianCalendar
+After sleep 10 ms: Took 301 us to serialise/deserialise GregorianCalendar
+After sleep 20 ms: Took 298 us to serialise/deserialise GregorianCalendar
+After sleep 50 ms: Took 297 us to serialise/deserialise GregorianCalendar
+After sleep 100 ms: Took 353 us to serialise/deserialise GregorianCalendar
+```
+
+As the sleep time increases, the execution time of `doTask()` also increases. This occurs because the CPU caches are cleared during sleep, and power management reduces the CPU speed, causing the subsequent operations to fetch data from slower memory and execute slower.
+
+== The Task
+
+The `doTask()` method performs serialization and deserialization of a `GregorianCalendar` object:
+
+```java
+public static void doTask() {
+    try {
+        GregorianCalendar cal = new GregorianCalendar();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(cal);
+        oos.close();
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
+        GregorianCalendar cal2 = (GregorianCalendar) ois.readObject();
+        ois.close();
+        cal2.toString();
+    } catch (Exception e) {
+        throw new AssertionError(e);
+    }
+}
+```
+
+Serialization of `GregorianCalendar` is used here because it's a relatively heavy-weight operation that can be executed in a short code segment.
+
+== Summary
+
+Testing code performance in isolation may give you a partial picture. Operations like `Thread.sleep()`, I/O activities, or any action affecting CPU caches can slow down the following code. It's crucial to consider how preceding operations impact the overall system performance, not just the execution time of isolated code blocks.
+
+== Personal Observations
+
+Interestingly, I observed similar results when I ran this experiment in 2011. The effect of cache clearing and power management on code performance remains consistent. You can read more about my previous findings https://blog.vanillajava.blog/2011/05/whatc-make-code-go-faster-and-slower.html[here].
+
+== Final Thoughts
+
+Have you encountered situations where preceding operations affected your code's performance? It's important to be mindful of how system interactions can impact your applications. Feel free to share your experiences or thoughts in the comments below.
+
+== About the author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

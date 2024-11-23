@@ -1,0 +1,37 @@
+= How SLOW can you read/write files in Java?
+Peter Lawrey
+
+A common question on Stack Overflow is: *Why is reading/writing from a file in Java so slow? What is the fastest way?*
+
+The discussion often revolves around comparing `NIO` versus `IO`. However, the bottleneck is usually not the read/write operations themselves, and the specific approach often has little significance in the bigger picture.
+
+To demonstrate, I’ll show one of the simplest (and perhaps slowest) ways to read/write text, using `PrintWriter` and `Files.lines(Path)`.
+https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/slowfile/SlowFileIO.java[The code is available here.]
+While it’s slower than writing binary using `NIO` or `IO`, it’s *fast enough* for most typical use cases.
+
+== Example Output
+
+The https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/slowfile/SlowFileIO.java[program] on a Ryzen 5950X running Linux outputs:
+
+```
+Run 1, Write speed: 0.900 GB/sec, read speed 0.832 GB/sec
+Run 2, Write speed: 0.918 GB/sec, read speed 1.208 GB/sec
+Run 3, Write speed: 0.933 GB/sec, read speed 1.197 GB/sec
+```
+
+If you find that 900 MB/s is more than fast enough for your application, the specific method of reading/writing data to disk shouldn't matter much.
+
+== Key Consideration
+
+NOTE: For very large files, the performance depends significantly on the speed and configuration of your hardware, such as your disk drives. If you’re facing bottlenecks with large files, consider optimising your *hardware* setup instead of blaming the software.
+
+NOTE 2: I wrote an article on this topic in 2011, and at the time, the write/read performance was just over 100 MB/s.
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+```

@@ -1,0 +1,68 @@
+= How to Avoid Using a Triple Cast
+
+*OMG: Using a Triple Cast*
+
+We've all faced situations where a simple task spirals into unexpected complexity. In 2010, I encountered such a scenario and wrote a triple cast! 😅
+
+The challenge: I needed a method to return a given type's default value. Here's the first approach I wrote at the time:
+
+[source,java]
+----
+public static <T> T defaultValue(Class<T> clazz) {
+    if (clazz == byte.class)
+        return (T) (Byte) (byte) 0;
+    // Other primitive types handled...
+    return null;
+}
+----
+
+Yes, this is casting madness! Let’s break it down:
+
+- `(byte) 0`: Initialises the default value for the `byte` primitive type.
+- `(Byte)`: Wraps the primitive into its wrapper type, `Byte`.
+- `(T)`: Casts it to the generic type `T`.
+
+While functional, this approach is overly verbose, difficult to read, and frankly, not very elegant. So, I decided to refactor it into something cleaner and more efficient:
+
+[source,java]
+----
+static final Map<Class<?>, Object> DEFAULT_MAP = new HashMap<>() {{
+    put(boolean.class, false);
+    put(byte.class, (byte) 0);
+    put(short.class, (short) 0);
+    put(char.class, (char) 0);
+    put(int.class, 0);
+    put(long.class, 0L);
+    put(float.class, 0.0f);
+    put(double.class, 0.0d);
+}};
+
+/**
+ * Returns the default value for the given class.
+ *
+ * @param type The class for which to return the default value.
+ * @return The default value for the given class.
+ */
+public static <T> T defaultValue(Class<T> type) {
+    return (T) DEFAULT_MAP.get(type);
+}
+----
+
+Here’s why this approach is better:
+
+- *Centralised Logic:* All default values are stored in a map (`DEFAULT_MAP`), making adding or modifying default values easy.
+- *Reduced Casting:* While casting still occurs, it’s simplified and separated into manageable steps.
+- *Improved Readability:* The intent of the method is much clearer and easier to understand for future developers.
+- *Efficiency:* The map is pre-populated during static initialisation, ensuring quick lookups at runtime.
+
+*Conclusion*
+
+While triple casts might work in a pinch, they often lead to code that is harder to read and maintain. By leveraging structures like maps and focusing on immutability, we can achieve solutions that are not only more elegant but also more robust and flexible. Remember, clear and concise code is always worth the extra effort!
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

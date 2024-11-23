@@ -1,0 +1,104 @@
+= Some Common Java Gotchas
+
+Java is a streamlined language with fewer features than others, yet it still has quirks that can confuse developers. Familiarity with other languages may lead to misinterpretation of Java syntax, often causing misunderstandings.
+
+== Variables Are References or Primitives, Not Objects
+
+In Java, variables represent references (for objects) or primitives, not the objects themselves. For example:
+
+[source,java]
+----
+String s = "Hello";
+----
+
+This makes `s` a reference to a `String`, not the `String` itself.
+
+=== Example Misunderstanding:
+
+**Q:** If `String` is immutable, how can I change it, like in `s += "!"`?
+**A:** You’re creating a new `String` and updating the reference, not altering the original `String`.
+
+== Compares References, Not Object Content
+
+Using `==` compares references, not object contents. For immutable values, Java may optimise by pooling them, which can make the references equal:
+
+[source,java]
+----
+String s1 = "Hi", s2 = "Hi";
+Integer a = 12, b = 12;
+System.out.println(s1 == s2); // true
+System.out.println(a == b);   // true
+----
+
+However, without pooling, `==` returns `false`:
+
+[source,java]
+----
+String s3 = new String(s1);
+Integer c = -222, d = -222;
+System.out.println(s1 == s3);      // false
+System.out.println(s1.equals(s3)); // true
+System.out.println(c == d);        // false
+System.out.println(c.equals(d));   // true
+----
+
+== Java Passes References by Value
+
+When passing a reference variable to a method, Java copies the reference, not the object. Thus, changes to the object's content within the method affect the original object, but reassigning the reference itself has no effect outside the method:
+
+[source,java]
+----
+public static void addWord(StringBuilder sb) {
+    sb.append(" word");
+    sb = null;
+}
+
+StringBuilder sb = new StringBuilder("first ");
+addWord(sb);
+System.out.println(sb); // "first word"
+----
+
+== `hashCode()` and `toString()` Surprises
+
+In Java, `hashCode()` doesn’t reflect an object’s memory location. Instead, it’s consistent per object lifecycle to support collections like `HashSet`.
+
+`toString()` often surprises by printing class names and `hashCode` in hexadecimal. For arrays, this can be confusing:
+
+[source,java]
+----
+String[] words = { "Hello", "World" };
+System.out.println(Arrays.toString(words)); // [Hello, World]
+----
+
+== Understanding `hashCode()` and `toString()` in Java
+
+=== `hashCode()` Is Not Related to Memory Location
+
+In most JVMs, the `hashCode()` for an object does not correlate to its memory location. Instead, `hashCode()` values must remain constant throughout an object’s lifecycle to support hash-based collections like `HashSet` or `ConcurrentHashMap`. Since JVMs may move objects around in memory, basing `hashCode()` on memory location would break this consistency.
+
+In OpenJDK and HotSpot JVMs, `hashCode()` is generated on demand and stored in the object's header. This enables the JVM to reuse and relocate objects without affecting their hash-based behaviour.
+
+=== The Default `toString()` Output
+
+The default behaviour of `toString()` prints the class name and `hashCode` in hexadecimal. For arrays, this can be particularly confusing. For instance, a `String[]` array might print as:
+
+[source]
+----
+[Ljava.lang.String;@45ee12a7
+----
+
+The `[` indicates it’s an array, `L` specifies it as a non-primitive class, and the hex value is the `hashCode`. To make arrays more readable, use `Arrays.toString()`:
+
+[source,java]
+----
+String[] words = { "Hello", "World" };
+System.out.println(Arrays.toString(words)); // Outputs: [Hello, World]
+----
+
+You can run this code here: https://github.com/Vanilla-Java/Blog/blob/main/java-misconceptions/src/main/java/blog/vanillajava/CommonJavaGotchas.java[CommonJavaGotchas.java].
+
+To see the original article, visit: https://blog.vanillajava.blog/2014/02/most-common-gotchas-in-java.html[here].
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

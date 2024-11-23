@@ -1,0 +1,95 @@
+= Calculating an Average Without Overflow: Rounding Methods
+
+Calculating the midpoint between two integers may seem trivial, but the naive approach can lead to overflow errors.
+Code sample MidpointCalculator is available here: https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/MidpointCalculator.java[Code sample MidpointCalculator].
+
+The classic midpoint formula:
+
+[source,java]
+----
+int m = (h + l) / 2;
+----
+
+is prone to overflow if `h` and `l` are large, causing the result to be incorrect. This bug appears in many algorithms, including binary search implementations.
+
+== Understanding the Problem of Overflow
+
+In Java, the `int` type has a fixed range from `-2,147,483,648` to `2,147,483,647`. If `h` and `l` are large, their sum might exceed this range, leading to overflow. When overflow occurs, Java wraps the result around to the negative range without warning, causing unpredictable results.
+
+== Safer Approaches to Calculate a Midpoint
+
+1. *Using a Safer Formula*
+
+A well-known alternative to avoid overflow is:
+
+[source,java]
+----
+int m = l + (h - l) / 2;
+----
+
+Here, we compute the difference `(h - l)` before dividing by 2, ensuring that we don’t add two large values directly. This is safe but somewhat cumbersome.
+
+2. *Using Unsigned Right Shift (with Down-Rounding)*
+
+My preferred approach is to use the unsigned right shift operator `>>>`, which divides by two while avoiding overflow:
+
+[source,java]
+----
+int m = (h + l) >>> 1;
+----
+
+In this approach, we add `h` and `l` and then perform an unsigned right shift by one. This method provides a simple and efficient midpoint calculation that avoids overflow. However, it always rounds down when dividing, which may not always be desirable.
+
+3. *Using Unsigned Right Shift (with Half-Up Rounding)*
+
+An alternative approach is to use the unsigned right shift operator `>>>`, which divides by two plus one while avoiding overflow:
+
+[source,java]
+----
+int m = (h + l + 1) >>> 1;
+----
+
+In this approach, we add `h` and `l` and then perform an unsigned right shift by one. This method provides a simple and efficient midpoint calculation that avoids overflow while rounding half-up if needed.
+
+== Example: Comparing Rounding Methods
+
+Let’s look at an example to see the difference between rounding down and rounding half-up. Suppose `h` and `l` are `byte` values with `h = 102` and `l = 99`:
+
+* *Using Rounding Down*
+
+[source,java]
+----
+int m = (h + l) >>> 1;
+----
+
+- `h + l` is `201`.
+- Unsigned shifting `201` by one bit gives `100`, rounding down.
+
+* *Using Rounding Half-Up*
+
+[source,java]
+----
+int m = (h + l + 1) >>> 1;
+----
+
+- `h + l + 1` is `202`.
+- Unsigned shifting `202` by one bit gives `101`, rounding half-up.
+
+This rounding behaviour can be particularly useful in cases where you're dividing odd sums and want to follow standard rounding conventions.
+
+== Practical Applications of Rounding Choices
+
+Using `(h + l) >>> 1` is ideal when you want the midpoint calculation to round down, which is often preferred in low-level programming and binary search algorithms. On the other hand, if you need rounding to the nearest integer in scenarios where the halfway point should round up (known as *round half-up*), using `(h + l + 1) >>> 1` gives you that flexibility.
+
+== Summary
+
+When calculating a safe midpoint between two integers, avoid using `(h + l) / 2` as it risks overflow. Instead:
+
+* Use `(h + l) >>> 1` for a midpoint that rounds down.
+* Use `(h + l + 1) >>> 1` for a midpoint that rounds half-up, rounding up in cases where the sum is odd.
+
+These options allow you to control rounding behaviour precisely and avoid subtle bugs that might emerge in large data handling, ensuring safer, more predictable algorithms.
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

@@ -1,0 +1,88 @@
+= Why double Still Outperforms BigDecimal: A Decade-Long Performance Comparison
+
+== Overview
+
+Many developers consider `BigDecimal` the go-to solution for handling money in Java. They often claim that by replacing `double` with `BigDecimal`, they have fixed one or more bugs in their applications. However, I find this reasoning unconvincing. It's possible that the issue lies not with `double`, but rather with the way it was being handled. Additionally, `BigDecimal` introduces significant overhead that may not justify its use.
+
+When asked to improve the performance of a financial application, I know that if `BigDecimal` is involved, it will eventually need to be removed. While it may not be the largest performance bottleneck initially, as we optimise the system, `BigDecimal` often becomes one of the main culprits.
+
+== BigDecimal is Not an Improvement
+
+`BigDecimal` comes with several drawbacks. Here are some of its key issues:
+
+* It has an unnatural syntax.
+* It uses more memory.
+* It creates more garbage (i.e., it causes more frequent garbage collection).
+* It is significantly slower for most operations, although there are exceptions.
+
+The following JMH benchmark demonstrates two of the most prominent issues with `BigDecimal`: clarity and performance.
+
+== Code Comparison
+
+The core task is to take an average of two values. Here's how it looks when using `double`:
+
+[source,java]
+----
+mp[i] = round6((ap[i] + bp[i]) / 2);
+----
+
+Notice the need for rounding. Now, the same operation using `BigDecimal` requires much more verbose code:
+
+[source,java]
+----
+mp2[i] = ap2[i].add(bp2[i])
+     .divide(BigDecimal.valueOf(2), 6, BigDecimal.ROUND_HALF_UP);
+----
+
+Does this give you different results? For the most part, `double` provides 15 digits of precision, which is more than enough for typical monetary values. If these prices had 17 digits, `BigDecimal` might be more appropriate. However, the complexity it adds to the code is unnecessary for most practical use cases—it’s a poor trade-off for the developer who has to maintain and comprehend the code.
+
+== Performance
+
+If you have to incur coding overhead, it’s usually done for performance reasons. However, in this case, using `BigDecimal` for simple arithmetic does not make sense.
+
+The following JMH benchmark results show a significant performance difference between `BigDecimal` and `double`:
+
+=== Running on a Ryzen 5950X on Linux
+
+[source]
+----
+Benchmark                                          Mode  Cnt        Score        Error  Units
+MyBenchmark.bigDecimalMidPriceDivide              thrpt   25    83467.627 ±    529.667  ops/s
+MyBenchmark.bigDecimalMidPriceMultiply            thrpt   25    90053.410 ±    785.010  ops/s
+MyBenchmark.bigDecimalMidPriceMultiplyWORounding  thrpt   25   114612.951 ±    963.940  ops/s
+MyBenchmark.deltixDecimal64MidPrice               thrpt   25    63605.847 ±    434.017  ops/s
+MyBenchmark.doubleMidPrice                        thrpt   25   855706.255 ±   3239.675  ops/s
+MyBenchmark.doubleMidPriceWORounding              thrpt   25  9751458.388 ± 782845.714  ops/s
+----
+
+=== Running on an i7-1360P and Java 21
+
+[source]
+----
+Benchmark                       Mode   Cnt       Score       Error  Units
+MyBenchmark.bigDecimalMidPrice  thrpt    5   63179.538 ±  6211.832  ops/s
+MyBenchmark.doubleMidPrice      thrpt    5  866728.730 ± 28798.456  ops/s
+----
+
+For comparison, this is a benchmark I ran ten years ago on an older machine:
+
+[source]
+----
+Benchmark                       Mode     Samples     Score        Score Error   Units
+MyBenchmark.bigDecimalMidPrice  thrpt    20          23638.568    590.094      ops/s
+MyBenchmark.doubleMidPrice      thrpt    20          123208.083   2109.738     ops/s
+----
+
+As you can see, the `double` implementation outperforms the `BigDecimal` implementation by a factor of more than five. Note: using `double` made more difference than ten years of processor and JVM improvements.
+
+*NOTE*: Rounding makes a big difference (a factor of ten) for `double` as it involves a division.
+
+== Conclusion
+
+If you’re unsure about how to properly handle rounding with `double`, or if your project mandates the use of `BigDecimal`, then by all means, use `BigDecimal`. However, if you have a choice, don’t just assume that `BigDecimal` is the right way to go. The additional complexity and performance overhead may not be worth it in many cases.
+
+The benchmark is available for you to run here: https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/decimal/MyBenchmark.java[MyBenchmark].
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter’s deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

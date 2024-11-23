@@ -1,0 +1,375 @@
+= Exceptional Exception, StackTrace extends Throwable
+Peter Lawrey, CEO of Chronicle Software
+
+== Exploring Surprising Properties of Extending `Throwable` in Java
+
+In Java, most developers are familiar with extending `Exception` or `Error` to create custom exceptions. However, directly extending `Throwable` can lead to surprising and potentially useful behaviors. In this article, we'll delve into the nuances of extending `Throwable` and explore practical applications that can enhance debugging and monitoring in Java applications. The example code is available at https://github.com/Vanilla-Java/Blog/tree/main/core-concepts/src/main/java/blog/vanillajava/throwable[here].
+
+== Extending `Throwable`
+
+At first glance, extending `Throwable` might seem unusual. Unlike `Exception`, which is checked, or `Error`, which is unchecked, `Throwable` itself can be extended to create a new checked throwable that is neither an exception nor an error.
+
+[source,java]
+----
+public class MyThrowable extends Throwable {
+}
+
+public static void main(String... args) throws MyThrowable {
+    throw new MyThrowable(); // Must be declared or caught
+}
+----
+
+In this example, `MyThrowable` is a checked throwable, and the compiler enforces that it must be declared in the `throws` clause or caught, even though it doesn't extend `Exception`.
+
+== Practical Uses of Extending `Throwable`
+
+While these behaviors are interesting, you might wonder about practical applications. One such use is creating a custom `StackTrace` class that extends `Throwable` but is not intended to be thrown or caught. This can be incredibly useful for debugging and monitoring purposes.
+
+=== Creating a Custom `StackTrace` Class
+
+[source,java]
+----
+/**
+ * Throwable created purely to report a stack trace.
+ * This is not an Error or an Exception and is not expected to be thrown or caught.
+ */
+public class StackTrace extends Throwable {
+    public StackTrace() {
+        this("Stack trace");
+    }
+
+    public StackTrace(String message) {
+        this(message, null);
+    }
+
+    public StackTrace(String message, Throwable cause) {
+        super(message + " on " + Thread.currentThread().getName(), cause);
+    }
+}
+----
+
+Some important points to consider:
+* This class is not meant to be thrown. Since it extends `Throwable` directly, it's checked by the compiler.
+* The stack trace is captured when the `Throwable` is created, not when it's thrown.
+* The actual `StackTraceElement` objects are created lazily, reducing overhead until they're needed.
+
+=== Recording Where a Resource Was Closed
+
+One practical application is recording where a resource was closed, especially when dealing with concurrency or complex resource management.
+
+[source,java]
+----
+package blog.vanillajava.throwable;
+
+import net.openhft.chronicle.core.StackTrace;
+import java.io.Closeable;
+
+/**
+ * A class that simulates a closeable resource and throws an exception if the resource is used after it has been closed.
+ */
+public abstract class TracingCloseable implements Closeable {
+    private transient StackTrace closedHere;
+    private volatile boolean isClosed = false;
+
+    /**
+     * Closes the resource and records the stack trace where it was closed.
+     */
+    @Override
+    public void close() {
+        if (isClosed) return;
+        closedHere = new StackTrace("Resource closed here");
+        isClosed = true;
+    }
+
+    /**
+     * Simulates the usage of the resource. Throws an exception if the resource has already been closed.
+     */
+    protected void throwIfClosed() {
+        if (isClosed) {
+            throw new IllegalStateException("Attempted to use a closed resource.", closedHere);
+        }
+    }
+
+    /**
+     * Simulates the usage of the resource. Throws an exception if the resource has already been closed.
+     */
+    public void use() {
+        throwIfClosed();
+        // do something with the resource
+    }
+
+    /**
+     * Main method to demonstrate the usage of the MyCloseable class.
+     */
+    public static void main(String[] args) throws InterruptedException {
+        TracingCloseable resource = new TracingCloseable() {};
+
+        // Start a thread to close the resource
+        Thread closer = new Thread(() -> {
+            resource.close(); // line 51
+        }, "CloserThread");
+        closer.start();
+        closer.join();
+
+        resource.use(); // Throws exception with stack trace as it's already closed
+    }
+}
+----
+
+If you attempt to use the resource after it has been closed, an `IllegalStateException` is thrown, including the name of the thread that closed the resource and a stack trace of where the resource was closed:
+
+[source]
+----
+Exception in thread "main" java.lang.IllegalStateException: Attempted to use a closed resource.
+	at blog.vanillajava.throwable.TracingCloseable.throwIfClosed(TracingCloseable.java:31)
+	at blog.vanillajava.throwable.TracingCloseable.use(TracingCloseable.java:39)
+	at blog.vanillajava.throwable.TracingCloseable.main(TracingCloseable.java:56)
+Caused by: net.openhft.chronicle.core.StackTrace: Resource closed here on CloserThread
+	at blog.vanillajava.throwable.TracingCloseable.close(TracingCloseable.java:22)
+	at blog.vanillajava.throwable.TracingCloseable.lambda$main$0(TracingCloseable.java:51)
+----
+
+You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread. This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
+
+=== Monitoring Critical Threads in Production
+
+In production environments, profiling can be intrusive. However, you might still need to monitor critical threads for performance issues. By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
+
+You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread. This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
+
+=== Monitoring Critical Threads in Production
+
+In production environments, profiling can be intrusive. However, you might still need to monitor critical threads for performance issues. By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
+
+[source,java]
+----
+package blog.vanillajava.throwable;
+
+import net.openhft.chronicle.core.StackTrace;
+
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * A class that simulates a critical task that needs to be monitored for execution delays.
+ */
+public class CriticalTask implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(CriticalTask.class.getName());
+
+    private volatile long loopStartTime = Long.MIN_VALUE;
+    private volatile boolean running = true;
+
+    @Override
+    public void run() {
+        try {
+            while (running) {
+                loopStartTime = System.currentTimeMillis();
+                doWork();
+                loopStartTime = Long.MIN_VALUE; // Reset after work is completed
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Unexpected error in worker thread.", e);
+        } finally {
+            LOGGER.info("Worker thread has terminated.");
+        }
+    }
+
+    /**
+     * Simulates performing work with random durations.
+     */
+    private void doWork() {
+        try {
+            Thread.sleep(new Random().nextInt(40)); // Simulate workload
+            Thread.sleep(new Random().nextInt(40)); // line 39
+            Thread.sleep(new Random().nextInt(40)); // line 40
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            LOGGER.warning("Worker thread was interrupted during work.");
+        }
+    }
+
+    /**
+     * Main method to start and monitor the task.
+     */
+    public static void main(String[] args) {
+        CriticalTask task = new CriticalTask();
+        Thread worker = new Thread(task, "WorkerThread");
+        worker.start();
+
+        try {
+            monitorTask(task, worker, 1000, 50);
+        } finally {
+            task.running = false; // Ensure the task is stopped
+            LOGGER.info("Main thread has terminated monitoring.");
+        }
+    }
+
+    /**
+     * Monitors the task for execution delays and logs stack traces if thresholds are exceeded.
+     *
+     * @param task        The task to monitor.
+     * @param worker      The thread running the task.
+     * @param durationMs  The total duration to monitor in milliseconds.
+     * @param thresholdMs The threshold for execution delay in milliseconds.
+     */
+    private static void monitorTask(CriticalTask task, Thread worker, long durationMs, long thresholdMs) {
+        long monitoringEndTime = System.currentTimeMillis() + durationMs;
+
+        while (System.currentTimeMillis() < monitoringEndTime) {
+            if (task.loopStartTime != Long.MIN_VALUE) {
+                long executionTime = System.currentTimeMillis() - task.loopStartTime;
+                if (executionTime > thresholdMs) {
+                    LOGGER.log(Level.WARNING,
+                            String.format("Execution exceeded threshold: %d ms (threshold: %d ms)", executionTime, thresholdMs),
+                            StackTrace.forThread(worker));
+                }
+            }
+
+            try {
+                Thread.sleep(20); // Adjust monitoring interval as needed
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                LOGGER.warning("Monitoring thread was interrupted.");
+                break;
+            }
+        }
+    }
+}
+----
+
+The log will include the stack trace of the worker thread when it exceeds the execution time threshold, aiding in performance diagnostics. In the messages below it caught the critical thread in line 40 and 39.
+
+[source]
+----
+Nov 22, 2024 1:28:17 PM blog.vanillajava.throwable.CriticalTask monitorTask
+WARNING: Execution exceeded threshold: 60 ms (threshold: 50 ms)
+net.openhft.chronicle.core.StackTrace: Thread[#23,WorkerThread,5,main] on main
+    at java.base/java.lang.Thread.sleep(Thread.java:509)
+    at blog.vanillajava.throwable.CriticalTask.doWork(CriticalTask.java:40)
+    at blog.vanillajava.throwable.CriticalTask.run(CriticalTask.java:23)
+
+Nov 22, 2024 1:28:17 PM blog.vanillajava.throwable.CriticalTask monitorTask
+WARNING: Execution exceeded threshold: 67 ms (threshold: 50 ms)
+net.openhft.chronicle.core.StackTrace: Thread[#23,WorkerThread,5,main] on main
+    at java.base/java.lang.Thread.sleep(Thread.java:509)
+    at blog.vanillajava.throwable.CriticalTask.doWork(CriticalTask.java:39)
+    at blog.vanillajava.throwable.CriticalTask.run(CriticalTask.java:23)
+----
+
+=== Detecting Concurrent Access to Single-Threaded Resources
+
+Some resources are designed to be accessed by a single thread. If accessed concurrently, it can lead to undefined behaviour. By tracking the thread that first used the resource, you can detect and prevent concurrent access.
+
+[source,java]
+----
+package blog.vanillajava.throwable;
+
+import net.openhft.chronicle.core.StackTrace;
+
+/**
+ * A class that ensures a resource is accessed by only one thread when assertions are enabled.
+ * If the resource is accessed by multiple threads, an exception is thrown with a stack trace
+ * showing where the resource was first accessed.
+ *
+ * Note: This class relies on Java assertions for checking. Ensure assertions
+ * are enabled using the `-ea` JVM option. If assertions are disabled, the resource
+ * will not enforce single-threaded access.
+ */
+public class SingleThreadedResource {
+    private volatile StackTrace firstUsageStackTrace;
+    private Thread owningThread;
+
+    /**
+     * Uses the resource. Ensures that the resource is accessed
+     * only by the thread that first used it.
+     *
+     * @throws IllegalStateException if the resource is accessed by a different thread
+     *                                after being used by another thread.
+     */
+    public void use() {
+        assert verifySingleThreadedAccess();
+        // Add resource usage logic here
+    }
+
+    /**
+     * Checks that the resource is accessed by only one thread. Records the initial thread
+     * and its stack trace on the first access. If accessed by a different thread,
+     * throws an exception with details of the initial access.
+     *
+     * @return true if the resource is accessed by the owning thread or this is the first access.
+     * @throws IllegalStateException if the resource is accessed by multiple threads.
+     */
+    private boolean verifySingleThreadedAccess() {
+        Thread currentThread = Thread.currentThread();
+        if (owningThread == null) {
+            // Record the first thread that uses this resource
+            owningThread = currentThread;
+            firstUsageStackTrace = new StackTrace("Resource first accessed here");
+        } else if (owningThread != currentThread) {
+            // Throw an exception if accessed by a different thread
+            throw new IllegalStateException(
+                String.format("Resource accessed by multiple threads: '%s' (first) and '%s' (current).",
+                              owningThread.getName(), currentThread.getName()),
+                firstUsageStackTrace
+            );
+        }
+        return true;
+    }
+
+    /**
+     * Main method demonstrating the use of SingleThreadedResource. This must be run with the -ea JVM option
+     *
+     * Shows that an exception is thrown if the resource is accessed by a thread other than the initial owning thread.
+     *
+     * @param args command-line arguments (not used).
+     * @throws InterruptedException if the thread is interrupted while joining.
+     */
+    public static void main(String[] args) throws InterruptedException {
+        SingleThreadedResource resource = new SingleThreadedResource();
+
+        // First thread accesses the resource
+        Thread thread1 = new Thread(resource::use, "Thread-1");
+        thread1.start();
+        thread1.join();
+
+        // Main thread tries to access the same resource, causing an exception
+        resource.use();
+    }
+}
+----
+
+An exception is thrown when the resource is accessed by a second thread, including the stack trace of where it was first used:
+
+[source]
+----
+Exception in thread "main" java.lang.IllegalStateException: Resource accessed by multiple threads: 'Thread-1' (first) and 'main' (current).
+    at blog.vanillajava.throwable.SingleThreadedResource.verifySingleThreadedAccess(SingleThreadedResource.java:47)
+    at blog.vanillajava.throwable.SingleThreadedResource.use(SingleThreadedResource.java:26)
+    at blog.vanillajava.throwable.SingleThreadedResource.main(SingleThreadedResource.java:72)
+Caused by: net.openhft.chronicle.core.StackTrace: Resource first accessed here on Thread-1
+    at blog.vanillajava.throwable.SingleThreadedResource.verifySingleThreadedAccess(SingleThreadedResource.java:43)
+    at blog.vanillajava.throwable.SingleThreadedResource.use(SingleThreadedResource.java:26)
+    ...
+----
+
+=== Disabling Stack Trace Collection
+
+While collecting stack traces is useful, it can introduce overhead. You can conditionally disable stack trace creation using a control flag or system property:
+
+[source,java]
+----
+if (Jvm.isResourceTracing()) {
+    createdHere = new StackTrace(getClass().getName() + " created here");
+} else {
+    createdHere = null;
+}
+// OR if using assertions
+assert (createdHere = new StackTrace(getClass().getName() + " created here")) != null;
+----
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specializes in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+
+Have you tried extending `Throwable` in your projects? What are your thoughts on this approach? Share your experiences or questions in the comments below.

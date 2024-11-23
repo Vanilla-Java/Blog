@@ -1,0 +1,105 @@
+= Advanced Applications of Dynamic Code in Java
+
+Dynamic code compilation and execution in Java offer powerful capabilities that can enhance application flexibility and performance. Back in 2008, I developed a library called *Essence JCF*, which has since evolved into the https://github.com/OpenHFT/Java-Runtime-Compiler[Java Runtime Compiler]. Initially, its purpose was to load configuration files written in Java instead of traditional XML or properties files. A key advantage of this library is its ability to load classes into the current class loader, allowing immediate use of interfaces or classes without the need for reflection or additional class loaders.
+
+== Why Use Dynamic Code Compilation?
+
+While dynamic code compilation didn't initially solve a pressing problem, over time, several practical use cases have emerged where it proves particularly beneficial:
+
+=== 1. Objects in Direct Memory
+
+By generating code dynamically, you can build data stores from interfaces that are either row-based or column-based, stored in the heap or direct memory. This approach reduces the number of objects created, improving cache locality and reducing garbage collection (GC) times. It enhances performance, especially in applications where memory management is critical.
+
+=== 2. Precompiling Expressions
+
+Expressions that are executed frequently can be precompiled, making them more amenable to low-level JVM optimisations like inlining. Precompilation reduces runtime overhead and can significantly speed up computation-heavy operations.
+
+=== 3. Loop Unrolling
+
+In scenarios where a significant portion of work involves looping to call other components or nodes—especially when using reflection—you can expand this into a single method that calls all the necessary methods. This technique reduces the overhead associated with loops and reflection, leading to performance gains.
+
+=== 4. Replacing Reflection
+
+When multiple reflection calls are involved, replacing them with dynamically generated code can be more efficient. Instead of making numerous reflective calls, you generate code that performs the same actions natively. This not only improves performance but also allows the generated code to reside within any package you require.
+
+=== 5. Replacing Dynamic Proxies
+
+While dynamic proxies are useful, they involve turning argument lists into arrays, boxing primitives into objects, and method decoding—especially for methods from the `Object` class. With dynamically generated proxies, these overheads are naturally avoided through standard programming techniques, resulting in cleaner and faster code.
+
+== Example: Dynamically Loaded Configuration for a Component
+
+Consider a scenario where a class is loaded from memory, effectively replacing a version available at compile time. This allows you to use the class naturally in your code while executing dynamically loaded code. Here's an example using the https://github.com/OpenHFT/Java-Runtime-Compiler[Java Runtime Compiler] library:
+
+[source,java]
+----
+import net.openhft.compiler.CachedCompiler;
+import net.openhft.compiler.CompilerUtils;
+
+// ...
+
+CachedCompiler cc = CompilerUtils.DEBUGGING
+    ? new CachedCompiler(new File(parent, "src/test/java"), new File(parent, "target/compiled"))
+    : CompilerUtils.CACHED_COMPILER;
+
+String text = "Generated test " + new Date();
+Class<?> fooBarTeeClass = cc.loadFromJava("eg.FooBarTee", "package eg;\n" +
+    "\n" +
+    "import eg.components.BarImpl;\n" +
+    "import eg.components.TeeImpl;\n" +
+    "import eg.components.Foo;\n" +
+    "\n" +
+    "public class FooBarTee {\n" +
+    "    public final String name;\n" +
+    "    public final TeeImpl tee;\n" +
+    "    public final BarImpl bar;\n" +
+    "    public final BarImpl copy;\n" +
+    "    public final Foo foo;\n" +
+    "\n" +
+    "    public FooBarTee(String name) {\n" +
+    "        System.out.println(\"" + text + "\");\n" +
+    "        this.name = name;\n" +
+    "\n" +
+    "        tee = new TeeImpl(\"test\");\n" +
+    "        bar = new BarImpl(tee, 55);\n" +
+    "        copy = new BarImpl(tee, 555);\n" +
+    "        foo = new Foo(bar, copy, \"" + text + "\", 5);\n" +
+    "    }\n" +
+    "\n" +
+    "    public void start() {\n" +
+    "        // Start logic\n" +
+    "    }\n" +
+    "\n" +
+    "    public void stop() {\n" +
+    "        // Stop logic\n" +
+    "    }\n" +
+    "\n" +
+    "    public void close() {\n" +
+    "        stop();\n" +
+    "    }\n" +
+    "}\n");
+
+FooBarTee fooBarTee = new FooBarTee("test foo bar tee");
+Foo foo = fooBarTee.foo;
+assertNotNull(foo);
+assertEquals(text, foo.s);
+----
+
+In this example, the `FooBarTee` class is compiled and loaded at runtime using the *Java Runtime Compiler*. If you're debugging, the class is written to a directory accessible by your IDE, allowing you to step into and debug the dynamically generated code. This approach eliminates the need for the code to exist on disk during normal application runs, simplifying deployment and execution.
+
+== Debugging Dynamically Generated Code
+
+Debugging runtime-generated code can be challenging. By configuring your compiler to output the generated classes when debugging, you can synchronise the in-memory code with the code on disk. This makes it possible to set breakpoints and step through the code in your IDE, turning a potential headache into a manageable task.
+
+== Conclusion
+
+Dynamic code compilation in Java opens up possibilities for performance optimisation and flexible application design. Whether you're reducing garbage collection overhead by manipulating objects in direct memory or replacing reflection with more efficient code, dynamically generated code can offer significant benefits. Libraries like the https://github.com/OpenHFT/Java-Runtime-Compiler[Java Runtime Compiler] make it easier to incorporate these techniques into your projects. As always, it's important to weigh the complexity against the performance gains to determine if this approach suits your project's needs.
+
+Have you experimented with dynamic code in Java? Share your experiences or questions in the comments below!
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

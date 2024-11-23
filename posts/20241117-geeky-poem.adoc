@@ -1,0 +1,29 @@
+= Overly Long Class Names in Java or Geeky Poem?
+Peter Lawrey, CEO of Chronicle Software
+
+In Java development, clear and concise naming conventions are essential for code readability and maintainability. However, sometimes, we encounter class names that stretch the limits of practicality. One such example is `InternalFrameTitlePaneMaximizeButtonWindowNotFocusedState`. But did you know that in Java 6, this class name was even longer?
+
+Within the Java 6 JRE, there's a class with an astonishingly lengthy name:
+
+```
+com.sun.java.swing.plaf.nimbus.InternalFrameInternalFrameTitlePaneInternalFrameTitlePaneMaximizeButtonWindowNotFocusedState
+```
+
+This mouthful appears to be the product of a code generator that needed reviewing, leading to redundant and cumbersome naming. Or is it a geeky poem buried in the code?
+
+```
+InternalFrame InternalFrame
+Title Pane,
+Internal Frame
+Title Pane.
+
+Maximise Button Window,
+Not Focused State.
+```
+
+The moral of the story is: always check the readability and sanity of generated code.
+https://news.ycombinator.com/item?id=4770861[In this Hacker News Discussion], another class name was also considered humorous.
+
+== About the author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
