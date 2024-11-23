@@ -101,38 +101,38 @@ Consider reviewing your codebase: Are there places where you rely on `Vector` or
 
 - **Concurrency in Java**
 
-  Oracle’s official tutorial on concurrency, covering threads, synchronisation, and thread safety in Java.
+Oracle’s official tutorial on concurrency, covering threads, synchronisation, and thread safety in Java.
 
-  https://docs.oracle.com/javase/tutorial/essential/concurrency/[Concurrency in Java]
+https://docs.oracle.com/javase/tutorial/essential/concurrency/[Concurrency in Java]
 
 - **Java Concurrency in Practice** by Brian Goetz
 
-  An in-depth guide to writing reliable and high-performance concurrent applications in Java.
+An in-depth guide to writing reliable and high-performance concurrent applications in Java.
 
-  https://jcip.net/[Java Concurrency in Practice]
+https://jcip.net/[Java Concurrency in Practice]
 
 - **Effective Java, Third Edition** by Joshua Bloch
 
-  This book provides best practices for coding in Java, including a chapter dedicated to concurrency.
+This book provides best practices for coding in Java, including a chapter dedicated to concurrency.
 
-  https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/[Effective Java, Third Edition]
+https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/[Effective Java, Third Edition]
 
 - **Java Collections Framework**
 
-  Official documentation on Java’s collection classes, including details about synchronised collections and alternatives.
+Official documentation on Java’s collection classes, including details about synchronised collections and alternatives.
 
-  https://docs.oracle.com/en/java/javase/21/core/java-collections-framework.html[Java Collections Framework]
+https://docs.oracle.com/en/java/javase/21/core/java-collections-framework.html[Java Collections Framework]
 
 - **The Java Memory Model**
 
-  Understanding the Java Memory Model is crucial for writing correct concurrent programs.
+Understanding the Java Memory Model is crucial for writing correct concurrent programs.
 
-  https://www.cs.umd.edu/~pugh/java/memoryModel/[The Java Memory Model]
+https://www.cs.umd.edu/~pugh/java/memoryModel/[The Java Memory Model]
 
 - **Java Specialist Newsletter**
 
-  A resource with articles on advanced Java topics, including concurrency issues and best practices.
+A resource with articles on advanced Java topics, including concurrency issues and best practices.
 
-  https://www.javaspecialists.eu/archive/Issue164-Why-0x61c88647.html[Java Specialist Newsletter]
+https://www.javaspecialists.eu/archive/Issue164-Why-0x61c88647.html[Java Specialist Newsletter]
 
 These resources offer deeper insights into concurrency in Java, helping you write thread-safe and efficient applications. Exploring them will enhance your understanding of the challenges and solutions associated with multi-threaded programming.
