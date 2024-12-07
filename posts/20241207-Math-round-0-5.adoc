@@ -1,0 +1,238 @@
+= Why Does `Math.round(0.49999999999999994)` Round to `1`?
+Peter Lawrey
+
+Floating-point arithmetic in Java often involves subtle nuances due to the binary representation of decimal values. Even seemingly straightforward operations, such as rounding a decimal number, can yield surprising outcomes. A particularly intriguing case is how `Math.round(0.499999999999999917)` returns `1` in Java 6. This example highlights the interplay between floating-point representation errors, arithmetic rounding, and the language’s evolving implementation details across Java releases.
+
+== Defining the Problem
+
+In many numerical computations, one would reasonably expect that rounding `0.499999999999999917` should yield `0`, since it appears to be slightly less than `0.5`. Yet, in Java 6, calling `Math.round()` on this value returns `1`, a result that may initially seem baffling. This seemingly minor discrepancy stems from the interplay of binary floating-point representation, rounding modes, and the particular internal implementation details of `Math.round()` in earlier Java releases.
+
+For professionals in performance-sensitive environments—such as those working in financial technology or high-precision scientific applications—understanding these subtleties is more than just an academic exercise. Even tiny rounding differences can influence trading algorithms, pricing models, or simulations. Moreover, developers and enthusiasts who appreciate the low-level mechanics behind Java’s numeric types will find valuable insights into how these internal workings affect everyday programming tasks.
+
+This article delves into why this unexpected rounding occurs, sheds light on the constraints of double-precision arithmetic, and contrasts the behaviour in Java 6 against newer versions like Java 7. Consider, for instance, the closely related question: Why does `Math.round(0.49999999999999994)` return `1` rather than `0`? Although it might initially seem like a bug, it is, in fact, a predictable outcome once we acknowledge the inherent imprecision of floating-point arithmetic. By the end, you will have a clearer understanding of why these rounding anomalies happen, and how to avoid or mitigate their effects in your own code.
+
+== The IEEE 754 64-bit Double-Precision Format
+
+[cols="2,1,4",options="header"]
+|===
+| Component | Bit Count | Interpretation
+
+| Sign
+| 1
+| Determines the sign of the number:
+0 indicates a positive value, 1 indicates a negative value.
+
+| Exponent
+| 11
+| Encodes the exponent using a bias of 1023.
+The stored value `E` is interpreted as `E - 1023` for the actual exponent.
+
+| Mantissa (Fraction)
+| 52
+| Represents the significand (fractional part) of the number.
+A hidden leading 1 is assumed for normalised values,
+providing a 53-bit precision in total.
+|===
+
+Floating-point numbers in Java (as in most modern programming languages) conform to the IEEE 754 standard.
+This standard defines how numbers are represented as binary fractions and how arithmetic is performed on them.
+Due to limited precision, not all decimal values have an exact binary representation. Some, like `0.5`, convert perfectly into binary fractions (`1/2`), while others—such as `0.1`—cannot be represented precisely.
+
+== Representation Errors in Binary Floating-Point
+Unlike decimal, binary floating-point cannot precisely represent every decimal fraction. Some values, like `0.5`, are straightforward (`2^-1`), while others (e.g. `0.1`) cannot be represented exactly. Instead, they are approximated as a sum of negative powers of two.
+
+When converting a decimal literal into a `double`, Java picks the closest representable binary floating-point number. This is generally invisible to the developer, but it can be observed by converting a `double` to a `BigDecimal` constructed directly from its binary representation:
+
+[source,java]
+----
+var bd = new BigDecimal(0.1);
+// 0.1000000000000000055511151231257827021181583404541015625
+
+var bd = BigDecimal.valueOf(0.1);
+// "Expected" representation after rounding: 0.1
+----
+
+In other words, `new BigDecimal(0.1)` reveals the true underlying stored value, whereas `BigDecimal.valueOf(0.1)` aligns with what developers typically see when printing a `double`.
+
+This inherent limitation leads to tiny errors—often referred to as "floating-point errors" in representation or in calculations.
+Over time, these small discrepancies can accumulate, influencing how numbers round and compare.
+
+== Why `0.49999999999999994` Appears as `0.5`
+The key to understanding why `Math.round(0.49999999999999994)` ends up producing `1` lies in the binary approximation of that decimal value. When the decimal `0.49999999999999994` is converted into a `double`, it does not remain exactly that number. Instead, it shifts slightly above `0.5` due to binary precision constraints.
+
+Once your value is represented as just over `0.5`, `Math.round` applies its standard rule: it rounds half and above to the next whole number. Thus, the result is `1`.
+
+Consider the following snippet:
+
+```java
+public class FloatingPointExample {
+    public static void main(String[] args) {
+        double value = 0.49999999999999994;
+        System.out.println("Value: " + value);
+        System.out.println("Rounded: " + Math.round(value));
+    }
+}
+```
+
+Expected output:
+```
+Value: 0.5
+Rounded: 1
+```
+
+The printed `value` is displayed as `0.5`, reflecting its final stored approximation. Consequently, `Math.round` treats it as `0.5` and rounds it up.
+
+== Exploring the Thresholds with a Brute-Force Search
+To illustrate the complexity, consider the following code which brute-forces the smallest value that rounds up to `1.0`. This approach helps us pinpoint the exact binary representation at which `Math.round()` tips from returning `0` to returning `1`.
+
+[source,java]
+----
+package blog.vanillajava.fp;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class FindRoundingBoundary {
+    public static final BigDecimal TWO = BigDecimal.valueOf(2);
+
+    public static void main(String... args) {
+        int digits = 80; // High precision to capture tiny differences
+        BigDecimal low = BigDecimal.ZERO;
+        BigDecimal high = BigDecimal.ONE;
+
+        for (int i = 0; i <= 10 * digits / 3; i++) {
+            BigDecimal mid = low.add(high)
+                    .divide(TWO, digits, RoundingMode.HALF_UP);
+            if (mid.equals(low) || mid.equals(high))
+                break;
+            if (Math.round(Double.parseDouble(mid.toString())) > 0)
+                high = mid;
+            else
+                low = mid;
+        }
+
+        System.out.println("Math.round(" + low
+                + ", as double " + low.doubleValue()
+                + " or " + Double.toHexString(low.doubleValue()) + ") = "
+                + Math.round(Double.parseDouble(low.toString())));
+        System.out.println("Math.round(" + high
+                + ", as double " + high.doubleValue()
+                + " or " + Double.toHexString(high.doubleValue()) + ") = "
+                + Math.round(Double.parseDouble(high.toString())));
+    }
+}
+----
+
+== Using `Math.ulp()` to Identify Critical Boundaries
+
+A more practical way to pinpoint representable boundaries around key values like `0.5` is to use `Math.ulp()`. The `Math.ulp(x)` function returns the size of the unit in the last place (ULP) of the argument `x`. In other words, it tells you the spacing between floating-point numbers at the scale of `x`. By subtracting this ULP from `0.5`, you can determine the largest representable double less than `0.5`.
+
+For example, consider the following code snippet:
+
+[source,java]
+----
+double half = 0.5;
+double ulpOfHalf = Math.ulp(half);
+double largestBeforeHalf = half - ulpOfHalf;
+
+System.out.println("ULP of 0.5: " + ulpOfHalf);
+System.out.println("Largest representable double less than 0.5: " + largestBeforeHalf);
+----
+
+Running this code reveals the exact binary boundary below `0.5`. Once identified, this value can help you understand and predict rounding outcomes more reliably, particularly around delicate edge cases where floating-point errors begin to influence rounding decisions.
+
+/// Consider adding a small table comparing the computed `largestBeforeHalf` to the hex literal `0x1.fffffffffffffp-2`.
+
+== Results in Different Java Versions
+Running the above code in Java 7 yields something like:
+
+[source]
+----
+Math.round(0.49999999999999997224442438437108648940920829772949218749999999999999999999999999) = 0
+Math.round(0.49999999999999997224442438437108648940920829772949218750000000000000000000000000) = 1
+----
+
+In Java 6, the critical values differ slightly:
+
+[source]
+----
+Math.round(0.49999999999999991673327315311325946822762489318847656250000000000000000000000000) = 0
+Math.round(0.49999999999999991673327315311325946822762489318847656250000000000000000000000001) = 1
+----
+
+The key point is that the threshold at which rounding flips differs between Java versions due to changes in how `Math.round()` is implemented and how the JDK interprets certain floating-point constants.
+
+== Why Java 6 and Java 7 Differ
+In Java 6, `Math.round(double)` is effectively defined as:
+
+[source,java]
+----
+public static long round(double a) {
+    return (long)Math.floor(a + 0.5d);
+}
+----
+
+Because floating-point arithmetic is not exact, adding `0.5` can push a value like `0.49999999999999994` over the edge to `1.0`. In contrast, Java 7 introduced a special case for the largest double less than `0.5`. By explicitly checking this boundary, Java 7 ensures that ties round correctly, preserving the intuitive behaviour most developers expect.
+
+=== Java 7’s Special Case
+The updated code hardcodes a check:
+
+[source,java]
+----
+public static long round(double a) {
+    // Check if 'a' is the largest double < 0.5
+    if (a != 0x1.fffffffffffffp-2)
+        return (long) Math.floor(a + 0.5d);
+    else
+        return 0;
+}
+----
+
+Here, `0x1.fffffffffffffp-2` is the hexadecimal floating-point literal for the greatest double value less than `0.5`. Using such a representation ensures an exact binary comparison without introducing unintended rounding errors.
+
+=== Java 8's Implementation
+
+Java 8's implementation is far more complex as it avoids a floating point calculation and is too long to include here. It is https://github.com/frohoff/jdk8u-jdk/blob/master/src/share/classes/java/lang/Math.java#L716[available on Githib]
+
+== Practical Implications for Developers
+When writing Java code that involves floating-point arithmetic, keep these considerations in mind:
+
+1. **Precision is Limited**: Even seemingly simple decimal values might not be represented exactly.
+2. **Beware of Direct Comparisons**: Checking if `value == 0.5` may yield unexpected results. Consider using a tolerance-based comparison (`Math.abs(value - 0.5) < epsilon`) where `epsilon` is a small threshold.
+3. **When Exactness Matters, Use `BigDecimal`**: For financial calculations or any scenario requiring precise decimal arithmetic, `BigDecimal` is often a better choice. This class avoids binary rounding issues by representing numbers as arbitrary-precision decimal values, albeit with a performance cost.
+
+== Try It Yourself
+Consider experimenting with different boundary values in your environment. For instance:
+
+- Adjust the precision in the brute-force search code and note how the smallest rounding boundary changes.
+- Run the code on various Java versions (e.g., Java 6, 7, 8, 11, 17, or 21) and compare outputs.
+- Explore using `BigDecimal` or `Decimal64` (a fast decimal-based numeric type) for sensitive computations.
+
+This hands-on approach fosters a deeper understanding of numeric representations and encourages the development of robust, well-tested code.
+
+== About the author
+As the CEO of https://chronicle.software/[Chronicle Software^,role=external],
+https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the development of cutting-edge,
+low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks^,role=external].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient
+enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed
+and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him
+as a thought leader and mentor in the Java and FinTech communities. Follow Peter on
+https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
+https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
+
+== Conclusion
+While the difference between `0.499999999999999917` and `0.5` might seem trivial, it highlights the complexity and subtlety of floating-point arithmetic. By examining the binary representation of decimal values, understanding how `Math.round()` has evolved, and considering performance implications, developers can write more predictable and robust code.
+
+In practice, these nuances rarely cause significant issues in modern Java versions. Nonetheless, for performance-critical or financially sensitive applications, it’s worth remembering that not all numeric values are as straightforward as they appear.
+
+Armed with this knowledge, you can make informed decisions about when to rely on floating-point arithmetic, when to compare values with a tolerance, and when to consider alternative representations like `BigDecimal`.
+
+For further reading, consider:
+
+* https://docs.oracle.com/javase/specs/jls/se17/html/jls-4.html#jls-4.2.3[Java Language Specification: Floating-Point Arithmetic^]
+* https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html[Java BigDecimal API Documentation^]
+* https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Math.html[Java Math API Documentation^]
+* https://docs.oracle.com/cd/E19957-01/806-3568/ncg_math.html[Java Numeric Computation Guide^]
+* https://en.wikipedia.org/wiki/IEEE_754-1985[IEEE 754 Standard for Floating-Point Arithmetic^]
+
