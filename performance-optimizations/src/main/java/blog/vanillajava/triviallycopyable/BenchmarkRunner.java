@@ -26,12 +26,19 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 --add-opens=java.base/java.util=ALL-UNNAMED
 --add-opens=jdk.compiler/com.sun.tools.javac=ALL-UNNAMED
  */
-/* Run on an Intel I7-10710U
+/* Run on an Intel i7-10710U
 Benchmark                              Mode  Cnt     Score    Error  Units
 BenchmarkRunner.defaultWriteRead       avgt   25  1708.038 ± 13.975  ns/op
 BenchmarkRunner.defaultBytesWriteRead  avgt   25   495.976 ± 10.731  ns/op
 BenchmarkRunner.explicitWriteRead      avgt   25    47.820 ±  1.391  ns/op
 BenchmarkRunner.trivialWriteRead       avgt   25    32.289 ±  0.939  ns/op
+
+Benchmark                              Mode  Cnt     Score    Error  Units
+BenchmarkRunner.defaultWriteRead       avgt   25  1204.359 ± 72.394  ns/op
+BenchmarkRunner.defaultBytesWriteRead  avgt   25   375.479 ±  6.066  ns/op
+BenchmarkRunner.explicitWriteRead      avgt   25    45.769 ±  0.661  ns/op
+BenchmarkRunner.directWriteRead        avgt   25    27.303 ±  0.867  ns/op
+BenchmarkRunner.trivialWriteRead       avgt   25    25.568 ±  0.228  ns/op
  */
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
@@ -47,13 +54,12 @@ public class BenchmarkRunner {
     private final MarketData defaultBytesMarketData2 = new DefaultBytesMarketData();
     private final MarketData explicitMarketData = new ExplicitMarketData();
     private final MarketData explicitMarketData2 = new ExplicitMarketData();
+    private final MarketData directMarketData = new DirectMarketData();
+    private final MarketData directMarketData2 = new DirectMarketData();
     private final MarketData triviallyCopyableMarketData = new TriviallyCopyableMarketData();
     private final MarketData triviallyCopyableMarketData2 = new TriviallyCopyableMarketData();
-    private final Bytes<Void> bytes = Bytes.allocateElasticDirect();
+    private final Bytes<Void> bytes = Bytes.allocateDirect(512);
     private final Wire wire = BinaryWire.binaryOnly(bytes);
-
-    public BenchmarkRunner() {
-    }
 
     @Benchmark
     public void defaultWriteRead() {
@@ -76,6 +82,13 @@ public class BenchmarkRunner {
     }
 
     @Benchmark
+    public void directWriteRead() {
+        bytes.clear();
+        wire.getValueOut().marshallable(directMarketData);
+        wire.getValueIn().marshallable(directMarketData2);
+    }
+
+    @Benchmark
     public void trivialWriteRead() {
         bytes.clear();
         wire.getValueOut().marshallable(triviallyCopyableMarketData);
@@ -84,7 +97,7 @@ public class BenchmarkRunner {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(".*" + BenchmarkRunner.class.getSimpleName() + ".*")
+                .include(".*" + BenchmarkRunner.class.getSimpleName() + ".direct.*")
                 .forks(5)
                 .build();
 
