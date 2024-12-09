@@ -4,14 +4,14 @@
 :icons: font
 :sectanchors:
 :toc: left
-:source-highlighter: highlightjs
+:source-highlighter: highlight.js
 
 [.lead]
-In the world of high-performance and low-latency Java systems, standard Java libraries and idioms may not always suffice.
-This article explores a range of unconventional yet practical techniques that push Core Java to its limits, focusing on
+Standard Java libraries and idioms may only sometimes suffice in high-performance and low-latency Java systems.
+This article explores unconventional yet practical techniques that push Core Java to its limits, focusing on
 performance, diagnostics, and determinism. Drawing on experiences from building ultra-low-latency libraries and
 infrastructure, we will highlight patterns such as capturing stack traces without exceptions, system-wide unique timestamps,
-"trivially copyable" data types, zero-garbage strategies, and more. We will also discuss lessons learnt from applying these
+"trivially copyable" data types, zero-garbage strategies, and more. We will also discuss lessons from applying these
 approaches in production environments, where nanosecond-level considerations are the norm.
 
 This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygGI[Novel Uses of Core Java for Low-Latency and High-Performance Systems].
@@ -20,10 +20,10 @@ This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygG
 
 Developers often rely on standard Java idioms—`throwable` hierarchies, `BigDecimal` for financial calculations,
 thread-local resources, or off-the-shelf message queues. While straightforward, these approaches can impose unwanted
-latency, garbage generation, or diagnostic blind spots. In low-latency trading, market data processing, or other
-time-sensitive domains, even microseconds matter.
+latency, garbage generation, or diagnostic blind spots. Even microseconds matter in low-latency trading, market data processing, or other
+time-sensitive domains.
 
-Our aim is to present "novel uses" of Core Java that remove such bottlenecks, allowing developers to produce cleaner,
+We aim to present "novel uses" of Core Java that remove such bottlenecks, allowing developers to produce cleaner,
 more deterministic, and more insightful code. These techniques are not always common knowledge, yet they can
 deliver substantial benefits in the right context.
 
@@ -39,7 +39,7 @@ public final class StackTrace extends Throwable {
 }
 ----
 
-Why do this? By treating a stack trace as a standalone data structure, you can record where and when certain critical
+Why do this? Treating a stack trace as a standalone data structure lets you record where and when certain critical
 events occur. For example, if a resource is closed prematurely, you can record a `StackTrace` at the closing point and
 later attach it as a cause to an `IllegalStateException`, revealing not only that the resource was incorrectly reused
 but exactly where it was closed. This is invaluable for diagnosing elusive bugs in long-lived systems.
@@ -49,16 +49,16 @@ but exactly where it was closed. This is invaluable for diagnosing elusive bugs 
 Capturing a stack trace is expensive—on the order of a microsecond. Although that might sound small, it is significant
 in performance-sensitive contexts. Hence, these facilities should often be toggled via configuration. In production,
 you may default to no stack tracing for performance, enabling it selectively in test or diagnostic modes.
-By making the trace capturing conditional, you gain powerful insight without imposing a constant performance penalty.
+Making the trace-capturing conditional gives you powerful insight without imposing a constant performance penalty.
 
 === Deferred Exceptions and Resource Management
 
 A `Throwable` created now but thrown later can act as a "deferred exception." Suppose you have a resource that must be
 closed deterministically, like a memory-mapped file or a socket. If it is used after closing, the system can throw a new
-exception including a cause set to the `StackTrace` captured at close time. This helps you pinpoint the problematic
+exception, including a cause set to the `StackTrace` captured at close time. This helps you pinpoint the problematic
 caller that closed the resource too early.
 
-Likewise, tracking resource creation and usage patterns aids in post-mortem analysis. If an object requiring explicit
+Likewise, tracking resource creation and usage patterns aids in post-mortem analysis. If an object requires explicit
 cleanup was never closed and consequently leaked system resources, you can log the captured stack trace of its creation
 to debug why it was not properly released.
 
@@ -70,7 +70,7 @@ snapshots offer precision in identifying what caused the delay.
 
 This technique can be extended to monitor multi-threaded resources. If a data structure is designed for single-threaded
 use but inadvertently touched by another thread, you can store a trace of the first usage and later raise a clear
-exception showing both first and second usage points. These insights reduce guesswork and speed up debugging.
+exception showing both the first and second usage points. These insights reduce guesswork and speed up debugging.
 
 I discuss this further in this article https://blog.vanillajava.blog/2024/12/efficient-distributed-unique-timestamp.html[Efficient Distributed Unique Timestamp].
 
@@ -78,8 +78,7 @@ I discuss this further in this article https://blog.vanillajava.blog/2024/12/eff
 
 High-frequency trading and similar domains demand unique, system-wide timestamps at nanosecond resolution. While
 `System.nanoTime()` provides high-resolution time, guaranteeing uniqueness across the system is another challenge.
-We can maintain a shared counter—backed by atomic operations—to ensure that each generated timestamp is strictly
-increasing. Embedding a host ID within the timestamp ensures uniqueness across multiple machines.
+We can maintain a shared counter—backed by atomic operations—to ensure that each generated timestamp increases strictly. Embedding a host ID within the timestamp ensures uniqueness across multiple machines.
 
 [source,java]
 ----
@@ -113,28 +112,28 @@ This is especially helpful for serialisation/deserialisation scenarios. You migh
 them in YAML for human readability, and then quickly map them back into on-heap data structures. Although Java does not
 guarantee field order or packing, careful coding and consistent class layouts can produce significant performance gains.
 
-/// Suggestion: Include a small code snippet showing a trivially copyable object with only primitives. ///
+This is covered in this post https://blog.vanillajava.blog/2024/12/trivially-copyable-objects-in-java.html[Trivially Copyable Objects in Java].
 
 == Zero-Garbage Coding
 
-Producing minimal or zero garbage reduces GC overhead and jitter. Consider message processing pipelines that handle
+Producing minimal or zero garbage reduces GC overhead and jitter. Consider message-processing pipelines that handle
 tens of millions of events per minute. Traditional designs often generate gigabytes of short-lived objects, flushing
 the CPU cache and triggering frequent garbage collections.
 
-By reusing objects, pooling small frequently-used strings, and leveraging off-heap memory, it is possible to reduce
+By reusing objects, pooling small, frequently-used strings, and leveraging off-heap memory, it is possible to reduce
 garbage allocation to near-zero levels. This approach drastically cuts GC pauses and cache pressure, leading to
 consistently low latencies.
 
-For instance, you can keep a single object instance per event type and repeatedly reuse it by overwriting its fields,
-rather than creating a new instance each time. As long as you understand the lifecycle, this approach can yield
+For instance, you can keep a single object instance per event type and repeatedly reuse it by overwriting its fields
+rather than creating a new instance each time. If you understand the lifecycle, this approach can yield
 latency improvements by orders of magnitude.
 
 == Enhanced Profiling and Safe Points
 
 Profilers rely on "safe points" to capture stack traces. The JVM reduces safe points to optimise runtime performance,
-sometimes skewing profiling results. To address this, you can add deliberate safe points or hints that enable more
+sometimes skewing profiling results. To address this, you can add deliberate, safe points or hints that enable more
 accurate profiling data. This ensures hot spots are attributed correctly, preventing misleading conclusions such as
-`Integer.hashCode()` appearing as a top CPU consumer when it is merely a victim of unfortunate sampling.
+`Integer.hashCode()` appears as a top CPU consumer when it is merely a victim of unfortunate sampling.
 
 == Class-Based Caching and Vicarious Exceptions
 
@@ -142,31 +141,32 @@ For performance, decisions made per class—such as how to serialise it—should
 this mechanism, clearing the cache automatically when classes are unloaded. For cleaner code, you can implement
 lambda-friendly versions of `ClassValue`.
 
-Additionally, "vicarious exceptions" can be used to bypass checked exception constraints. By carefully throwing
-exceptions as unchecked at runtime, you avoid layering wrappers. This approach should be handled with care and
-reserved for internal code where you control both the thrower and the catcher.
+Additionally, "vicarious exceptions" can bypass checked exception constraints. By carefully throwing
+exceptions as unchecked at runtime, you avoid layering wrappers. This approach should be handled carefully and
+reserved for internal code, which allows you to control both the thrower and the catcher.
 
 == Choosing `double` Over BigDecimal
 
 `BigDecimal` is safer for precise arithmetic but can be slow and memory-intensive. For high-performance scenarios,
 `double` arithmetic is often sufficient. Although `double` is susceptible to rounding errors, those errors are
-easier to spot and correct. `double`-based operations are simpler, faster, and produce no additional objects. For
-critical performance hotspots, switching to `double` can be worth the trade-off.
+easier to spot and correct. `double`-based operations are simpler, faster, and produce no additional objects. Switching to `double` for critical performance hotspots can be worth the trade-off.
+
+This was covered recently in this article https://blog.vanillajava.blog/2024/11/overview-many-developers-consider.html[Overview Many Developers Consider].
 
 == Deterministic Resource Cleanup
 
 Relying on garbage collection for resource cleanup is risky in low-latency applications. GC may run unpredictably,
-leaving file handles, off-heap memory regions, or sockets dangling. To ensure deterministic cleanup, consider
-cleaning resources when threads terminate or implementing your own lifecycle management routines.
+leaving file handles, off-heap memory regions, or sockets dangling. Consider
+cleaning resources when threads terminate or implement your lifecycle management routines to ensure deterministic cleanup.
 
 For example, creating custom thread classes that proactively clean thread-locals upon termination ensures no
-resources remain in limbo. This technique—though admittedly hacky—helps maintain deterministic behaviour in
+resources remain in limbo. Though admittedly hacky, this technique helps maintain deterministic behaviour in
 mission-critical environments.
 
 == Lightweight Object Pools for Strings
 
-String interning is built into Java for compile-time constants, but not for dynamic strings. Manually caching and
-reusing commonly-occurring strings can reduce allocation churn. By using a small, lock-free caching array of strings,
+String interning is built into Java for compile-time constants but not for dynamic strings. Manually caching and
+reusing commonly-occurring strings can reduce allocation churn. Using a small, lock-free caching array of strings,
 you can often return references to previously interned strings without the overhead of global interning or heavy
 hash maps.
 
@@ -186,7 +186,7 @@ further stabilise performance under high load.
 
 These techniques are not always necessary for every Java application. However, in domains where latency and
 determinism matter—such as financial trading, real-time analytics, or IoT streaming—they can dramatically improve
-throughput, reduce jitter, and enhance maintainability.
+throughput, reduce jitter and enhance maintainability.
 
 == About the author
 
@@ -202,9 +202,8 @@ https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
 
 == Conclusion
 
-Core Java offers powerful primitives that can be employed in unconventional ways to achieve performance levels
-often considered out of reach for managed languages. By leveraging these approaches—carefully, and with proper
+Core Java offers powerful primitives that can be employed unconventionally to achieve performance levels
+often considered out of reach for managed languages. By leveraging these approaches—carefully and with proper
 testing—you can build systems that run significantly faster, scale more smoothly, and give you deeper insights
 into their runtime behaviours. While not every application requires such extreme measures, those that do will
 find these techniques indispensable.
-
