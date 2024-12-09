@@ -33,6 +33,7 @@ BenchmarkRunner.defaultBytesWriteRead  avgt   25   495.976 ± 10.731  ns/op
 BenchmarkRunner.explicitWriteRead      avgt   25    47.820 ±  1.391  ns/op
 BenchmarkRunner.trivialWriteRead       avgt   25    32.289 ±  0.939  ns/op
 
+On a Ryzen 7 5950X
 Benchmark                              Mode  Cnt     Score    Error  Units
 BenchmarkRunner.defaultWriteRead       avgt   25  1204.359 ± 72.394  ns/op
 BenchmarkRunner.defaultBytesWriteRead  avgt   25   375.479 ±  6.066  ns/op
