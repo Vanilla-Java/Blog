@@ -67,34 +67,44 @@ Up to the theoretical limit of one billion per second.
 
 The happy path is simple: take the current time, remove the lower two digits and add the hostId. As long as this is higher than the last identifier, it’s okay. Should the machine fail and the information as to the last identifier be lost, the assumption is that the time taken to restart the service is enough time to ensure there is no overlap. If the service fails, but not the machine, the information is retained.
 
-NOTE: This uses the `MappedFile` in shared memory supported by https://github.com/OpenHFT/Chronicle-Bytes[Chronicle Bytes], an open-source library.
+["mermaid"]
+---------------------------------------------------------------------
+flowchart LR
 
-[role="illustration"]
-----
-         ┌───────────────────┐            ┌───────────────────┐
-         │     Host 0        │            │     Host 1        │
-         │  hostId = 00      │            │  hostId = 01      │
-         │                   │            │                   │
-         │ currentTimeNanos()│            │ currentTimeNanos()│
-         │      │            │            │      │            │
-         │      ▼            │            │      ▼            │
-         │  Unique ID        │            │  Unique ID        │
-         │  e.g. ...100      │            │  e.g. ...101      │
-         └─────┬─────────────┘            └─────┬─────────────┘
-               │                                │
-               │  Compare-and-swap              │  Compare-and-swap
-               │  operation updates             │  operation updates
-               │  memory-mapped file            │  memory-mapped file
-               │                                │
-         ┌─────▼────────┐                ┌──────▼───────┐
-         │ Mapped File 0│                │ Mapped File 1│
-         │   hostId=00  │                │   hostId=01  │
-         │   ...        │                │   ...        │
-         │   LAST_TIME→ │                │   LAST_TIME→ │
-         │   ...        │                │   ...        │
-         └──────────────┘                └──────────────┘
-----
+%% Define subgraph for Host 1
+subgraph "Host 1"
+    direction LR
+    host1_id("hostId = 01")
+    current_time1("currentTimeNanos()")
+    unique_id1("Unique ID<br>e.g. ...101")
+
+    host1_id --> current_time1
+    current_time1 --> unique_id1
+end
+
+%% Define subgraph for Host 0
+subgraph "Host 0"
+    direction LR
+    host0_id("hostId = 00")
+    current_time0("currentTimeNanos()")
+    unique_id0("Unique ID<br>e.g. ...100")
+
+    host0_id --> current_time0
+    current_time0 --> unique_id0
+end
+
+%% Define the Mapped Files
+mapped_file1[("Mapped File 1<br> hostId = 01<br> ...<br> LAST_TIME")]
+mapped_file0[("Mapped File 0<br> hostId = 00<br> ...<br> LAST_TIME")]
+
+%% Edges for Compare-and-Swap operations
+unique_id1 -- "Compare-and-swap<br>operation updates<br>memory-mapped file" --> mapped_file1
+unique_id0 -- "Compare-and-swap<br>operation updates<br>memory-mapped file" --> mapped_file0
+---------------------------------------------------------------------
+
 This diagram shows two separate hosts, each maintaining its memory-mapped file. Every time a host generates a new timestamp-based identifier, it updates the stored 'LAST_TIME' in its file using atomic operations. This ensures that the host will not generate a duplicate identifier even after a restart, preserving uniqueness across the entire distributed system.
+
+NOTE: This uses the `MappedFile` in shared memory supported by https://github.com/OpenHFT/Chronicle-Bytes[Chronicle Bytes], an open-source library.
 
 [source,java]
 ----
