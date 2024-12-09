@@ -67,6 +67,7 @@ Up to the theoretical limit of one billion per second.
 
 The happy path is simple: take the current time, remove the lower two digits and add the hostId. As long as this is higher than the last identifier, it’s okay. Should the machine fail and the information as to the last identifier be lost, the assumption is that the time taken to restart the service is enough time to ensure there is no overlap. If the service fails, but not the machine, the information is retained.
 
+// change this to [mermaid] to see the diagram in IntelliJ IDEA
 [source,mermaid]
 ---------------------------------------------------------------------
 flowchart LR
