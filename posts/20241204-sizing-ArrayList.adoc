@@ -1,0 +1,143 @@
+= Performance Tip: Specify Collection Capacity When Size is Known
+Peter Lawrey
+
+When working with Java collections, their ability to grow dynamically is often valuable. Yet, if you already know the required size, specifying the initial capacity can be more efficient. Doing so may reduce CPU overhead and memory churn, resulting in smoother performance. In this article, we will explore why specifying capacity is beneficial, present practical examples, and highlight when you might consider alternatives such as immutable or fixed-size lists.
+
+== Efficient Use of `ArrayList`
+
+Many developers rely on collections like `ArrayList` to handle dynamic workloads. However, frequent resizing can be costly. Each resizing operation may involve allocating a new underlying array and copying existing elements, which consumes CPU cycles and memory bandwidth. If you know how many elements you need, why not avoid these unnecessary steps?
+
+When the final size of the list is known at the outset, setting the initial capacity can signal intent to future maintainers.
+
+== A Practical Example: Optimising `ArrayList` Usage
+
+Consider the following example from `java.lang.invoke.ClassSpecializer.Factory` in Java 23. The method collects information from a list of methods:
+
+[source,java]
+----
+// Tear apart transformMethods to get the names, types, and modifiers.
+List<String> tns = new ArrayList<>();
+List<MethodType> tts = new ArrayList<>();
+List<Integer> tms = new ArrayList<>();
+for (int i = 0; i < transformMethods.size(); i++) {
+    MemberName tm = transformMethods.get(i);
+    tns.add(tm.getName());
+    final MethodType tt = tm.getMethodType();
+    tts.add(tt);
+    tms.add(tm.getModifiers());
+}
+TRANSFORM_NAMES = List.of(tns.toArray(new String[0]));
+TRANSFORM_TYPES = List.of(tts.toArray(new MethodType[0]));
+TRANSFORM_MODS = List.of(tms.toArray(new Integer[0]));
+----
+
+In this scenario, `ArrayList` expands as elements are appended. Since the size is known in advance, we can set the initial capacity and avoid repeated resizing:
+
+[source,java]
+----
+int transformMethodCount = transformMethods.size();
+List<String> tns = new ArrayList<>(transformMethodCount);
+List<MethodType> tts = new ArrayList<>(transformMethodCount);
+List<Integer> tms = new ArrayList<>(transformMethodCount);
+
+for (int i = 0; i < transformMethodCount; i++) {
+    MemberName tm = transformMethods.get(i);
+    tns.add(tm.getName());
+    tts.add(tm.getMethodType());
+    tms.add(tm.getModifiers());
+}
+----
+
+This approach reduces overhead. Yet, we can push it even further. If the end goal is merely to create arrays for `List.of`, we need not rely on `ArrayList` at all:
+
+[source,java]
+----
+int transformMethodCount = transformMethods.size();
+
+String[] methodNames = new String[transformMethodCount];
+MethodType[] methodTypes = new MethodType[transformMethodCount];
+Integer[] methodModifiers = new Integer[transformMethodCount];
+
+for (int index = 0; index < transformMethodCount; index++) {
+    MemberName transformMethod = transformMethods.get(index);
+    methodNames[index] = transformMethod.getName();
+    methodTypes[index] = transformMethod.getMethodType();
+    methodModifiers[index] = transformMethod.getModifiers();
+}
+
+TRANSFORM_NAMES = List.of(methodNames);
+TRANSFORM_TYPES = List.of(methodTypes);
+TRANSFORM_MODS = List.of(methodModifiers);
+----
+
+By avoiding unnecessary intermediate `ArrayList` allocations, we streamline the code and improve performance.
+
+== Not All `ArrayList` Are the Same
+
+There is another way to produce a list from an array, using `Arrays.asList`.
+However, this method returns a fixed-size list backed by the original array.
+This can be useful when the list is read-only, but it is not suitable for all scenarios.
+
+.From `java.util.Arrays`
+[source,java]
+----
+public static <T> List<T> asList(T... a) {
+    return new ArrayList<>(a);
+}
+
+private static class ArrayList<E> extends AbstractList<E>
+    implements RandomAccess, java.io.Serializable
+----
+
+This returned list is not a `java.util.ArrayList` but a specialised `Arrays$ArrayList`. It cannot change in size, which may be advantageous for certain read-only operations. However, it might not suit scenarios requiring mutability or dynamic growth.
+
+== Why Not Just Use `List.of`?
+
+`List.of` is often preferred for fixed-size, immutable lists. It clearly expresses immutability and can simplify code. However, immutability may conflict with existing usage patterns, especially in legacy code that expects a mutable collection.
+
+=== Example: Preserving Mutable Behaviour in `ProcessBuilder`
+
+The constructor for `java.lang.ProcessBuilder` demonstrates an intentional use of mutable lists:
+
+[source,java]
+----
+public ProcessBuilder(String... command) {
+    this.command = new ArrayList<>(command.length);
+    for (String arg : command) {
+        this.command.add(arg);
+    }
+}
+----
+
+This approach is mutable, allowing developers (though not recommended) to modify the command list after instantiation:
+
+[source,java]
+----
+ProcessBuilder pb = new ProcessBuilder("process", "-arg1");
+// While this is possible, it is not recommended.
+pb.command().add("-arg2");
+----
+
+If we replaced this with:
+
+[source,java]
+----
+public ProcessBuilder(String... command) {
+    this.command = List.of(command);
+}
+----
+
+We would produce an immutable list, changing the existing behaviour and potentially breaking backward compatibility. In this case, mutability aligns with established usage expectations.
+
+== Performance and Practical Trade-offs
+
+Specifying capacity can yield measurable performance improvements. Although these gains may be modest, they become meaningful in high-throughput, latency-sensitive systems. Eliminating unnecessary copies, reducing allocation churn, and embracing immutability—or preserving mutability when needed—are all part of crafting a more efficient and flexible codebase.
+
+== Key Takeaways
+
+- Specify the initial capacity for collections when you know the final size. This can reduce overhead and make your intentions clearer.
+- Use `List.of` for immutable lists where it aligns with the API’s needs, but be mindful of backward compatibility.
+- Consider whether you need a dynamically growing structure. If a known-size array suffices, it may be more efficient and straightforward.
+- Understand the distinctions between various list implementations, such as `Arrays.asList`, and select the one best suited to your scenario.
+
+By judiciously choosing the right collection strategies, you can streamline your Java applications and foster performance and maintainability. How might you apply these techniques to your codebase? Share your experiences or thoughts, and consider experimenting with different approaches to discover what best meets your requirements.
