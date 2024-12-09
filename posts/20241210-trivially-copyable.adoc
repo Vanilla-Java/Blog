@@ -1,0 +1,179 @@
+= How To Achieve C++-Like Speed in Java Serialisation
+[discrete]Using Trivially Copyable Objects to Improve Java Serialisation Performance
+
+//+ Consider an alternative title: "Bringing C++-Style Memory Efficiency to Java Serialisation"
+
+For low-latency systems, every microsecond matters. In high-frequency trading, real-time analytics, or any latency-sensitive domain, the overhead introduced by serialisation and deserialisation is significant. Inter-microservice communication, for instance, often involves continuous, time-critical message exchange. Each message must be serialised by the sender and then deserialised by the receiver. If this round-trip is inefficient, it will directly impede the system’s responsiveness and throughput.
+
+This article explores how we can apply an approach inspired by C++’s concept of *Trivially Copyable Objects* to achieve near C++-like performance in Java serialisation. By restricting objects to primitive fields only—resulting in a predictable, contiguous memory layout—we can dramatically reduce overhead. Benchmarks show this can yield more than a fivefold improvement in performance, leveraging techniques supported by Chronicle libraries.
+
+
+[mermaid]
+----
+flowchart LR
+A[Regular Java Object] -->|Contains references| B[Multiple memory locations]
+A -->|Copying requires multiple fetches| C[Higher latency]
+
+    D[Trivially Copyable Object] -->|Primitive fields only| E[Single contiguous block]
+    D -->|Single bulk copy| F[Lower latency]
+----
+
+== The Performance Problem in Java Serialisation
+
+In typical Java object graphs, references point to data scattered across the heap. Serialising such an object involves visiting multiple memory locations, reading fields one by one, and writing them out individually—much like running around a warehouse to collect scattered items. The inherent overhead is considerable, especially when the operation is performed frequently.
+
+For ultra-low-latency applications, this becomes a bottleneck. The goal is simple: minimise the time it takes to move data from memory into a binary format and back. If we can reduce this process to a single bulk memory copy operation, we dramatically cut latency.
+
+== Emulating C++: Trivially Copyable Objects in Java
+
+In C++, a *Trivially Copyable Object* is defined as an object whose memory representation can be copied with a simple `memcpy`, guaranteeing that a direct memory copy of its bytes is semantically equivalent to copying it via its constructor or assignment operator. This is extremely fast. While Java does not provide a direct analogue, we can emulate the concept: if an object contains only primitive fields of fixed sizes, its entire state can reside in a single contiguous memory block.
+
+By ensuring no references or variable-length fields, we can treat the object as a block of bytes. Serialisation then reduces to a single bulk copy—a direct mapping akin to how C++ handles trivially copyable types.
+
+== Applying Trivially Copyable Principles in Java
+
+To achieve this in Java:
+
+1. **Limit Fields to Primitives:** Use only primitive `long`, `int`, `double`, and similar fields. No `String`, `List`, or object references.
+2. **Fixed Object Size:** With only primitives, object size is known, and can be copied in one contiguous operation.
+3. **Unsafe Copying:** Chronicle libraries and their low-level utilities (such as `unsafeReadObject()` and `unsafeWriteObject()`) can copy these bytes directly, bypassing reflection and per-field overhead.
+
+This approach resonates with principles of mechanical sympathy: aligning your data structures and operations with the hardware’s strengths. By leveraging contiguous memory layouts, we reduce cache misses and improve instruction-level parallelism. The result is a significant performance boost.
+
+== Benchmarking Chronicle Serialisation
+
+Chronicle provides libraries that support trivially copyable objects. Consider a message-passing scenario—one microservice sends financial market data updates to another. Using standard object layouts (with `String` fields and collections), serialisation is slow. Converting those fields to primitives and applying trivially copyable techniques results in a substantial acceleration.
+
+For example, when serialising `BookUpdate` messages:
+
+- **Normal Objects:** Contain references to `String` fields and lists. Serialisation/Deserialisation median latency might hover around ~18–19 µs (50th percentile).
+- **Trivially Copyable Objects:** Using only primitives, the median latency can drop to around ~3–4 µs at the 50th percentile—a more than fivefold improvement.
+
+[source]
+----
+-------------------------------- SUMMARY (Regular Object) --------------------------------
+50%: ~19 µs
+90%: ~24 µs
+99%: ~29 µs
+Worst: ~8,000–10,000 µs
+
+-------------------------------- SUMMARY (Trivially Copyable) -----------------------------
+50%: ~3–4 µs
+90%: ~7–8 µs
+99%: ~8–9 µs
+Worst: ~5,900–8,900 µs
+----
+
+Even at higher percentiles, trivial copy operations remain consistently faster. The occasional high tail latencies relate more to external factors (e.g. I/O, SSD latency) than to the serialisation technique itself.
+
+== Implementation Details
+
+Consider a `MarketData` DTO with many fields. A straightforward `SelfDescribingMarshallable` class might rely on reflection or explicit read/write methods:
+
+[source,java]
+----
+abstract class MarketData extends SelfDescribingMarshallable {
+    long securityId;
+    long time;
+
+    double bidQty0, bidQty1, bidQty2, bidQty3;
+    double askQty0, askQty1, askQty2, askQty3;
+
+    double bidPrice0, bidPrice1, bidPrice2, bidPrice3;
+    double askPrice0, askPrice1, askPrice2, askPrice3;
+
+    // Getters and setters omitted for clarity
+}
+----
+
+A *default* approach to serialisation, even with Chronicle’s tools, requires reading and writing fields individually. An *explicit* approach uses custom `readMarshallable()` and `writeMarshallable()` methods, avoiding reflection overhead:
+
+[source,java]
+----
+public final class ExplicitMarketData extends MarketData {
+    @Override
+    public void readMarshallable(BytesIn bytes) {
+        securityId = bytes.readLong();
+        time = bytes.readLong();
+        bidQty0 = bytes.readDouble();
+        // ... repeated for all fields
+    }
+
+    @Override
+    public void writeMarshallable(BytesOut bytes) {
+        bytes.writeLong(securityId);
+        bytes.writeLong(time);
+        // ... repeated for all fields
+    }
+}
+----
+
+For the fastest results, *trivially copyable* objects use a bulk copy:
+
+[source,java]
+----
+import static net.openhft.chronicle.bytes.BytesUtil.*;
+
+public final class TriviallyCopyableMarketData extends MarketData {
+
+    static final int START =
+        triviallyCopyableStart(TriviallyCopyableMarketData.class);
+    static final int LENGTH =
+        triviallyCopyableLength(TriviallyCopyableMarketData.class);
+
+    @Override
+    public void readMarshallable(BytesIn bytes) {
+        bytes.unsafeReadObject(this, START, LENGTH);
+    }
+
+    @Override
+    public void writeMarshallable(BytesOut bytes) {
+        bytes.unsafeWriteObject(this, START, LENGTH);
+    }
+}
+----
+
+These methods bypass iterative per-field copying. Instead, they use knowledge of the object’s layout to copy memory in one go.
+
+== Potential Drawbacks and Considerations
+
+1. **JVM Compatibility:** The Java standard does not guarantee a fixed object layout. While using one JVM family (e.g. OpenJDK) is stable over time, mixing JVM implementations (e.g. OpenJDK and J9) may introduce incompatibilities. Integration tests can mitigate this risk.
+
+2. **Loss of Flexibility:** Restricting objects to primitives may initially seem limiting. In practice, many reference fields can be replaced by enums, fixed-size arrays, or integer codes mapping to strings.
+
+3. **Future-Proofing:** If the object structure changes, ensure that both sides of the wire have compatible definitions. Fortunately, testing and versioning strategies handle this elegantly.
+
+== Key Takeaways
+
+- Trivially copyable Java objects can mimic C++’s fast `memcpy`-style serialisation.
+- Restricting objects to primitive fields enables bulk copying in one operation.
+- This dramatically reduces latency, particularly in high-throughput, low-latency environments.
+- Chronicle libraries support these techniques, making them practical for real-world Java systems.
+- While JVM compatibility and object structure constraints exist, careful design and testing ensure robustness.
+
+== Try It Yourself
+
+Consider experimenting with a simple DTO, converting it from a standard serialisation approach to a trivially copyable format. Measure the impact using a benchmarking framework like JMH:
+
+[source,java]
+----
+@Benchmark
+public void trivialCopyBenchmark() {
+    TriviallyCopyableMarketData md = new TriviallyCopyableMarketData();
+    // Initialise fields
+    BytesOut<?> out = ...
+    md.writeMarshallable(out);
+    BytesIn<?> in = ...
+    TriviallyCopyableMarketData mdIn = new TriviallyCopyableMarketData();
+    mdIn.readMarshallable(in);
+    // Validate correctness and measure performance
+}
+----
+
+By running a JMH benchmark, you can see first-hand how this optimisation affects performance in your environment.
+
+== Resources
+
+- link:https://chronicle.software/open-hft/queue/[Chronicle Queue (Open-Source)]
+- link:https://github.com/OpenHFT/Chronicle-Bytes[GitHub Chronicle Bytes (Open-Source)]
+- link:https://chronicle.software/learn/[Chronicle Learning Hub]
