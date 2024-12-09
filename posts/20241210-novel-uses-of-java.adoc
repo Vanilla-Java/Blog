@@ -72,7 +72,7 @@ This technique can be extended to monitor multi-threaded resources. If a data st
 use but inadvertently touched by another thread, you can store a trace of the first usage and later raise a clear
 exception showing both first and second usage points. These insights reduce guesswork and speed up debugging.
 
-I discuss this further in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
+I discuss this further in this article https://blog.vanillajava.blog/2024/12/efficient-distributed-unique-timestamp.html[Efficient Distributed Unique Timestamp].
 
 == System-Wide Unique Nanosecond Timestamps
 
@@ -83,18 +83,24 @@ increasing. Embedding a host ID within the timestamp ensures uniqueness across m
 
 [source,java]
 ----
-long lastTime = ...; // Last issued timestamp
-long now = System.nanoTime();
-long uniqueTime;
-do {
-    long current = lastTime;
-    uniqueTime = Math.max(now, current + 1);
-} while(!CAS(lastTime, current, uniqueTime));
+@Override
+public long currentTimeNanos() {
+    long time = provider.currentTimeNanos();
+    long lastTime = bytes.readVolatileLong(LAST_TIME);
+    long next = time - time % HOST_IDS + hostId;
+
+    if (next > lastTime && bytes.compareAndSwapLong(LAST_TIME, lastTime, next)) {
+        return next;
+    }
+    return currentTimeNanosLoop();
+}
 ----
 
 This approach yields a 64-bit timestamp that remains unique even if the system clock moves backwards or multiple
 machines issue timestamps concurrently. Such IDs can serve as both timestamps and unique sequence identifiers,
 simplifying logging, tracing, and correlation.
+
+I discuss this further in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
 
 == Trivially Copyable Objects in Java
 
