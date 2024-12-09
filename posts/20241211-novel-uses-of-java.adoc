@@ -6,6 +6,8 @@
 :toc: left
 :source-highlighter: highlight.js
 
+// For developers chasing ultra-low-latency and high-throughput Java applications, standard approaches often fall short. This article reveals unconventional yet practical techniques—like capturing stack traces without exceptions, generating system-wide unique nanosecond timestamps, and creating “trivially copyable” objects—that push Core Java into new territory. Discover how to minimize garbage, gain more insightful diagnostics, and achieve near C++-like performance, all while maintaining a familiar Java ecosystem. If you’re ready to rethink old assumptions and unlock your system’s true potential, read on.
+
 [.lead]
 Standard Java libraries and idioms may only sometimes suffice in high-performance and low-latency Java systems.
 This article explores unconventional yet practical techniques that push Core Java to its limits, focusing on
@@ -16,7 +18,7 @@ approaches in production environments, where nanosecond-level considerations are
 
 This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygGI[Novel Uses of Core Java for Low-Latency and High-Performance Systems].
 
-== Defining the Challenge
+== Introduction
 
 Developers often rely on standard Java idioms—`throwable` hierarchies, `BigDecimal` for financial calculations,
 thread-local resources, or off-the-shelf message queues. While straightforward, these approaches can impose unwanted
@@ -43,6 +45,8 @@ Why do this? Treating a stack trace as a standalone data structure lets you reco
 events occur. For example, if a resource is closed prematurely, you can record a `StackTrace` at the closing point and
 later attach it as a cause to an `IllegalStateException`, revealing not only that the resource was incorrectly reused
 but exactly where it was closed. This is invaluable for diagnosing elusive bugs in long-lived systems.
+
+This was covered recently in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
 
 === Performance Considerations and Opt-Out
 
@@ -72,8 +76,6 @@ This technique can be extended to monitor multi-threaded resources. If a data st
 use but inadvertently touched by another thread, you can store a trace of the first usage and later raise a clear
 exception showing both the first and second usage points. These insights reduce guesswork and speed up debugging.
 
-I discuss this further in this article https://blog.vanillajava.blog/2024/12/efficient-distributed-unique-timestamp.html[Efficient Distributed Unique Timestamp].
-
 == System-Wide Unique Nanosecond Timestamps
 
 High-frequency trading and similar domains demand unique, system-wide timestamps at nanosecond resolution. While
@@ -99,7 +101,8 @@ This approach yields a 64-bit timestamp that remains unique even if the system c
 machines issue timestamps concurrently. Such IDs can serve as both timestamps and unique sequence identifiers,
 simplifying logging, tracing, and correlation.
 
-I discuss this further in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
+I discuss this further in this article https://blog.vanillajava.blog/2024/12/efficient-distributed-unique-timestamp.html[Efficient Distributed Unique Timestamp].
+
 
 == Trivially Copyable Objects in Java
 
