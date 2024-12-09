@@ -9,14 +9,14 @@ public final class ExplicitMarketData extends MarketData {
     public void readMarshallable(BytesIn bytes) {
         securityId = bytes.readLong();
         time = bytes.readLong();
-        bidQty0 = bytes.readDouble();
-        bidQty1 = bytes.readDouble();
-        bidQty2 = bytes.readDouble();
-        bidQty3 = bytes.readDouble();
-        askQty0 = bytes.readDouble();
-        askQty1 = bytes.readDouble();
-        askQty2 = bytes.readDouble();
-        askQty3 = bytes.readDouble();
+        bidQty0 = bytes.readInt();
+        bidQty1 = bytes.readInt();
+        bidQty2 = bytes.readInt();
+        bidQty3 = bytes.readInt();
+        askQty0 = bytes.readInt();
+        askQty1 = bytes.readInt();
+        askQty2 = bytes.readInt();
+        askQty3 = bytes.readInt();
         bidPrice0 = bytes.readDouble();
         bidPrice1 = bytes.readDouble();
         bidPrice2 = bytes.readDouble();
@@ -31,14 +31,14 @@ public final class ExplicitMarketData extends MarketData {
     public void writeMarshallable(BytesOut bytes) {
         bytes.writeLong(securityId);
         bytes.writeLong(time);
-        bytes.writeDouble(bidQty0);
-        bytes.writeDouble(bidQty1);
-        bytes.writeDouble(bidQty2);
-        bytes.writeDouble(bidQty3);
-        bytes.writeDouble(askQty0);
-        bytes.writeDouble(askQty1);
-        bytes.writeDouble(askQty2);
-        bytes.writeDouble(askQty3);
+        bytes.writeInt(bidQty0);
+        bytes.writeInt(bidQty1);
+        bytes.writeInt(bidQty2);
+        bytes.writeInt(bidQty3);
+        bytes.writeInt(askQty0);
+        bytes.writeInt(askQty1);
+        bytes.writeInt(askQty2);
+        bytes.writeInt(askQty3);
         bytes.writeDouble(bidPrice0);
         bytes.writeDouble(bidPrice1);
         bytes.writeDouble(bidPrice2);
@@ -49,4 +49,8 @@ public final class ExplicitMarketData extends MarketData {
         bytes.writeDouble(askPrice3);
     }
 
+    @Override
+    public boolean usesSelfDescribingMessage() {
+        return false;
+    }
 }

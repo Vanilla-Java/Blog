@@ -8,8 +8,8 @@ abstract class MarketData extends SelfDescribingMarshallable {
     long time;
 
     // bid and ask quantities
-    double bidQty0, bidQty1, bidQty2, bidQty3;
-    double askQty0, askQty1, askQty2, askQty3;
+    int bidQty0, bidQty1, bidQty2, bidQty3;
+    int askQty0, askQty1, askQty2, askQty3;
 
     // bid and ask prices
     double bidPrice0, bidPrice1, bidPrice2, bidPrice3;

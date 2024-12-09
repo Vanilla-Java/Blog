@@ -23,4 +23,8 @@ public final class TriviallyCopyableMarketData extends MarketData {
         bytes.unsafeWriteObject(this, START, LENGTH);
     }
 
+    @Override
+    public boolean usesSelfDescribingMessage() {
+        return false;
+    }
 }
