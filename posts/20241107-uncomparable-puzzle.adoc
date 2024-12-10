@@ -1,6 +1,9 @@
-= Uncomparable Puzzles in Java
+= Incomparable Puzzles in Java
+:source-highlighter: rouge
 
 Here are a few puzzles for you to solve in Java. The source is available here: https://github.com/Vanilla-Java/Blog/blob/main/java-misconceptions/src/main/java/blog/vanillajava/UncomparablePuzzles.java[UncomparablePuzzles.java].
+
+== Puzzle 1: Comparing `long` and `double`
 
 Try running the following code to reproduce the output below. See if you can work out why these results occur:
 
@@ -10,19 +13,99 @@ long a = (1L << 54) + 1;
 double b = a;
 System.out.println("b == a is " + (b == a));
 System.out.println("(long) b < a is " + ((long) b < a));
+----
 
+When executed, it produces:
+
+[source]
+----
+b == a is true
+(long) b < a is true
+----
+
+=== Analysis
+
+This puzzle highlights the precision limitations when converting between `long` and `double`.
+
+1. **Precision Loss During Conversion**
+The `long` value `a` is `(1L << 54) + 1`, which is `18014398509481985`. When cast to `double`, `b` becomes `18014398509481984.0`. Due to `double` 's 53-bit mantissa, it cannot accurately represent every `long` value beyond this range, resulting in precision loss.
+
+2. **Equality Comparison (`b == a`)**
+Despite `b` losing precision, `b == a` evaluates to `true` because `a` exceeds the precision range of `double`. Both `a` and `b` effectively represent the same `double` value.
+
+3. **Casting Back to `long` and Comparison**
+Casting `b` back to `long` truncates the decimal part, yielding `18014398509481984`, which is less than the original `a`. Hence, `(long) b < a` returns `true`.
+
+== Puzzle 2: Large `double` to `long` Conversion
+
+Examine the following code:
+
+[source,java]
+----
 double c = 1e19;
 long d = 0;
 d += c;
 System.out.println("\nd < c is " + (d < c));
 System.out.println("d < (long) c is " + (d < (long) c));
+----
 
+Produces:
+
+[source]
+----
+d < c is true
+d < (long) c is false
+----
+
+=== Analysis
+
+This puzzle demonstrates the intricacies of type conversion and arithmetic operations in Java.
+
+1. **Initial Assignment**
+`c` is assigned `1e19`, a value that exceeds the maximum value a `long` can hold (`Long.MAX_VALUE` is approximately `9.22e18`). Adding `c` to `d` results in `d` becoming `Infinity` due to overflow.
+
+2. **Comparisons**
+- `d < c`: Since `d` is now `Infinity`, and `c` is `1e19`, the comparison `Infinity < 1e19` is `false`.
+- `d < (long) c`: Casting `c` to `long` results in overflow, yielding `Long.MIN_VALUE`. Thus, `Infinity < Long.MIN_VALUE` is `false`.
+
+== Puzzle 3: `Double` Object Comparisons
+
+Consider the following code:
+
+[source,java]
+----
 Double e = 0.0;
 Double f = 0.0;
 System.out.println("\ne <= f is " + (e <= f));
 System.out.println("e >= f is " + (e >= f));
 System.out.println("e == f is " + (e == f));
+----
 
+Produces:
+
+[source]
+----
+e <= f is true
+e >= f is true
+e == f is false
+----
+
+=== Analysis
+
+This puzzle explores the behaviour of object comparisons in Java.
+
+1. **Comparison Operators (`&lt;=` and `>=`)**
+These operators compare the primitive `double` values of `e` and `f`, both `0.0`, resulting in `true` for both comparisons.
+
+2. **Equality Operator (`==`)**
+The `==` operator checks for reference equality. Since `e` and `f` are distinct `Double` objects, `e == f` evaluates to `false` despite representing the same numeric value.
+
+== Puzzle 4: `BigDecimal` Equality and Comparison
+
+Examine the following code:
+
+[source,java]
+----
 BigDecimal x = new BigDecimal("0.0");
 BigDecimal y = BigDecimal.ZERO;
 System.out.println("\nx == y is " + (x == y));
@@ -31,43 +114,31 @@ System.out.println("x.equals(y) is " + x.equals(y));
 System.out.println("x.compareTo(y) == 0 is " + (x.compareTo(y) == 0));
 ----
 
-prints the following:
+Produces:
 
 [source]
 ----
-b == a is true
-(long) b < a is true
-
-d < c is true
-d < (long) c is false
-
-e <= f is true
-e >= f is true
-e == f is false
-
 x == y is false
 x.doubleValue() == y.doubleValue() is true
 x.equals(y) is false
 x.compareTo(y) == 0 is true
 ----
 
-== Explanation
+=== Analysis
 
-=== 1. `b == a` and `(long) b < a`
+This puzzle delves into the comparison mechanics of the `BigDecimal` class.
 
-The first puzzle involves comparing a `long` value with a `double`. When you cast `a` (a `long`) to a `double`, the result may lose precision, causing `b == a` to be true. However, casting `b` back to a `long` results in truncation, and thus `(long) b < a` evaluates to true due to the precision loss.
+1. **Reference Equality (`x == y`)**
+`x` and `y` are different objects; hence, `x == y` is `false`.
 
-=== 2. `d < c` and `d < (long) c`
+2. **Primitive Equality (`doubleValue()`)**
+Both `x` and `y` convert to the same primitive `double` value `0.0`, making `x.doubleValue() == y.doubleValue()` `true`.
 
-In this puzzle, `c` is a very large `double`, while `d` starts as zero. When you add `c` to `d`, the value of `d` remains much smaller than `c`, so `d < c` is true. However, when casting `c` to a `long`, you lose precision (since `c` is too large to fit into a `long`), and the comparison becomes false.
+3. **`equals` Method**
+`BigDecimal.equals()` considers both value and scale. `x` has a scale of `1`, while `y` has a scale of `0`, leading to `x.equals(y)` being `false`.
 
-=== 3. `e == f`, `e <= f`, and `e >= f`
-
-The `Double` class in Java has some peculiarities when it comes to equality comparisons. In this case, `e == f` is false because they are two separate objects, even though their values are the same (both 0.0). However, the comparison operators `e <= f` and `e >= f` return true, as they are comparing the actual values, not the object references.
-
-=== 4. `x == y`, `x.doubleValue() == y.doubleValue()`, `x.equals(y)`, and `x.compareTo(y) == 0`
-
-Here we compare two `BigDecimal` instances. `x == y` is false because it checks reference equality, and these are different objects. However, `x.doubleValue() == y.doubleValue()` is true because both `BigDecimal` objects represent the same numeric value. The `equals` method returns false because `BigDecimal` compares more than just the value — it also checks scale (the number of decimal places). Finally, `x.compareTo(y) == 0` is true because both objects represent the same value when scaled equally.
+4. **`compareTo` Method**
+`compareTo` only considers the numeric value, ignoring scale differences. Therefore, `x.compareTo(y) == 0` is `true`.
 
 == Bonus Puzzle: The Shrinking Collections
 
@@ -113,16 +184,23 @@ A `HashSet` in Java removes duplicates based on the `equals()` method. In this c
 
 === 3. `bdSet2.size()= 1`
 
-A `TreeSet` uses the `compareTo()` method to determine uniqueness, and it also respects the natural ordering of objects. In this case, `BigDecimal` compares the values numerically, so all the `BigDecimal` objects in the list are considered equal because they all represent the value 1.0. Therefore, only one element is retained in the `TreeSet`, and the size is 1.
+A `TreeSet` uses the `compareTo()` method to determine uniqueness and respects objects' natural ordering. In this case, `BigDecimal` compares the values numerically, so all the `BigDecimal` objects in the list are considered equal because they all represent the value 1.0. Therefore, only one element is retained in the `TreeSet`, and the size is 1.
 
 == Key Takeaways
 
-* `HashSet` removes duplicates based on the `equals()` method.
-* `TreeSet` removes duplicates based on the `compareTo()` method, which for `BigDecimal` compares numeric values.
-* In this case, the different string representations of "1" are treated as equivalent by both the `equals()` and `compareTo()` methods.
+* Converting between `long` and `double` can lead to precision loss, affecting equality and comparison operations.
+* Operators like `==` behave differently for object references versus primitive values.
+* The `equals()` method considers scale, while `compareTo()` does not, impacting how `BigDecimal` instances are treated in collections.
+* Different `Set` implementations (`HashSet` vs. `TreeSet`) handle object uniqueness based on their respective equality mechanisms.
 
-By understanding the behaviour of the `HashSet` and `TreeSet` with respect to the `BigDecimal` class, you can better predict the results of such operations in your own code.
+By understanding the behaviour of the `HashSet` and `TreeSet` with respect to the `BigDecimal` class, you can better predict the results of such operations in your code.
 
 == Conclusion
 
-In Java, the choice of collection can lead to surprising results when working with classes that have custom equality and comparison behaviour. In this puzzle, the `BigDecimal` class reveals its nuances when used with `HashSet` and `TreeSet`, leading to shrinking collection sizes.
+In Java, the choice of collection can lead to surprising results when working with classes with custom equality and comparison behaviour. In this puzzle, the `BigDecimal` class reveals its nuances when used with `HashSet` and `TreeSet`, leading to shrinking collection sizes.
+
+== About the Author
+
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+
+

@@ -1,8 +1,7 @@
 = Java Arrays, Wat!
+:source-highlighter: rouge
 
-== Java Arrays: Surprising Behaviours
-
-Arrays in Java can behave in unexpected ways. Let's explore a few quirks.
+Java arrays are a fundamental component of the language, yet they can exhibit behaviours that surprise even seasoned developers. This article delves into some of these quirks, providing clarity and practical insights for Java developers.
 
 == Is it an Array or Not?
 
@@ -10,17 +9,31 @@ Consider the following declaration:
 
 [source,java]
 ----
-Serializable array = new Serializable[9];
+Serializable[] array2 = new Serializable[9];
+Serializable array = array;
+
+Cloneable[][] arrayA = new Serializable[9][];
+Cloneable[] arrayB = arrayA;
+Cloneable arrayC = arrayA;
+
 ----
 
-Is `array` an array or a scalar? In fact, it’s a scalar reference that points to an array. Similarly:
+At first glance, one might question whether `array` is an array or a scalar. In reality, `array` is a scalar reference that points to an array. This behaviour is consistent across Java's type system. For instance:
 
 [source,java]
 ----
 Object o = new Object[9];
 ----
 
-Here, you can assign an array to an `Object` variable because arrays are also objects in Java. Additionally, arrays are `Serializable`, so they can be assigned to a `Serializable` reference as well.
+Here, you can assign an array to an `Object` variable because arrays are also objects in Java. Additionally, arrays are `Serializable` and `Cloneable`, so they can be assigned to a `Serializable` or `Cloneable` reference as well.
+
+[mermaid]
+----
+classDiagram
+    Object <|-- Array
+    Array ..|> Cloneable
+    Array ..|> Serializable
+----
 
 == Where Did My `[]` Go?
 
@@ -38,11 +51,11 @@ In this example:
 - `args` is of type `int[][]`.
 - The return type is `int[]`, indicated by the `[]` after the method declaration.
 
-This syntax isn’t part of the Java Language Specification (JLS); it’s allowed in OpenJDK for backward compatibility.
+This syntax isn't part of the Java Language Specification (JLS) but is permitted in OpenJDK to maintain compatibility with older codebases. Such nuances highlight the importance of understanding Java's evolution and its impact on current coding practices.
 
 == What’s the Difference Between `int[] array` and `int array[]`?
 
-There is a subtle difference when additional brackets follow:
+The placement of brackets in array declarations can lead to subtle differences, especially when multiple variables are declared in a single statement:
 
 [source,java]
 ----
@@ -58,12 +71,14 @@ int array[], y[];
 
 In these cases:
 
-- `x` is of type `int[][]`.
-- `y` is of type `int[]`.
+- `x` is of type `int[][]`, a two-dimensional array.
+- `y` is of type `int[]`, a single-dimensional array.
+
+This distinction becomes crucial when declaring multiple arrays in one line, as the brackets associate with the variable name rather than the type. Adhering to a consistent array declaration style can prevent such confusions.
 
 == What Happens If an Array Initialisation Is Too Large?
 
-Consider initialising a large array like this:
+Attempting to initialise a large array can lead to unexpected compilation errors. Consider the following initialisation:
 
 [source,java]
 ----
@@ -74,9 +89,9 @@ public static final int[] VALUES = {
 };
 ----
 
-This produces an error:
+This code results in the following compilation error:
 
-[quote]
+[source]
 ----
 Error:(6, 31) java: code too large
 ----
@@ -85,9 +100,21 @@ It may seem odd that the error is not about the array size but rather the code s
 
 Due to this limit, large initialised arrays or a high number of enum values may result in compilation errors.
 
-== The Code
+== Key Takeaways
+
+* Arrays in Java are objects and can be referenced by interfaces like `Serializable` and `Object`.
+* Syntax nuances, such as the placement of brackets, can affect array dimensions and types.
+* Large array initialisations may lead to compilation errors due to bytecode size limits.
+* Understanding these behaviours enhances code robustness and prevents subtle bugs.
+
+== Try It Yourself
+
+Experiment with the provided code examples to observe these behaviours firsthand. Modify array declarations and initialisations to see how changes affect type assignments and compilation. Engaging with the code will deepen your understanding and uncover additional insights.
+
+=== The Code
 
 Code to run the examples that compile above is available here: https://github.com/Vanilla-Java/Blog/blob/main/java-misconceptions/src/main/java/blog/vanillajava/JavaArraySurprises.java[JavaArraySurprises.java].
+
 
 == About the Author
 

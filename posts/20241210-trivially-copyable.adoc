@@ -196,6 +196,7 @@ Java may not natively support trivially copyable objects, but we can still achie
 
 == Resources
 
-- link:https://chronicle.software/open-hft/queue/[Chronicle Queue (Open-Source)]
 - link:https://github.com/OpenHFT/Chronicle-Bytes[GitHub Chronicle Bytes (Open-Source)]
-- link:https://chronicle.software/learn/[Chronicle Learning Hub]
+- link:https://github.com/OpenHFT/Chronicle-Wire[GitHub Chronicle Wire (Open-Source)]
+- link:https://chronicle.software/queue/[Chronicle Software Queue]
+- link:https://chronicle.software/learn/[Chronicle Software Learning Hub]

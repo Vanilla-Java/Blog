@@ -1,8 +1,9 @@
 = Why double Still Outperforms BigDecimal: A Decade-Long Performance Comparison
+:source-highlighter: rouge
 
 == Overview
 
-Many developers consider `BigDecimal` the go-to solution for handling money in Java. They often claim that by replacing `double` with `BigDecimal`, they have fixed one or more bugs in their applications. However, I find this reasoning unconvincing. It's possible that the issue lies not with `double`, but rather with the way it was being handled. Additionally, `BigDecimal` introduces significant overhead that may not justify its use.
+Many developers consider `BigDecimal` the go-to solution for handling money in Java. They often claim that replacing `double` with `BigDecimal` has fixed one or more bugs in their applications. However, I find this reasoning unconvincing. The issue may lie not with `double` but rather with how it was handled. Additionally, `BigDecimal` introduces significant overhead that may not justify its use.
 
 When asked to improve the performance of a financial application, I know that if `BigDecimal` is involved, it will eventually need to be removed. While it may not be the largest performance bottleneck initially, as we optimise the system, `BigDecimal` often becomes one of the main culprits.
 
@@ -10,8 +11,8 @@ When asked to improve the performance of a financial application, I know that if
 
 `BigDecimal` comes with several drawbacks. Here are some of its key issues:
 
-* It has an unnatural syntax.
-* It uses more memory.
+* It has an unnatural syntax. The API is verbose and can be cumbersome to use.
+* It uses more memory. `BigDecimal` objects consume more memory compared to primitive types.
 * It creates more garbage (i.e., it causes more frequent garbage collection).
 * It is significantly slower for most operations, although there are exceptions.
 
@@ -38,7 +39,7 @@ Does this give you different results? For the most part, `double` provides 15 di
 
 == Performance
 
-If you have to incur coding overhead, it’s usually done for performance reasons. However, in this case, using `BigDecimal` for simple arithmetic does not make sense.
+If you have to incur coding overhead, it’s usually done for performance reasons. However, using `BigDecimal` for simple arithmetic does not make sense in this case.
 
 The following JMH benchmark results show a significant performance difference between `BigDecimal` and `double`:
 
@@ -83,6 +84,26 @@ If you’re unsure about how to properly handle rounding with `double`, or if yo
 
 The benchmark is available for you to run here: https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/decimal/MyBenchmark.java[MyBenchmark].
 
+== Key Points
+
+* `BigDecimal` introduces significant overhead in terms of memory and performance.
+* For most monetary calculations, `double` offers sufficient precision and better performance.
+* Code using `BigDecimal` tends to be more verbose and harder to maintain.
+* Performance benchmarks consistently show `double` outperforming `BigDecimal` by a substantial margin.
+* Consider the trade-offs between precision, performance, and code complexity when choosing between `double` and `BigDecimal`.
+
 == About the Author
 
 As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter’s deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+
+== References
+
+1. **Java Platform, Standard Edition Documentation**
+Oracle. *BigDecimal Class*.
+https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html
+
+2. **Java Platform, Standard Edition Documentation**
+Oracle. *Double Class*.
+https://docs.oracle.com/javase/8/docs/api/java/lang/Double.html
+
+

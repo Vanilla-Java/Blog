@@ -1,4 +1,5 @@
 = Ten Java Myths and Misconceptions
+:source-highlighter: rouge
 
 == Advanced Java Questions
 
@@ -108,6 +109,31 @@ The Java JIT compiler may optimise code by inlining non-volatile fields, potenti
 === Myth 10: Most Content on Java Interview Questions Is Accurate
 
 A significant portion of Java interview questions found online is outdated or incorrect. Many questions are based on practices or behaviours from older Java versions and no longer apply to modern Java.
+
+//+ Suggest reliable resources for up-to-date Java interview preparation.
+
+== Key Points
+
+* Understand the distinction between object references and actual objects in Java.
+* Recognise that Java's garbage collector manages memory differently from C++.
+* Approach multi-threading with disciplined best practices to mitigate complexity.
+* Focus optimisation efforts on operations that significantly impact performance.
+* Acknowledge the predictable nature of floating point arithmetic errors.
+* Stay informed about timezone changes and their historical contexts.
+* Use the `volatile` keyword to ensure the visibility of variable updates in the thread.
+* Rely on current and accurate resources for Java interview preparations.
+
+== Try It Yourself
+
+Experiment with the myths discussed:
+
+* Implement a custom `SecurityManager` to observe `System.exit(0)` behaviour.
+* Compare reference equality versus object content equality using `==` and `.equals()`.
+* Create scenarios that lead to memory leaks in Java and observe garbage collection.
+* Develop multi-threaded applications following best practices to manage complexity.
+* Benchmark different operations to identify performance bottlenecks.
+
+//+ Links to runnable code snippets or repositories can facilitate hands-on learning.
 
 == About the Author
 

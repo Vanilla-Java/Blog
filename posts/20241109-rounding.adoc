@@ -1,4 +1,5 @@
 = Calculating an Average Without Overflow: Rounding Methods
+:source-highlighter: rouge
 
 Calculating the midpoint between two integers may seem trivial, but the naive approach can lead to overflow errors.
 Code sample MidpointCalculator is available here: https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/MidpointCalculator.java[Code sample MidpointCalculator].
@@ -10,28 +11,30 @@ The classic midpoint formula:
 int m = (h + l) / 2;
 ----
 
-is prone to overflow if `h` and `l` are large, causing the result to be incorrect. This bug appears in many algorithms, including binary search implementations.
+This is prone to overflow if `h` and `l` are large, causing the result to be incorrect. This bug appears in many algorithms, including binary search implementations.
 
 == Understanding the Problem of Overflow
 
-In Java, the `int` type has a fixed range from `-2,147,483,648` to `2,147,483,647`. If `h` and `l` are large, their sum might exceed this range, leading to overflow. When overflow occurs, Java wraps the result around to the negative range without warning, causing unpredictable results.
+In Java, the `int` type has a fixed range from `-2,147,483,648` to `2,147,483,647`. If `h` and `l` are large, their sum might exceed this range, leading to overflow. When overflow occurs, Java wraps around the result to the negative range without warning, causing unpredictable results.
 
 == Safer Approaches to Calculate a Midpoint
 
-1. *Using a Safer Formula*
+Several alternative methods can be employed to circumvent the overflow issue. Below, we discuss three approaches, each with merits and use cases.
 
-A well-known alternative to avoid overflow is:
+=== 1. Using a Safer Formula
+
+A well-established alternative involves restructuring the formula to prevent the addition of two large integers directly:
 
 [source,java]
 ----
 int m = l + (h - l) / 2;
 ----
 
-Here, we compute the difference `(h - l)` before dividing by 2, ensuring that we don’t add two large values directly. This is safe but somewhat cumbersome.
+By computing the difference `(h - l)` first, we ensure that the intermediate result remains within the `int` range, thus avoiding overflow. While this method is effective, it can be somewhat verbose and may obscure the calculation's intent for some readers.
 
-2. *Using Unsigned Right Shift (with Down-Rounding)*
+=== 2. Using Unsigned Right Shift (with Down-Rounding)
 
-My preferred approach is to use the unsigned right shift operator `>>>`, which divides by two while avoiding overflow:
+An elegant solution leverages the unsigned right shift operator `>>>`, which effectively divides by two while sidestepping overflow:
 
 [source,java]
 ----
@@ -40,7 +43,7 @@ int m = (h + l) >>> 1;
 
 In this approach, we add `h` and `l` and then perform an unsigned right shift by one. This method provides a simple and efficient midpoint calculation that avoids overflow. However, it always rounds down when dividing, which may not always be desirable.
 
-3. *Using Unsigned Right Shift (with Half-Up Rounding)*
+=== 3. Using Unsigned Right Shift (with Half-Up Rounding)
 
 An alternative approach is to use the unsigned right shift operator `>>>`, which divides by two plus one while avoiding overflow:
 
@@ -53,23 +56,73 @@ In this approach, we add `h` and `l` and then perform an unsigned right shift by
 
 == Example: Comparing Rounding Methods
 
-Let’s look at an example to see the difference between rounding down and rounding half-up. Suppose `h` and `l` are `byte` values with `h = 102` and `l = 99`:
-
-* *Using Rounding Down*
+To illustrate the differences between these rounding methods, consider an example where `h` and `l` are `byte` values. While overflow using `byte` is easily avoided, it makes the calculations easier to picture for an `int` large enough to overflow.
 
 [source,java]
 ----
-int m = (h + l) >>> 1;
+byte h = 102;
+byte l = 99;
+
+// Incorrect Calculation: Overflow Due to Premature Casting
+byte m = (byte) (h + l) / 2; // -27
+----
+
+1. **Addition with Casting:**
+   - `(byte) (h + l)` casts the sum to `byte` **before** division. For `int` this cast happens implicitly, so you can easily miss that this is happening.
+   - `h + l = 102 + 99 = 201` (as `int`).
+   - `(byte) 201` exceeds the `byte` maximum value (`127`), causing overflow:
+     - `201 - 256 = -55`
+   - Thus, `(byte) 201 = -55`.
+
+2. **Division:**
+   - `-55 / 2 = -27` (integer division truncates towards zero).
+
+3. **Final Assignment:**
+   - `byte m = -27;`
+
+=== A More Realistic Example using `int`
+
+To further illustrate the dangers of overflow in midpoint calculations, consider the following example where `h` and `l` are large `int` values:
+
+[source,java]
+----
+int h = 2_000_000_000;
+int l = 1_000_000_000;
+
+int m = (h + l) / 2;
+----
+
+1. **Addition of `h` and `l`:**
+   - `h + l = 2,000,000,000 + 1,000,000,000 = 3,000,000,000`
+   - However, the maximum value for an `int` in Java is `2,147,483,647`. Therefore, adding `2,000,000,000` and `1,000,000,000` results in an integer overflow.
+
+2. **Resulting Overflow:**
+   - In Java, when an `int` overflow occurs, the value wraps around using two's complement arithmetic.
+   - Calculating `3,000,000,000 - 4,294,967,296 = -1,294,967,296`
+   - Thus, `h + l` effectively becomes `-1,294,967,296` due to overflow.
+
+3. **Division by 2:**
+   - `(h + l) / 2 = -1,294,967,296 / 2 = -647,483,648`
+
+4. **Final Assignment:**
+   - `int m = -647,483,648;`
+
+
+=== Using Rounding Down
+
+[source,java]
+----
+int m = (h + l) >>> 1; // m = 100
 ----
 
 - `h + l` is `201`.
 - Unsigned shifting `201` by one bit gives `100`, rounding down.
 
-* *Using Rounding Half-Up*
+=== Using Rounding Half-Up
 
 [source,java]
 ----
-int m = (h + l + 1) >>> 1;
+int m = (h + l + 1) >>> 1; // m = 101
 ----
 
 - `h + l + 1` is `202`.
@@ -77,18 +130,32 @@ int m = (h + l + 1) >>> 1;
 
 This rounding behaviour can be particularly useful in cases where you're dividing odd sums and want to follow standard rounding conventions.
 
+== Performance and Efficiency Considerations
+
+Performance implications should be taken into account when selecting a midpoint calculation method. The bitwise operations employed in the unsigned right shift methods are highly efficient, often outperforming their arithmetic counterparts. Additionally, these methods reduce the risk of overflow without introducing significant computational overhead.
+
+Choosing an efficient and safe midpoint calculation is paramount for performance-critical applications, such as low-latency trading systems or real-time data processing. Tools like Java Microbenchmark Harness (JMH) can be utilised to benchmark these methods and validate their performance characteristics in your specific context.
+
 == Practical Applications of Rounding Choices
 
 Using `(h + l) >>> 1` is ideal when you want the midpoint calculation to round down, which is often preferred in low-level programming and binary search algorithms. On the other hand, if you need rounding to the nearest integer in scenarios where the halfway point should round up (known as *round half-up*), using `(h + l + 1) >>> 1` gives you that flexibility.
 
 == Summary
 
-When calculating a safe midpoint between two integers, avoid using `(h + l) / 2` as it risks overflow. Instead:
+Avoid using `(h + l) / 2` when calculating a safe midpoint between two integers as it risks overflow. Instead:
 
 * Use `(h + l) >>> 1` for a midpoint that rounds down.
 * Use `(h + l + 1) >>> 1` for a midpoint that rounds half-up, rounding up in cases where the sum is odd.
 
 These options allow you to control rounding behaviour precisely and avoid subtle bugs that might emerge in large data handling, ensuring safer, more predictable algorithms.
+
+== Key Points
+
+* The classic midpoint formula can cause overflow with large integers.
+* Alternative formulas prevent overflow by restructuring the calculation.
+* Bitwise operations offer efficient and safe midpoint calculations.
+* Rounding behaviour can be tailored to application-specific needs.
+* Performance considerations are crucial in selecting the appropriate method.
 
 == About the Author
 

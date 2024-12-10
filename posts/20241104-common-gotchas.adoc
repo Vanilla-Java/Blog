@@ -1,4 +1,5 @@
 = Some Common Java Gotchas and How to Avoid Them
+:source-highlighter: rouge
 
 Java’s simplicity often deceives newcomers. Although it avoids some complexities of languages like C++ or modern hybrids, Java still harbours subtleties that can trip up even experienced developers. Understanding these nuances is not just a theoretical exercise—it influences your code’s readability, maintainability, and often, its performance profile.
 
@@ -79,7 +80,8 @@ The behaviour above is vital to internalise. If you intend to replace an object 
 
 To clarify how references and values interplay, consider a simple memory model diagram. Think of references as pointers to boxes holding objects. Passing them to methods copies the pointer, not the box:
 
-[mermaid]
+// change to [mermaid] to see in IntelliJ
+[source,mermaid]
 ----
 flowchart LR
     Caller[Caller Method] --> Method[Method Call: addWord]
