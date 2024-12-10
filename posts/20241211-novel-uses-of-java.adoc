@@ -1,15 +1,12 @@
 = Novel Uses of Core Java for Low-Latency and High-Performance Systems
-
+Peter Lawrey
 :doctype: article
 :icons: font
-:sectanchors:
-:toc: left
-:source-highlighter: highlight.js
+:source-highlighter: rouge
 
-// For developers chasing ultra-low-latency and high-throughput Java applications, standard approaches often fall short. This article reveals unconventional yet practical techniques—like capturing stack traces without exceptions, generating system-wide unique nanosecond timestamps, and creating “trivially copyable” objects—that push Core Java into new territory. Discover how to minimize garbage, gain more insightful diagnostics, and achieve near C++-like performance, all while maintaining a familiar Java ecosystem. If you’re ready to rethink old assumptions and unlock your system’s true potential, read on.
+//^ This article reveals unconventional yet practical techniques that push Core Java into new territory, like capturing stack traces without exceptions, generating system-wide unique nanosecond timestamps, and creating “trivially copyable” objects. Discover how to minimize garbage, gain more insightful diagnostics, and achieve near C++-like performance, all while maintaining a familiar Java ecosystem.
 
 [.lead]
-Standard Java libraries and idioms may only sometimes suffice in high-performance and low-latency Java systems.
 This article explores unconventional yet practical techniques that push Core Java to its limits, focusing on
 performance, diagnostics, and determinism. Drawing on experiences from building ultra-low-latency libraries and
 infrastructure, we will highlight patterns such as capturing stack traces without exceptions, system-wide unique timestamps,
@@ -20,24 +17,47 @@ This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygG
 
 == Introduction
 
-Developers often rely on standard Java idioms—`throwable` hierarchies, `BigDecimal` for financial calculations,
-thread-local resources, or off-the-shelf message queues. While straightforward, these approaches can impose unwanted
-latency, garbage generation, or diagnostic blind spots. Even microseconds matter in low-latency trading, market data processing, or other
-time-sensitive domains.
+Modern Java development often involves tackling complex and performance-sensitive challenges. Over the years, I have found myself using certain "uncommon" Core Java techniques to gain better diagnostic insights, reduce latency, improve profiling, and tighten control over resource management. Many of these are not the sort of approaches you'd typically find in everyday Java code—some may even appear unusual or counterintuitive. Yet, in high-performance, low-latency, and resource-constrained environments, such techniques can prove invaluable.
 
-We aim to present "novel uses" of Core Java that remove such bottlenecks, allowing developers to produce cleaner,
-more deterministic, and more insightful code. These techniques are not always common knowledge, yet they can
-deliver substantial benefits in the right context.
+This article explores several advanced patterns and tools that I have used successfully in the field. They include leveraging `Throwable` for diagnostics without actually throwing exceptions, capturing unique timestamps for system-wide event tracing, employing trivially copyable objects for microsecond-level serialisation, eliminating unnecessary garbage, introducing safe points for profiling, and more.
 
-== Capturing Stack Traces Without Exceptions
+Throughout, I encourage you to think about whether these ideas might help in your own projects. Be mindful: these techniques carry trade-offs. They are often disabled in production by default and activated only when needed.
 
-Most Java developers assume that `Throwable` subclasses like `Exception` or `Error` must represent actual errors.
-However, you can extend `Throwable` to capture a stack trace at any point, even without throwing it.
+== Capturing Stack Traces Without Exceptions, Leveraging Throwables as Diagnostic Tools
+
+It's well known that instantiating a https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Throwable.html[Throwable] in Java captures the current stack trace. However, many developers assume that stack traces are created only upon throwing an exception. The stack trace is recorded at construction time, not when thrown. This distinction allows us to capture a snapshot of the call stack whenever we like without necessarily "throwing" the error.
+
+Consider a scenario where a resource must be closed, and later code attempts to use it, resulting in an `IllegalStateException`. Diagnosing which thread closed the resource—and where—can be challenging. By creating a custom `Throwable` subclass https://github.com/OpenHFT/Chronicle-Core/blob/ea/src/main/java/net/openhft/chronicle/core/StackTrace.java[StackTrace] at the moment of closing the resource, you can store the exact location and even the name of the thread involved. Later, when usage of the closed resource triggers an exception, you attach the earlier captured `StackTrace` as the cause. This technique yields a highly detailed error report:
 
 [source,java]
 ----
 public final class StackTrace extends Throwable {
     // Intentionally extends Throwable but never thrown
+}
+
+public class Resource {
+    private final Throwable createdHere;
+    private boolean closed;
+
+    public Resource(boolean traceEnabled) {
+        this.createdHere = traceEnabled ? new StackTrace("Resource created here") : null;
+    }
+
+    public void close() {
+        if (!closed) {
+            closed = true;
+            if (createdHere != null) {
+                createdHere.addSuppressed(new StackTrace("Resource closed here"));
+            }
+        }
+    }
+
+    public void use() {
+        if (closed) {
+            throw new IllegalStateException("Attempted to use a closed resource", closedHere);
+        }
+        // normal usage
+    }
 }
 ----
 
@@ -46,14 +66,12 @@ events occur. For example, if a resource is closed prematurely, you can record a
 later attach it as a cause to an `IllegalStateException`, revealing not only that the resource was incorrectly reused
 but exactly where it was closed. This is invaluable for diagnosing elusive bugs in long-lived systems.
 
-This was covered recently in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
-
-=== Performance Considerations and Opt-Out
-
 Capturing a stack trace is expensive—on the order of a microsecond. Although that might sound small, it is significant
 in performance-sensitive contexts. Hence, these facilities should often be toggled via configuration. In production,
 you may default to no stack tracing for performance, enabling it selectively in test or diagnostic modes.
 Making the trace-capturing conditional gives you powerful insight without imposing a constant performance penalty.
+
+This was covered recently in this article https://blog.vanillajava.blog/2024/11/exceptional-exception-stacktrace.html[Exceptional Exception StackTrace].
 
 === Deferred Exceptions and Resource Management
 
@@ -80,7 +98,7 @@ exception showing both the first and second usage points. These insights reduce 
 
 High-frequency trading and similar domains demand unique, system-wide timestamps at nanosecond resolution. While
 `System.nanoTime()` provides high-resolution time, guaranteeing uniqueness across the system is another challenge.
-We can maintain a shared counter—backed by atomic operations—to ensure that each generated timestamp increases strictly. Embedding a host ID within the timestamp ensures uniqueness across multiple machines.
+We can maintain a shared counter—backed by atomic operations—to strictly ensure that each generated timestamp increases. Embedding a host ID within the timestamp ensures uniqueness across multiple machines.
 
 [source,java]
 ----
@@ -98,7 +116,7 @@ public long currentTimeNanos() {
 ----
 
 This approach yields a 64-bit timestamp that remains unique even if the system clock moves backwards or multiple
-machines issue timestamps concurrently. Such IDs can serve as both timestamps and unique sequence identifiers,
+machines issue timestamps concurrently. Such IDs can serve as timestamps and unique sequence identifiers,
 simplifying logging, tracing, and correlation.
 
 I discuss this further in this article https://blog.vanillajava.blog/2024/12/efficient-distributed-unique-timestamp.html[Efficient Distributed Unique Timestamp].
@@ -115,7 +133,7 @@ This is especially helpful for serialisation/deserialisation scenarios. You migh
 them in YAML for human readability, and then quickly map them back into on-heap data structures. Although Java does not
 guarantee field order or packing, careful coding and consistent class layouts can produce significant performance gains.
 
-This is covered in this post https://blog.vanillajava.blog/2024/12/trivially-copyable-objects-in-java.html[Trivially Copyable Objects in Java].
+I discuss this further in this article  https://blog.vanillajava.blog/2024/12/trivially-copyable-objects-in-java.html[Trivially Copyable Objects in Java].
 
 == Zero-Garbage Coding
 
@@ -173,23 +191,20 @@ reusing commonly-occurring strings can reduce allocation churn. Using a small, l
 you can often return references to previously interned strings without the overhead of global interning or heavy
 hash maps.
 
-While this technique is best for stable sets of strings, it can be combined with other no-garbage techniques to
-further stabilise performance under high load.
+While this technique is best for stable sets of strings, it can be combined with other no-garbage techniques to stabilise performance further under high load.
 
-== Summary of Key Points
+== Summary and Key Takeaways
 
-- **Stack traces as data structures:** Capturing stack traces without throwing exceptions aids post-mortem debugging.
-- **Unique timestamps:** System-wide unique, nanosecond-level timestamps simplify event correlation.
-- **Trivially copyable objects:** Structuring data layouts and using off-heap memory can yield near-direct memory copies.
-- **Zero-garbage code:** Minimising or eliminating allocation reduces GC jitter and improves predictability.
-- **`double` vs BigDecimal:** For performance-critical code, `double` often outperforms `BigDecimal`.
-- **Deterministic cleanup:** Do not rely solely on GC—clean resources proactively.
-- **Object pools and caching:** Strategic caching of strings or objects can dramatically reduce memory pressure.
-- **Profiling awareness:** Introduce safe points or hints to ensure accurate profiling.
+The techniques covered here—capturing stack traces at creation time, deferring exceptions, generating globally unique timestamps, employing trivially copyable objects, zero-garbage coding, adding safe points for profiling, handling exceptions vicariously, using `double` carefully, deterministic thread cleanup, lightweight caching, and custom exception handlers—reflect a mindset of engineering for low latency and high reliability. While unconventional, these patterns emerged organically in demanding production environments, where every microsecond and every byte counts.
 
-These techniques are not always necessary for every Java application. However, in domains where latency and
-determinism matter—such as financial trading, real-time analytics, or IoT streaming—they can dramatically improve
-throughput, reduce jitter and enhance maintainability.
+Before adopting any of these techniques:
+
+* Start simple and only increase complexity if you must.
+* Use feature flags or system properties to enable costly diagnostics only when needed.
+* Validate performance gains with proper benchmarking tools like JMH.
+* Consider the trade-offs in code clarity, maintainability, and team familiarity.
+
+When applied judiciously, these approaches can give you deeper insights, improved efficiency, and more predictable performance.
 
 == About the author
 
@@ -203,10 +218,35 @@ as a thought leader and mentor in the Java and FinTech communities. Follow Peter
 https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
 https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
 
-== Conclusion
+== Q&A Section
 
-Core Java offers powerful primitives that can be employed unconventionally to achieve performance levels
-often considered out of reach for managed languages. By leveraging these approaches—carefully and with proper
-testing—you can build systems that run significantly faster, scale more smoothly, and give you deeper insights
-into their runtime behaviours. While not every application requires such extreme measures, those that do will
-find these techniques indispensable.
+[quote, Online Participant]
+____
+"Constructing a `Throwable` is still expensive, isn't it?"
+____
+
+While capturing a stacktrace is relatively costly (often taking about a microsecond once warmed up), we typically keep it disabled in production. We enable stacktrace capturing only during development or troubleshooting. For everyday operations, passing `null` instead of a fully captured throwable is trivial, effectively removing the overhead.
+
+[quote, Online Participant]
+____
+"How do you ensure a unique two-digit host ID for timestamps?"
+____
+
+We rely on configuration or a system property. For example, each host has a configuration file or property specifying its numeric host ID. The timestamp generator reads this ID at startup and encodes it into the last digits of the timestamp.
+
+[quote, Online Participant]
+____
+"How about just relying on Java's string interning?"
+____
+
+String interning only applies to compile-time string literals, not dynamically created strings. It also doesn't eliminate the initial allocation, nor does it scale nicely to millions of unique strings. Our lightweight caching approach avoids unnecessary allocations altogether, ensuring truly zero-garbage for repetitive string usage.
+
+[quote, Online Participant]
+____
+"Any references or code samples for these techniques?"
+____
+
+Yes, much of this logic is available as open source within the Chronicle libraries:
+https://github.com/OpenHFT[]
+
+Exploring `Chronicle-Core`, `Chronicle-Wire`, and `Chronicle-Queue` will reveal practical implementations of trivial copy, zero-garbage encoding, unique timestamps, and more.

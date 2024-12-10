@@ -4,7 +4,11 @@
 
 We've all faced situations where a simple task spirals into unexpected complexity. In 2010, I encountered such a scenario and wrote a triple cast! 😅
 
-The challenge: I needed a method to return a given type's default value. Here's the first approach I wrote at the time:
+== The Problem: Default Values for Primitive Types
+
+Dealing with default values for various Java primitive types can be surprisingly tricky. Primitives each have a well-defined default—`0` for numeric types, `false` for `boolean`, and `'\u0000'` (the null character) for `char`. Yet, when working with generics and requiring a "default value" factory, we may be tempted to do something unorthodox.
+
+I needed a method to return a given type's default value. Here's the first approach I wrote at the time:
 
 [source,java]
 ----
@@ -22,7 +26,7 @@ Yes, this is casting madness! Let’s break it down:
 - `(Byte)`: Wraps the primitive into its wrapper type, `Byte`.
 - `(T)`: Casts it to the generic type `T`.
 
-While functional, this approach is overly verbose, difficult to read, and frankly, not very elegant. So, I decided to refactor it into something cleaner and more efficient:
+While functional, this approach is overly verbose, difficult to read, and frankly, not very elegant. So, I decided to refactor it. A more elegant solution leverages a pre-populated, immutable map that associates each primitive type with its corresponding default value. By setting this map up once, we avoid the messy casting and improve both readability and performance:
 
 [source,java]
 ----
@@ -55,9 +59,16 @@ Here’s why this approach is better:
 - *Improved Readability:* The intent of the method is much clearer and easier to understand for future developers.
 - *Efficiency:* The map is pre-populated during static initialisation, ensuring quick lookups at runtime.
 
-*Conclusion*
+== Conclusion
 
 While triple casts might work in a pinch, they often lead to code that is harder to read and maintain. By leveraging structures like maps and focusing on immutability, we can achieve solutions that are not only more elegant but also more robust and flexible. Remember, clear and concise code is always worth the extra effort!
+
+== Resources
+
+Check out the official Java docs for more details on primitive wrappers:
+
+- https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Byte.html[Byte Javadoc]
+- https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html[Integer Javadoc]
 
 == About the Author
 
