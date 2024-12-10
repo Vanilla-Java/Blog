@@ -16,7 +16,7 @@ infrastructure, we will highlight patterns such as capturing stack traces withou
 "trivially copyable" data types, zero-garbage strategies, and more. We will also discuss lessons from applying these
 approaches in production environments, where nanosecond-level considerations are the norm.
 
-This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygGI[Novel Uses of Core Java for Low-Latency and High-Performance Systems].
+This is taken from the transcript for https://www.youtube.com/watch?v=GZgZ3AyygGI[Novel Uses of Core Java for Low-Latency and High-Performance Systems] Moderated by https://www.linkedin.com/in/melissajmckay/[Melissa McKay].
 
 == Introduction
 

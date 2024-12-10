@@ -1,6 +1,8 @@
-= Some Common Java Gotchas
+= Some Common Java Gotchas and How to Avoid Them
 
-Java is a streamlined language with fewer features than others, yet it still has quirks that can confuse developers. Familiarity with other languages may lead to misinterpretation of Java syntax, often causing misunderstandings.
+Java’s simplicity often deceives newcomers. Although it avoids some complexities of languages like C++ or modern hybrids, Java still harbours subtleties that can trip up even experienced developers. Understanding these nuances is not just a theoretical exercise—it influences your code’s readability, maintainability, and often, its performance profile.
+
+Java developers frequently fall prey to pitfalls around references, equality comparison, object immutability, `hashCode()` contracts, and the nature of `toString()`. By mastering these concepts, you can write more predictable, efficient, and robust Java applications.
 
 == Variables Are References or Primitives, Not Objects
 
@@ -11,72 +13,105 @@ In Java, variables represent references (for objects) or primitives, not the obj
 String s = "Hello";
 ----
 
-This makes `s` a reference to a `String`, not the `String` itself.
+`s` refers to a `String` object; it does not hold the object itself. For developers coming from languages where variables can directly store objects or structs, this can feel counter-intuitive.
 
 === Example Misunderstanding:
 
 **Q:** If `String` is immutable, how can I change it, like in `s += "!"`?
 **A:** You’re creating a new `String` and updating the reference, not altering the original `String`.
 
-== Compares References, Not Object Content
+[source,java]
+----
+String s = "Hello";
+String t = s;
+s += " World!";
+assert t != s;
 
-Using `==` compares references, not object contents. For immutable values, Java may optimise by pooling them, which can make the references equal:
+var sb = new StringBuilder("Hello");
+var sb2 = sb;
+sb.append(" World!");
+assert sb2 == sb;
+----
+
+== Using `==` vs `.equals()`: Comparing References vs Content
+Equality in Java may confuse developers accustomed to operator overloading in other languages. The `==` operator checks whether two references point to the same object. The `.equals()` method checks whether two objects are logically equivalent.
+
+Certain classes, like `String` and `Integer`, use internal caching (also known as interning). If two variables hold references to the same interned value, `==` can return `true`:
 
 [source,java]
 ----
 String s1 = "Hi", s2 = "Hi";
 Integer a = 12, b = 12;
-System.out.println(s1 == s2); // true
-System.out.println(a == b);   // true
+System.out.println(s1 == s2); // true due to string interning
+System.out.println(a == b);   // true due to Integer cache for small integers
 ----
 
-However, without pooling, `==` returns `false`:
+By contrast, dynamically allocated objects or values outside of these caches are not guaranteed to share references:
 
 [source,java]
 ----
-String s3 = new String(s1);
+String s3 = new String("Hi");
 Integer c = -222, d = -222;
-System.out.println(s1 == s3);      // false
-System.out.println(s1.equals(s3)); // true
-System.out.println(c == d);        // false
-System.out.println(c.equals(d));   // true
+System.out.println(s1 == s3);      // false, different objects
+System.out.println(s1.equals(s3)); // true, equal content
+System.out.println(c == d);        // false, outside the cached integer range
+System.out.println(c.equals(d));   // true, equal numeric value
 ----
 
-== Java Passes References by Value
+From a performance perspective, comparing references with `==` is trivial, but it can yield incorrect semantics if you intend to compare content. For large-scale applications, such subtle differences can lead to perplexing bugs. Using `.equals()` is safer when checking object content, especially with collections and domain objects.
 
-When passing a reference variable to a method, Java copies the reference, not the object. Thus, changes to the object's content within the method affect the original object, but reassigning the reference itself has no effect outside the method:
+== Java Passes References by Value, Not by Reference
+A crucial misunderstanding is that Java passes references by reference. In truth, Java always passes arguments by value. When passing a reference variable to a method, Java copies the reference, not the underlying object. Thus, mutating the object within the method affects the original, but reassigning the reference within the method has no effect outside it.
 
 [source,java]
 ----
-public static void addWord(StringBuilder sb) {
-    sb.append(" word");
-    sb = null;
+public static void addWord(StringBuilder _sb) {
+    _sb.append(" word");
+    _sb = null; // Reassignment only affects the local copy of 'sb'
 }
 
-StringBuilder sb = new StringBuilder("first ");
+StringBuilder sb = new StringBuilder("first");
 addWord(sb);
 System.out.println(sb); // "first word"
 ----
 
-== `hashCode()` and `toString()` Surprises
+The behaviour above is vital to internalise. If you intend to replace an object entirely, you must return the new reference from the method rather than hoping the caller’s reference is updated automatically.
 
-In Java, `hashCode()` doesn’t reflect an object’s memory location. Instead, it’s consistent per object lifecycle to support collections like `HashSet`.
+To clarify how references and values interplay, consider a simple memory model diagram. Think of references as pointers to boxes holding objects. Passing them to methods copies the pointer, not the box:
 
-`toString()` often surprises by printing class names and `hashCode` in hexadecimal. For arrays, this can be confusing:
+[mermaid]
+----
+flowchart LR
+    Caller[Caller Method] --> Method[Method Call: addWord]
+    Caller -->|sb still points to first| Object
+    Method --> Local[Local Reference: _sb]
+    Local --> Object[Object in Heap: first]
+    Local -->|Reassign to null| Null[null]
+----
+
+== Surprises with `hashCode()` and `toString()`
+It is easy to assume `hashCode()` returns a memory address or that `toString()` prints a human-readable form of an object. Java’s choices here are rooted in design constraints that support hashing contracts and object lifecycle management within the JVM.
+
+=== `hashCode()` Is Stable, Not a Memory Address
+For objects in `HashSet`, `HashMap`, or `ConcurrentHashMap`, `hashCode()` must be consistent during the object’s lifetime. The JVM might relocate objects in memory (e.g., due to garbage collection), so using memory addresses would break this contract. Instead, the JVM ensures a stable `hashCode()` value, often calculated and stored in the object header.
+
+This consistency ensures that hash-based data structures work predictably, but it can lead to confusion. Knowing that `hashCode()` does not correlate to physical memory location can help you avoid misassumptions, especially when debugging or optimising performance-sensitive code.
+
+=== `toString()` Often Needs a Human-Friendly Override
+By default, `toString()` for most objects returns something akin to `ClassName@hashCode_in_hex`. This low-level identifier is rarely meaningful to end-users. Arrays are even more perplexing, printing something like:
 
 [source,java]
 ----
 String[] words = { "Hello", "World" };
+System.out.println(words); // [Ljava.lang.String;@45ee12a7
 System.out.println(Arrays.toString(words)); // [Hello, World]
 ----
 
+Custom `toString()` implementations can greatly aid debugging and logging by presenting domain-relevant information rather than cryptic identifiers.
+
+== Applying These Insights in Your Own Code
+To gain confidence, try writing small tests. Run the above examples in your IDE or a simple build setup. Experiment with `String.intern()` and `new` allocations, or measure performance trade-offs when using `.equals()` vs `==` on non-interned strings. Consider a quick microbenchmark with JMH to see if minor differences matter in your context.
 == Understanding `hashCode()` and `toString()` in Java
-
-=== `hashCode()` Is Not Related to Memory Location
-
-In most JVMs, the `hashCode()` for an object does not correlate to its memory location. Instead, `hashCode()` values must remain constant throughout an object’s lifecycle to support hash-based collections like `HashSet` or `ConcurrentHashMap`. Since JVMs may move objects around in memory, basing `hashCode()` on memory location would break this consistency.
-
-In OpenJDK and HotSpot JVMs, `hashCode()` is generated on demand and stored in the object's header. This enables the JVM to reuse and relocate objects without affecting their hash-based behaviour.
 
 === The Default `toString()` Output
 
@@ -98,6 +133,13 @@ System.out.println(Arrays.toString(words)); // Outputs: [Hello, World]
 You can run this code here: https://github.com/Vanilla-Java/Blog/blob/main/java-misconceptions/src/main/java/blog/vanillajava/CommonJavaGotchas.java[CommonJavaGotchas.java].
 
 To see the original article, visit: https://blog.vanillajava.blog/2014/02/most-common-gotchas-in-java.html[here].
+
+== Key Takeaways
+- Variables in Java store references or primitives, never objects directly.
+- `==` compares references, not object content; use `.equals()` for logical comparison.
+- Java passes references by value—reassignments inside methods do not propagate out.
+- `hashCode()` is stable and not tied to memory addresses.
+- Override `toString()` or use `Arrays.toString()` for more meaningful output.
 
 == About the Author
 

@@ -193,18 +193,18 @@ Benchmarking with JMH in a single-threaded context showed that obtaining a uniqu
 
 [options="header"]
 |===
-| Benchmark                                             | Mode | Count | Score   | Error  | Units |
-| DistributedUniqueTimeProviderBenchmark.currentTimeNanos | avgt | 25    | 37.395  | ±0.391 | ns/op |
-| DistributedUniqueTimeProviderBenchmark.randomUUID       | avgt | 25    | 207.709 | ±1.586 | ns/op |
+| Benchmark                                             | Mode | Count | Score   | Error  | Units
+| DistributedUniqueTimeProviderBenchmark.currentTimeNanos | avgt | 25    | 37.395  | ±0.391 | ns/op
+| DistributedUniqueTimeProviderBenchmark.randomUUID       | avgt | 25    | 207.709 | ±1.586 | ns/op
 |===
 
 On a Ryzen 9 5950X processor, the results were:
 
 [options="header"]
 |===
-| Benchmark                                             | Mode | Count | Score   | Error  | Units |
-| DistributedUniqueTimeProviderBenchmark.currentTimeNanos | avgt | 25    | 43.557  | ±0.801 | ns/op |
-| DistributedUniqueTimeProviderBenchmark.randomUUID       | avgt | 25    | 265.285 | ±2.690 | ns/op |
+| Benchmark                                             | Mode | Count | Score   | Error  | Units
+| DistributedUniqueTimeProviderBenchmark.currentTimeNanos | avgt | 25    | 43.557  | ±0.801 | ns/op
+| DistributedUniqueTimeProviderBenchmark.randomUUID       | avgt | 25    | 265.285 | ±2.690 | ns/op
 |===
 
 == Downsides
