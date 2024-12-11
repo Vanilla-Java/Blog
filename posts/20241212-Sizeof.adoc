@@ -93,8 +93,9 @@ These improvements can translate into substantial cost savings and better utilis
 |Short, Character |16 |16 |16
 |Integer, Float |16 |16 |16
 |Long, Double |16 |24 |24
-|AtomicReference, AtomicLong |16 |16 |24
 |AtomicInteger |16 |16 |16
+|AtomicReference |16 |16 |24
+|AtomicLong |16 |24 |24
 |Optional, SimpleEntry |16 |16 |24
 |"Hello World" |24 |24 |32
 |CompletableFuture |16 |24 |32
