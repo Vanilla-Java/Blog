@@ -1,0 +1,144 @@
+= Demystifying Java Object Sizes: Compact Headers, Compressed Oops, and Beyond
+Peter Lawrey
+:doctype: article
+:icons: font
+:source-highlighter: rouge
+
+[abstract]
+One of Java’s guiding principles is that you should not need to worry about the exact size of an object. Yet, many developers want to understand object memory footprints as systems evolve. For instance, when tuning application performance or working with memory-constrained environments, knowing how much memory your objects occupy can help guide better decisions. While the JVM obscures this detail for good reasons—portability, security, and abstraction—there are practical scenarios where deeper insight is valuable.
+
+== Introduction
+
+Measuring an object’s size in Java is not straightforward. The platform encourages you to consider references and abstractions rather than raw memory usage. Still, understanding how objects fit into memory can yield significant benefits, especially for high-performance, low-latency systems.
+
+Over time, the JVM has introduced optimisations like Compressed Ordinary Object Pointers (Compressed Oops) and, more recently, Compact Object Headers. Each of these can influence how large or small your objects appear. Understanding these factors helps you reason about memory usage more concretely.
+
+== Measuring Object Sizes
+
+In principle, you can estimate an object’s size by creating instances and observing changes in the JVM’s free memory. However, you must neutralise certain factors to get consistent results. For example, turning off TLAB allocation (`-XX:-UseTLAB`) makes memory usage more directly observable. Repeated measurements and median calculations can reduce the impact of GC and concurrent allocations.
+
+A GC can occur while you are creating your object. This will result in more free memory at the end than when you started. I ignore any negative sizes in this test ;)
+Other threads in the system could use memory at the same time. I perform multiple test and take the median, which removes any outliers.
+
+Below is a rough approach:
+[source,java]
+----
+long before = usedMemory();
+Object obj = createYourObject();
+long after = usedMemory();
+long approximateSize = after - before;
+----
+
+This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/memory/SizeofTest.java[SizeofTest.java] is a simple test which creates a number of objects and measures the memory used to create each object. This is usually the same as the amount of memory the object retains for simple objects.
+
+== Approximate layout of an object
+
+[options="header"]
+|===
+|Memory Region        |Description                                                     |Size (Bytes)
+
+|Mark Word            |Header information including identity hash code, lock state, and GC metadata
+|8 bytes (on 64-bit JVMs)
+
+|Class Pointer (Klass Pointer)
+|Reference to the object’s class metadata, used internally by the JVM
+|Typically 4 bytes with Compressed Class Pointers, otherwise 8 bytes
+
+|Array Length (Arrays Only)
+|Stores the length of the array; present only for array objects
+|4 bytes
+
+|Instance Fields
+|Actual data fields of the object: primitives and references
+|Varies depending on field types and alignment
+
+|Padding
+|Unused space to ensure proper 8-byte alignment of the object size
+|0 to 7 bytes, as needed
+|===
+
+
+== JEP 450: Compact Object Headers (Experimental)
+
+Starting with Java 24 (Early Access), the JVM introduces *Compact Object Headers* via https://openjdk.org/jeps/450[Java Enhancement Proposal 450]
+
+=== Summary
+Reduce the size of object headers in the HotSpot JVM from between 96 and 128 bits down to 64 bits on 64-bit architectures. This will reduce heap size, improve deployment density, and increase data locality.
+
+=== Goals
+When enabled, this feature
+
+ - Must reduce the object header size to 64 bits (8 bytes) on the target 64-bit platforms (x64 and AArch64),
+ - Should reduce object sizes and memory footprint on realistic workloads,
+ - Should not introduce more than 5% throughput or latency overheads on the target 64-bit platforms, and only in infrequent cases, and
+ - Should not introduce measurable throughput or latency overheads on non-target 64-bit platforms.
+
+== Performance Considerations
+
+A smaller object footprint can improve performance by increasing the number of objects that fit into CPU caches, reducing the cost of GC, and even improving startup times. However, enabling these features (or disabling them) should be accompanied by testing and benchmarking (e.g., using JMH). Depending on your workload, these optimisations may yield modest gains or have negligible impact.
+
+These improvements can translate into substantial cost savings and better utilisation of available resources for memory-sensitive environments, especially those running microservices where each instance might have limited heap space.
+
+== Sizeof objects with different options
+
+- Compact Headers: `-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders` in Java 24 EA
+- Compressed Oops: `-XX:+UseCompressedOops` added in Java 8 as the default for a heap size up to 32 GB
+- No Compressed Oops: `-XX:-UseCompressedOops` for heap sizes over 32 GB
+
+[cols="2,1,1,1",options="header"]
+|===
+|Class/Object | Compact Header | Compressed Oops | Not Compressed Oops
+|Object |8 |16 |16
+|Boolean, Bytes |16 |16 |16
+|Short, Character |16 |16 |16
+|Integer, Float |16 |16 |16
+|Long, Double |16 |24 |24
+|AtomicReference, AtomicLong |16 |16 |24
+|AtomicInteger |16 |16 |16
+|Optional, SimpleEntry |16 |16 |24
+|"Hello World" |24 |24 |32
+|CompletableFuture |16 |24 |32
+|WeakReference |32 |48 |64
+|StringBuilder |56 |56 |64
+|Pattern |1056 |1088 |1240
+|UUID |216 |240 |256
+|Exception |712 |728 |896
+|Locale |80 |104 |120
+|Date |24 |24 |32
+|Timestamp |24 |32 |32
+|TimeZone |56 |56 |80
+|LocalDate, LocalTime |128 |136 |168
+|LocalDateTime |160 |184 |224
+|ZonedDateTime |208 |232 |288
+|Calendar |528 |560 |648
+|Instant, Duration, Period |24 |24 |24
+|ZoneId |56 |56 |80
+|ArrayList |24 |24 |32
+|LinkedList |24 |32 |40
+|ConcurrentLinkedQueue |32 |48 |64
+|ConcurrentHashMap |64 |64 |96
+|TreeMap |48 |48 |80
+|TreeSet |64 |64 |104
+|HashMap |40 |48 |64
+|HashSet |56 |64 |88
+|LinkedHashMap |56 |64 |88
+|LinkedHashSet |72 |80 |112
+|Vector, Stack |80 |88 |128
+|Hashtable |96 |112 |168
+|new BitSet(64) |48 |48 |56
+|new boolean[64], new byte[64] |80 |80 |80
+|new short[64], new char[64] |144 |144 |144
+|new int[64], new float[64] |272 |272 |272
+|new long[64], new double[64] |528 |528 |528
+|new Object[64], new Integer[64], new String[64], new Long[64], new Double[64] |272 |272 |528
+|===
+
+NOTE: These values are approximate, environment-dependent, and should be considered illustrative rather than absolute.
+
+== Conclusion
+
+Java’s abstractions often free you from worrying about memory details, but understanding how object sizes change with different JVM configurations can help fine-tune performance. Compact Headers and Compressed Oops are powerful features that let you reduce memory footprints and potentially improve efficiency. Experimentation, measurements, and thoughtful benchmarking will guide you in making informed choices for your specific workloads.
+
+In my experience, scrutinising object sizes has proven valuable when dealing with large-scale, memory-sensitive applications. Testing these configurations allows you to discover the right balance for your services and potentially save on infrastructure costs.
+
+Consider starting small: measure a few objects, toggle TLAB or Compressed Oops settings, and see what changes. Over time, you will build a deeper mental model of how Java’s memory behaves, enabling you to write more efficient and predictable code.

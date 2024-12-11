@@ -121,10 +121,19 @@ public class SizeofTest {
         supplier.get();
 
         // Record memory usage before and after creating the second instance.
+        // sometimes this shows negative,
+        // sometimes this shows more than it should because something eats up memory
+        long[] memory = new long[3];
         long before = memoryUsage();
-        supplier.get();
-        long after = memoryUsage();
-        return after - before;
+        for (int i = 0; i < 3; i++) {
+            supplier.get();
+            long after = memoryUsage();
+            memory[i] = after - before;
+            before = after;
+        }
+        Arrays.sort(memory);
+        // take the median value
+        return memory[1];
     }
 
     static long memoryUsage() {
