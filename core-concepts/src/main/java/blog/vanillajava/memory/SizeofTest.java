@@ -82,10 +82,20 @@ public class SizeofTest {
             list.add(0);
             return list;
         });
+        printMemoryUsage("ArrayList.add x10", () -> {
+            ArrayList<Integer> list = new ArrayList<>();
+            for (int i = 0; i < 10; i++) list.add(i);
+            return list;
+        });
         printMemoryUsage(LinkedList.class, LinkedList::new);
         printMemoryUsage("LinkedList.add(0)", () -> {
             LinkedList<Integer> list = new LinkedList<>();
             list.add(0);
+            return list;
+        });
+        printMemoryUsage("LinkedList.add x10", () -> {
+            LinkedList<Integer> list = new LinkedList<>();
+            for (int i = 0; i < 10; i++) list.add(i);
             return list;
         });
         printMemoryUsage(ConcurrentLinkedQueue.class, ConcurrentLinkedQueue::new);
@@ -94,22 +104,44 @@ public class SizeofTest {
             q.add(0);
             return q;
         });
+        printMemoryUsage("ConcurrentLinkedQueue.add x10", () -> {
+            ConcurrentLinkedQueue<Integer> q = new ConcurrentLinkedQueue<>();
+            for (int i = 0; i < 10; i++) q.add(i);
+            return q;
+        });
         printMemoryUsage(ConcurrentHashMap.class, ConcurrentHashMap::new);
         printMemoryUsage("ConcurrentHashMap.put(0,0)", () -> {
             ConcurrentHashMap<Integer, Integer> m = new ConcurrentHashMap<>();
             m.put(0, 0);
             return m;
         });
+        printMemoryUsage("ConcurrentHashMap.put x10", () -> {
+            ConcurrentHashMap<Integer, Integer> m = new ConcurrentHashMap<>();
+            for (int i = 0; i < 10; i++) m.put(i, i);
+            return m;
+        });
+
         printMemoryUsage(TreeMap.class, TreeMap::new);
         printMemoryUsage("TreeMap.put(0,0)", () -> {
             TreeMap<Integer, Integer> m = new TreeMap<>();
             m.put(0, 0);
             return m;
         });
+        printMemoryUsage("TreeMap.put x10", () -> {
+            TreeMap<Integer, Integer> m = new TreeMap<>();
+            for (int i = 0; i < 10; i++) m.put(i, i);
+            return m;
+        });
+
         printMemoryUsage(TreeSet.class, TreeSet::new);
         printMemoryUsage("TreeSet.add(0)", () -> {
             TreeSet<Integer> set = new TreeSet<>();
             set.add(0);
+            return set;
+        });
+        printMemoryUsage("TreeSet.add x10", () -> {
+            TreeSet<Integer> set = new TreeSet<>();
+            for (int i = 0; i < 10; i++) set.add(i);
             return set;
         });
         printMemoryUsage(HashMap.class, HashMap::new);
@@ -118,10 +150,20 @@ public class SizeofTest {
             m.put(0, 0);
             return m;
         });
+        printMemoryUsage("HashMap.put x10", () -> {
+            HashMap<Integer, Integer> m = new HashMap<>();
+            for (int i = 0; i < 10; i++) m.put(i, i);
+            return m;
+        });
         printMemoryUsage(HashSet.class, HashSet::new);
         printMemoryUsage("HashSet.add(0)", () -> {
             HashSet<Integer> set = new HashSet<>();
             set.add(0);
+            return set;
+        });
+        printMemoryUsage("HashSet.add x10", () -> {
+            HashSet<Integer> set = new HashSet<>();
+            for (int i = 0; i < 10; i++) set.add(i);
             return set;
         });
         printMemoryUsage(LinkedHashMap.class, LinkedHashMap::new);
@@ -130,10 +172,20 @@ public class SizeofTest {
             m.put(0, 0);
             return m;
         });
+        printMemoryUsage("LinkedHashMap.put x10", () -> {
+            LinkedHashMap<Integer, Integer> m = new LinkedHashMap<>();
+            for (int i = 0; i < 10; i++) m.put(i, i);
+            return m;
+        });
         printMemoryUsage(LinkedHashSet.class, LinkedHashSet::new);
         printMemoryUsage("LinkedHashSet.add(0)", () -> {
             LinkedHashSet<Integer> set = new LinkedHashSet<>();
             set.add(0);
+            return set;
+        });
+        printMemoryUsage("LinkedHashSet.add x10", () -> {
+            LinkedHashSet<Integer> set = new LinkedHashSet<>();
+            for (int i = 0; i < 10; i++) set.add(i);
             return set;
         });
         printMemoryUsage(Vector.class, Vector::new);
@@ -142,16 +194,32 @@ public class SizeofTest {
             vector.add(0);
             return vector;
         });
+        printMemoryUsage("Vector.add x10", () -> {
+            Vector<Integer> vector = new Vector<>();
+            for (int i = 0; i < 10; i++) vector.add(i);
+            return vector;
+        });
+
         printMemoryUsage(Stack.class, Stack::new);
         printMemoryUsage("Stack.add(0)", () -> {
             Stack<Integer> stack = new Stack<>();
             stack.add(0);
             return stack;
         });
+        printMemoryUsage("Stack.add x10", () -> {
+            Stack<Integer> stack = new Stack<>();
+            for (int i = 0; i < 10; i++) stack.add(i);
+            return stack;
+        });
         printMemoryUsage(Hashtable.class, Hashtable::new);
         printMemoryUsage("Hashtable.put(0,0)", () -> {
             Hashtable<Integer, Integer> m = new Hashtable<>();
             m.put(0, 0);
+            return m;
+        });
+        printMemoryUsage("Hashtable.put x10", () -> {
+            Hashtable<Integer, Integer> m = new Hashtable<>();
+            for (int i = 0; i < 10; i++) m.put(i, i);
             return m;
         });
 
