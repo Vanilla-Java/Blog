@@ -77,18 +77,83 @@ public class SizeofTest {
 
         System.out.println("\nCollections");
         printMemoryUsage(ArrayList.class, ArrayList::new);
+        printMemoryUsage("ArrayList.add(0)", () -> {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(0);
+            return list;
+        });
         printMemoryUsage(LinkedList.class, LinkedList::new);
+        printMemoryUsage("LinkedList.add(0)", () -> {
+            LinkedList<Integer> list = new LinkedList<>();
+            list.add(0);
+            return list;
+        });
         printMemoryUsage(ConcurrentLinkedQueue.class, ConcurrentLinkedQueue::new);
+        printMemoryUsage("ConcurrentLinkedQueue.add(0)", () -> {
+            ConcurrentLinkedQueue<Integer> q = new ConcurrentLinkedQueue<>();
+            q.add(0);
+            return q;
+        });
         printMemoryUsage(ConcurrentHashMap.class, ConcurrentHashMap::new);
+        printMemoryUsage("ConcurrentHashMap.put(0,0)", () -> {
+            ConcurrentHashMap<Integer, Integer> m = new ConcurrentHashMap<>();
+            m.put(0, 0);
+            return m;
+        });
         printMemoryUsage(TreeMap.class, TreeMap::new);
+        printMemoryUsage("TreeMap.put(0,0)", () -> {
+            TreeMap<Integer, Integer> m = new TreeMap<>();
+            m.put(0, 0);
+            return m;
+        });
         printMemoryUsage(TreeSet.class, TreeSet::new);
+        printMemoryUsage("TreeSet.add(0)", () -> {
+            TreeSet<Integer> set = new TreeSet<>();
+            set.add(0);
+            return set;
+        });
         printMemoryUsage(HashMap.class, HashMap::new);
+        printMemoryUsage("HashMap.put(0,0)", () -> {
+            HashMap<Integer, Integer> m = new HashMap<>();
+            m.put(0, 0);
+            return m;
+        });
         printMemoryUsage(HashSet.class, HashSet::new);
+        printMemoryUsage("HashSet.add(0)", () -> {
+            HashSet<Integer> set = new HashSet<>();
+            set.add(0);
+            return set;
+        });
         printMemoryUsage(LinkedHashMap.class, LinkedHashMap::new);
+        printMemoryUsage("LinkedHashMap.put(0,0)", () -> {
+            LinkedHashMap<Integer, Integer> m = new LinkedHashMap<>();
+            m.put(0, 0);
+            return m;
+        });
         printMemoryUsage(LinkedHashSet.class, LinkedHashSet::new);
+        printMemoryUsage("LinkedHashSet.add(0)", () -> {
+            LinkedHashSet<Integer> set = new LinkedHashSet<>();
+            set.add(0);
+            return set;
+        });
         printMemoryUsage(Vector.class, Vector::new);
+        printMemoryUsage("Vector.add(0)", () -> {
+            Vector<Integer> vector = new Vector<>();
+            vector.add(0);
+            return vector;
+        });
         printMemoryUsage(Stack.class, Stack::new);
+        printMemoryUsage("Stack.add(0)", () -> {
+            Stack<Integer> stack = new Stack<>();
+            stack.add(0);
+            return stack;
+        });
         printMemoryUsage(Hashtable.class, Hashtable::new);
+        printMemoryUsage("Hashtable.put(0,0)", () -> {
+            Hashtable<Integer, Integer> m = new Hashtable<>();
+            m.put(0, 0);
+            return m;
+        });
 
         System.out.println("\nArrays");
         printMemoryUsage("new BitSet(64)", () -> new BitSet(64));
