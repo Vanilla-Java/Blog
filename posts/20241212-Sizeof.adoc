@@ -85,14 +85,21 @@ These improvements can translate into substantial cost savings and better utilis
 - Compressed Oops: `-XX:+UseCompressedOops` added in Java 8 as the default for a heap size up to 32 GB
 - No Compressed Oops: `-XX:-UseCompressedOops` for heap sizes over 32 GB
 
+.Wrappers
 [cols="2,1,1,1",options="header"]
 |===
-|Class/Object | Compact Header | Compressed Oops | Not Compressed Oops
+|Class/Object | Compact Header | +Compressed Oops | -Compressed Oops
 |Object |8 |16 |16
 |Boolean, Bytes |16 |16 |16
 |Short, Character |16 |16 |16
 |Integer, Float |16 |16 |16
 |Long, Double |16 |24 |24
+|===
+
+.Simple CLasses
+[cols="2,1,1,1",options="header"]
+|===
+|Class/Object | Compact Header | +Compressed Oops | -Compressed Oops
 |AtomicInteger |16 |16 |16
 |AtomicReference |16 |16 |24
 |AtomicLong |16 |24 |24
@@ -105,6 +112,12 @@ These improvements can translate into substantial cost savings and better utilis
 |UUID |216 |240 |256
 |Exception |712 |728 |896
 |Locale |80 |104 |120
+|===
+
+.Date and Time
+[cols="2,1,1,1",options="header"]
+|===
+|Class/Object | Compact Header | +Compressed Oops | -Compressed Oops
 |Date |24 |24 |32
 |Timestamp |24 |32 |32
 |TimeZone |56 |56 |80
@@ -114,18 +127,30 @@ These improvements can translate into substantial cost savings and better utilis
 |Calendar |528 |560 |648
 |Instant, Duration, Period |24 |24 |24
 |ZoneId |56 |56 |80
-|ArrayList |24 |24 |32
-|LinkedList |24 |32 |40
-|ConcurrentLinkedQueue |32 |48 |64
-|ConcurrentHashMap |64 |64 |96
-|TreeMap |48 |48 |80
-|TreeSet |64 |64 |104
-|HashMap |40 |48 |64
-|HashSet |56 |64 |88
-|LinkedHashMap |56 |64 |88
-|LinkedHashSet |72 |80 |112
-|Vector, Stack |80 |88 |128
-|Hashtable |96 |112 |168
+|===
+
+.Collections with zero / one / ten elements
+[cols="2,1,1,1",options="header"]
+|===
+|Class/Object | Compact Header | +Compressed Oops | -Compressed Oops
+|ArrayList |24 / 80 / 80 |24 / 80 / 80 |32 / 128 / 128
+|LinkedList |24 / 48 / 264 |32 / 56 / 272 |40 / 80 / 440
+|ConcurrentLinkedQueue |32 / 48 / 192 |48 / 72 / 288 |64 / 96 / 384
+|ConcurrentHashMap |64 / 168 / 384 |64 / 176 / 464 |96 / 280 / 384
+|TreeMap |48 / 80 / 368 |48 / 88 / 448 |80 / 136 / 640
+|TreeSet |64 / 96 / 384 |64 / 160 / 464 |104 / 160 / 664
+|HashMap |40 / 144 / 360 |48 / 160 / 448 |64 / 248 / 608
+|HashSet |56 / 160 / 376 |64 / 176 / 464 |88 / 272 / 632
+|LinkedHashMap |56 / 168 / 456 |64 / 184 / 544 |88 / 288 / 792
+|LinkedHashSet |72 / 184 / 472 |80 / 200 / 560 |112 / 312 / 816
+|Vector, Stack | 80 / 80 / 80 | 88 / 88 / 88 |128 / 128 / 128
+|Hashtable |96 / 120 / 440 |112 / 144 / 544 |168 / 208 / 768
+|===
+
+.Arrays
+[cols="2,1,1,1",options="header"]
+|===
+|Class/Object | Compact Header | +Compressed Oops | -Compressed Oops
 |new BitSet(64) |48 |48 |56
 |new boolean[64], new byte[64] |80 |80 |80
 |new short[64], new char[64] |144 |144 |144
