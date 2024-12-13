@@ -1,0 +1,80 @@
+= Narrative for Hands-On Career
+Peter Lawrey
+
+This is the high level flow of the narrative for the Hands-On Career talk.
+
+== Introduction
+
+* Overview of my background and perspective:
+** Java Champion with over three decades of development experience
+** Founder and CEO of a self-funded company for 11 years
+** Hands-on developer who has worked with teams ranging from junior developers to 30-year veterans
+** Insights into how top-tier financial institutions leverage experienced developers
+** Understanding how emerging AI technology will reshape the developer landscape
+
+== Key Points
+
+ - We can learn from the past help predict what is likely to happen in the future.
+ - The hype curve of AI and how it is likely to evolve.
+ - Comparison with the initial outsourcing trend.
+ - How to stay ahead of the curve and remain relevant.
+ - How to mentor Developers in an age of AI.
+ - What are employers looking for in developers?
+ - Who should be driving your career?
+ - It's still critical to understand the requirements of the business and the technology.
+- The importance of understanding the business domain.
+- Identify the Hard Problems First.
+- Focus and Simplicity.
+- Efficiency and Effectiveness.
+- System Performance
+- Understand where an AI can add value.
+- Tips for using AI effectively for documentation. e.g. using AsciiDoc.
+- Final message.
+
+== We Can Learn from the Past to Help Predict the Future
+Discuss how historical trends in technology adoption and hype cycles provide insights into what might happen with AI in the coming years.
+
+== The Hype Curve of AI and Its Likely Evolution
+Explore the current state of AI’s popularity, the stages of the hype cycle it’s undergoing, and where it’s headed as the technology matures.
+
+== Comparison with the Initial Outsourcing Trend
+Draw parallels between today’s AI boom and previous waves of IT outsourcing, examining the lessons learned and applying them to current trends.
+
+== Staying Ahead of the Curve and Remaining Relevant
+Offer strategies for continuous learning, skill adaptation, and professional development that help developers stay at the forefront of emerging technologies.
+
+== Mentoring Developers in an Age of AI
+Discuss the evolving role of mentorship, including how to guide junior developers and intermediate engineers as routine coding tasks become increasingly automated.
+
+== What Are Employers Looking For in Developers?
+Examine the shift in desired skill sets as AI takes on repetitive work and employers focus on strategic thinking, domain expertise, and communication skills.
+
+== Who Should Be Driving Your Career?
+Encourage developers to take ownership of their career progression, rather than waiting for external guidance, while leveraging AI tools for personal growth.
+
+== Understanding the Requirements of the Business and the Technology
+Emphasise the importance of aligning technical choices with business objectives and ensuring that AI solutions meet genuine organisational needs.
+
+== Importance of Understanding the Business Domain
+Highlight why deep domain knowledge becomes a key differentiator as AI automates commodity tasks, allowing developers to provide unique value.
+
+== Identify the Hard Problems First
+Advise on tackling the most challenging aspects of projects upfront, ensuring that AI augmentation is directed where it can provide the greatest benefit.
+
+== Focus and Simplicity
+Promote simplicity in design and implementation, using AI as a tool to streamline complexity rather than add unnecessary layers.
+
+== Efficiency and Effectiveness
+Discuss how developers can employ AI-driven efficiencies while maintaining quality, reliability, and maintainability in their solutions.
+
+== System Performance
+Cover the role of AI in optimising system performance, from load testing and scaling to identifying potential bottlenecks.
+
+== Understand Where AI Can Add Value
+Provide guidance on identifying which tasks, components, or workflows can genuinely benefit from AI integration.
+
+== Tips for Using AI Effectively for Documentation (e.g. AsciiDoc)
+Offer practical techniques for incorporating AI into documentation workflows, maintaining structure, clarity, and accuracy in evolving codebases.
+
+== Final Message
+Conclude with a forward-looking vision, reinforcing the idea that while AI changes the landscape, developers who adapt, learn, and contribute strategically will continue to thrive.
