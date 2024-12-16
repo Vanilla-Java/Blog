@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris Game</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            border: 2px solid #fff;
+            background-color: #111;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        #score, #next, #hold, #instructions {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #side-panel {
+            margin-left: 20px;
+            text-align: left;
+        }
+
+        #next, #hold {
+            border: 1px solid #fff;
+            padding: 10px;
+            background-color: #222;
+            margin-bottom: 20px;
+        }
+
+        #instructions {
+            text-align: left;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Tetris Game</h1>
+<div id="game-container">
+    <canvas id="tetris" width="240" height="400"></canvas>
+    <div id="side-panel">
+        <div id="score">Score: 0</div>
+        <div id="next">
+            <h3>Next</h3>
+            <canvas id="next-tetromino" width="80" height="80"></canvas>
+        </div>
+        <div id="hold">
+            <h3>Hold</h3>
+            <canvas id="hold-tetromino" width="80" height="80"></canvas>
+        </div>
+    </div>
+</div>
+<div id="instructions">
+    <h2>How to Play</h2>
+    <ul>
+        <li><strong>Move Left:</strong> Left Arrow (⬅️)</li>
+        <li><strong>Move Right:</strong> Right Arrow (➡️)</li>
+        <li><strong>Soft Drop:</strong> Down Arrow (⬇️)</li>
+        <li><strong>Rotate Counterclockwise:</strong> Q (🅀)</li>
+        <li><strong>Rotate Clockwise:</strong> W (🅆)</li>
+        <li><strong>Hard Drop:</strong> Spacebar (⎵)</li>
+        <li><strong>Pause/Resume:</strong> P (🅿️)</li>
+        <li><strong>Hold Tetromino:</strong> Shift (⇧)</li>
+    </ul>
+</div>
+
+<script>
+    // Get Canvas Elements and Contexts
+    const canvas = document.getElementById('tetris');
+    const context = canvas.getContext('2d');
+    context.scale(20, 20); // Scale the canvas to make blocks visible
+
+    const nextCanvas = document.getElementById('next-tetromino');
+    const nextContext = nextCanvas.getContext('2d');
+    nextContext.scale(20, 20);
+
+    const holdCanvas = document.getElementById('hold-tetromino');
+    const holdContext = holdCanvas.getContext('2d');
+    holdContext.scale(20, 20);
+
+    // Tetromino shapes
+    const tetrominoes = {
+        'I': [
+            [0,0,0,0],
+            [1,1,1,1],
+            [0,0,0,0],
+            [0,0,0,0],
+        ],
+        'J': [
+            [2,0,0],
+            [2,2,2],
+            [0,0,0],
+        ],
+        'L': [
+            [0,0,3],
+            [3,3,3],
+            [0,0,0],
+        ],
+        'O': [
+            [4,4],
+            [4,4],
+        ],
+        'S': [
+            [0,5,5],
+            [5,5,0],
+            [0,0,0],
+        ],
+        'T': [
+            [0,6,0],
+            [6,6,6],
+            [0,0,0],
+        ],
+        'Z': [
+            [7,7,0],
+            [0,7,7],
+            [0,0,0],
+        ],
+    };
+
+    // Colors for each tetromino
+    const colors = [
+        null,
+        '#00FFFF', // I
+        '#0000FF', // J
+        '#FFA500', // L
+        '#FFFF00', // O
+        '#00FF00', // S
+        '#800080', // T
+        '#FF0000', // Z
+    ];
+
+    // Create the matrix for the arena
+    function createMatrix(width, height) {
+        const matrix = [];
+        while (height--) {
+            matrix.push(new Array(width).fill(0));
+        }
+        return matrix;
+    }
+
+    // Create a random tetromino
+    function createPiece(type) {
+        if (tetrominoes[type]) {
+            return tetrominoes[type].map(row => row.slice()); // Deep copy
+        }
+        // Default to 'T' tetromino if type is unknown
+        return tetrominoes['T'].map(row => row.slice());
+    }
+
+    // Get a random tetromino type
+    function randomPiece() {
+        const pieces = 'IJLOSTZ';
+        return pieces[Math.floor(Math.random() * pieces.length)];
+    }
+
+    // Define the arena (game grid)
+    const arena = createMatrix(12, 20);
+
+    // Define the player (current tetromino)
+    const player = {
+        pos: {x: 0, y: 0},
+        matrix: null,
+        score: 0,
+        held: false,
+        holdMatrix: null,
+    };
+
+    // Define the next tetromino
+    let next = createPiece(randomPiece());
+
+    // Draw the matrix on the canvas
+    function draw() {
+        context.fillStyle = '#111';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        drawMatrix(arena, {x:0, y:0});
+        drawMatrix(player.matrix, player.pos);
+    }
+
+    // Draw a matrix at a given offset
+    function drawMatrix(matrix, offset, ctx = context) {
+        matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    ctx.fillStyle = colors[value];
+                    ctx.fillRect(x + offset.x,
+                                 y + offset.y,
+                                 1, 1);
+                }
+            });
+        });
+    }
+
+    // Merge player matrix into arena
+    function merge(arena, player) {
+        player.matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    arena[y + player.pos.y][x + player.pos.x] = value;
+                }
+            });
+        });
+    }
+
+    // Check for collision
+    function collide(arena, player) {
+        const m = player.matrix;
+        const o = player.pos;
+        for (let y = 0; y < m.length; ++y){
+            for(let x = 0; x < m[y].length; ++x){
+                if (m[y][x] !==0 &&
+                   (arena[y + o.y] &&
+                    arena[y + o.y][x + o.x]) !==0){
+                        return true;
+                   }
+            }
+        }
+        return false;
+    }
+
+    // Clear completed rows
+    function arenaSweep() {
+        let rowCount = 1;
+        outer: for (let y = arena.length-1; y >=0; --y){
+            for(let x =0; x < arena[y].length; ++x){
+                if(arena[y][x] ===0){
+                    continue outer;
+                }
+            }
+
+            const row = arena.splice(y,1)[0].fill(0);
+            arena.unshift(new Array(arena[0].length).fill(0));
+            y++;
+
+            player.score += rowCount * 10;
+            rowCount *=2;
+        }
+    }
+
+    // Rotate the matrix
+    function rotate(matrix, dir){
+        for(let y=0; y<matrix.length; ++y){
+            for(let x=0; x<y; ++x){
+                [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+            }
+        }
+
+        if(dir >0){
+            matrix.forEach(row => row.reverse());
+        }
+        else{
+            matrix.reverse();
+        }
+    }
+
+    // Player movement
+    function playerMove(dir){
+        player.pos.x += dir;
+        if(collide(arena, player)){
+            player.pos.x -= dir;
+        }
+    }
+
+    // Player drop
+    function playerDrop(){
+        player.pos.y++;
+        if(collide(arena, player)){
+            player.pos.y--;
+            merge(arena, player);
+            arenaSweep();
+            updateScore();
+            playerReset();
+        }
+        dropCounter =0;
+    }
+
+    // Hard Drop
+    function playerHardDrop(){
+        while(!collide(arena, player)){
+            player.pos.y++;
+        }
+        player.pos.y--;
+        merge(arena, player);
+        arenaSweep();
+        updateScore();
+        playerReset();
+        dropCounter =0;
+    }
+
+    // Player reset
+    function playerReset(){
+        if (!player.held) {
+            player.matrix = next;
+            next = createPiece(randomPiece());
+            drawNext();
+        } else {
+            player.held = false;
+        }
+        player.pos.y =0;
+        player.pos.x = Math.floor((arena[0].length /2 |0) -
+                       (player.matrix[0].length /2 |0));
+        if(collide(arena, player)){
+            arena.forEach(row => row.fill(0));
+            player.score =0;
+            updateScore();
+        }
+    }
+
+    // Player rotate
+    function playerRotate(dir){
+        rotate(player.matrix, dir);
+        while(collide(arena, player)){
+            player.pos.x += dir >0 ? 1 : -1;
+            if (player.pos.x > arena[0].length || player.pos.x < -arena[0].length){
+                rotate(player.matrix, -dir);
+                player.pos.x = Math.floor(arena[0].length /2 |0) -
+                               Math.floor(player.matrix[0].length /2 |0);
+                return;
+            }
+        }
+    }
+
+    // Hold Tetromino
+    function holdTetromino(){
+        if (player.held) return; // Prevent multiple holds without dropping
+        if (player.holdMatrix) {
+            const temp = player.matrix;
+            player.matrix = player.holdMatrix;
+            player.holdMatrix = temp;
+        } else {
+            player.holdMatrix = player.matrix;
+            playerReset();
+        }
+        player.held = true;
+        drawHold();
+    }
+
+    // Handle key presses
+    document.addEventListener('keydown', event => {
+        if (event.repeat) return; // Ignore if key is held down
+        switch(event.key){
+            case 'ArrowLeft':
+                playerMove(-1);
+                break;
+            case 'ArrowRight':
+                playerMove(1);
+                break;
+            case 'ArrowDown':
+                playerDrop();
+                break;
+            case 'q':
+            case 'Q':
+                playerRotate(-1);
+                break;
+            case 'w':
+            case 'W':
+                playerRotate(1);
+                break;
+            case ' ':
+                event.preventDefault(); // Prevent page from scrolling
+                playerHardDrop();
+                break;
+            case 'p':
+            case 'P':
+                togglePause();
+                break;
+            case 'Shift':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+                holdTetromino();
+                break;
+        }
+    });
+
+    // Game Control Variables
+    let dropCounter =0;
+    let dropInterval =1000;
+    let lastTime =0;
+    let isPaused = false;
+
+    // Game Loop
+    function update(time =0){
+        if (isPaused) {
+            lastTime = time;
+            requestAnimationFrame(update);
+            return;
+        }
+
+        const deltaTime = time - lastTime;
+        lastTime = time;
+
+        dropCounter += deltaTime;
+        if(dropCounter > dropInterval){
+            playerDrop();
+        }
+
+        draw();
+        drawNext();
+        drawHold();
+        requestAnimationFrame(update);
+    }
+
+    // Update score display
+    function updateScore(){
+        document.getElementById('score').innerText = 'Score: ' + player.score;
+    }
+
+    // Toggle Pause
+    function togglePause(){
+        isPaused = !isPaused;
+        const scoreElement = document.getElementById('score');
+        if (isPaused){
+            scoreElement.innerText = 'Paused';
+        } else {
+            updateScore();
+        }
+    }
+
+    // Draw Next Tetromino
+    function drawNext(){
+        nextContext.fillStyle = '#222';
+        nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+        drawMatrix(next, {x:1, y:1}, nextContext);
+    }
+
+    // Draw Hold Tetromino
+    function drawHold(){
+        holdContext.fillStyle = '#222';
+        holdContext.fillRect(0, 0, holdCanvas.width, holdCanvas.height);
+        if (player.holdMatrix){
+            drawMatrix(player.holdMatrix, {x:1, y:1}, holdContext);
+        }
+    }
+
+    // Initialize the game
+    player.matrix = createPiece(randomPiece());
+    player.pos.y =0;
+    player.pos.x = Math.floor((arena[0].length /2 |0) -
+                   (player.matrix[0].length /2 |0));
+    next = createPiece(randomPiece());
+    updateScore();
+    update();
+</script>
+</body>
+</html>
