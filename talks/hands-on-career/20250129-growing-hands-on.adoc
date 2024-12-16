@@ -107,37 +107,12 @@ Please review the following documentation and propose improvements to enhance cl
 Focus on addressing ambiguous points, improving technical accuracy, and ensuring consistent terminology.
 Limit suggestions to actions that can be taken using the information and content provided in the original source.
 
-== Source Content
-// Paste the original documentation or content here
-
-== Considerations
-// Uncomment or add `//` comments with options to consider as needed:
-// - // Improve the clarity of function descriptions.
-// - // Add missing code examples to illustrate usage.
-// - // Ensure consistent use of technical terms (e.g., “database” vs “DB”).
-// - // Check that headings and subheadings reflect the document’s structure accurately.
-// - // Insert links to related sections or external references if already available.
-// - // Reassess the order of sections to enhance logical flow.
-// - // Verify that all parameters and return values in code samples are explained.
-// - // Remove redundant or outdated content that no longer applies.
-// - // Refine grammar and punctuation for improved readability.
-// - // Ensure British English spelling and style conventions are applied.
-// - // Check for broken cross-references or references that need clarification.
-// - // Align formatting with standard documentation guidelines (e.g., consistent indentation, code block styling).
-// - // Highlight key concepts or terms that appear in multiple places, ensuring they are defined once and referenced consistently.
-
-== Desired Output
-
-Provide an updated version of the documentation in asciidoc format.
-Include your suggested changes inline so that they can be easily reviewed and applied.
-
-
-
 == Explainability and Transparency
 
 When integrating AI into complex systems, one of the critical challenges is ensuring that both developers and stakeholders can understand how the technology arrives at its conclusions. As AI models, particularly large language models and other deep learning approaches, operate as "black boxes" with intricate internal workings, senior developers must actively pursue strategies to improve explainability and transparency. This not only supports better decision-making but also fosters trust and accountability across the organisation.
 
 === Key Principles of Explainability
+
 - *Clarity of Decision Path:*
 Whenever AI influences an outcome—be it a recommendation, a code suggestion, or an automated process—developers should provide a clear rationale. This may involve detailing which factors the model deemed most significant or presenting intermediate steps in a comprehensible manner.
 
@@ -147,7 +122,6 @@ Employ visualisation libraries, saliency maps, or feature attribution techniques
 - *Consistent Terminology and Definitions:*
 Ensure that technical terminology is consistently explained throughout documentation and training materials. If the model uses domain-specific vocabulary, developers must clarify these terms, ensuring that both technical and non-technical team members can follow the logic behind AI-driven suggestions.
 
-=== Enhancing Transparency in Practice
 - *Documenting Model Assumptions:*
 Record the foundational assumptions made during model training—such as the chosen training data sets, preprocessing steps, or hyperparameter selections. Documenting these factors enables reviewers and auditors to understand why the model behaves as it does.
 
@@ -169,7 +143,6 @@ Transparency is not solely a technical concern; it is also an ethical imperative
 === Conclusion
 By embedding explainability and transparency into the AI development lifecycle, senior developers ensure that their teams produce technology that is not only effective, but also understandable, accountable, and aligned with both organisational values and societal expectations. Through careful documentation, regular audits, and accessible explanations, developers create a collaborative environment where AI is seen as a trusted contributor rather than an opaque, inscrutable tool.
 
-
 == Explainability and Transparency
 
 When integrating AI into complex systems, one of the critical challenges is ensuring that both developers and stakeholders can understand how the technology arrives at its conclusions. As AI models, particularly large language models and other deep learning approaches, operate as "black boxes" with intricate internal workings, senior developers must actively pursue strategies to improve explainability and transparency. This not only supports better decision-making but also fosters trust and accountability across the organisation.
@@ -184,7 +157,6 @@ Employ visualisation libraries, saliency maps, or feature attribution techniques
 - *Consistent Terminology and Definitions:*
 Ensure that technical terminology is consistently explained throughout documentation and training materials. If the model uses domain-specific vocabulary, developers must clarify these terms, ensuring that both technical and non-technical team members can follow the logic behind AI-driven suggestions.
 
-=== Enhancing Transparency in Practice
 - *Documenting Model Assumptions:*
 Record the foundational assumptions made during model training—such as the chosen training data sets, preprocessing steps, or hyperparameter selections. Documenting these factors enables reviewers and auditors to understand why the model behaves as it does.
 
@@ -197,7 +169,6 @@ Conduct periodic reviews of AI outputs with domain experts, technical leads, and
 - *Stakeholder-Friendly Summaries:*
 Beyond raw data and technical charts, produce summaries or simplified diagrams that explain AI-driven processes to non-technical audiences. By bridging the gap between complex models and human comprehension, you increase trust and facilitate informed decision-making.
 
-=== The Ethical Dimension
 Transparency is not solely a technical concern; it is also an ethical imperative. When stakeholders understand how an AI system reaches its conclusions, they can better judge the fairness, reliability, and appropriateness of those results. This allows organisations to:
 - Identify and mitigate biases in model outputs.
 - Justify decisions to regulators, customers, and partners.

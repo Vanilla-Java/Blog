@@ -1,0 +1,304 @@
+= How to Continue Growing as a Hands-On Developer After Ten Years of Experience
+Peter Lawrey, Java Champion & CEO of Chronicle Software
+
+// This is for context for the article below, reuse as needed
+
+[.context]
+https://softwareengineering.stackexchange.com/questions/14914/whats-the-difference-between-entry-level-jr-sr-developers[What's the difference between entry-level/junior/senior developers?]
+
+Senior developers distinguish themselves through a blend of deep technical expertise, broad experience, and the ability to make informed, strategic decisions. Unlike entry-level or junior developers who are just beginning to understand the development cycle, or intermediate-level developers who focus primarily on their assigned piece of a project, senior developers consider the entire system’s architecture and long-term implications. They frequently handle the most complex or ambiguous tasks, draw on a history of lessons learned, and anticipate issues before they arise.
+
+They mentor less experienced team members, offering guidance on best practices, troubleshooting techniques, and domain knowledge beyond coding itself. Their approach often involves pushing back on poorly defined requirements, suggesting improvements, and understanding the business and regulatory environments in which their software operates. Additionally, senior developers are recognized for their ability to work more independently, produce maintainable solutions under tight deadlines, and select appropriate technologies with a sense of pragmatism rather than chasing trends. Ultimately, senior developers stand out not merely by their years of experience, but by the depth of their skills, their judgment, and their capacity to add value across the entire project lifecycle.
+
+
+[.context]
+https://www.developernation.net/blog/how-to-differentiate-junior-and-senior-developers/[How to Differentiate Junior and Senior Developers]
+
+Senior developers differentiate themselves primarily through a combination of technical depth, problem-solving prowess, leadership, and communication skills, rather than just a job title. While junior developers focus on building foundational competencies, improving through guidance, and mastering basic tools, senior developers leverage a broad range of technologies and frameworks, create efficient and scalable code, and solve complex challenges independently. They typically possess deep industry experience that informs strategic technical decisions, and they often assume leadership roles—guiding projects from concept to delivery, mentoring junior team members, and communicating effectively with both technical peers and non-technical stakeholders. In essence, senior developers distinguish themselves through their ability to handle complexity, drive project success, foster team growth, and connect technical solutions with organizational goals.
+
+[.context]
+https://devskiller.com/blog/junior-developer/[Differences between a junior, middle, and senior developers]
+
+Senior developers set themselves apart from junior and mid-level developers by applying a more holistic, strategic approach to both technical tasks and overall project direction. Their experience shapes the way they think about code, business goals, and team collaboration, making them valuable assets in any tech environment.
+
+Unlike junior developers, whose main focus is writing functional code and gaining foundational skills, senior developers have a deep, well-rounded understanding of technologies and architectural patterns. They create scalable, maintainable solutions and anticipate potential issues before they become critical problems. Rather than needing step-by-step guidance, senior developers operate with a high degree of independence, frequently making key decisions that affect the project’s direction and long-term success.
+
+Compared to mid-level developers, who can work independently but remain focused on ensuring the application meets defined requirements, senior developers take a broader view. They balance technical excellence with business needs, understanding when a product is “good enough” and when quality must be raised. This involves managing trade-offs between complexity, performance, and budget constraints.
+
+In addition, senior developers excel at communication and leadership. They mentor less experienced team members, foster constructive discussions, and articulate complex technical concepts to non-technical stakeholders. They help shape processes, refine requirements, and guide the team toward strategic decisions, ultimately driving more value for the business.
+
+In short, senior developers distinguish themselves through their technical mastery, problem-solving foresight, decision-making autonomy, and ability to elevate the entire team—traits that junior and mid-level developers develop over time through experience and learning.
+
+[.context]
+https://www.linkedin.com/pulse/whats-difference-between-senior-developer-junior-anyway-esteemed/[What's the difference between a senior developer and a junior developer anyway?]
+
+Senior developers distinguish themselves through a combination of technical depth, practical experience, and strategic thinking. They typically have a broader understanding of system architecture, security considerations, and industry best practices. Unlike junior developers who are still building foundational skills, senior developers can work independently, handle entire projects end-to-end, and often guide or mentor their peers.
+
+Their approach focuses not just on making code work, but on optimizing for long-term maintainability, scalability, and business impact. While years of experience often play a role in defining a senior developer, true seniority comes from demonstrable skill and the ability to solve complex problems, communicate effectively with stakeholders, and lead technical decisions. In short, senior developers stand out by leveraging deep expertise to deliver robust solutions, mentor others, and contribute strategically to an organization’s success.
+
+[.context]
+E3 - Software Engineer 2
+Complete individual tasks without much guidance. Deliver good quality code, test, documentation. React well on constructive feedback. Unblock yourself or with the help of another engineer.
+
+E4 - Software Engineer 3
+You work on projects delivering whole features. You own the technical specification, collaborate with other teams to deliver. You are mostly independent. You help your colleagues through code reviews or providing constructive feedback on technical decisions.
+
+E5 - Senior Software Engineer
+You own a problem space / project end-to-end. You are expected to create scope for yourself and others in the team. Driving technical alignment and collaboration across functions and teams. You help other engineers grow through mentoring and coaching. You set and maintain the quality bar for the team. You can drive and deliver through others.
+
+E6 - Staff Software Engineer
+Yow play a critical role in setting the direction and goals of the team. You are involved in roadmapping, scoping work and managing technical problems spanning outside of the team influencing the organisation. You are the one that deals with the hardest problems. You can cover for missing PM or EM in the team if needed. You advocate for high quality and engineering excellence.
+
+E7 - Senior Staff Software Engineer
+Different tracks and Archetypes focusing on breadth or depth in terms of technical complexity. Working on large programs spanning multiple teams and orgs. Setting organisational direction of a large problem. Involved in building high performing engineering teams and organisations.
+
+E8 - Principal Engineer
+Industry expert/leader. You have impact beyond Meta into an industry or specific technology area. You are very passionate about an area and champion it. You drive technical, process and cultural changes to help the company move fast. Pursuing many difficult incremental changes instead of just building new/shiny. You are a great coach.
+
+E9+ - Distinguished Engineer
+You are heading a whole organisation. A core product of Meta. You are seen as a CTO of the area able to drive through all of the layers independently and dealing with problems that few other can.
+
+[.context]
+**Common Technical Elements:**
+
+- **Core Programming Skills:** Proficiency in one or more popular languages (commonly Java, Python, JavaScript/TypeScript, and Node.js) appears frequently.
+- **Modern Frameworks and Tools:** Experience with front-end frameworks (e.g., React, Angular), back-end services (Node.js, microservices architectures), and DevOps/CI/CD pipelines.
+- **Cloud and Distributed Systems:** Familiarity with AWS, Azure, or GCP, as well as knowledge of distributed systems, APIs, and event-driven architectures (Kafka, microservices).
+- **Data and Analytics:** Understanding of data structures, databases, and in some roles, data governance, data lakes, data meshes, and analytics tools.
+- **Domain-Specific Expertise (Finance/FinTech):** Many roles value knowledge of financial instruments (e.g., Fixed Income, credit, rates) and related performance, risk, and regulatory frameworks.
+
+**Common Experience and Qualifications:**
+
+- **Years of Experience:** Senior roles typically require 5+ years of experience delivering complex, high-quality solutions.
+- **Academic Background:** A strong academic foundation in Computer Science, Engineering, or related fields is often desired.
+- **Proven Track Record:** Demonstrated success in previous projects, ability to deliver under tight timelines, and experience taking products through entire development lifecycles.
+
+**Common Soft Skill Requirements:**
+
+- **Communication and Stakeholder Management:** Ability to engage with cross-functional teams, explain technical concepts to non-technical stakeholders, and influence decision-making.
+- **Leadership and Mentoring:** Senior roles often involve guiding junior team members, making architectural decisions, and driving best practices.
+- **Adaptability and Problem-Solving:** Comfort with complex, evolving systems and the capacity to navigate ambiguity, troubleshoot effectively, and think critically.
+- **Business Understanding:** Awareness of the organizational domain (e.g., banking, insurance, asset management), including legal, regulatory, and user requirements.
+
+**Common Work Environments and Methodologies:**
+
+- **Agile Methodologies:** Familiarity with Agile, Scrum, or SAFe approaches is common.
+- **Hybrid Work Models:** Flexibility with on-site and remote work arrangements.
+- **Focus on High-Quality Delivery:** Emphasis on testing (unit, integration), maintainable code, scalability, and reliability.
+
+In summary, the roles commonly value technical expertise in modern programming languages and cloud-based architectures, strong domain and business understanding (especially in finance), solid communication and leadership skills, and the ability to thrive in Agile, fast-paced, and evolving environments.
+
+== Staying Hands-On While Growing Leadership Skills
+* Becoming a technical lead or architect without losing your coding edge:
+** Time management to protect coding hours
+** Designing and implementing critical components yourself
+** Mentoring and pair programming as a way to stay sharp and share knowledge
+* Building high-trust relationships with junior, mid-level, and senior peers:
+** Foster an environment of transparent code review
+** Encouraging experimentation and learning from failures
+** Setting up knowledge-sharing sessions, internal tech talks, and workshops
+
+== Navigating Complex Environments and High-Performance Requirements
+* Insights from the FinTech/Investment Banking domain:
+** Working with demanding performance and scalability constraints
+** Understanding how technical excellence translates to business value
+** Striving for maintainable, testable code under strict compliance and regulatory conditions
+
+== AI and the Next Era of Developer Evolution
+* Adapting to the rise of AI-driven development workflows:
+** Code completion and suggestion tools (e.g., AI-assisted IDEs)
+** Automated refactoring, testing, and documentation generation
+** Using AI to manage complexity and accelerate learning of unfamiliar codebases
+* Evolving your role in an AI-assisted future:
+** Focus on strategy, design, and quality over rote implementation
+** Continuous learning to guide AI tools toward correct solutions
+** Prioritizing creativity, problem-solving, and domain expertise
+
+== Conclusion
+* Embracing continuous learning, hands-on practice, and adopting AI tools will ensure you stay relevant
+* Reinforcing the importance of balancing deep technical expertise with leadership and communication skills
+* A future-proof career hinges on adaptability, curiosity, and a relentless pursuit of excellence as a developer
+
+// This is a draft of the talk. It can be rearranged as needed, and added to as needed. Make minimal changes to the content, but improve the clarity and practical relevance.
+// Keep the writing style of Peter Lawrey, Author of Vanilla Java blog posts.
+
+== Introduction
+
+* Overview of my background and perspective:
+** Java Champion with over three decades of development experience
+** Founder and CEO of a self-funded company for 11 years
+** Hands-on developer who has worked with teams ranging from junior developers to 30-year veterans
+** Insights into how top-tier financial institutions leverage experienced developers
+** Understanding how emerging AI technology will reshape the developer landscape
+
+== What Are some of the challenges facing senior developers?
+
+A number of big challenges face senior developers
+
+- Is the only option to progressing my career to become a manager?
+- How will changes in IT change the way I work? e.g. AI
+- How will AI change the way junior developers work, and how we hire in the future?
+
+'''
+
+[quote, Marlene Dietrich, 1901-1992]
+I love quotations
+because it is a joy to find thoughts one might have,
+beautifully expressed with much authority
+by someone recognized wiser than oneself
+
+When I am being reflective what works and what doesn't, I often turn to an Aphorism which is "Any principle or precept expressed in few words; a short pithy sentence containing a truth of general import; a maxim." -- Oxford Dictionary.
+
+== Quotes about learning from history
+
+Will AI completely replace developers?
+
+[quote]
+AI won't replace developers, but developers who use AI will replace those who don't.
+
+What does history have to teach us?
+
+'''
+
+[quote, Marc Benioff, Salesforce CEO]
+The only constant in the technology industry is change. We are now in the most exciting time of our industry.
+
+It is a privilege to work in an industry which is always changing. It requires constant learning, but that doesn't mean there isn't anything to learn from the past.
+
+'''
+
+[quote, Jean-Baptiste Alphonse Karr, 1849]
+The more things change, the more they stay the same.
+
+The IT industry has gone through these cycles before. I remember when you had to pay for a web browser, even though there wasn't much use to it. Then it seemed websites would dominate everything.
+
+'''
+
+When ATMs were introduced into banking there was a fear that Bank Tellers would be replaced. Instead, the number of bank tellers increased, though perhaps not as much as they would have done.
+
+image::https://i0.wp.com/conversableeconomist.com/wp-content/uploads/2021/05/bab42-bessen2b1.jpg[alt=Bank tellers vs ATMs 1970-2010, align="center"]
+
+'''
+
+[quote, wiki.c2.com]
+This community has been around since 1995 ... If you haven't used a wiki before, be prepared for a bit of CultureShock. The usefulness of Wiki is in the freedom, simplicity, and power it offers.
+
+I remember which Wikis were first introduced. They were seen as a novelty, but now they are a standard tool for many developers. Today, chat AI is seen as a novelty or even a culture shock, but it will become a standard tool for many developers.
+
+'''
+
+[quote, Peter Lamborn Wilson, author]
+Those who understand history are condemned to watch other idiots repeat it.
+
+We should expect that the introduction of AI will see people making the same mistakes as they have in the past. We should be prepared to learn from the past and avoid these mistakes.
+
+'''
+
+[quote, Marie Curie, Nobel Prizes in Physics and Chemistry]
+I was taught that the way of progress was neither swift nor easy.
+
+It's likely that the introduction of AI will be slower and more difficult than people expect. It will take time to go from being a novelty to learn how to use it effectively.
+
+== Quotes about capturing requirements
+
+[quote, An old Programmer's Proverb, according to Kent Beck]
+Users don't know what they want until you show it to them.
+
+You must identify who will pay for an effort, check it is fit for purpose, and use the product. You need to understand the business need first. Without this the project is likely to fail.
+
+In my first contracting job for a bank, I was shocked that they not only didn't do any testing, they actively discouraged it. When it came to user acceptance testing, they couldn't identify who would test the software, because it turned out no one wanted it. They saved a lot of money by not testing it, but would have saved more by checking it was needed first.
+
+[quote, Anonymous]
+To replace programmers with AI, clients will have to accurately describe what they want.
+
+Capturing requirements and understanding the problem you are solving is 90% of the effort. Writing code is a small proportion. I have written an average of 100 lines of code a day for the last 10 years. This would take at most 30 minutes a day to rewrite. I have spent far more time understanding the problem I am solving.
+
+[quote, Lucius Annæus Seneca the Younger, philosopher 3-65 AD]
+There is no fair wind for one who knows not whither he is bound.
+
+The first thing to determine is what the problem is, how to solve it, and share it with others. The last part is easily forgotten. I can't count the number of projects that were finished, but no one knew about them.
+
+[quote, Richard James, engineer]
+Engineering problems are under-defined; there are many solutions, good, bad, and indifferent. The art is to arrive at a good solution
+
+[quote, Freeman Dyson, physicist]
+A good scientist is a person with original ideas. A good engineer is a person who makes a design that works with as few original ideas as possible.
+
+[quote, Lee Iacocca, CEO of Chrysler]
+The discipline of writing something down is the first step toward making it happen.
+
+[quote, Douglas Adams, author]
+A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools.
+
+No project will be foolproof, so you need a plan for when things go wrong.
+
+== Identify and solve the hard problems first
+
+[quote, Scott Adams, Dilbert creator]
+Engineers like to solve problems. If there are no problems handily available, they will create their own problems.
+
+Solve the hard problem first. The rest will be easy.
+
+[quote, Heinz Kabutz, Dynamic Proxies in Java]
+Security is either extremely boring, when it works, or super exciting (in a bad way), when it doesn’t.
+
+== Focus and simplicity
+
+You need to take responsibility for your own career progression. Don't expect a manager, or a company do this for you.
+
+[quote, Richard Hamming, mathematician]
+If you don't work on important problems, it's not likely that you'll do important work.
+
+== Efficiency and effectiveness
+
+[quote, Antoine de Saint-Exupéry, 1939]
+Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.
+
+[quote, Oscar Wilde, playwright]
+An optimist will tell you the glass is half-full; the pessimist, half-empty; and the engineer will tell you the glass is twice the size it needs to be.
+
+[quote, Albert Einstein, physicist]
+The difference between theory and practice is smaller in theory than it is in practice.
+
+[quote, Matthew 7:16, NLT]
+You can identify them by their fruit, that is, by the way they act.
+
+== System Performance
+
+[quote, Kirk Pepperdine, performance expert]
+Measure, don't guess.
+
+[quote, Grace Hopper, computer scientist]
+One accurate measurement is worth a thousand expert opinions.
+
+[quote, Butler Lampson, 1983]
+The strategy is definitely: first make it work, then make it right, and, finally, make it fast.
+
+== Career Development
+
+[quote, Art Linkletter, radio and television personality]
+Things turn out best for the people who make the best of the way things work out.
+
+[quote, James Bryant Conant, chemist]
+Behold the turtle: He only makes progress when he sticks his neck out.
+
+[quote, Diana Ross, singer]
+You can’t just sit there and wait for people to give you that golden dream. You’ve got to get out there and make it happen for yourself.
+
+== Understanding the value of AI
+
+[quote, Ward Cunningham, inventor of the Wiki]
+The best way to get the right answer on the internet is not to ask a question; it's to post the wrong answer.
+
+Often I don't know how to start a project, so I start with a wrong answer. I ask AI to produce it for me. I then discard it, but this is often faster than starting from scratch.
+
+== Positive message
+
+[quote, Dr. Mae Jemison, astronaut]
+Never be limited by other people's imagination; never limit others because of your own limited imagination.
+
+[quote, Henry Ford, founder of Ford Motor Company]
+The only real mistake is the one from which we learn nothing.
+
+[quote, Steve Jobs, Apple co-founder]
+The only way to do great work is to love what you do.

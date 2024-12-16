@@ -1,0 +1,387 @@
+= The AI Trough
+:doctype: article
+:icons: font
+:source-highlighter: rouge
+
+// In this article, I journey beyond AI’s initial hype and confront its practical limitations. I suggest navigating the Trough of Disillusionment by blending human expertise, strategic thinking, and the judicious use of AI tools.
+
+Artificial Intelligence (AI) has long promised to transform software development. Yet, as many experienced engineers discover, initial enthusiasm often settles into a more subdued reality. This is the "Trough of Disillusionment" within the Gartner Hype Cycle—where inflated expectations give way to measured assessments. In this phase, teams confront the practical limitations of AI-driven tools, refine their strategies, and seek a balance between what AI can deliver and what human expertise must still provide.
+
+This article continues from https://blog.vanillajava.blog/2024/12/ai-on-hype-cycle.html[AI on the Hype Cycle].
+
+[quote, Programmer’s Credo]
+We do these things not because they are easy, but because we thought they were going to be easy.
+
+== Challenges of AI Adoption
+
+When integrating AI into software engineering workflows—be it code completion, architectural documentation, or performance tuning hints—teams quickly encounter stumbling blocks:
+
+1. **Accuracy and Reliability:**
+AI-generated content may contain inaccuracies, out-of-date references, or misunderstandings of domain-specific terms. Ensuring factual correctness requires careful human review and validation.
+AI outputs often present plausible suggestions that fail strict validation. For instance, an AI tool may confidently return a code snippet referencing APIs deprecated in Java 11 or misapply concurrency constructs from https://docs.oracle.com/en/java/javase/21[Java 21] libraries. Ensuring correctness demands human review, domain expertise, and rigorous testing
+
+2. **Contextual Understanding:**
+AI suggestions may misalign your codebase’s patterns or standards without proper context. For example, given a legacy codebase optimised around `ConcurrentSkipListMap`, an AI may suggest using `HashMap` for "simplicity." Senior developers must provide guardrails, review outputs, and ensure that each recommendation aligns with existing architectural guidelines and performance expectations.
+
+3. **Maintaining Consistency and Style:**
+Projects often follow strict coding conventions and documentation formats. AI outputs might vary in style, indentation, or naming conventions. Consider a scenario where half the methods follow a `lowerCamelCase` policy while AI-suggested methods use `snake_case`. Achieving a uniform, professional result still requires manual refinement.
+
+4. **Security and Compliance Considerations:**
+AI-generated code can introduce subtle vulnerabilities—such as failing to sanitise user inputs or misusing cryptographic APIs. Likewise, an AI unaware of legal frameworks may overlook regulatory compliance (GDPR, PCI-DSS). Developers must audit, test, and verify that every AI-produced artefact complies with security and data-handling policies.
+
+5. **Handling Domain Complexity:**
+For highly specialised domains, AI models struggle with nuanced business rules, industry jargon, or intricate workflows. Senior developers must supplement AI suggestions with domain knowledge and accurate references, ensuring documentation and code capture the necessary complexity.
+
+6. **Version Control and Traceability:**
+Integrating AI-generated suggestions into SCMs (e.g. Git) can create noise and confusion. Teams must maintain commit histories, track AI-introduced modifications, and ensure that changes pass code reviews. Consider using separate branches or automation checks highlighting AI-driven alterations before merging into the main.
+
+7. **Over-Reliance and Skill Erosion:**
+Overusing AI can erode core engineering skills, making developers less capable of handling complex debugging or performance tuning without assistance. Striking a balance—treating AI as a tool rather than a crutch—helps maintain sharp human problem-solving abilities.
+
+=== Strategic Use of AI Tools
+
+Selecting when and how to leverage AI tools can determine whether they accelerate workflows or add noise. The following timeless insights remind us that true value emerges when AI augments human capabilities without supplanting critical thinking, ethical oversight, and domain expertise.
+
+[quote, Burrhus Frederic Skinner, 1904–1990]
+The real problem is not whether machines think but whether men do.
+
+While AI handles routine workloads—generating code snippets and suggesting performance tweaks—the human role remains indispensable. Ethical considerations, careful architectural decisions, and a broad understanding of system implications still require a thinking, creative mind.
+
+[quote, Steve Jobs, early 1980s]
+What a computer is to me is it’s the most remarkable tool that we’ve ever come up with, and it’s the equivalent of a bicycle for our minds.
+
+AI accelerates problem-solving much like a bicycle enhances travel. It boosts your data-processing ability and productivity but does not define the destination. Human judgment steers this "bicycle" towards practical, strategic goals.
+
+[quote, Marshall McLuhan, "Understanding Media" (1964)]
+We shape our tools, and thereafter, our tools shape us.
+
+Adopting AI alters coding conventions, testing strategies, and design principles. Responsible adoption of AI, guides software ecosystems towards resilience and clarity. These evolved tools influence how teams think about efficiency, maintainability, and quality.
+
+By considering these principles, teams can integrate AI as a powerful ally rather than a disruptive force. AI thrives under informed supervision, adding value where appropriate and freeing human engineers to focus on the creative, ethical, and conceptual challenges defining exceptional software.
+
+=== Entering the Trough of Disillusionment
+
+[quote, Richard Feynman]
+You can’t outsource responsibility.
+
+While AI can automate repetitive tasks, it cannot shoulder the burden of strategic decision-making or deep comprehension. True expertise—rooted in human experience, continuous learning, and critical evaluation—remains non-transferable.
+
+As teams gain practical experience with AI, they realise that real-world integration is harder than it looked in a demo video. Models produce unexpected errors, fail edge cases, or introduce unanticipated overheads. This challenge leads to more refined strategies:
+
+- *Tempered Expectations:* Instead of expecting AI to solve every problem, teams focus on well-defined use cases—like generating template code or suggesting documentation improvements—and manage risk carefully.
+- *Refinements and Tooling:* With time, better workflows and governance emerge. Monitoring usage, improving explainability, or performing thorough performance analysis (e.g. using JMH benchmarks) become standard practice.
+- *Selective Continuation:* Not all AI projects survive this phase. Successful initiatives align closely with business objectives and demonstrate clear performance or productivity gains.
+
+==== Estimating Performance is Very Hard
+
+[quote, Kirk Pepperdine, Java performance expert]
+Measure, don't guess
+
+Humans with many years of expertise are poor at guessing the source of performance problems, and AI is even worse.
+
+== Examples of AI Producing Plausible but Incorrect Results
+
+[quote, Proverb]
+A tool is only as good as its user.
+
+The sophistication of AI models matters less than the skill and discernment of those who deploy them. The best results come when skilled developers integrate AI output into established engineering practices, testing rigorously and refining with domain knowledge.
+
+AI can generate plausible but incorrect results in various scenarios. Even seemingly straightforward tasks can trip up AI. Here are a few examples:
+
+'''
+
+=== Halting Problem
+
+The halting problem exemplifies what cannot be conclusively solved by any program—AI included. Suppose we ask AI to predict how many iterations a loop requires before completion:
+
+==== Query
+
+Does this loop finish if so estimate how many iterations is required?
+
+[source,java]
+----
+SortedSet<Double> set = new TreeSet<>();
+int i = 0;
+while (set.size() < 1000) {
+    double d = i / 10.0;
+    double mod = d % 0.1;
+    set.add(mod);
+    i++;
+}
+System.out.println("i: " + i + ", set.size(): " + set.size());
+----
+
+To be fair, most humans would struggle with this problem, too, which is why I am writing about it.
+
+In fact, due to floating-point representation quirks, `% 0.1` does not behave as one might naively expect. The loop finishes after about 2,243 iterations. (See https://blog.vanillajava.blog/2024/11/unveiling-floating-point-modulus.html[Unveiling the Floating Point Modulus].)
+
+**AI’s Error:**
+It might not consider floating-point arithmetic subtleties and produce a confident but incorrect guess. Humans, too, can be misled, but domain experts know to test and measure rather than trust intuition.
+
+==== Answer Given By GitHub Copilot
+
+The halting problem is a classic example of a task that is undecidable by a computer program. AI tools may attempt to solve this problem, but they will inevitably fail due to their inherent complexity.
+
+NOTE: It is proveably an unsolvable problem for the general case. However, AI can solve specific cases correctly.
+
+'''
+
+=== RMI and GC
+
+==== Query
+
+I have a java program designed to produce minimal garbage which results in a low minor collection rate, however if I reduce the garbage low enough the JVM starts doing a full GC every hour. Why is that and what can I do about it?
+
+==== Answer Given By GitHub Copilot
+
+The answer is that the RMI (Remote Method Invocation) is causing the full GC. The DGC (Distributed Garbage Collection) runs every hour and triggers the full GC. You can reduce the DGC frequency or optimise the RMI calls to reduce the garbage generated.
+
+NOTE: One advantage Copilot has is access to all my content, in this case, including an article I wrote on the subject. However, it wasn't able to draw on two other questions I wrote in articles.
+
+==== Answers Given By o1 pro
+
+ChatGPT gives several plausible suggestions, but none pick up the problem: the DGC runs every hour, causing the full GC. This only happens when the minor GC rate is low enough, so the full GC is triggered by the DGC to ensure that remote objects are cleaned up, whether you are using RMI or not.
+
+**AI’s Error:** Not understanding the relationship between the minor GC and the DGC. I.e. Domain knowledge.
+
+A more detailed explanation is available at https://blog.vanillajava.blog/2024/11/unexpected-full-gcs-triggered-by-rmi-in.html[Unexpected Full GCs Triggered by RMI in Java].
+
+'''
+
+=== Legacy Behaviour
+
+==== Query
+
+This compiles in Java 17 due to
+
+[source,java]
+----
+static int[] a(int[]... a)[] { return a; }
+static final int one = a(new int[0]).length; // 1
+----
+
+- It confuses the compiler
+- It’s a static method
+- Backward Compatibility
+- JEP 747
+
+==== Answer Given By GitHub Copilot
+
+The answer is JEP 747, which defines a static method in a nested class.
+
+==== Answer Given By 4o
+
+**This code compiles in Java 17 due to JEP 747.** JEP 747, which stands for *"Nestmates,"* is a Java Enhancement Proposal implemented in Java 17. This JEP introduced a new type of nested class called a *"nest,"* which allows classes to be grouped and access each other's private members. This code uses the nested class syntax introduced by JEP 747 to define a static method `a()` that takes an array of integer arrays as its parameter and returns an array of integer arrays. The code also defines a static `final` variable `one` and initialises it with the array length returned by the `a()` method. This code would not have been possible in earlier versions of Java, but it is valid in Java 17 due to the changes introduced by JEP 747.
+
+The other reasons you mentioned, such as backward compatibility, static methods, and confusing the compiler, are **not relevant** to why this code compiles in Java 17.
+
+NOTE: "o1-preview" also gave an incorrect, though less obviously wrong, answer.
+
+==== Answer Given By o1 pro
+
+Answer: Backward Compatibility
+
+The code snippet in question is leveraging a quirk in Java's syntax for array declarations. In Java, array declarators can appear in unusual places, including after parameter lists and return types. This unusual placement is a vestige of backward compatibility and historical syntactic flexibility dating back to language versions.
+
+==== Actual Answer
+
+There is no JEP 747 — the code compiles to support backward compatibility.
+
+'''
+
+=== Missing the Fundamental Problem
+
+==== Query
+
+This code prints the following in Java 17
+
+[source,java]
+----
+public static void main(String[] args) {
+    test(new IdentityHashMap<>());
+    test(new WeakHashMap<>());
+    test(new ConcurrentSkipListMap<>());
+}
+
+static void test(Map<String, Integer> map) {
+    map.computeIfAbsent("key", (String k) -> {
+        map.putIfAbsent(k, 2);
+        return 1;
+    });
+    System.out.println(map.getClass().getSimpleName() + " " + map);
+}
+----
+
+prints
+
+    IdentityHashMap {key=1}
+    WeakHashMap {key=1}
+    ConcurrentSkipListMap {key=2}
+
+Why is this?
+
+- It depends on whether the map is concurrent or not
+- It’s a memory leak
+- It's a thread safety issue
+- The behaviour is undefined.
+
+==== Answer Given By GitHub Copilot
+
+The correct answer is that it is a thread safety issue. The `computeIfAbsent` method is not thread-safe, and the `putIfAbsent` method is not atomic. This can lead
+
+NOTE: The last sentence is incomplete.
+
+==== Answer Given By o1 pro
+
+*Answer: It depends on whether the map is concurrent or not*
+
+(Explanation deleted)
+
+*In summary:*
+
+- Non-concurrent maps end up with {key=1} because the default computeIfAbsent logic and the lambda’s internal insertion lead to the final stored value being what the lambda returned.
+- Concurrent maps like ConcurrentSkipListMap handle computeIfAbsent atomically and see that the key got updated inside the lambda first, so they end up with {key=2}.
+
+*Conclusion:* The observed difference is whether or not the map is concurrent (and thus uses an atomic, specialised implementation of computeIfAbsent).
+
+==== Actual Answer
+
+For the examples given, you might conclude that the thread-safe collection makes the difference. However, other collections behave differently, including throwing an exception warning you that this is undefined behaviour, as documented in the Javadoc.
+
+[quote]
+The default implementation makes no guarantees about detecting if the mapping function modifies this map during computation and, if appropriate, reporting an error. Non-concurrent implementations should override this method and, on a best-effort basis, throw a ConcurrentModificationException if it is detected that the mapping function modifies this map during computation. Concurrent implementations should override this method and, on a best-effort basis, throw an IllegalStateException if it is detected that the mapping function modifies this map during computation and as a result computation would never complete.
+
+Javadoc for https://cr.openjdk.org/~pminborg/panama/21/v1/javadoc/java.base/java/util/Map.html#computeIfAbsent(K,java.util.function.Function)[Map.computeIfAbsent] in Java 21
+
+NOTE: When I asked o1 pro to review this content, it tried to "correct" my answer so that it was the same as before.
+
+'''
+
+=== It's All Overflowing
+
+For which of these values is the expression x == Math.abs(x) true in Java
+
+- `Long.MIN_VALUE`
+- `Integer.MIN_VALUE`
+- `Short.MIN_VALUE`
+- `Character.MIN_VALUE`
+- `-0.0`
+
+==== Answer Given By GitHub Copilot
+
+The correct answer is `Integer.MIN_VALUE`. The `Math.abs()` method returns the absolute value of a given number. For `Integer.MIN_VALUE`, the absolute value is the same as the original value, so the expression `x == Math.abs(x)` is true.
+
+*Answer: `Integer.MIN_VALUE`*
+
+==== Answer Given By 4o
+
+The expression `x == Math.abs(x)` checks if a value `x` is equal to its absolute value. The result of this comparison depends on whether the absolute value computation modifies the input value.
+
+Here’s an analysis of the given values:
+
+1. **`Long.MIN_VALUE`**:
+`Math.abs(Long.MIN_VALUE)` results in an overflow because `Long.MIN_VALUE` is `-2^63` (−9,223,372,036,854,775,808) and cannot be represented as a positive `long`. Instead, `Math.abs(Long.MIN_VALUE)` returns `Long.MIN_VALUE` itself.
+**Result**: `true` (`Long.MIN_VALUE == Math.abs(Long.MIN_VALUE)`).
+
+2. **`Integer.MIN_VALUE`**:
+Similar to `Long.MIN_VALUE`, `Integer.MIN_VALUE` is `-2^31` (−2,147,483,648), and its absolute value cannot be represented as a positive `int`. Hence, `Math.abs(Integer.MIN_VALUE)` returns `Integer.MIN_VALUE`.
+**Result**: `true` (`Integer.MIN_VALUE == Math.abs(Integer.MIN_VALUE)`).
+
+3. **`Short.MIN_VALUE`**:
+`Short.MIN_VALUE` is `-2^15` (−32,768). Since `Short.MIN_VALUE` can overflow during absolute value computation, `Math.abs(Short.MIN_VALUE)` returns `Short.MIN_VALUE`.
+**Result**: `true` (`Short.MIN_VALUE == Math.abs(Short.MIN_VALUE)`).
+
+4. **`Character.MIN_VALUE`**:
+`Character.MIN_VALUE` is `0`. The absolute value of `0` is `0`, so `Math.abs(0) == 0`.
+**Result**: `true` (`Character.MIN_VALUE == Math.abs(Character.MIN_VALUE)`).
+
+5. **`-0.0`**:
+`Math.abs(-0.0)` in Java returns `+0.0` (positive zero). However, `-0.0 == 0.0` evaluates to `true` in Java because both values are considered equal in floating-point comparisons.
+**Result**: `true` (`-0.0 == Math.abs(-0.0)`).
+
+===== Summary:
+The expression `x == Math.abs(x)` evaluates to `true` for **all the given values**:
+
+- `Long.MIN_VALUE`
+- `Integer.MIN_VALUE`
+- `Short.MIN_VALUE`
+- `Character.MIN_VALUE`
+- `-0.0`.
+
+==== Answer Given By o1 pro
+
+**Answer: It's true for `Long.MIN_VALUE`, `Integer.MIN_VALUE`, `Character.MIN_VALUE`, and `-0.0`, but not for `Short.MIN_VALUE`.**
+
+**Detailed Explanation:**
+
+1. **Long.MIN_VALUE:**
+`Long.MIN_VALUE` is `-9223372036854775808`.
+Due to the way `Math.abs(long)` is implemented, if the argument is `Long.MIN_VALUE`, the result is the same value (because its positive counterpart is not representable in `long`):
+
+[source,java]
+----
+Math.abs(Long.MIN_VALUE) == Long.MIN_VALUE
+// therefore
+Long.MIN_VALUE == Math.abs(Long.MIN_VALUE) // true
+----
+
+2. **Integer.MIN_VALUE:**
+`Integer.MIN_VALUE` is `-2147483648`.
+Similarly to `long`, `Math.abs(int)` returns `Integer.MIN_VALUE` for this value, because the positive equivalent `2147483648` cannot be represented in an `int`:
+
+[source,java]
+----
+Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE
+// hence
+Integer.MIN_VALUE == Math.abs(Integer.MIN_VALUE) // true
+----
+
+3. **Short.MIN_VALUE:**
+`Short.MIN_VALUE` is `-32768`.
+When calling `Math.abs(shortValue)`, `shortValue` is first promoted to an `int`. So:
+
+[source,java]
+----
+Math.abs((int)-32768) == 32768
+----
+We end up with `32768` which cannot fit in a `short`. After widening, the comparison is effectively:
+
+[source,java]
+----
+-32768 == 32768 // false
+// thus
+Short.MIN_VALUE == Math.abs(Short.MIN_VALUE) // false
+----
+
+4. **Character.MIN_VALUE:**
+`Character.MIN_VALUE` is `'\u0000'` which is `0`.
+`Math.abs(0)` is `0`, so:
+
+[source,java]
+----
+0 == Math.abs(0) // true
+----
+
+5. **-0.0 (double):**
+In IEEE 754 floating-point arithmetic, `-0.0` and `0.0` are considered equal when tested with `==`.
+`Math.abs(-0.0)` returns `0.0`, and `-0.0 == 0.0` is true in Java:
+
+[source,java]
+----
+-0.0 == Math.abs(-0.0) // true
+----
+
+**Summary:**
+
+- **True:** `Long.MIN_VALUE`, `Integer.MIN_VALUE`, `Character.MIN_VALUE`, and `-0.0`
+- **False:** `Short.MIN_VALUE`
+
+'''
+
+== Conclusion
+
+Emerging from the AI Trough of Disillusionment involves embracing a more measured and knowledgeable approach to AI integration. By learning from past oversights—whether misinterpreting legacy syntax, overlooking undefined behaviours in standard methods, or misunderstanding subtle performance implications—teams grow more capable of wielding AI tools effectively. Rather than chasing hype or relinquishing hard-won engineering principles, successful developers acknowledge AI as an ally that augments their capabilities.
+
+Strategic use of AI means applying it where it delivers genuine value, verifying its outputs with domain expertise, and maintaining a rigorous commitment to quality. AI can illuminate new efficiencies, expose dormant optimisation opportunities, and free human engineers from repetitive tasks. Yet human understanding, critical reasoning, and careful decision-making ultimately shape software’s reliability, maintainability, and ethical grounding.
+
+By combining AI's computational power with the discernment and experience of seasoned developers, we can navigate the complexities of modern software landscapes, turning the challenging trough into a fertile ground for innovation and sustainable growth.

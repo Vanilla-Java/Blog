@@ -14,7 +14,7 @@ This is the high level flow of the narrative for the Hands-On Career talk.
 
 == Key Points
 
-=== Learning From Past Technology Cycles
+=== Learning From Past Technology Cycles - Used
 Recognising patterns in historical hype cycles (e.g., the dot-com boom, offshoring, cloud computing) to temper expectations and make more informed strategic decisions.
 
 * "Those who cannot remember the past are condemned to repeat it."
@@ -107,7 +107,7 @@ Ensure every architectural decision, AI integration, and tooling choice is roote
 *Attributed to:* Antoine de Saint-Exupéry, "The Wisdom of the Sands" (1948)
 *Relevance:* Aligning technology with business outcomes isn’t about hope. It needs explicit planning—translating goals into actionable steps, supported by the right tooling and architectural decisions.
 
-=== Strategic Use of AI Tools:**
+=== Strategic Use of AI Tools - Used
 Identify where AI truly adds value—handling repetitive, data-intensive work—while keeping human insight, ethics, and holistic thinking indispensable.
 
 * "A fool with a tool is still a fool."
@@ -134,7 +134,6 @@ Identify where AI truly adds value—handling repetitive, data-intensive work—
 **Modern management/tech adage**
 **Relevance:** While AI automates tasks, deep understanding and holistic reasoning remain human domains. Strategic deployment keeps human judgment central.
 
-
 === Prioritising Hard Problems and Foundational Stability
 Solve complex architectural, security, and data challenges early. This ensures efficient AI deployment and long-term sustainability.
 
@@ -157,7 +156,6 @@ Solve complex architectural, security, and data challenges early. This ensures e
 * "Build on rock, not on sand."
 **Source:** The Bible, Gospel of Matthew (Matthew 7:24–27), 1st century CE
 **Relevance:** Laying a solid technical foundation is like building a house on rock: it withstands change and pressure. Ensuring robust infrastructure and addressing complex engineering challenges early provides a stable platform on which AI solutions can reliably operate.
-
 
 === Emphasis on Simplicity and Maintainability
 Use AI to streamline, not complicate. Keep code understandable, stable, and adaptable as technology evolves.
@@ -185,7 +183,6 @@ Use AI to streamline, not complicate. Keep code understandable, stable, and adap
 * "Small is beautiful."
 **Attributed to:** E.F. Schumacher, "Small Is Beautiful" (1973)
 **Relevance:** Focus on smaller, well-understood units rather than overcomplicating systems. Minimizing bloat improves maintainability.
-
 
 === Ensuring Efficiency Without Compromising Quality
 Leveraging AI for faster delivery, performance profiling, and automated testing while maintaining strict quality standards, reliability, and robust documentation.
@@ -245,7 +242,6 @@ Encouraging ongoing skill audits, exploration of adjacent domains, active partic
 **Attribution:** African proverb (no definitive written source)
 **Relevance:** Engaging with communities, collaborating on projects, and participating in open-source work ensures that while an individual might solve problems quickly alone, long-term success and resilience are achieved through collective effort.
 
-
 === Mentorship in the AI Era
 Redefining mentorship to focus on critical thinking, domain insight, architectural reasoning, and responsible use of AI. Guiding junior developers to question AI outputs, develop domain expertise, and grow into future leaders.
 
@@ -303,8 +299,7 @@ Highlighting how deep understanding of the business domain, regulatory landscape
 **Often Attributed to:** Yogi Berra (Mid-20th century)
 **Relevance:** While theoretical knowledge of technology is helpful, practical domain insight shows developers how systems work in real-world conditions. This ensures that AI enhancements don’t just look good on paper, but deliver tangible benefits.
 
-
-== Ethical and Responsible Application of AI
+=== Ethical and Responsible Application of AI
 Integrating considerations of fairness, bias mitigation, security, and compliance into technical decisions, ensuring AI-driven outcomes remain trustworthy and aligned with organisational values.
 
 * "With great power comes great responsibility."
@@ -331,8 +326,7 @@ Integrating considerations of fairness, bias mitigation, security, and complianc
 **Attributed to:** Paul McNulty, Former U.S. Deputy Attorney General (early 2000s)
 **Relevance:** Ensuring AI systems comply with regulations, standards, and best practices may be challenging, but the cost of ethical lapses, legal violations, or reputational damage is far greater.
 
-
-== Documentation and Communication Enhancements
+=== Documentation and Communication Enhancements
 Employing AI tools and markup languages (e.g., AsciiDoc) to maintain high-quality documentation that is version-controlled, consistent, and easily integrated with existing toolchains.
 
 * "If it’s not documented, it doesn’t exist."
@@ -976,7 +970,7 @@ The AI uses domain-specific rules from the docs to generate test data that cover
 
 By thoughtfully integrating AI into the coding and testing lifecycle—and maintaining a vigilant human role in decision-making—teams can achieve a more efficient, scalable, and consistent development process that closely adheres to documented standards and business objectives.
 
-== We Can Learn from the Past to Help Predict the Future
+== We Can Learn from the Past to Help Predict the Future - Used
 Discuss how historical trends in technology adoption and hype cycles provide insights into what might happen with AI in the coming years.
 
 * Learning from Past Hype Cycles:
@@ -1015,57 +1009,6 @@ As the web matured, it became a stable and essential platform for software deliv
 
 In sum, the hype cycle around moving software to the web paralleled the dot-com boom: early excitement and pioneering efforts, a surge of irrational exuberance, a painful crash of inflated expectations, a period of sober reassessment, and ultimately, a stable era where the web became a trusted, productive medium for delivering rich and meaningful software solutions.
 
-=== Previous Hype Cycles
-
-There have been numerous hype cycles in the IT industry, each characterized by a period of intense enthusiasm followed by a more sober reassessment and eventual maturity. Some notable examples include:
-
-1. **Enterprise Resource Planning (ERP) Systems (Late 1990s–Early 2000s):**
-Companies invested heavily in ERP solutions, believing they would streamline operations, integrate disparate systems, and boost efficiency across the entire organisation. Initially hailed as a panacea, ERPs often proved expensive, complex, and challenging to implement. Over time, ERP deployments matured with more realistic expectations, better training, and incremental rather than sweeping rollouts.
-
-2. **Offshoring and Outsourcing (Early–Mid 2000s):**
-Outsourcing IT operations and software development—often to offshore locations—was promoted as a guaranteed way to reduce costs and tap into global talent. Initially, excitement ran high. Later, organisations realised that outsourcing created new complexities: time zone differences, cultural barriers, security concerns, and challenges in quality control. Eventually, outsourcing found its equilibrium, becoming a strategic choice for specific needs rather than a one-size-fits-all solution.
-
-3. **Service-Oriented Architecture (SOA) (Mid–Late 2000s):**
-SOA promised to make systems more modular, interoperable, and reusable through well-defined services and interfaces. Initially celebrated as a revolutionary approach, many implementations became bogged down in complexity, governance overhead, and vendor lock-in. Over time, lessons learned paved the way for more lightweight architectures such as microservices, and today’s architectural patterns are more pragmatic and tool-driven.
-
-4. **Big Data (Early 2010s):**
-The sudden availability of massive, diverse data sets, along with scalable storage and processing tools (like Hadoop), sparked tremendous hype. Businesses expected that simply accumulating large quantities of data would lead to transformative insights. As the hype settled, it became clear that data quality, data governance, domain knowledge, and strong analytical capabilities were critical. “Big Data” evolved into a more nuanced landscape of data engineering, analytics, data science, and machine learning, with a focus on outcomes rather than just data volume.
-
-5. **Cloud Computing (Late 2000s–Mid 2010s):**
-Initially met with skepticism and security concerns, cloud computing quickly became overhyped as a cure-all solution. Some organisations migrated hastily, encountering cost overruns, migration challenges, and architectural mismatches. Eventually, cloud computing reached a stable plateau where it is now broadly accepted as a standard operating model. Companies understand that while the cloud offers scalability, cost savings, and agility, realising those benefits requires careful planning, skilled teams, and an understanding of cost management.
-
-6. **Blockchain (Mid–Late 2010s):**
-The technology behind cryptocurrencies sparked visions of decentralised, trust-free ecosystems transforming everything from finance and supply chains to healthcare and voting systems. Many pilot projects struggled to find practical use cases or ran into scalability and regulatory issues. The technology still holds promise, but it has moved from feverish hype to a more measured exploration of specialised, domain-specific solutions.
-
-7. **Internet of Things (IoT) (Mid 2010s–Present):**
-Connecting everyday devices and machinery to the internet generated enormous excitement. Early hype suggested that “smart” everything—from refrigerators to entire cities—would seamlessly integrate and optimise human life. Over time, industries discovered issues with interoperability, security, data privacy, and infrastructure complexity. While IoT remains an important field, the hype has tempered, and current efforts focus on robust standards, cybersecurity, and practical, industry-specific use cases.
-
-8. **Artificial Intelligence and Machine Learning (Mid–Late 2010s–Present):**
-AI and ML promised transformative insights, automation, and decision-making at scale. Initial enthusiasm often overlooked the hard work required: curating quality data, building reliable models, addressing biases, and integrating solutions into business processes. While AI remains highly impactful and continues to evolve rapidly, the conversation has shifted toward responsible, explainable, and ethically sound AI solutions rather than “AI for AI’s sake.”
-
-In each of these hype cycles, the pattern is similar: early enthusiasm and inflated expectations give way to realism, best practices, and a more mature understanding of the technology’s actual strengths and limitations.
-
-=== Emerging Technology Hype Cycle
-
-image::https://emt.gartnerweb.com/ngw/globalassets/en/articles/images/hype-cycle-for-emerging-technologies-2024.png[Gartner Hype Cycle for Emerging Technologies 2024, 800, 600]
-
-The 2024 Gartner Hype Cycle™ for Emerging Technologies identifies four key themes poised to shape the future of business: autonomous AI, developer productivity, total experience, and human-centric security and privacy. Each theme presents both opportunities and challenges, requiring organisations to strategically evaluate, adopt, and refine new technologies.
-
-**Autonomous AI** encompasses advanced AI systems capable of operating with minimal human involvement, supported by breakthroughs in AI supercomputing, autonomous agents, and humanoid working robots.
-
-**Developer Productivity** focuses on enhancing the developer “flow state” by leveraging tools like AI-augmented software engineering, cloud-native architectures, and prompt engineering to accelerate the delivery of higher-quality software.
-
-**Total Experience** integrates customer, employee, and user experiences through technologies like 6G, digital twins of customers (DToC), and spatial computing, enabling personalised interactions and immersive digital environments.
-
-**Human-Centric Security and Privacy** reframes security by acknowledging human behaviour and fostering trust. AI TRiSM, cybersecurity mesh architecture, and disinformation security technologies help ensure responsible and secure use of AI, protect organisations from emerging threats, and maintain brand integrity.
-
-The Hype Cycle framework illustrates that emerging technologies typically follow a path from initial hype to realistic adoption. Understanding these stages allows technology leaders to align innovation with strategic objectives, navigate risks, and ultimately benefit from the lasting value that well-implemented emerging technologies can deliver.
-
-== The Hype Curve of AI and Its Likely Evolution
-Explore the current state of AI’s popularity, the stages of the hype cycle it’s undergoing, and where it’s headed as the technology matures.
-
-The widespread emergence of AI tools — from language models to autonomous systems — has created intense enthusiasm across industries. This surge of interest has propelled AI to the “Peak of Inflated Expectations” on the hype cycle, where bold claims about revolutionary impacts are intermingled with genuine breakthroughs. However, as the technology transitions through its next stages, a more nuanced and realistic understanding will emerge.
-
 === Current State of AI’s Popularity
 AI is enjoying an unprecedented level of visibility. Rapid improvements in machine learning models, the introduction of generative AI services, and the proliferation of user-friendly interfaces have accelerated mainstream adoption. Many organisations are experimenting with AI-driven solutions to automate processes, extract insights from data, and enhance customer experiences. While early results are encouraging, a lingering perception persists that AI can solve an unlimited range of problems effortlessly.
 
@@ -1075,11 +1018,11 @@ In the early stages of AI adoption, enthusiasm runs high. New capabilities appea
 - *Frenzied Investment:* Venture capital and corporate spending pour into AI startups and pilot projects, often with little scrutiny of long-term viability.
 - *High Media Visibility:* Headlines frequently highlight AI’s potential, fuelling excitement and occasionally overshadowing more measured assessments.
 
-=== Entering the Trough of Disillusionment
-As pilots mature and organisations gain practical experience, limitations become clear. Models may produce unexpected errors, biases, or security vulnerabilities. Businesses realise that significant data preparation, domain expertise, human oversight, and continuous model maintenance are required to achieve meaningful results. This correction phase often involves:
-- *Tempered Expectations:* Stakeholders recognise that AI is not a cure-all solution. They come to appreciate that success depends on selecting well-defined use cases and diligently managing risk.
-- *Refinements and Tooling:* Companies develop better workflows, governance frameworks, and integration strategies. The ecosystem matures to include monitoring, explainability, and performance analysis tools.
-- *Selective Continuation:* Not all AI projects survive. Those that do are better aligned with strategic objectives and show measurable returns.
+// === Entering the Trough of Disillusionment
+// As pilots mature and organisations gain practical experience, limitations become clear. Models may produce unexpected errors, biases, or security vulnerabilities. Businesses realise that significant data preparation, domain expertise, human oversight, and continuous model maintenance are required to achieve meaningful results. This correction phase often involves:
+// - *Tempered Expectations:* Stakeholders recognise that AI is not a cure-all solution. They come to appreciate that success depends on selecting well-defined use cases and diligently managing risk.
+// - *Refinements and Tooling:* Companies develop better workflows, governance frameworks, and integration strategies. The ecosystem matures to include monitoring, explainability, and performance analysis tools.
+// - *Selective Continuation:* Not all AI projects survive. Those that do are better aligned with strategic objectives and show measurable returns.
 
 === Climbing the Slope of Enlightenment
 Following the trough, organisations become more adept at leveraging AI where it genuinely adds value. The field evolves toward:
@@ -1098,8 +1041,6 @@ As AI continues to evolve, technological advances will introduce new mini-cycles
 
 == Staying Ahead of the Curve and Remaining Relevant
 Offer strategies for continuous learning, skill adaptation, and professional development that help developers stay at the forefront of emerging technologies.
-
-== Staying Ahead of the Curve and Remaining Relevant
 
 As AI automates routine tasks and introduces new complexities, developers must proactively shape their career trajectories. Continuous learning, skilful adaptation, and strategic professional development will help ensure ongoing relevance and resilience in a rapidly evolving industry.
 
@@ -1140,7 +1081,6 @@ Showcase your adaptability, accomplishments, and continuous improvement:
 - *Reflect and Retrospect:* Periodically review your career trajectory. Recognise how your skill set has evolved, what you’ve done well, and where you can improve further.
 
 By continuously broadening your skill set, engaging with the developer community, learning from AI tools, cultivating soft skills, exploring diverse roles, and building a professional portfolio, you remain future-ready. Your ability to adapt and innovate will help you stay ahead of the curve, ensuring a thriving and fulfilling career in the age of AI-driven transformation.
-
 
 == Mentoring Developers in an Age of AI
 Discuss the evolving role of mentorship, including how to guide junior developers and intermediate engineers as routine coding tasks become increasingly automated.
@@ -1346,7 +1286,6 @@ Simplicity doesn’t mean ignoring new technologies, but rather integrating them
 - *Cultivating a Mindset:* Encourage developers to question whether each feature, tool, or layer of abstraction truly adds value. This critical thinking ensures that innovation doesn’t come at the expense of clarity and purpose.
 
 By championing focus and simplicity, you guide your team towards building solutions that are stable, comprehensible, and future-ready. When wielded responsibly, AI supports this vision, helping to refine and streamline without overwhelming the underlying system. The end result is a technology stack that not only meets current needs but remains agile enough to grow with the business.
-
 
 == Efficiency and Effectiveness
 Discuss how developers can employ AI-driven efficiencies while maintaining quality, reliability, and maintainability in their solutions.
