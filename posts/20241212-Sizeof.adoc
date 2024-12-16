@@ -21,6 +21,7 @@ A GC can occur while you are creating your object. This will result in more free
 Other threads in the system could use memory at the same time. I perform multiple test and take the median, which removes any outliers.
 
 Below is a rough approach:
+
 [source,java]
 ----
 long before = usedMemory();
@@ -37,7 +38,8 @@ This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/
 |===
 |Memory Region        |Description                                                     |Size (Bytes)
 
-|Mark Word            |Header information including identity hash code, lock state, and GC metadata
+|Mark Word
+|Header information including identity hash code, lock state, and GC metadata
 |8 bytes (on 64-bit JVMs)
 
 |Class Pointer (Klass Pointer)

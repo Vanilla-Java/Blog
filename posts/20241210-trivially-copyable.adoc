@@ -17,7 +17,7 @@ Peter Lawrey
 
 For low-latency systems, every microsecond has a tangible business impact. In high-frequency trading, real-time analytics, and similarly time-sensitive workloads, even minor inefficiencies in serialisation and deserialisation can degrade throughput and responsiveness. The seemingly mundane act of converting objects into bytes and back often becomes a performance bottleneck.
 
-This article explores how we can emulate a C++-like concept of *Trivially Copyable Objects* within Java to achieve far more efficient serialisation. By ensuring objects contain only fixed-size primitives, we can sidestep the traditional overheads of object graph traversal, reflection, and per-field copying. Instead, we can treat them as contiguous memory blocks, dramatically reducing the time taken to read and write data. We shall also consider how to get very close to this performance using Chronicle Bytes without strictly requiring trivial copyability. This technique blends the low-level efficiency  with the safety and familiarity of Java’s ecosystem.
+This article explores how we can emulate a C++-like concept of *Trivially Copyable Objects* within Java to achieve far more efficient serialisation. By ensuring objects contain only fixed-size primitives, we can sidestep the traditional overheads of object graph traversal, reflection, and per-field copying. Instead, we can treat them as contiguous memory blocks, dramatically reducing the time to read and write data. We shall also consider how to get close to this performance using Chronicle Bytes without strictly requiring trivial copyability. This technique blends the low-level efficiency with the safety and familiarity of Java’s ecosystem.
 
 
 == The Core Challenge of Java Serialisation
