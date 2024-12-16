@@ -99,11 +99,12 @@ In short, for an `int` value `Integer.MAX_VALUE`, the statement `i += 0.0f;` cau
 
 Consider the following snippet:<
 
-```java
+[source,java]
+----
 char ch = '0';
 ch /= 0.9;
 System.out.println(ch); // prints 5
-```
+----
 
 At first glance, this might look perplexing. The character `'0'` has an ASCII code of 48. Dividing 48 by 0.9 yields approximately 53.3333. When performing a compound assignment like `ch /= 0.9`, Java promotes the right-hand side to a float, does the division, and then implicitly casts the result back to a `char`. This truncates the value to an integer, resulting in 53, which corresponds to the character `'5'`. Thus, the code prints `5`.
 

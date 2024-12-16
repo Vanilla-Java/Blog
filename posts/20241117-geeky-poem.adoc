@@ -5,13 +5,15 @@ In Java development, clear and concise naming conventions are essential for code
 
 Within the Java 6 JRE, there's a class with an astonishingly lengthy name:
 
-```
+[source]
+----
 com.sun.java.swing.plaf.nimbus.InternalFrameInternalFrameTitlePaneInternalFrameTitlePaneMaximizeButtonWindowNotFocusedState
-```
+----
 
 This mouthful appears to be the product of a code generator that needed reviewing, leading to redundant and cumbersome naming. Or is it a geeky poem buried in the code?
 
-```
+[source]
+----
 InternalFrame InternalFrame
 Title Pane,
 Internal Frame
@@ -19,7 +21,7 @@ Title Pane.
 
 Maximise Button Window,
 Not Focused State.
-```
+----
 
 The moral of the story is: always check the readability and sanity of generated code.
 https://news.ycombinator.com/item?id=4770861[In this Hacker News Discussion], another class name was also considered humorous.

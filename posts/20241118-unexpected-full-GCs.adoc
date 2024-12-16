@@ -14,10 +14,11 @@ The RMI DGC collects periodic garbage to clean up unused remote objects. By defa
 
 To mitigate this issue, we can adjust the intervals at which the RMI DGC checks for garbage collection. This is done by setting the following JVM options:
 
-```
+[source]
+----
 -Dsun.rmi.dgc.client.gcInterval=86400000
 -Dsun.rmi.dgc.server.gcInterval=86400000
-```
+----
 
 The values are in milliseconds, so setting them to `86400000` extends the interval to 24 hours. It's important to note that the client and server intervals must be increased; adjusting only one has no effect due to how RMI DGC schedules its checks.
 

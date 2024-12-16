@@ -64,7 +64,8 @@ Once your value is represented as just over `0.5`, `Math.round` applies its stan
 
 Consider the following snippet:
 
-```java
+[source,java]
+----
 public class FloatingPointExample {
     public static void main(String[] args) {
         double value = 0.49999999999999994;
@@ -72,13 +73,15 @@ public class FloatingPointExample {
         System.out.println("Rounded: " + Math.round(value));
     }
 }
-```
+----
 
 Expected output:
-```
+
+[source]
+----
 Value: 0.5
 Rounded: 1
-```
+----
 
 The printed `value` is displayed as `0.5`, reflecting its final stored approximation. Consequently, `Math.round` treats it as `0.5` and rounds it up.
 
