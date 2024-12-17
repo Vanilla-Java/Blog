@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tetris with Hold</title>
+    <style>
+        body {
+          background: #333;
+          color: #fff;
+          font-family: sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+
+        h1 {
+          margin-top: 20px;
+        }
+
+        #score {
+          font-size: 1.2em;
+          margin-bottom: 10px;
+        }
+
+        #instructions {
+          font-size: 0.9em;
+          color: #aaa;
+        }
+
+        #game-container {
+          display: inline-block;
+          position: relative;
+        }
+
+        #container {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          margin: 20px;
+        }
+
+        #tetris {
+          background: #000;
+          display: block;
+          border: 2px solid #555;
+        }
+
+        #hold-container {
+          display: inline-block;
+          margin-left: 20px;
+          text-align: center;
+        }
+
+        #hold {
+          background: #000;
+          display: block;
+          border: 2px solid #555;
+          margin: 0 auto;
+        }
+
+        #hold-label {
+          margin-top: 10px;
+          font-size: 1em;
+          color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Tetris</h1>
+<div id="score">Score: 0</div>
+<div id="instructions">
+    Controls:<br>
+    Left/Right = Move, Up or X = Rotate, Down = Drop faster<br>
+    C or Shift = Hold/Swap piece, R = Restart
+</div>
+<div id="container">
+    <div id="game-container">
+        <canvas id="tetris" width="240" height="480"></canvas>
+    </div>
+    <div id="hold-container">
+        <canvas id="hold" width="80" height="80"></canvas>
+        <div id="hold-label">HOLD</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+      const canvas = document.getElementById('tetris');
+      const context = canvas.getContext('2d');
+      context.scale(20, 20);
+
+      // Hold canvas
+      const holdCanvas = document.getElementById('hold');
+      const holdContext = holdCanvas.getContext('2d');
+      holdContext.scale(20, 20);
+
+      const arena = createMatrix(12, 20);
+
+      const player = {
+        pos: {x: 0, y: 0},
+        matrix: null,
+        score: 0,
+        holdMatrix: null,
+        hasHeld: false  // To track if we already used hold for the current piece
+      };
+
+      const tetrominoes = {
+        'T': [
+          [0, 1, 0],
+          [1, 1, 1],
+          [0, 0, 0],
+        ],
+        'O': [
+          [1, 1],
+          [1, 1],
+        ],
+        'L': [
+          [1, 0, 0],
+          [1, 0, 0],
+          [1, 1, 0],
+        ],
+        'J': [
+          [0, 0, 1],
+          [0, 0, 1],
+          [0, 1, 1],
+        ],
+        'I': [
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+        ],
+        'S': [
+          [0, 1, 1],
+          [1, 1, 0],
+          [0, 0, 0],
+        ],
+        'Z': [
+          [1, 1, 0],
+          [0, 1, 1],
+          [0, 0, 0],
+        ]
+      };
+
+      const colors = [
+        null,
+        '#FF0D72',
+        '#0DC2FF',
+        '#0DFF72',
+        '#F538FF',
+        '#FF8E0D',
+        '#FFE138',
+        '#3877FF',
+      ];
+
+      function createMatrix(w, h) {
+        const matrix = [];
+        while (h--) {
+          matrix.push(new Array(w).fill(0));
+        }
+        return matrix;
+      }
+
+      function createPiece(type) {
+        const matrix = tetrominoes[type];
+        // Convert '1's into a unique color index based on type
+        const piece = matrix.map(row =>
+          row.map(value => value ? (Object.keys(tetrominoes).indexOf(type) + 1) : 0)
+        );
+        return piece;
+      }
+
+      function collide(arena, player) {
+        const m = player.matrix;
+        const o = player.pos;
+        for (let y = 0; y < m.length; ++y) {
+          for (let x = 0; x < m[y].length; ++x) {
+            if (m[y][x] !== 0 &&
+               (arena[y + o.y] &&
+                arena[y + o.y][x + o.x]) !== 0) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      function merge(arena, player) {
+        player.matrix.forEach((row, y) => {
+          row.forEach((value, x) => {
+            if (value !== 0) {
+              arena[y + player.pos.y][x + player.pos.x] = value;
+            }
+          });
+        });
+      }
+
+      function playerReset() {
+        const pieces = 'ILJOTSZ';
+        player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+        player.pos.y = 0;
+        player.pos.x = (arena[0].length / 2 | 0) -
+                        (player.matrix[0].length / 2 | 0);
+        player.hasHeld = false; // Allow holding again
+
+        if (collide(arena, player)) {
+          arena.forEach(row => row.fill(0));
+          player.score = 0;
+          updateScore();
+        }
+      }
+
+      function arenaSweep() {
+        let rowCount = 1;
+        outer: for (let y = arena.length -1; y > 0; --y) {
+          for (let x = 0; x < arena[y].length; ++x) {
+            if (arena[y][x] === 0) {
+              continue outer;
+            }
+          }
+          const row = arena.splice(y, 1)[0].fill(0);
+          arena.unshift(row);
+          ++y;
+
+          player.score += rowCount * 10;
+          rowCount *= 2;
+        }
+      }
+
+      function rotate(matrix, dir) {
+        for (let y = 0; y < matrix.length; ++y) {
+          for (let x = 0; x < y; ++x) {
+            [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+          }
+        }
+        if (dir > 0) {
+          matrix.forEach(row => row.reverse());
+        } else {
+          matrix.reverse();
+        }
+      }
+
+      function playerRotate(dir) {
+        const pos = player.pos.x;
+        let offset = 1;
+        rotate(player.matrix, dir);
+        while (collide(arena, player)) {
+          player.pos.x += offset;
+          offset = -(offset + (offset > 0 ? 1 : -1));
+          if (offset > player.matrix[0].length) {
+            rotate(player.matrix, -dir);
+            player.pos.x = pos;
+            return;
+          }
+        }
+      }
+
+      function playerDrop() {
+        player.pos.y++;
+        if (collide(arena, player)) {
+          player.pos.y--;
+          merge(arena, player);
+          arenaSweep();
+          playerReset();
+          updateScore();
+        }
+        dropCounter = 0;
+      }
+
+      function update(time = 0) {
+        const deltaTime = time - lastTime;
+        lastTime = time;
+
+        dropCounter += deltaTime;
+        if (dropCounter > dropInterval) {
+          playerDrop();
+        }
+
+        draw();
+        requestAnimationFrame(update);
+      }
+
+      function updateScore() {
+        document.getElementById('score').innerText = 'Score: ' + player.score;
+      }
+
+      function drawMatrix(matrix, offset, ctx = context) {
+        matrix.forEach((row, y) => {
+          row.forEach((value, x) => {
+            if (value !== 0) {
+              ctx.fillStyle = colors[value];
+              ctx.fillRect(x + offset.x,
+                           y + offset.y,
+                           1, 1);
+            }
+          });
+        });
+      }
+
+      function draw() {
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        drawMatrix(arena, {x:0, y:0}, context);
+        drawMatrix(player.matrix, player.pos, context);
+
+        // Draw hold piece
+        holdContext.fillStyle = '#000';
+        holdContext.fillRect(0, 0, holdCanvas.width, holdCanvas.height);
+        if (player.holdMatrix) {
+          // Center hold piece in the hold box
+          const offsetX = Math.floor((4 - player.holdMatrix[0].length) / 2);
+          const offsetY = Math.floor((4 - player.holdMatrix.length) / 2);
+          drawMatrix(player.holdMatrix, {x: offsetX, y: offsetY}, holdContext);
+        }
+      }
+
+      function holdPiece() {
+        if (player.hasHeld) return; // Already held this piece, can't hold again until placed.
+        if (!player.holdMatrix) {
+          // No hold piece yet, store current
+          player.holdMatrix = player.matrix;
+          playerReset();
+        } else {
+          // Swap with hold piece
+          const temp = player.matrix;
+          player.matrix = player.holdMatrix;
+          player.holdMatrix = temp;
+          // Reset position for the swapped-in piece
+          player.pos.y = 0;
+          player.pos.x = (arena[0].length / 2 | 0) -
+                          (player.matrix[0].length / 2 | 0);
+        }
+        player.hasHeld = true;
+      }
+
+      let dropCounter = 0;
+      let dropInterval = 1000;
+      let lastTime = 0;
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft') {
+          player.pos.x--;
+          if (collide(arena, player)) {
+            player.pos.x++;
+          }
+        } else if (event.key === 'ArrowRight') {
+          player.pos.x++;
+          if (collide(arena, player)) {
+            player.pos.x--;
+          }
+        } else if (event.key === 'ArrowDown') {
+          playerDrop();
+        } else if (event.key === 'ArrowUp' || event.key === 'x') {
+          playerRotate(1);
+        } else if (event.key === 'r' || event.key === 'R') {
+          // Restart
+          arena.forEach(row => row.fill(0));
+          player.score = 0;
+          player.holdMatrix = null;
+          player.hasHeld = false;
+          updateScore();
+          playerReset();
+        } else if (event.key === 'c' || event.key === 'C' || event.key === 'Shift') {
+          holdPiece();
+        }
+      });
+
+      playerReset();
+      updateScore();
+      update();
+
+    })();
+</script>
+
+</body>
+</html>

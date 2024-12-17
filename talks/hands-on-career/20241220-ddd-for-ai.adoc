@@ -1,0 +1,105 @@
+= Documention Driven Development for AI
+Peter Lawrey
+:imagesdir: ../../images
+
+[abstract]
+Documentation-Driven Development (DDD) involves writing a clear set of requirements or a specification upfront, then implementing code to fulfil those documented requirements. When interacting with AI code generators, providing thorough requirements first often leads to more predictable, higher-quality results than asking directly for code.
+
+== Introduction
+
+When working with AI to generate code—whether it is ChatGPT, GitHub Copilot, or another tool—you might simply ask, *"Write me a Tetris game in HTML/JavaScript."* The AI will try its best, but what it produces is often generic and may not align with your vision. After all, the model only knows what you asked for, not what you genuinely need.
+
+In contrast, if you first request a detailed requirements document, you can guide the AI more effectively. By specifying rules, behaviours, and interface details, you create a blueprint the AI can follow, much like a traditional software engineering process. This approach is akin to Documentation-Driven Development (DDD), allowing you to shape the final output more predictably and with less trial-and-error.
+
+However, if you ask for a requirements document first, the AI can produce a program which is more likely to be what you want. *Even if you don't change these generated requirements.* This is because the AI can use the requirements document to guide it in producing the program.
+
+== Initial Attempt Without Requirements
+
+Consider a straightforward attempt:
+
+----
+write a tetris game in html/javascript
+----
+
+After roughly one minute, the AI returned a 310-line HTML and JavaScript implementation. It was somewhat functional, but lacked polish. It also felt like a minimal, baseline solution rather than a thoughtfully designed application.
+
+image::tetris-noreq.png[alt="Screenshot of initial Tetris implementation without requirements"]
+
+You can view this initial attempt here:
+link:tetris-v1.html[Tetris Game]
+
+=== Adding a Hold Piece Feature Without Requirements
+
+Next, I asked the AI to add a "hold piece" feature:
+
+----
+add hold piece functionality to the html/javascript implementation
+----
+
+After about two minutes, the AI appended 70 lines of code to the existing 310. While functional, this addition felt bolted on rather than elegantly integrated. The lack of initial planning or a guiding specification meant the resulting code was not as clean or maintainable as one would like.
+
+image::tetris-noreq-hold.png[alt="Screenshot of Tetris with hold feature added without prior requirements"]
+link:tetris-v1-hold.html[Tetris Game with Hold Piece]
+
+This approach got us a result, but not a refined one. It’s easy to see how, as a developer, you might spend significant time refactoring and clarifying code generated this way. This is not efficient, and efficiency is crucial for developer productivity and performance.
+
+== Documentation-Driven Development in Action
+
+To improve the quality of the generated code, I started by requesting a detailed requirements document first:
+
+----
+write a detailed requirements document in asciidoc for a tetris game in html/javascript
+----
+
+After a few minutes, the AI produced a 1,440-word AsciiDoc specification. This requirements document spelled out the game’s behaviours, user interactions, scoring, rendering details, and extension points. With this blueprint in hand, *without changing it manually*, I then asked the AI to produce an implementation that followed it:
+
+----
+provide an implementation of this game following this specification
+----
+
+This time, the AI generated a 647-line HTML/JavaScript solution—more than double the size of the original and notably more polished. The structure aligned better with the requirements, resulting in cleaner code. The game looked more professional and more closely matched the initial vision.
+
+image::tetris-req.png[alt="Screenshot of Tetris following requirements-based development"]
+link:tetris-v2.html[Tetris Game with Requirements]
+
+=== Adding a Hold Piece Feature with Requirements
+
+Now, when I wanted the "hold piece" feature, I first updated the requirements document:
+
+----
+add an asciidoc section to the requirements for
+
+Add a "Hold Piece" functionality to store one Tetromino for later use.
+----
+
+With this new section added (about 310 words), I asked the AI to update the implementation accordingly:
+
+----
+add this hold piece functionality to the html/javascript implementation
+----
+
+This time, it only needed to add about 45 lines of code to the now 647-line implementation. The integration felt smoother, more intentional, and better aligned with the overall architecture.
+
+image::tetris-req-hold.png[alt="Screenshot of Tetris with requirements-based hold piece"]
+link:tetris-v2-hold.html[Tetris Game with Requirements and Hold Piece]
+
+== Common Mistakes and How to Avoid Them
+
+Without upfront requirements, one common mistake is ending up with code that "works" but is difficult to maintain, extend, or debug. For instance, the initial code might contain tightly coupled logic in a single, monolithic file. By contrast, a specification encourages the AI to separate concerns—rendering, input handling, scoring—leading to cleaner code.
+
+Additionally, developers might overlook important details if they rely solely on a single prompt. With a requirements document, nothing is left to chance. The specification sets the stage, so the AI can better understand the desired architecture and features. This eliminates guesswork and reduces the risk of misinterpretation.
+
+== Summary & Key Takeaways
+
+- **Define requirements first:** By providing a detailed AsciiDoc requirements document, *even one the AI generated without alteration*, the AI is guided to produce more aligned and robust code.
+- **Iterative enhancements:** Adding new features like the "hold piece" becomes simpler and cleaner when integrated from a defined specification.
+- **Performance and maintainability:** Thoughtful documentation often yields code that is easier to maintain, optimise, and extend.
+- **Reduced guesswork:** Document-driven prompts give the AI a clearer vision, reducing the need for extensive refactoring later.
+
+== Conclusion
+
+While this example focuses on a Tetris game, the principle applies broadly. Documentation-Driven Development, especially when working with AI-based code generation, leads to higher-quality results. Instead of retrofitting requirements after the fact, define them upfront. The AI then follows a more deliberate path, producing code that better matches your vision from the start.
+
+In practice, this approach can save you time, improve code quality, and streamline the development process. It encourages you to think through requirements thoroughly before diving into code, a technique that should feel familiar to experienced developers. Give it a try on your next AI-assisted coding project, and you might be pleasantly surprised by the results.
+
+// teaser: Using a thorough requirements document can guide AI to produce cleaner, more aligned code, transforming how we approach AI-assisted development.

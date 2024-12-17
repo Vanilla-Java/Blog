@@ -4,19 +4,23 @@ Peter Lawrey, Java Champion & CEO of Chronicle Software
 // This is for context for the article below, reuse as needed
 
 [.context]
+----
 https://softwareengineering.stackexchange.com/questions/14914/whats-the-difference-between-entry-level-jr-sr-developers[What's the difference between entry-level/junior/senior developers?]
 
 Senior developers distinguish themselves through a blend of deep technical expertise, broad experience, and the ability to make informed, strategic decisions. Unlike entry-level or junior developers who are just beginning to understand the development cycle, or intermediate-level developers who focus primarily on their assigned piece of a project, senior developers consider the entire system’s architecture and long-term implications. They frequently handle the most complex or ambiguous tasks, draw on a history of lessons learned, and anticipate issues before they arise.
 
 They mentor less experienced team members, offering guidance on best practices, troubleshooting techniques, and domain knowledge beyond coding itself. Their approach often involves pushing back on poorly defined requirements, suggesting improvements, and understanding the business and regulatory environments in which their software operates. Additionally, senior developers are recognized for their ability to work more independently, produce maintainable solutions under tight deadlines, and select appropriate technologies with a sense of pragmatism rather than chasing trends. Ultimately, senior developers stand out not merely by their years of experience, but by the depth of their skills, their judgment, and their capacity to add value across the entire project lifecycle.
-
+----
 
 [.context]
+----
 https://www.developernation.net/blog/how-to-differentiate-junior-and-senior-developers/[How to Differentiate Junior and Senior Developers]
 
 Senior developers differentiate themselves primarily through a combination of technical depth, problem-solving prowess, leadership, and communication skills, rather than just a job title. While junior developers focus on building foundational competencies, improving through guidance, and mastering basic tools, senior developers leverage a broad range of technologies and frameworks, create efficient and scalable code, and solve complex challenges independently. They typically possess deep industry experience that informs strategic technical decisions, and they often assume leadership roles—guiding projects from concept to delivery, mentoring junior team members, and communicating effectively with both technical peers and non-technical stakeholders. In essence, senior developers distinguish themselves through their ability to handle complexity, drive project success, foster team growth, and connect technical solutions with organizational goals.
+----
 
 [.context]
+----
 https://devskiller.com/blog/junior-developer/[Differences between a junior, middle, and senior developers]
 
 Senior developers set themselves apart from junior and mid-level developers by applying a more holistic, strategic approach to both technical tasks and overall project direction. Their experience shapes the way they think about code, business goals, and team collaboration, making them valuable assets in any tech environment.
@@ -28,15 +32,19 @@ Compared to mid-level developers, who can work independently but remain focused 
 In addition, senior developers excel at communication and leadership. They mentor less experienced team members, foster constructive discussions, and articulate complex technical concepts to non-technical stakeholders. They help shape processes, refine requirements, and guide the team toward strategic decisions, ultimately driving more value for the business.
 
 In short, senior developers distinguish themselves through their technical mastery, problem-solving foresight, decision-making autonomy, and ability to elevate the entire team—traits that junior and mid-level developers develop over time through experience and learning.
+----
 
 [.context]
+----
 https://www.linkedin.com/pulse/whats-difference-between-senior-developer-junior-anyway-esteemed/[What's the difference between a senior developer and a junior developer anyway?]
 
 Senior developers distinguish themselves through a combination of technical depth, practical experience, and strategic thinking. They typically have a broader understanding of system architecture, security considerations, and industry best practices. Unlike junior developers who are still building foundational skills, senior developers can work independently, handle entire projects end-to-end, and often guide or mentor their peers.
 
 Their approach focuses not just on making code work, but on optimizing for long-term maintainability, scalability, and business impact. While years of experience often play a role in defining a senior developer, true seniority comes from demonstrable skill and the ability to solve complex problems, communicate effectively with stakeholders, and lead technical decisions. In short, senior developers stand out by leveraging deep expertise to deliver robust solutions, mentor others, and contribute strategically to an organization’s success.
+----
 
 [.context]
+----
 E3 - Software Engineer 2
 Complete individual tasks without much guidance. Deliver good quality code, test, documentation. React well on constructive feedback. Unblock yourself or with the help of another engineer.
 
@@ -57,8 +65,10 @@ Industry expert/leader. You have impact beyond Meta into an industry or specific
 
 E9+ - Distinguished Engineer
 You are heading a whole organisation. A core product of Meta. You are seen as a CTO of the area able to drive through all of the layers independently and dealing with problems that few other can.
+----
 
 [.context]
+----
 **Common Technical Elements:**
 
 - **Core Programming Skills:** Proficiency in one or more popular languages (commonly Java, Python, JavaScript/TypeScript, and Node.js) appears frequently.
@@ -87,6 +97,7 @@ You are heading a whole organisation. A core product of Meta. You are seen as a 
 - **Focus on High-Quality Delivery:** Emphasis on testing (unit, integration), maintainable code, scalability, and reliability.
 
 In summary, the roles commonly value technical expertise in modern programming languages and cloud-based architectures, strong domain and business understanding (especially in finance), solid communication and leadership skills, and the ability to thrive in Agile, fast-paced, and evolving environments.
+----
 
 == Staying Hands-On While Growing Leadership Skills
 * Becoming a technical lead or architect without losing your coding edge:

@@ -378,6 +378,18 @@ In IEEE 754 floating-point arithmetic, `-0.0` and `0.0` are considered equal whe
 
 '''
 
+== About the author
+
+As the CEO of https://chronicle.software/[Chronicle Software^,role=external],
+https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the development of cutting-edge,
+low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks^,role=external].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient
+enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed
+and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him
+as a thought leader and mentor in the Java and FinTech communities. Follow Peter on
+https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
+https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
+
 == Conclusion
 
 Emerging from the AI Trough of Disillusionment involves embracing a more measured and knowledgeable approach to AI integration. By learning from past oversights—whether misinterpreting legacy syntax, overlooking undefined behaviours in standard methods, or misunderstanding subtle performance implications—teams grow more capable of wielding AI tools effectively. Rather than chasing hype or relinquishing hard-won engineering principles, successful developers acknowledge AI as an ally that augments their capabilities.

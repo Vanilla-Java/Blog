@@ -1407,29 +1407,34 @@ As codebases evolve and product requirements shift, maintaining up-to-date, cohe
 
 === Establishing a Framework for AI-Driven Documentation
 Before deploying AI to enhance your documentation, set clear guidelines:
+
 - *Style Guides:* Define voice, tone, formatting standards, and domain-specific terminology. Providing the AI with these rules improves the relevance and consistency of its suggestions.
 - *Templates and Structures:* Use AsciiDoc templates to standardise headings, lists, code blocks, and references. This ensures that AI-generated content fits seamlessly into your existing documentation framework.
 
 === Prompting the AI for Quality Improvements
 Crafting the right prompt can significantly elevate the quality of AI outputs:
+
 - *Instruction-Based Requests:* Be explicit when asking for improvements. For instance, “Apply the company’s style guide to this API reference and clarify ambiguous terms” encourages more targeted refinement.
 - *Iterative Refinement:* Start with a high-level prompt (e.g., “Improve the documentation for clarity and completeness”) and follow up with more specific requests (e.g., “Add a code example for the user authentication process”).
 - *Contextual Prompts:* Include snippets of existing documentation, code samples, or style guidelines in the prompt. This context helps the AI produce suggestions aligned with your established norms and expectations.
 
 === Generating and Enhancing Content
 Use AI to speed up the creation of new documentation or improve existing text:
+
 - *Code Snippets and Common Tasks:* Ask AI to generate initial examples, tutorials, or configuration steps. Then review and refine these outputs for technical accuracy and clarity.
 - *Alternative Phrasing:* Prompt the AI to rewrite explanations of complex concepts in simpler terms, or provide multiple ways of explaining a procedure, allowing you to pick the most accessible version.
 - *Domain Adaptation:* Fine-tune AI models with your specific jargon, libraries, or architectural patterns. As the AI “learns” your domain, it produces content more directly useful to specialised audiences.
 
 === Automating Routine Documentation Maintenance
 Some documentation tasks are repetitive and time-consuming:
+
 - *Version Updates and Consistency Checks:* Direct the AI to scan and update version references, ensure uniform naming conventions, or correct formatting inconsistencies throughout the AsciiDoc files.
 - *Link and Cross-Reference Validation:* Ask AI to verify internal links, cross-references, or index entries, so you maintain navigable documents as your codebase grows.
 - *Summarisation and Highlighting:* Use AI to generate executive summaries or highlight key points in long-form documents, making it easier for readers to find critical information quickly.
 
 === Integrating AI into Your Toolchain and Workflow
 Seamless integration ensures that AI-generated improvements become part of your natural documentation cycle:
+
 - *Continuous Integration (CI) Pipelines:* Incorporate AI-driven linting or suggestion tools into your CI setup. Automated reviews can flag outdated references or detect unclear instructions before merging updates.
 - *Editorial Review Stages:* Treat AI outputs as a starting point rather than a final product. Human reviewers should validate technical correctness, accuracy, and adherence to style, ensuring that each published update meets your quality standards.
 - *Feedback Loops for Iteration:* As your style guide, technology stack, or user feedback evolves, update the AI’s training data and prompts. This iterative approach ensures the AI remains aligned with the project’s evolving needs.

@@ -1,0 +1,198 @@
+= Shaping the Future of Requirements and Documentation with AI
+Peter Lawrey
+:doctype: article
+:icons: font
+:source-highlighter: rouge
+
+== Introduction
+
+Too often, developers push documentation to the margins, treating it as a necessary evil rather than a primary component of the development process. Yet, as generative AI matures, the value of rigorously capturing requirements and maintaining rich, machine-readable documentation increases dramatically. When you feed ambiguous or incomplete requirements into AI models, you typically get fuzzy outputs that require significant rework. By contrast, when you supply crisp, context-rich details, you can guide AI towards producing results that align with your stakeholder's business objectives, architectural constraints, and engineering standards.
+
+To this end, adopting Behaviour-Driven Development (BDD) and Documentation-Driven Development (DDD) offers a compelling combination. BDD ensures that everyone—developers, testers, and stakeholders—speaks a shared language of expected behaviours, while DDD ensures that comprehensive documentation acts as a stable reference point. This combination enables AI tools to generate code, produce meaningful commentary, and craft test cases that match your software's intended functionality and performance profile.
+
+[mermaid]
+----
+flowchart TD
+
+    subgraph Requirements & Documentation
+    A[Business Analyst] -->|Defines requirements & writes BDD scenarios| B[Initial Documentation Draft]
+    end
+
+    subgraph Code Generation & Review
+    B -->|AI reviews & suggests improvements| C[AI-Enhanced Documentation]
+    C -->|AI generates code snippets & structure| D[Code Prototypes]
+    D -->|Developer reviews & refines code| E[Refined Codebase]
+    E -->|AI assists with testing & validation| F[Validated Code + Tests]
+    F -->|AI provides insights for doc updates| C
+    end
+----
+
+=== Documentation and Communication Enhancements
+
+Employing AI tools and markup languages (e.g., AsciiDoc) to manage documentation isn't about simply "writing it down." It's about forging an authoritative resource that guides humans and machines, enabling teams to evolve their systems confidently. The following quotes encapsulate the importance of clarity, structure, and long-term thinking—values that AI can help reinforce and maintain.
+
+
+[quote, Common project management and engineering adage]
+If it's not documented, it didn't happen.
+
+Documentation brings life and permanence to your ideas. Without it, critical insights fade away and are inaccessible to new team members, auditors, or future maintainers. Using AI-driven documentation workflows ensures that vital details remain visible, searchable, and integrated into the broader development ecosystem.
+
+[quote, Harold Abelson and Gerald Jay Sussman, Structure and Interpretation of Computer Programs (1984)]
+Programs must be written for people to read, and only incidentally for machines to execute.
+
+This classic reminder encourages human-centric design. High-quality documentation—especially when AI refines it—helps your team grasp logic quickly. The result: code that is both clean and comprehensible reduces onboarding time and developer fatigue.
+
+[quote, Albert Einstein (apocryphal)]
+If you can't explain it simply, you don't understand it well enough.
+
+Condensing complex systems into straightforward explanations tests your depth of understanding. Applying AI-assisted summaries to documentation encourages you to refine clarity, ensuring everyone—from junior engineers to seasoned architects—stays on the same page.
+
+[quote, Chinese proverb (centuries old)]
+The palest ink is better than the best memory.
+
+Human memory is fallible, but written records endure. When combined with AI's capacity to synchronise, version, and cross-reference documents, even vast and intricate codebases become manageable, traceable, and resilient against the decay of institutional knowledge.
+
+[quote, Damian Conway (2005), "Perl Best Practices" p.153]
+Documentation is a love letter that you write to your future self.
+
+As software evolves, your future self (and team members) will thank you for thoughtful, structured documentation. With AI continuously refining formatting, linking relevant resources, and flagging outdated sections, you minimise the cognitive load of rediscovering architectural decisions months or years down the line.
+
+[quote, Common DevOps adage (21st century)]
+Version control is the difference between a horror story and a good story you can tell your friends.
+
+Documentation integrated into version control and enhanced by AI ensures an auditable history of decisions. This stable, traceable narrative helps avoid the "horror stories" of missing rationale or lost information, turning your documentation into a living, evolving record rather than a fragile snapshot.
+
+== Why Requirements Matter in an AI-Driven World
+
+When integrating AI into your development pipeline, the generative model depends heavily on the quality of the inputs it receives. If your requirements are clear, your outputs will reflect that clarity. The AI can utilise these details to generate coherent code snippets, consistent documentation, and stable integration points.
+
+My experience shows that teams that spend time on upfront clarity see significant downstream benefits. Whether you are dealing with microservices, event-driven architectures, or complex data pipelines, the right level of specification makes a world of difference. High-quality, version-controlled documentation improves immediate outputs and ensures that future maintenance and enhancements proceed smoothly.
+
+== Behaviour Driven Development (BDD)
+
+BDD encourages writing requirements as scenarios describing desired behaviours rather than low-level technical specifications. The "Given-When-Then" format provides a structured, human-readable pattern that aligns perfectly with AI-driven code generation tools.
+
+For example, consider a user authentication process:
+
+[source,gerkin]
+----
+Feature: User Login
+
+  Scenario: Successful login with valid credentials
+    Given a user on the login screen
+    When the user enters a valid username and password
+    Then the user is redirected to the homepage
+----
+
+This scenario clarifies the exact behaviour expected. When AI sees this, it can more readily suggest Java code that implements these steps or produce test cases using frameworks like JUnit, Cucumber, or JBehave. By grounding the AI's input in behaviour-focused narratives, you minimise guesswork and help ensure correctness and maintainability.
+
+From a performance perspective, BDD scenarios guide the AI in proposing solutions that meet functional needs, including latency or throughput. With clear behavioural targets, you can identify where performance bottlenecks may arise early and consider optimisations—such as caching authentication tokens or offloading cryptographic operations.
+
+The following example demonstrates how a simple login form can be implemented in Java, generated by the BDD scenario above, expecting testUser / testPass:
+++++
+<form id="loginForm">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+  <button type="submit">Login</button>
+</form>
+
+<div id="successMessage" class="message success" style="display:none">
+  Login successful! Redirecting to the homepage...
+</div>
+<div id="errorMessage" class="message error" style="display:none">
+  Invalid credentials. Please try again.
+</div>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Mock valid credentials for demonstration:
+    const validUsername = 'testUser';
+    const validPassword = 'testPass';
+
+    const enteredUsername = document.getElementById('username').value.trim();
+    const enteredPassword = document.getElementById('password').value.trim();
+
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    if (enteredUsername === validUsername && enteredPassword === validPassword) {
+      // Show success message and redirect
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'block';
+      setTimeout(() => {
+        // Simulate redirect to homepage
+        window.location.href = 'https://blog.vanillajava.blog/';
+      }, 2000);
+    } else {
+      // Show error message
+      errorMessage.style.display = 'block';
+    }
+  });
+</script>
+++++
+
+== Documentation Driven Development (DDD)
+
+If BDD provides a behavioural lens, DDD provides a stable written record—a single source of truth outlining architecture, data contracts, integration points, and constraints. Writing your documentation before or alongside the code ensures that it does so within well-defined boundaries when AI attempts to generate or refine code.
+
+A thorough AsciiDoc or Markdown file describing how services interact, data flows, and the operational considerations under load empowers an AI model to produce more accurate implementations. If you say, "We use Chronicle Queue to manage high-throughput, low-latency messaging," the AI can propose code patterns optimised for https://github.com/OpenHFT/Chronicle-Queue[Chronicle Queue] usage rather than generic queue handling.
+
+When you handle documentation this way, any misunderstandings emerge early. Teams can correct or refine details without wading through lines of misaligned code. The AI then "reads" from a consistent script, guiding its suggestions in a direction that aligns with the engineering vision and the business goals.
+
+
+== Tips for Using AI Effectively for Documentation (e.g. AsciiDoc)
+Offer practical techniques for incorporating AI into documentation workflows and maintaining structure, clarity, and accuracy in evolving codebases.
+
+Maintaining current and coherent documentation is an ongoing challenge as codebases evolve and product requirements shift. AI can streamline this process, ensuring that technical documents remain accurate, accessible, and consistent. By integrating AI tools thoughtfully, developers and documentation teams can focus on higher-value tasks such as critical content review, architectural insights, and community engagement.
+
+== Bringing BDD and DDD Together
+
+By marrying BDD and DDD, you create a feedback loop that enhances alignment and reduces waste. The BDD scenarios form testable criteria that measure how faithfully the AI-driven code meets the documented requirements. If you detect a discrepancy, you adjust the documentation or the BDD scenarios. This iterative process steers the AI away from generating irrelevant or substandard code.
+
+For example, start by crafting a series of BDD scenarios describing the throughput constraints on a data processing microservice. Then document these requirements thoroughly in AsciiDoc—include data flow diagrams, expected SLA targets, and links to official documentation for libraries you rely on. When you prompt an AI tool to write code, it will draw on both the scenarios and the documentation, producing code snippets or architectural suggestions that dovetail neatly with your established guidelines.
+
+== Practical Steps to Align BDD and DDD for AI
+
+1. Start by writing or refining documentation. Include system architecture, data models, error handling strategies, and performance requirements.
+2. Translate the key requirements into BDD scenarios. Make them explicit, clear, and testable.
+3. Introduce the AI to both sets of information. Prompt it with documented rules, then ask it to generate code or test cases that satisfy the BDD scenarios.
+4. Validate the AI's output using automated tests driven by your BDD scenarios. If the results deviate from requirements, refine your documentation or scenario definitions.
+5. Continuously update your documentation. As requirements evolve or performance expectations shift, keep the AI context current.
+
+== Tips for Using AI Effectively with AsciiDoc
+
+Integrating AI with a markup language like AsciiDoc brings structure and consistency:
+
+- **Consistent Formatting:** Your headings, code blocks, and emphasis remain intact, helping the AI produce more coherent output. Consistent formatting also aids readability and maintainability for your team.
+- **Easier Integration with Tooling:** AsciiDoc is widely supported by documentation frameworks, CI/CD pipelines, and publishing platforms.
+- **Commenting for Suggestions:** Insert `// add:` with added content or `// alt:` for alternative wording comments for internal notes without cluttering final output. The AI can also react to these hints in future iterations.
+- **Embedded Links and References:** Add official documentation links or internal references to guide the AI towards authoritative sources.
+- **Separation of Concerns:** Content remains distinct from styling. This flexibility helps you maintain a professional appearance regardless of the reading platform.
+- **Readable by Humans and Machines:** Plain text AsciiDoc is easy for you to review and for AI to parse, encouraging iterative improvements and collaborative refinement.
+
+== Summary
+
+As AI tools become more pervasive, the quality of your requirements and documentation becomes central to the development process. Applying BDD ensures that everyone understands desired behaviours in a clear, testable form. Using DDD, you guarantee that the AI and your team have a stable, well-defined foundation for generating code, explaining complex concepts, and verifying performance criteria.
+
+When done right, this synergy reduces rework and streamlines maintenance. It keeps your team focused on what matters: delivering software that meets its specifications, scales efficiently and continuously adapts to changing conditions. If you invest time in meticulously capturing requirements and writing comprehensive documentation, AI will reward your efforts by delivering outputs that closely match your project's goals and constraints.
+
+== About the author
+
+As the CEO of https://chronicle.software/[Chronicle Software^,role=external],
+https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the development of cutting-edge,
+low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks^,role=external].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient
+enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed
+and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him
+as a thought leader and mentor in the Java and FinTech communities. Follow Peter on
+https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
+https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
+
+== Conclusion
+
+AI is not a silver bullet; combined with well-defined requirements and robust documentation, it becomes a force multiplier. Embrace BDD and DDD to establish a fertile environment where generative AI can thrive. The result is better-aligned code, improved developer efficiency, and a smoother path to delivering value to your users now and in the future.
