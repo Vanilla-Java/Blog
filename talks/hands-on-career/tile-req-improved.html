@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tile Matching Game</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: sans-serif;
+          background: #f0f0f0;
+          user-select: none;
+        }
+
+        header, footer {
+          text-align: center;
+          background: #fff;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+
+        header h1 {
+          margin: 0;
+          padding: 10px;
+        }
+
+        .menu {
+          position: absolute;
+          top:0; left:0; right:0; bottom:0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background: rgba(0,0,0,0.5);
+          color: #fff;
+          font-size: 20px;
+          text-align:center;
+          z-index: 999;
+        }
+
+        .menu button {
+          margin: 10px;
+          padding: 10px 20px;
+          font-size: 18px;
+          cursor: pointer;
+        }
+
+        .game-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 60px;
+          margin-bottom: 60px;
+        }
+
+        .hud {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          width: 90%;
+          max-width: 600px;
+          margin-bottom: 10px;
+          font-size: 18px;
+          flex-wrap: wrap;
+          gap:10px;
+        }
+
+        .hud-item {
+          background: #fff;
+          padding: 10px;
+          border-radius: 5px;
+        }
+
+        .board {
+          position: relative;
+          display: grid;
+          grid-template-columns: repeat(8, 50px);
+          grid-template-rows: repeat(8, 50px);
+          gap: 2px;
+          background: #333;
+          border: 2px solid #333;
+        }
+
+        .tile {
+          width: 50px;
+          height: 50px;
+          background: #ccc;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 24px;
+          color: #fff;
+          cursor: pointer;
+          transition: transform 0.1s ease-in-out;
+        }
+
+        .tile:active {
+          transform: scale(0.9);
+        }
+
+        .paused-overlay {
+          position: absolute;
+          top:0;left:0;right:0;bottom:0;
+          background: rgba(0,0,0,0.4);
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          color:#fff;
+          font-size:24px;
+          flex-direction: column;
+          z-index: 999;
+        }
+
+        .paused-overlay button {
+          margin: 10px;
+          padding: 10px 20px;
+          font-size:18px;
+          cursor: pointer;
+        }
+
+        footer {
+          position: fixed;
+          bottom:0;
+          width:100%;
+          background: #fff;
+          border-top:1px solid #ccc;
+          text-align:center;
+          padding:5px;
+          font-size:12px;
+          color:#444;
+        }
+
+        .instructions {
+          font-size:16px;
+          margin:20px;
+          max-width:600px;
+          color: #fff;
+          background: rgba(0,0,0,0.6);
+          padding:20px;
+          border-radius:10px;
+          line-height:1.5;
+        }
+
+        .instructions h2 {
+          margin-top:0;
+        }
+
+        .hidden {
+          display:none !important;
+        }
+
+        /* Optional colour-blind friendly mode classes (just an example) */
+        .cb-mode .tile.type-0 {
+          background: #9b5de5;
+        }
+
+        .cb-mode .tile.type-1 {
+          background: #f15bb5;
+        }
+
+        .cb-mode .tile.type-2 {
+          background: #fee440;
+          color: #000;
+        }
+
+        .cb-mode .tile.type-3 {
+          background: #00bbf9;
+        }
+
+        .cb-mode .tile.type-4 {
+          background: #00f5d4;
+        }
+
+        /* Default theme tile colours: */
+        .tile.type-0 {
+          background: #ec4b4b;
+        }
+        .tile.type-1 {
+          background: #4bec6a;
+        }
+        .tile.type-2 {
+          background: #4b6bec;
+        }
+        .tile.type-3 {
+          background: #eccc4b;
+          color:#000;
+        }
+        .tile.type-4 {
+          background: #9b4bec;
+        }
+
+        .power-ups {
+          display:flex;
+          gap:10px;
+          justify-content:center;
+          align-items:center;
+          flex-wrap:wrap;
+        }
+
+        .power-up-btn {
+          background:#fff;
+          border:1px solid #ccc;
+          border-radius:5px;
+          font-size:16px;
+          cursor:pointer;
+          padding:5px 10px;
+        }
+
+        .combo-display {
+          animation: comboPulse 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes comboPulse {
+          from { transform: scale(1); }
+          to { transform: scale(1.1); }
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Tile Matching Game</h1>
+</header>
+<div class="menu" id="mainMenu">
+    <div class="instructions">
+        <h2>How to Play</h2>
+        <p>Swap adjacent tiles to create matches of three or more identical tiles in a row or column.</p>
+        <p>When tiles match, they clear and new tiles fall in from the top. Chain reactions (combos) earn more points!</p>
+        <p>Use power-ups (Shuffle, Hammer, Row/Column Clear) to help clear tough situations.</p>
+        <p>Reach the target score within the given moves to level up!</p>
+    </div>
+    <button id="startBtn">Start Game</button>
+    <button id="colourBlindBtn">Toggle Colour-Blind Mode</button>
+</div>
+<div class="game-container hidden" id="gameContainer">
+    <div class="hud">
+        <div class="hud-item">Score: <span id="scoreDisplay">0</span></div>
+        <div class="hud-item">Moves: <span id="movesDisplay">20</span></div>
+        <div class="hud-item">Level: <span id="levelDisplay">1</span></div>
+        <div class="hud-item">Target: <span id="targetDisplay">200</span></div>
+        <div class="hud-item">Combo: <span id="comboDisplay">0</span></div>
+        <div class="hud-item" id="frenzyIndicator" style="display:none;">Frenzy Mode!</div>
+        <button id="pauseBtn" class="hud-item">Pause</button>
+    </div>
+    <div class="power-ups hud">
+        <button class="power-up-btn" id="shuffleBtn">Shuffle (x<span id="shuffleCount">1</span>)</button>
+        <button class="power-up-btn" id="hammerBtn">Hammer (x<span id="hammerCount">1</span>)</button>
+        <button class="power-up-btn" id="clearRowColBtn">Row/Col Clear (x<span id="clearRowColCount">1</span>)</button>
+    </div>
+    <div class="board" id="board"></div>
+</div>
+<div class="paused-overlay hidden" id="pauseOverlay">
+    <div>Game Paused</div>
+    <button id="resumeBtn">Resume</button>
+    <button id="restartBtn">Restart</button>
+    <button id="quitBtn">Quit</button>
+</div>
+<footer>
+    &copy; 2024 Tile Matching Game. All rights reserved.
+</footer>
+
+<script>
+    (function(){
+      // Basic configuration
+      const rows = 8;
+      const cols = 8;
+      const tileTypes = 5; // number of distinct tile types
+      const targetScoreIncrement = 200; // how score target increases per level
+      const initialMoves = 20;
+      const comboThresholdForFrenzy = 3; // If combo >=3, enter frenzy mode
+      const frenzyBonusMultiplier = 2; // Score multiplier in frenzy mode
+      const boardElement = document.getElementById('board');
+      let board = [];
+      let score = 0;
+      let moves = initialMoves;
+      let level = 1;
+      let firstSelected = null;  // {row,col}
+      let waiting = false;
+      let colourBlindMode = false;
+      let paused = false;
+      let targetScore = targetScoreIncrement;
+      let currentCombo = 0;
+      let frenzyMode = false;
+
+      // Power-ups inventory
+      let shuffleCount = 1;
+      let hammerCount = 1;
+      let clearRowColCount = 1;
+
+      // When a power-up is selected, we enter a "mode" to use it
+      let activePowerUp = null; // 'hammer' or 'clearRowCol'
+
+      const mainMenu = document.getElementById('mainMenu');
+      const gameContainer = document.getElementById('gameContainer');
+      const pauseOverlay = document.getElementById('pauseOverlay');
+      const scoreDisplay = document.getElementById('scoreDisplay');
+      const movesDisplay = document.getElementById('movesDisplay');
+      const levelDisplay = document.getElementById('levelDisplay');
+      const targetDisplay = document.getElementById('targetDisplay');
+      const comboDisplay = document.getElementById('comboDisplay');
+      const frenzyIndicator = document.getElementById('frenzyIndicator');
+
+      const startBtn = document.getElementById('startBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const resumeBtn = document.getElementById('resumeBtn');
+      const restartBtn = document.getElementById('restartBtn');
+      const quitBtn = document.getElementById('quitBtn');
+      const colourBlindBtn = document.getElementById('colourBlindBtn');
+
+      const shuffleBtn = document.getElementById('shuffleBtn');
+      const hammerBtn = document.getElementById('hammerBtn');
+      const clearRowColBtn = document.getElementById('clearRowColBtn');
+
+      const shuffleCountDisplay = document.getElementById('shuffleCount');
+      const hammerCountDisplay = document.getElementById('hammerCount');
+      const clearRowColCountDisplay = document.getElementById('clearRowColCount');
+
+      function initBoard() {
+        board = [];
+        for (let r=0; r<rows; r++){
+          board[r] = [];
+          for (let c=0; c<cols; c++){
+            board[r][c] = randomTile();
+          }
+        }
+        let safeguard = 0;
+        while(!hasPossibleMoves(board) && safeguard < 100) {
+          for (let r=0; r<rows; r++){
+            for (let c=0; c<cols; c++){
+              board[r][c] = randomTile();
+            }
+          }
+          safeguard++;
+        }
+        renderBoard();
+      }
+
+      function randomTile() {
+        return Math.floor(Math.random()*tileTypes);
+      }
+
+      function renderBoard() {
+        boardElement.innerHTML = '';
+        for (let r=0; r<rows; r++){
+          for (let c=0; c<cols; c++){
+            const tileType = board[r][c];
+            const div = document.createElement('div');
+            div.className = 'tile type-' + tileType;
+            div.dataset.row = r;
+            div.dataset.col = c;
+            div.addEventListener('click', onTileClick);
+            boardElement.appendChild(div);
+          }
+        }
+        updateHUD();
+      }
+
+      function onTileClick(e) {
+        if (waiting || paused) return;
+        const row = parseInt(e.target.dataset.row);
+        const col = parseInt(e.target.dataset.col);
+
+        // If a power-up is active
+        if (activePowerUp) {
+          if (activePowerUp === 'hammer') {
+            useHammer(row,col);
+          } else if (activePowerUp === 'clearRowCol') {
+            useClearRowCol(row,col);
+          }
+          return;
+        }
+
+        if (!firstSelected) {
+          firstSelected = {row, col};
+        } else {
+          let r1 = firstSelected.row;
+          let c1 = firstSelected.col;
+          let r2 = row;
+          let c2 = col;
+          firstSelected = null;
+          if ((Math.abs(r1-r2) === 1 && c1===c2) || (Math.abs(c1-c2)===1 && r1===r2)) {
+            doSwap(r1,c1,r2,c2);
+          }
+        }
+      }
+
+      function doSwap(r1,c1,r2,c2) {
+        waiting = true;
+        // Reset combo on new user-initiated move
+        currentCombo = 0;
+        updateComboDisplay();
+
+        [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+        renderBoard();
+        let matches = findMatches(board);
+        if (matches.length === 0) {
+          // revert swap
+          [board[r1][c1], board[r2][c2]] = [board[r2][c2], board[r1][c1]];
+          renderBoard();
+          waiting = false;
+          return;
+        } else {
+          moves--;
+          clearMatches(matches, /*isCascade=*/false);
+        }
+      }
+
+      function findMatches(bd) {
+        let matched = [];
+        // Check rows
+        for (let r=0; r<rows; r++){
+          let streak = 1;
+          for (let c=1; c<cols; c++){
+            if (bd[r][c]===bd[r][c-1] && bd[r][c]!=null) {
+              streak++;
+            } else {
+              if (streak>=3) {
+                for (let i=0; i<streak; i++){
+                  matched.push({r, c:c-1-i});
+                }
+              }
+              streak=1;
+            }
+          }
+          if (streak>=3) {
+            for (let i=0; i<streak; i++){
+              matched.push({r, c:cols-1-i});
+            }
+          }
+        }
+
+        // Check columns
+        for (let c=0; c<cols; c++){
+          let streak = 1;
+          for (let r=1; r<rows; r++){
+            if (bd[r][c]===bd[r-1][c] && bd[r][c]!=null) {
+              streak++;
+            } else {
+              if (streak>=3) {
+                for (let i=0; i<streak; i++){
+                  matched.push({r:r-1-i, c});
+                }
+              }
+              streak=1;
+            }
+          }
+          if (streak>=3) {
+            for (let i=0; i<streak; i++){
+              matched.push({r:rows-1-i, c});
+            }
+          }
+        }
+
+        // remove duplicates
+        const unique = [];
+        const map = {};
+        for (let m of matched) {
+          let key = m.r+"_"+m.c;
+          if(!map[key]) {
+            map[key]=true;
+            unique.push(m);
+          }
+        }
+        return unique;
+      }
+
+      function clearMatches(matches, isCascade) {
+        // Calculate score from matches
+        let count = matches.length;
+        let baseScore = 10 + (count - 3)*5;
+        if (baseScore < 0) baseScore=10;
+        // If in frenzy mode, multiply score
+        if (frenzyMode) {
+          baseScore *= frenzyBonusMultiplier;
+        }
+
+        score += baseScore;
+
+        // If is cascade (not initial swap), increment combo
+        if (isCascade) {
+          currentCombo++;
+          if (currentCombo >= comboThresholdForFrenzy && !frenzyMode) {
+            frenzyMode = true;
+          }
+        }
+
+        updateComboDisplay();
+
+        for (let m of matches) {
+          board[m.r][m.c] = null;
+        }
+
+        // Gravity
+        for (let c=0; c<cols; c++){
+          for (let r=rows-1; r>=0; r--){
+            if (board[r][c]==null) {
+              for (let rr=r-1; rr>=0; rr--){
+                if (board[rr][c]!=null) {
+                  board[r][c]=board[rr][c];
+                  board[rr][c]=null;
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        // Fill top
+        for (let c=0; c<cols; c++){
+          for (let r=0; r<rows; r++){
+            if (board[r][c]==null) {
+              board[r][c] = randomTile();
+            }
+          }
+        }
+
+        renderBoard();
+        let nextMatches = findMatches(board);
+        if (nextMatches.length>0) {
+          setTimeout(function(){
+            clearMatches(nextMatches, /*isCascade=*/true);
+          }, 300);
+        } else {
+          waiting = false;
+          checkEndConditions();
+          // Reset frenzy mode if no combo ongoing
+          if (currentCombo === 0 && frenzyMode) {
+            frenzyMode = false;
+            updateComboDisplay();
+          }
+        }
+      }
+
+      function hasPossibleMoves(bd) {
+        // Check horizontal swaps
+        for (let r=0; r<rows; r++){
+          for (let c=0; c<cols-1; c++){
+            [bd[r][c], bd[r][c+1]]=[bd[r][c+1], bd[r][c]];
+            let m = findMatches(bd);
+            [bd[r][c], bd[r][c+1]]=[bd[r][c+1], bd[r][c]];
+            if (m.length>0) return true;
+          }
+        }
+        // Check vertical swaps
+        for (let r=0; r<rows-1; r++){
+          for (let c=0; c<cols; c++){
+            [bd[r][c], bd[r+1][c]]=[bd[r+1][c], bd[r][c]];
+            let m = findMatches(bd);
+            [bd[r][c], bd[r+1][c]]=[bd[r+1][c], bd[r][c]];
+            if (m.length>0) return true;
+          }
+        }
+        return false;
+      }
+
+      function updateHUD() {
+        scoreDisplay.textContent = score;
+        movesDisplay.textContent = moves;
+        levelDisplay.textContent = level;
+        targetDisplay.textContent = targetScore;
+        comboDisplay.textContent = currentCombo;
+        if (frenzyMode) {
+          frenzyIndicator.style.display = 'inline-block';
+          comboDisplay.parentElement.classList.add('combo-display');
+        } else {
+          frenzyIndicator.style.display = 'none';
+          comboDisplay.parentElement.classList.remove('combo-display');
+        }
+
+        shuffleCountDisplay.textContent = shuffleCount;
+        hammerCountDisplay.textContent = hammerCount;
+        clearRowColCountDisplay.textContent = clearRowColCount;
+      }
+
+      function updateComboDisplay() {
+        // Called whenever combo or frenzy mode status changes
+        updateHUD();
+      }
+
+      function checkEndConditions() {
+        if (moves<=0) {
+          if (score>=targetScore) {
+            level++;
+            targetScore += targetScoreIncrement;
+            moves = initialMoves;
+            alert('Level cleared! Starting level '+level);
+            initBoard();
+          } else {
+            alert('Game Over! You reached '+score+' points.');
+            quitGame();
+          }
+        }
+      }
+
+      function startGame() {
+        mainMenu.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+        paused=false;
+        score=0;
+        moves=initialMoves;
+        level=1;
+        targetScore=targetScoreIncrement;
+        currentCombo=0;
+        frenzyMode=false;
+        shuffleCount = 1;
+        hammerCount = 1;
+        clearRowColCount = 1;
+        activePowerUp = null;
+        initBoard();
+      }
+
+      function pauseGame() {
+        paused=true;
+        pauseOverlay.classList.remove('hidden');
+      }
+
+      function resumeGame() {
+        paused=false;
+        pauseOverlay.classList.add('hidden');
+      }
+
+      function restartGame() {
+        paused=false;
+        pauseOverlay.classList.add('hidden');
+        startGame();
+      }
+
+      function quitGame() {
+        paused=false;
+        pauseOverlay.classList.add('hidden');
+        gameContainer.classList.add('hidden');
+        mainMenu.classList.remove('hidden');
+      }
+
+      function toggleColourBlindMode() {
+        colourBlindMode = !colourBlindMode;
+        if (colourBlindMode) {
+          document.body.classList.add('cb-mode');
+        } else {
+          document.body.classList.remove('cb-mode');
+        }
+      }
+
+      // Power-ups
+      function useShuffle() {
+        if (shuffleCount <= 0) return;
+        shuffleCount--;
+        // shuffle board
+        let tiles = [];
+        for (let r=0; r<rows; r++){
+          for (let c=0; c<cols; c++){
+            tiles.push(board[r][c]);
+          }
+        }
+        // Fisher-Yates shuffle
+        for (let i=tiles.length-1; i>0; i--){
+          const j = Math.floor(Math.random()* (i+1));
+          [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+        }
+        // Put back
+        let idx=0;
+        for (let r=0; r<rows; r++){
+          for (let c=0; c<cols; c++){
+            board[r][c]=tiles[idx++];
+          }
+        }
+        renderBoard();
+        updateHUD();
+      }
+
+      function activateHammer() {
+        if (hammerCount<=0) return;
+        activePowerUp = 'hammer';
+      }
+
+      function useHammer(r,c) {
+        if (hammerCount<=0) return;
+        hammerCount--;
+        board[r][c]=null;
+        // Apply gravity and fill
+        for (let c2=0; c2<cols; c2++){
+          for (let r2=rows-1; r2>=0; r2--){
+            if (board[r2][c2]==null) {
+              for (let rr=r2-1; rr>=0; rr--){
+                if (board[rr][c2]!=null) {
+                  board[r2][c2]=board[rr][c2];
+                  board[rr][c2]=null;
+                  break;
+                }
+              }
+            }
+          }
+        }
+        for (let c2=0; c2<cols; c2++){
+          for (let r2=0; r2<rows; r2++){
+            if (board[r2][c2]==null) {
+              board[r2][c2] = randomTile();
+            }
+          }
+        }
+        activePowerUp=null;
+        renderBoard();
+        updateHUD();
+      }
+
+      function activateClearRowCol() {
+        if (clearRowColCount<=0) return;
+        activePowerUp = 'clearRowCol';
+      }
+
+      function useClearRowCol(r,c) {
+        if (clearRowColCount<=0) return;
+        clearRowColCount--;
+        let tile = board[r][c];
+        // clear entire row and column of same type or just row/col?
+        // As per requirement, clear entire row or column.
+        // Let's ask player if want to clear row or column?
+        // To simplify: Always clear both row and column intersecting at chosen tile
+        for (let cc=0; cc<cols; cc++){
+          board[r][cc]=null;
+        }
+        for (let rr=0; rr<rows; rr++){
+          board[rr][c]=null;
+        }
+
+        // Gravity and fill
+        for (let c2=0; c2<cols; c2++){
+          for (let r2=rows-1; r2>=0; r2--){
+            if (board[r2][c2]==null) {
+              for (let rr=r2-1; rr>=0; rr--){
+                if (board[rr][c2]!=null) {
+                  board[r2][c2]=board[rr][c2];
+                  board[rr][c2]=null;
+                  break;
+                }
+              }
+            }
+          }
+        }
+        for (let c2=0; c2<cols; c2++){
+          for (let r2=0; r2<rows; r2++){
+            if (board[r2][c2]==null) {
+              board[r2][c2] = randomTile();
+            }
+          }
+        }
+
+        activePowerUp=null;
+        renderBoard();
+        updateHUD();
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', startGame);
+      pauseBtn.addEventListener('click', pauseGame);
+      resumeBtn.addEventListener('click', resumeGame);
+      restartBtn.addEventListener('click', restartGame);
+      quitBtn.addEventListener('click', quitGame);
+      colourBlindBtn.addEventListener('click', toggleColourBlindMode);
+
+      shuffleBtn.addEventListener('click', useShuffle);
+      hammerBtn.addEventListener('click', activateHammer);
+      clearRowColBtn.addEventListener('click', activateClearRowCol);
+
+    })();
+</script>
+</body>
+</html>

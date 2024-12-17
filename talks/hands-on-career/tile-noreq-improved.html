@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tile-Matching Game with Improvements</title>
+    <style>
+        body {
+          background: #f0f0f0;
+          font-family: sans-serif;
+          text-align: center;
+          margin: 0;
+          padding: 0;
+        }
+        h1 {
+          margin: 20px 0;
+        }
+        #game-container {
+          display: inline-block;
+          margin: 10px auto;
+          background: #222;
+          border: 2px solid #444;
+          position: relative;
+        }
+        canvas {
+          display: block;
+          background: #222;
+          border: 1px solid #444;
+          margin: 0 auto;
+        }
+        #score, #timer, #highscore {
+          font-size: 20px;
+          margin: 10px;
+          color: #333;
+        }
+        #reset {
+          margin: 10px;
+          padding: 8px 12px;
+          background: #ccc;
+          border: none;
+          cursor: pointer;
+        }
+        #reset:hover {
+          background: #bbb;
+        }
+    </style>
+</head>
+<body>
+<h1>Improved Tile-Matching Game</h1>
+<canvas id="gameCanvas" width="320" height="320"></canvas>
+<div>
+    <span id="score">Score: 0</span> |
+    <span id="timer">Time: 60</span> |
+    <span id="highscore">High Score: 0</span><br>
+    <button id="reset">New Game</button>
+</div>
+
+<script>
+    (function(){
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreDisplay = document.getElementById('score');
+      const timerDisplay = document.getElementById('timer');
+      const highscoreDisplay = document.getElementById('highscore');
+      const resetBtn = document.getElementById('reset');
+
+      const GRID_SIZE = 8;
+      const TILE_SIZE = 40;
+      const COLORS = ["red","green","blue","yellow","purple","orange"];
+
+      let board = [];
+      let score = 0;
+      let highscore = parseInt(localStorage.getItem('highscore')) || 0;
+      let selectedTile = null;
+      let isAnimating = false;
+      let timeRemaining = 60;
+      let gameTimer = null;
+      let gameEnded = false;
+
+      // Animation related
+      let animationQueue = [];
+
+      // Set high score display
+      highscoreDisplay.textContent = "High Score: " + highscore;
+
+      function initBoard() {
+        board = [];
+        for (let r = 0; r < GRID_SIZE; r++) {
+          const row = [];
+          for (let c = 0; c < GRID_SIZE; c++) {
+            row.push({
+              color: randomColor(),
+              alpha: 1
+            });
+          }
+          board.push(row);
+        }
+        removeMatchesAndFill(false);
+        score = 0;
+        updateScore();
+        timeRemaining = 60;
+        timerDisplay.textContent = "Time: " + timeRemaining;
+        gameEnded = false;
+        if (gameTimer) clearInterval(gameTimer);
+        gameTimer = setInterval(updateTimer,1000);
+        drawBoard();
+      }
+
+      function updateTimer() {
+        if (gameEnded) return;
+        timeRemaining--;
+        if (timeRemaining <= 0) {
+          timeRemaining = 0;
+          endGame();
+        }
+        timerDisplay.textContent = "Time: " + timeRemaining;
+      }
+
+      function endGame() {
+        gameEnded = true;
+        clearInterval(gameTimer);
+        // Check high score
+        if (score > highscore) {
+          highscore = score;
+          localStorage.setItem('highscore', highscore);
+          highscoreDisplay.textContent = "High Score: " + highscore;
+          alert("Time's up! New High Score: " + score);
+        } else {
+          alert("Time's up! Score: " + score);
+        }
+      }
+
+      function randomColor() {
+        return COLORS[Math.floor(Math.random()*COLORS.length)];
+      }
+
+      function drawBoard() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for (let r = 0; r < GRID_SIZE; r++) {
+          for (let c = 0; c < GRID_SIZE; c++) {
+            const tile = board[r][c];
+            if (tile) {
+              drawTile(r,c,tile.color,tile.alpha);
+            }
+          }
+        }
+        if (selectedTile && !isAnimating) {
+          drawSelection(selectedTile.r, selectedTile.c);
+        }
+      }
+
+      function drawTile(r,c,color,alpha=1) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = color;
+        ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        ctx.strokeStyle = "#000";
+        ctx.strokeRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        ctx.restore();
+      }
+
+      function drawSelection(r,c) {
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(c*TILE_SIZE+1, r*TILE_SIZE+1, TILE_SIZE-2, TILE_SIZE-2);
+      }
+
+      function getTileAtPosition(x,y) {
+        const c = Math.floor(x/TILE_SIZE);
+        const r = Math.floor(y/TILE_SIZE);
+        if (r >=0 && r < GRID_SIZE && c >=0 && c < GRID_SIZE) {
+          return {r:r, c:c};
+        }
+        return null;
+      }
+
+      canvas.addEventListener('mousedown', function(e){
+        if (isAnimating || gameEnded) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const tile = getTileAtPosition(x,y);
+        if (!tile) return;
+
+        if (!selectedTile) {
+          selectedTile = tile;
+          drawBoard();
+        } else {
+          // Check if adjacent
+          if (areAdjacent(selectedTile, tile)) {
+            startSwapAnimation(selectedTile, tile);
+            selectedTile = null;
+          } else {
+            selectedTile = tile;
+            drawBoard();
+          }
+        }
+      });
+
+      function areAdjacent(t1, t2) {
+        return (Math.abs(t1.r - t2.r) + Math.abs(t1.c - t2.c)) === 1;
+      }
+
+      function startSwapAnimation(t1, t2) {
+        isAnimating = true;
+        const tileA = board[t1.r][t1.c];
+        const tileB = board[t2.r][t2.c];
+
+        const startAX = t1.c*TILE_SIZE, startAY = t1.r*TILE_SIZE;
+        const startBX = t2.c*TILE_SIZE, startBY = t2.r*TILE_SIZE;
+        const duration = 200;
+        const startTime = performance.now();
+
+        function animateSwap(time) {
+          const elapsed = time - startTime;
+          const progress = Math.min(elapsed/duration,1);
+
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          // Draw all other tiles
+          for (let r=0; r<GRID_SIZE; r++){
+            for (let c=0; c<GRID_SIZE; c++){
+              if (!(r===t1.r && c===t1.c) && !(r===t2.r && c===t2.c)) {
+                const tile = board[r][c];
+                if (tile) drawTile(r,c,tile.color,tile.alpha);
+              }
+            }
+          }
+
+          // Animate these two
+          const ax = startAX + (startBX - startAX)*progress;
+          const ay = startAY + (startBY - startAY)*progress;
+          const bx = startBX + (startAX - startBX)*progress;
+          const by = startBY + (startAY - startBY)*progress;
+
+          drawTileFromCoords(ax,ay,tileA.color);
+          drawTileFromCoords(bx,by,tileB.color);
+
+          if (progress < 1) {
+            requestAnimationFrame(animateSwap);
+          } else {
+            // Swap in board
+            board[t1.r][t1.c] = tileB;
+            board[t2.r][t2.c] = tileA;
+            checkForMatchesAfterSwap(t1,t2);
+          }
+        }
+
+        requestAnimationFrame(animateSwap);
+      }
+
+      function drawTileFromCoords(x,y,color) {
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+        ctx.strokeStyle = "#000";
+        ctx.strokeRect(x, y, TILE_SIZE, TILE_SIZE);
+        ctx.restore();
+      }
+
+      function checkForMatchesAfterSwap(t1,t2) {
+        let matches = findMatches();
+        if (matches.length === 0) {
+          // No match, swap back
+          const temp = board[t1.r][t1.c];
+          board[t1.r][t1.c] = board[t2.r][t2.c];
+          board[t2.r][t2.c] = temp;
+          isAnimating = false;
+          drawBoard();
+        } else {
+          // Animate removal
+          removeMatchesAndFill(true);
+        }
+      }
+
+      function findMatches() {
+        const matches = [];
+        // Check rows
+        for (let r=0; r<GRID_SIZE; r++){
+          let matchColor = board[r][0].color;
+          let matchCount = 1;
+          for (let c=1; c<GRID_SIZE; c++){
+            if (board[r][c].color === matchColor) {
+              matchCount++;
+            } else {
+              if (matchCount>=3) {
+                for (let k=1; k<=matchCount; k++){
+                  matches.push({r:r, c:c-k});
+                }
+              }
+              matchColor = board[r][c].color;
+              matchCount = 1;
+            }
+          }
+          if (matchCount>=3) {
+            for (let k=0; k<matchCount; k++){
+              matches.push({r:r, c:GRID_SIZE-1-k});
+            }
+          }
+        }
+
+        // Check columns
+        for (let c=0; c<GRID_SIZE; c++){
+          let matchColor = board[0][c].color;
+          let matchCount = 1;
+          for (let r=1; r<GRID_SIZE; r++){
+            if (board[r][c].color === matchColor) {
+              matchCount++;
+            } else {
+              if (matchCount>=3) {
+                for (let k=1; k<=matchCount; k++){
+                  matches.push({r:r-k, c:c});
+                }
+              }
+              matchColor = board[r][c].color;
+              matchCount = 1;
+            }
+          }
+          if (matchCount>=3) {
+            for (let k=0; k<matchCount; k++){
+              matches.push({r:GRID_SIZE-1-k, c:c});
+            }
+          }
+        }
+
+        return matches;
+      }
+
+      function removeMatchesAndFill(animate) {
+        let matches = findMatches();
+        let cleared = 0;
+
+        if (matches.length === 0) {
+          isAnimating = false;
+          drawBoard();
+          return;
+        }
+
+        // Fade out matched tiles first if animate
+        if (animate) {
+          let fadeDuration = 300;
+          let startTime = performance.now();
+          requestAnimationFrame(function fadeOut(time){
+            let elapsed = time - startTime;
+            let progress = Math.min(elapsed/fadeDuration,1);
+            for (const m of matches) {
+              board[m.r][m.c].alpha = 1 - progress;
+            }
+            drawBoard();
+            if (progress<1) {
+              requestAnimationFrame(fadeOut);
+            } else {
+              // Now actually remove them
+              for (const m of matches) {
+                board[m.r][m.c] = null;
+                cleared++;
+              }
+              applyGravityAndRefill(animate, cleared);
+            }
+          });
+        } else {
+          // Non-animated removal
+          for (const m of matches) {
+            board[m.r][m.c] = null;
+            cleared++;
+          }
+          applyGravityAndRefill(animate, cleared);
+        }
+      }
+
+      function applyGravityAndRefill(animate, cleared) {
+        // Gravity
+        for (let c=0; c<GRID_SIZE; c++){
+          for (let r=GRID_SIZE-1; r>=0; r--){
+            if (board[r][c] === null) {
+              // find tile above
+              for (let rr=r-1; rr>=0; rr--){
+                if (board[rr][c] !== null) {
+                  board[r][c] = board[rr][c];
+                  board[rr][c] = null;
+                  break;
+                }
+              }
+            }
+          }
+        }
+        // fill new
+        for (let r=0; r<GRID_SIZE; r++){
+          for (let c=0; c<GRID_SIZE; c++){
+            if (board[r][c] === null) {
+              board[r][c] = {color: randomColor(), alpha:1};
+            }
+          }
+        }
+
+        // Animate tiles falling if animate
+        if (animate) {
+          // We'll just redraw multiple times simulating fall
+          // (In a more polished version, you'd track tile positions and animate them)
+          // For simplicity, just redraw and then check matches again
+          drawBoard();
+          setTimeout(()=>{
+            continueMatching(cleared);
+          }, 200);
+        } else {
+          continueMatching(cleared);
+        }
+      }
+
+      function continueMatching(cleared) {
+        if (cleared > 0) {
+          score += cleared;
+          updateScore();
+        }
+        // Check again if new matches formed
+        let moreMatches = findMatches();
+        if (moreMatches.length > 0) {
+          removeMatchesAndFill(true);
+        } else {
+          isAnimating = false;
+          drawBoard();
+        }
+      }
+
+      function updateScore() {
+        scoreDisplay.textContent = "Score: " + score;
+      }
+
+      resetBtn.addEventListener('click', function(){
+        initBoard();
+      });
+
+      initBoard();
+
+    })();
+</script>
+</body>
+</html>

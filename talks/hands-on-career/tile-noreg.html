@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<!-- Give me a tile matching game in British English, generated as a single html/javascript file. -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tile Matching Game</title>
+    <style>
+        body {
+          background: #f0f0f0;
+          font-family: sans-serif;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+        }
+
+        h1 {
+          margin-top: 20px;
+          font-size: 2em;
+        }
+
+        #game-container {
+          margin: 20px auto;
+          max-width: 600px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: 10px;
+        }
+
+        .tile {
+          position: relative;
+          width: 100%;
+          padding-top: 100%;
+          background: #ccc;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1.2em;
+          font-weight: bold;
+          transition: transform 0.2s;
+          user-select: none;
+        }
+
+        .tile.flipped, .tile.matched {
+          background: #fff;
+          cursor: default;
+        }
+
+        .tile-content {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+          transition: opacity 0.2s;
+        }
+
+        .tile.flipped .tile-content, .tile.matched .tile-content {
+          opacity: 1;
+        }
+
+        #status {
+          margin: 15px;
+          font-size: 1.2em;
+        }
+
+        #reset-btn {
+          margin: 20px;
+          font-size: 1em;
+          padding: 10px 20px;
+          background: #0077cc;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #reset-btn:hover {
+          background: #005da3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tile Matching Game</h1>
+<p>Match all the pairs of British English words.</p>
+<div id="status"></div>
+<div id="game-container"></div>
+<button id="reset-btn">Reset Game</button>
+
+<script>
+    (function() {
+      // British English words to be matched
+      var words = [
+        "Colour", "Flavour", "Honour", "Neighbour",
+        "Labour", "Rumour", "Valour", "Harbour", "Favourite"
+      ];
+
+      // We'll only use 8 pairs, so let's pick the first 8
+      words = words.slice(0,8);
+
+      var gameContainer = document.getElementById('game-container');
+      var statusDiv = document.getElementById('status');
+      var resetButton = document.getElementById('reset-btn');
+
+      var tiles = [];
+      var lockBoard = false;
+      var firstTile = null;
+      var secondTile = null;
+      var matchesFound = 0;
+
+      // Initialisation
+      function initGame() {
+        lockBoard = false;
+        firstTile = null;
+        secondTile = null;
+        matchesFound = 0;
+        statusDiv.textContent = "Click on two tiles to find a matching pair.";
+
+        // Create a paired array of words
+        var tileWords = words.concat(words);
+        shuffleArray(tileWords);
+
+        gameContainer.innerHTML = '';
+        tiles = [];
+
+        tileWords.forEach(function(word, index) {
+          var tile = createTile(word);
+          gameContainer.appendChild(tile);
+        });
+      }
+
+      // Create a single tile element
+      function createTile(word) {
+        var tile = document.createElement('div');
+        tile.className = 'tile';
+
+        var content = document.createElement('div');
+        content.className = 'tile-content';
+        content.textContent = word;
+
+        tile.appendChild(content);
+
+        tile.addEventListener('click', function() {
+          flipTile(tile);
+        });
+
+        tiles.push(tile);
+        return tile;
+      }
+
+      // Flip logic
+      function flipTile(tile) {
+        if (lockBoard) return;
+        if (tile === firstTile) return; // can't flip the same tile twice
+
+        tile.classList.add('flipped');
+
+        if (!firstTile) {
+          firstTile = tile;
+          return;
+        }
+
+        secondTile = tile;
+        lockBoard = true;
+
+        checkForMatch();
+      }
+
+      function checkForMatch() {
+        var isMatch = firstTile.querySelector('.tile-content').textContent ===
+                      secondTile.querySelector('.tile-content').textContent;
+        if (isMatch) {
+          disableTiles();
+        } else {
+          unflipTiles();
+        }
+      }
+
+      function disableTiles() {
+        firstTile.classList.add('matched');
+        secondTile.classList.add('matched');
+
+        matchesFound += 1;
+
+        resetBoard();
+
+        if (matchesFound === words.length) {
+          statusDiv.textContent = "Well done! You've matched all pairs!";
+        } else {
+          statusDiv.textContent = "Good match! Keep going.";
+        }
+      }
+
+      function unflipTiles() {
+        setTimeout(function() {
+          firstTile.classList.remove('flipped');
+          secondTile.classList.remove('flipped');
+          resetBoard();
+          statusDiv.textContent = "Not a match, try again.";
+        }, 1000);
+      }
+
+      function resetBoard() {
+        [firstTile, secondTile] = [null, null];
+        lockBoard = false;
+      }
+
+      // Utility to shuffle array
+      function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+      }
+
+      // Reset button
+      resetButton.addEventListener('click', function() {
+        initGame();
+      });
+
+      // Start the game
+      initGame();
+    })();
+</script>
+
+</body>
+</html>

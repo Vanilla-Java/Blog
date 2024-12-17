@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tile Matching Game</title>
+  <style>
+    body {
+      background: #f0f0f0;
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin: 20px 0;
+    }
+    #game-container {
+      display: inline-block;
+      margin: 10px auto;
+      background: #222;
+      border: 2px solid #444;
+      position: relative;
+    }
+    canvas {
+      display: block;
+      background: #222;
+      border: 1px solid #444;
+    }
+    #score {
+      font-size: 20px;
+      margin: 10px;
+      color: #333;
+    }
+    #reset {
+      margin: 10px;
+      padding: 8px 12px;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+    }
+    #reset:hover {
+      background: #bbb;
+    }
+  </style>
+</head>
+<body>
+<h1>Simple Tile-Matching Game</h1>
+<canvas id="gameCanvas" width="320" height="320"></canvas>
+<div>
+  <span id="score">Score: 0</span>
+  <button id="reset">Reset</button>
+</div>
+
+<script>
+  (function(){
+    // Basic Match-3 style board
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDisplay = document.getElementById('score');
+    const resetBtn = document.getElementById('reset');
+
+    const GRID_SIZE = 8;
+    const TILE_SIZE = 40;
+    const COLORS = ["red","green","blue","yellow","purple","orange"];
+
+    let board = [];
+    let score = 0;
+    let selectedTile = null;
+    let isSwapping = false;
+
+    function initBoard() {
+      board = [];
+      for (let r = 0; r < GRID_SIZE; r++) {
+        const row = [];
+        for (let c = 0; c < GRID_SIZE; c++) {
+          row.push(randomColor());
+        }
+        board.push(row);
+      }
+      removeMatchesAndFill();
+      score = 0;
+      updateScore();
+      drawBoard();
+    }
+
+    function randomColor() {
+      return COLORS[Math.floor(Math.random()*COLORS.length)];
+    }
+
+    function drawBoard() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for (let r = 0; r < GRID_SIZE; r++) {
+        for (let c = 0; c < GRID_SIZE; c++) {
+          drawTile(r,c, board[r][c]);
+        }
+      }
+      if (selectedTile) {
+        drawSelection(selectedTile.r, selectedTile.c);
+      }
+    }
+
+    function drawTile(r,c,color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      ctx.strokeStyle = "#000";
+      ctx.strokeRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
+    function drawSelection(r,c) {
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 3;
+      ctx.strokeRect(c*TILE_SIZE+1, r*TILE_SIZE+1, TILE_SIZE-2, TILE_SIZE-2);
+    }
+
+    function getTileAtPosition(x,y) {
+      const c = Math.floor(x/TILE_SIZE);
+      const r = Math.floor(y/TILE_SIZE);
+      if (r >=0 && r < GRID_SIZE && c >=0 && c < GRID_SIZE) {
+        return {r:r, c:c};
+      }
+      return null;
+    }
+
+    canvas.addEventListener('mousedown', function(e){
+      if (isSwapping) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const tile = getTileAtPosition(x,y);
+      if (!tile) return;
+
+      if (!selectedTile) {
+        selectedTile = tile;
+        drawBoard();
+      } else {
+        // Check if adjacent
+        if (areAdjacent(selectedTile, tile)) {
+          swapTiles(selectedTile, tile, true);
+        } else {
+          selectedTile = tile;
+          drawBoard();
+        }
+      }
+    });
+
+    function areAdjacent(t1, t2) {
+      return (Math.abs(t1.r - t2.r) + Math.abs(t1.c - t2.c)) === 1;
+    }
+
+    function swapTiles(t1, t2, animateSwap) {
+      isSwapping = true;
+      // Swap colors
+      const temp = board[t1.r][t1.c];
+      board[t1.r][t1.c] = board[t2.r][t2.c];
+      board[t2.r][t2.c] = temp;
+      selectedTile = null;
+      drawBoard();
+
+      // Check for matches
+      if (findMatches().length === 0) {
+        // no match, swap back
+        setTimeout(()=>{
+          const temp2 = board[t1.r][t1.c];
+          board[t1.r][t1.c] = board[t2.r][t2.c];
+          board[t2.r][t2.c] = temp2;
+          isSwapping = false;
+          drawBoard();
+        }, 300);
+      } else {
+        // remove matches
+        setTimeout(()=>{
+          removeMatchesAndFill();
+          isSwapping = false;
+          drawBoard();
+        }, 300);
+      }
+    }
+
+    function findMatches() {
+      const matches = [];
+      // Check rows
+      for (let r=0; r<GRID_SIZE; r++){
+        let matchColor = board[r][0];
+        let matchCount = 1;
+        for (let c=1; c<GRID_SIZE; c++){
+          if (board[r][c] === matchColor) {
+            matchCount++;
+          } else {
+            if (matchCount>=3) {
+              for (let k=1; k<=matchCount; k++){
+                matches.push({r:r, c:c-k});
+              }
+            }
+            matchColor = board[r][c];
+            matchCount = 1;
+          }
+        }
+        if (matchCount>=3) {
+          for (let k=0; k<matchCount; k++){
+            matches.push({r:r, c:GRID_SIZE-1-k});
+          }
+        }
+      }
+
+      // Check columns
+      for (let c=0; c<GRID_SIZE; c++){
+        let matchColor = board[0][c];
+        let matchCount = 1;
+        for (let r=1; r<GRID_SIZE; r++){
+          if (board[r][c] === matchColor) {
+            matchCount++;
+          } else {
+            if (matchCount>=3) {
+              for (let k=1; k<=matchCount; k++){
+                matches.push({r:r-k, c:c});
+              }
+            }
+            matchColor = board[r][c];
+            matchCount = 1;
+          }
+        }
+        if (matchCount>=3) {
+          for (let k=0; k<matchCount; k++){
+            matches.push({r:GRID_SIZE-1-k, c:c});
+          }
+        }
+      }
+
+      return matches;
+    }
+
+    function removeMatchesAndFill() {
+      let matches = findMatches();
+      let cleared = 0;
+      while (matches.length > 0) {
+        // remove matches
+        for (const m of matches) {
+          board[m.r][m.c] = null;
+          cleared++;
+        }
+        // gravity
+        for (let c=0; c<GRID_SIZE; c++){
+          for (let r=GRID_SIZE-1; r>=0; r--){
+            if (board[r][c] === null) {
+              // find tile above
+              for (let rr=r-1; rr>=0; rr--){
+                if (board[rr][c] !== null) {
+                  board[r][c] = board[rr][c];
+                  board[rr][c] = null;
+                  break;
+                }
+              }
+            }
+          }
+        }
+        // fill new
+        for (let r=0; r<GRID_SIZE; r++){
+          for (let c=0; c<GRID_SIZE; c++){
+            if (board[r][c] === null) {
+              board[r][c] = randomColor();
+            }
+          }
+        }
+        matches = findMatches();
+      }
+      if (cleared > 0) {
+        score += cleared;
+        updateScore();
+      }
+    }
+
+    function updateScore() {
+      scoreDisplay.textContent = "Score: " + score;
+    }
+
+    resetBtn.addEventListener('click', function(){
+      initBoard();
+    });
+
+    initBoard();
+  })();
+</script>
+</body>
+</html>
