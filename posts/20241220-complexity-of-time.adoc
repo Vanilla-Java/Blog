@@ -84,6 +84,8 @@ public class HistoricalDateConverter {
 
 While this example glosses over the historical inaccuracy of applying modern `ZoneId` rules to 1752 (time zones did not exist in the modern sense back then), it illustrates how easily Java can shift between zones. Care must still be taken if you need historically accurate offsets. Third-party libraries or specialist APIs may be necessary for accurate historical time correctness.
 
+For more examples, https://github.com/Vanilla-Java/Blog/blob/main/case-studies/src/main/java/blog/vanillajava/time/TimeHandlingDemonstrations.java[see the full code].
+
 == Performance Considerations
 
 Working with time zones and calendars can be computationally more expensive than simple `long` timestamps. The additional overhead comes from:
