@@ -98,25 +98,15 @@ Working with time zones and calendars can be computationally more expensive than
 
 - *Hardcoding Time Zone Offsets:* Always assume time zone offsets can change and rely on `ZoneId` and `ZoneRules` rather than fixed offsets.
 - *Forgetting Leap Seconds or Odd Dates:* While leap seconds are not directly represented in `java.time`, be mindful of their existence if absolute precision is required. Similarly, historical anomalies (like February 30th in Sweden) will not be directly supported—decide how you plan to handle such data well in advance.
-Ignoring Daylight Saving Time Changes:* DST shifts can cause local times to disappear or appear twice. Always test your date-time logic around DST transition boundaries.
+- *Ignoring Daylight Saving Time Changes:* DST shifts can cause local times to disappear or appear twice. Always test your date-time logic around DST transition boundaries.
 
 == Encouraging Critical Thinking
 
 Time's complexity is best addressed by developing a sceptical mindset. Do not assume that time is simple. Always question where your data comes from, what calendar systems it references, and how offsets and daylight-saving changes might affect it. If your application may ever venture beyond a single modern time zone and date range, you need to be prepared.
 
-== Summary and Key Takeaways
+== Summary
 
 Time is both universal and highly subjective. Historical calendar reforms, political decisions, cultural practices, and geographical factors all influence how we measure and represent it. The Java `java.time` API makes it easier to handle these complexities by offering well-designed classes that gracefully handle offsets, zones, and conversions.
-
-To succeed when dealing with time:
-
-* Recognise the complexity of calendars and time zones—do not oversimplify.
-* Use `java.time` classes and rely on their rule-based systems rather than fixed assumptions.
-* Test around boundary cases like DST changes, historical anomalies, and unusual offsets.
-* Consider performance, measure with tools like JMH, and optimise formatting and conversions if necessary.
-* Encourage critical thinking and continuous improvement—never assume you have time "under control."
-
-In the world of software, time is not just a sequence of seconds. It is a tapestry woven from cultural threads, historical decisions, and technical constraints. Acknowledging its complexity, we empower ourselves to write code that respects this intricate reality.
 
 == For further reading:
 
