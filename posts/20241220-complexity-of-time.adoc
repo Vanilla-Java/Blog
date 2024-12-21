@@ -128,12 +128,13 @@ Time is both universal and highly subjective. Historical calendar reforms, polit
 
 == For further reading:
 
-* BBC News: "When is the end of the world?" http://www.bbc.co.uk/news/world-12849630
-* Wikipedia: "Coptic calendar" http://en.wikipedia.org/wiki/Coptic_calendar
-* Wikipedia: "Gregorian calendar" http://en.wikipedia.org/wiki/Gregorian_calendar
-* National Archives: "George Washington's Birthday" http://www.archives.gov/legislative/features/washington/
-* Wikipedia: "Coordinated Universal Time" http://en.wikipedia.org/wiki/Coordinated_Universal_Time
-* Wikipedia: "February 30th" http://en.wikipedia.org/wiki/30_February
+* Wikipedia: http://en.wikipedia.org/wiki/Gregorian_calendar[Gregorian calendar]
+* National Archives: http://www.archives.gov/legislative/features/washington/[George Washington's Birthday]
+* Wikipedia: http://en.wikipedia.org/wiki/Coordinated_Universal_Time[Coordinated Universal Time]
+* The British Museum: https://www.britishmuseum.org/blog/whats-name-months-year["What's in a name? The months and the year"]
+* Wikipedia: http://en.wikipedia.org/wiki/30_February[February 30th]
+* BBC News: http://www.bbc.co.uk/news/world-12849630[When is the end of the world?]
+* Wikipedia: http://en.wikipedia.org/wiki/Coptic_calendar[The Coptic calendar]
 * Wikipedia: "Time in Antarctica" http://en.wikipedia.org/wiki/Time_in_Antarctica
 * Wikipedia: "Time in Afghanistan" http://en.wikipedia.org/wiki/Time_in_Afghanistan
 * Wikipedia: "Time in Nepal" http://en.wikipedia.org/wiki/Time_in_Nepal
