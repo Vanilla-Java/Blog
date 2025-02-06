@@ -1,0 +1,146 @@
+= Documentation Formats: AsciiDoc – Detailed Answers and Engaging Side Notes
+:toc:
+:toclevels: 2
+
+This document provides detailed answers to 10 key questions on AsciiDoc. Each answer is enriched with engaging side notes to help you deepen your understanding of AsciiDoc for technical documentation.
+
+== 1. What is AsciiDoc, and what are its primary use cases for technical documentation?
+
+*Answer:*
+AsciiDoc is a lightweight, plain‑text markup language designed for writing technical documentation. It is highly readable in its raw form and can be transformed into multiple output formats such as HTML, PDF, ePub, and DocBook. Its primary use cases include:
+- Writing user guides and manuals
+- Creating project documentation (e.g., developer guides, API documentation)
+- Preparing technical specifications and design documents
+- Maintaining documentation in source code repositories
+
+NOTE: *AsciiDoc is like Markdown’s sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.*
+
+== 2. How do you define headings of various levels in AsciiDoc?
+
+*Answer:*
+Headings in AsciiDoc are defined by using the `=` character at the beginning of a line. The number of `=` characters indicates the heading level:
+- `= Title` for a Level 1 heading
+- `== Section Title` for a Level 2 heading
+- `=== Subsection Title` for a Level 3 heading
+…and so on.
+
+NOTE: *Headings in AsciiDoc are like chapter titles in a book each level helps structure your content clearly and guides readers through the document hierarchy.*
+
+== 3. What is the syntax for inline formatting such as bold, italic, and monospace text?
+
+*Answer:*
+AsciiDoc supports several inline formatting options:
+- *Bold:* Wrap text in asterisks, e.g., `*bold text*`.
+- *Italic:* Wrap text in underscores, e.g., `_italic text_`.
+- *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `` `monospace` `` or `+monospace+`.
+
+NOTE: *Inline formatting is like adding emphasis in conversation you highlight important points and distinguish different types of content, making your document more expressive.*
+
+== 4. How do you create code blocks and specify a language for syntax highlighting?
+
+*Answer:*
+To create a code block in AsciiDoc and specify a language for syntax highlighting, you use a source block. For example:
+[source,java]
+----
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+----
+This block uses `[source,java]` to indicate that the enclosed code is Java, enabling syntax highlighting.
+
+NOTE: *Code blocks in AsciiDoc are like spotlighting your code ensuring that the technical content stands out clearly and is easy to read, just as a well-lit stage enhances a performance.*
+
+== 5. How do you insert images with alt text and captions in AsciiDoc?
+
+*Answer:*
+You can insert an image using the `image::` macro. To include alt text and a caption, use the following syntax:
+[source,asciidoc]
+----
+image::path/to/image.png[Alt Text, caption="This is a caption"]
+----
+This tells the AsciiDoc processor to include the image with the provided alternate text and caption.
+
+NOTE: *Images in AsciiDoc are like illustrations in a story they add context and visual appeal, helping to convey complex information more effectively.*
+
+== 6. How are ordered and unordered lists created in AsciiDoc?
+
+*Answer:*
+- *Unordered Lists:* Use a hyphen (`-`) or an asterisk (`*`) followed by a space.
+Example:
+[source,asciidoc]
+----
+- First item
+- Second item
+- Third item
+----
+- *Ordered Lists:* Use a period (`.`) followed by a space.
+Example:
+[source,asciidoc]
+----
+. First item
+. Second item
+. Third item
+----
+
+NOTE: *Lists in AsciiDoc are like bullet points in a presentation they help organize information in a concise, easy-to-digest format.*
+
+== 7. What is the syntax for creating tables in AsciiDoc?
+
+*Answer:*
+Tables in AsciiDoc can be created using the pipe (`|`) syntax. A simple table is structured as follows:
+[source,asciidoc]
+----
+|===
+|Header 1 |Header 2
+
+|Row 1, Cell 1
+|Row 1, Cell 2
+
+|Row 2, Cell 1
+|Row 2, Cell 2
+|===
+----
+This syntax defines the table boundaries with `|===` and uses `|` to separate cells.
+
+NOTE: *Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that’s easy to read and reference.*
+
+== 8. How do you define and use document‑level attributes?
+
+*Answer:*
+Document‑level attributes in AsciiDoc are defined at the top of the document using a colon syntax. For example:
+[source,asciidoc]
+----
+:author: Jane Doe
+:title: My Technical Document
+:revdate: 2023-04-05
+----
+These attributes can be referenced later in the document using curly braces, e.g., `{author}`.
+
+NOTE: *Document-level attributes are like global variables for your document they allow you to maintain consistency and make updates easier by centralizing common information.*
+
+== 9. How do you include external files using the `include` directive?
+
+*Answer:*
+You can include external files into your AsciiDoc document using the `include::` directive. For example:
+[source,asciidoc]
+----
+include::path/to/filename.adoc[]
+----
+This command inserts the content of `filename.adoc` at the location where the directive appears.
+
+NOTE: *The include directive is like a modular puzzle each piece (file) can be developed separately and then combined to form a complete picture, promoting reuse and maintainability.*
+
+== 10. How can you automatically generate a table of contents in AsciiDoc?
+
+*Answer:*
+To automatically generate a table of contents (TOC), include the `:toc:` attribute at the beginning of your document. For example:
+[source,asciidoc]
+----
+:toc:
+----
+When processed (e.g., with Asciidoctor), this directive creates a TOC based on the document's headings.
+
+NOTE: *A table of contents is like a roadmap for your document it guides readers through the structure of your content, making navigation intuitive and efficient.*
+
