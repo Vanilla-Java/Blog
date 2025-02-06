@@ -8,6 +8,9 @@ I find time fascinating and surprisingly complex. Time zones and calendars chang
 
 Time is one of those concepts that appears deceptively simple on the surface yet becomes increasingly intricate the more we examine it. As software developers, we often face scenarios where we must handle dates and times and their myriad associated rules—time zones, calendar systems, cultural conventions, and historical irregularities. Working with time can lead us into subtle pitfalls that affect everything from straightforward user interfaces to global financial systems.
 
+[quote, Douglas Adams, The Hitchhiker’s Guide to the Galaxy]
+Time is an illusion. Lunchtime doubly so.
+
 == The Surprising Complexity Behind Time
 
 Time is not uniform. Humans have invented calendar systems and measurement techniques, each influenced by politics, religion, and culture. As a result, how we record and interpret dates has repeatedly changed over the centuries.
@@ -15,6 +18,21 @@ Time is not uniform. Humans have invented calendar systems and measurement techn
 These shifts mean that historical dates do not map cleanly onto modern calendars. The Julian and Gregorian calendars, the French Revolutionary calendar, and the attempts by certain countries to gradually or abruptly adjust to the Gregorian standard all introduce tricky discontinuities. We also have complex local customs, such as the Korean age-counting system, or unique historical anomalies like Sweden's February 30th in 1712. Understanding these anomalies is crucial when dealing with historical data sets, genealogical records, financial time series that stretch back centuries, or any domain that involves retrospective data analysis.
 
 From a technical perspective, these complexities translate into potential defects. Off-by-one errors, incorrect conversions, or failure to account for historical shifts can lead to incorrect date arithmetic. Even if you never work with centuries-old data, these quirks are cautionary tales: time is never as straightforward as it first appears.
+
+== How Have Calendars Evolved?
+
+- There was no year 0 in the Julian calendar (or the Gregorian calendar that succeeded it). The number 0 was not a concept used when the Julian calendar was established. The year immediately before AD 1 was 1 BC.
+
+- If Christians celebrate Jesus' birth on December 25th, was this in 1 AD or 1 BC? The exact year of Jesus' birth is uncertain and likely occurred between 7 BC and 4 BC. Early Christians considered March 25th significant as the Feast of the Annunciation (commemorating Jesus' conception) and as the anniversary of Creation. The Julian calendar originally marked March 25th as the spring equinox, though inaccuracies later shifted it to March 21st. The names of Roman months like September (seventh), October (eighth), November (ninth), and December (tenth) reflect their position in the pre-reform Roman calendar, which began in March.
+- Julius Caesar named the month of his birth, July, after himself. Before this, it was called Quintilis. His calendar reforms standardised month lengths, and the adjustment of July to 31 days was part of these changes, though the specifics are unclear. February became the shortest month during earlier Roman reforms under Numa Pompilius. Augustus Caesar, Julius Caesar's adopted heir, renamed the month Sextilis to August in his honour. The name 'Caesar' became a title for Roman emperors, a tradition that continued in various forms across Europe.
+
+- Pope Gregory XIII introduced the Gregorian Calendar in 1582 to correct the Julian calendar's drift. Catholic countries adopted it quickly, while Protestant countries, like England, delayed adoption until 1752. This delay created a 10–11 day difference between calendars. When the British Empire adopted the Gregorian Calendar, it skipped 11 days, making the day after Wednesday, 2 September 1752, Thursday, 14 September 1752. The British tax year still starts on April 6th, a date derived from March 25th under the Julian calendar.
+
+- The USA, as part of the British Empire, adopted the Gregorian Calendar in 1752, skipping 11 days. George Washington, born on February 11, 1731 (Julian calendar), had his birthday adjusted to February 22, 1732, under the Gregorian calendar. This shift was due to both the 11-day difference and the change in the start of the year from March 25 to January 1.
+
+- Sweden briefly had a February 30th in 1712. This unusual date occurred during Sweden's transition from the Julian to the Gregorian calendar. Sweden initially planned to gradually switch by omitting leap days over a 40-year period, starting in 1700. However, the plan was poorly executed, and leap days were inconsistently applied. To realign with the Julian calendar, Sweden added an extra leap day in 1712, creating a February 30th in that year. Sweden finally adopted the Gregorian calendar in 1753 by skipping 11 days like other countries.
+
+- In terms of gestation period, pregnancy is measured from the last menstrual period (LMP), with a month often approximated as four weeks. While a full-term pregnancy is 40 weeks (or approximately 10 lunar months), this corresponds to about 8.5 calendar months after conception.
 
 == The Impact of Calendar Evolution
 
@@ -110,12 +128,13 @@ Time is both universal and highly subjective. Historical calendar reforms, polit
 
 == For further reading:
 
-* BBC News: "When is the end of the world?" http://www.bbc.co.uk/news/world-12849630
-* Wikipedia: "Coptic calendar" http://en.wikipedia.org/wiki/Coptic_calendar
-* Wikipedia: "Gregorian calendar" http://en.wikipedia.org/wiki/Gregorian_calendar
-* National Archives: "George Washington's Birthday" http://www.archives.gov/legislative/features/washington/
-* Wikipedia: "Coordinated Universal Time" http://en.wikipedia.org/wiki/Coordinated_Universal_Time
-* Wikipedia: "February 30th" http://en.wikipedia.org/wiki/30_February
+* Wikipedia: http://en.wikipedia.org/wiki/Gregorian_calendar[Gregorian calendar]
+* National Archives: http://www.archives.gov/legislative/features/washington/[George Washington's Birthday]
+* Wikipedia: http://en.wikipedia.org/wiki/Coordinated_Universal_Time[Coordinated Universal Time]
+* The British Museum: https://www.britishmuseum.org/blog/whats-name-months-year["What's in a name? The months and the year"]
+* Wikipedia: http://en.wikipedia.org/wiki/30_February[February 30th]
+* BBC News: http://www.bbc.co.uk/news/world-12849630[When is the end of the world?]
+* Wikipedia: http://en.wikipedia.org/wiki/Coptic_calendar[The Coptic calendar]
 * Wikipedia: "Time in Antarctica" http://en.wikipedia.org/wiki/Time_in_Antarctica
 * Wikipedia: "Time in Afghanistan" http://en.wikipedia.org/wiki/Time_in_Afghanistan
 * Wikipedia: "Time in Nepal" http://en.wikipedia.org/wiki/Time_in_Nepal

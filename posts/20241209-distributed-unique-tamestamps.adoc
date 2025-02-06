@@ -1,9 +1,9 @@
-= Producing Distributed Unique Timestamp Identifiers
-
-/// Consider adding an image diagram illustrating multiple hosts generating IDs.
+= Producing Distributed Unique Timestamp Identifiers with Nano-Scale Precision and Embedded Host IDs
+:doctype: article
+:source-highlighter: rouge
 
 [role="info"]
-Distributed unique timestamp identifiers, generated in sub-microsecond time, enable systems to assign globally unique, human-readable 64-bit values at extremely high throughput. This approach helps align event ordering across hosts and simplifies debugging in complex, time-sensitive, and latency-critical environments.
+Distributed unique timestamp identifiers provide a powerful means of generating globally unique, human-readable 64-bit values at sub-microsecond speeds. By embedding a host identifier directly into a nanosecond-resolution timestamp, you gain a simple, chronologically sortable, and intuitive scheme for correlating events across multiple hosts. This approach offers significant benefits in latency-sensitive systems where even small delays can become expensive at scale.
 
 == Introduction
 
@@ -35,6 +35,26 @@ long uniqueId = timeProvider.currentTimeNanos();
 System.out.println("Distributed Unique ID: " + uniqueId);
 ----
 
+Under the hood, `DistributedUniqueTimeProvider` maintains a memory-mapped file to store the last assigned timestamp. Every new ID must be strictly greater than the previous one to maintain uniqueness. Should the clock move backwards or generate the same timestamp under high contention, a loop increments until a suitable next timestamp is found.
+
+== Handling Concurrency and Contention
+
+As multiple threads within the same JVM (or multiple JVMs on the same machine using the same *hostId*) call `currentTimeNanos()`, you might worry about contention. The approach relies on an atomic compare-and-swap (CAS) operation on a memory-mapped file (`MappedFile` from [Chronicle Bytes](https://github.com/OpenHFT/Chronicle-Bytes)). Each new ID attempt compares the proposed timestamp+hostId combination with the last known good value. If it’s strictly larger, it updates atomically and returns successfully.
+
+In short:
+- Read the current time at nanosecond resolution.
+- Strip off the lower digits and re-add the *hostId*.
+- Perform a CAS to ensure this new ID is greater than the last used ID.
+- If it fails, spin in a loop, incrementing the time slightly, until successful.
+
+This ensures no duplicates—even after a host restarts—assuming the downtime exceeds the largest possible timestamp overlap.
+
+== Avoiding Clock Regressions and Edge Cases
+
+System clocks do sometimes jump backwards—often due to corrections via NTP or oscillations in virtualised environments. Since our scheme depends on strictly increasing timestamps, we must handle these cases gracefully. If `currentTimeNanos()` detects that the new timestamp is not greater than the last used one, it increments the timestamp until it is. While this might temporarily lead to a slight run-ahead of the actual wall clock, this discrepancy is usually negligible in systems where the real resolution and jitter of the clock already dominate precision.
+
+Additionally, the resolution we work with is often at or around 100 nanoseconds, aligning with what typical hardware timers can realistically provide. Attempting finer granularity than the hardware can deliver often leads to redundant increments in the busy loop.
+
 == A nano-second timestamp with a host identifier
 
 `DistributedUniqueTimeProvider` stores a host identifier in the lower two digits of the timestamp, making it easier to read. The previous implementation used bit shifting so the `hostId` could be obtained, but that was difficult for a human to read.
@@ -49,6 +69,11 @@ Where the date/time/microseconds are the time, and the last two digits are the h
 
 The resolution is approximately one-tenth of a microsecond (100 nanoseconds), which often matches or exceeds the practical resolution of the underlying clock hardware. This approach, therefore, leverages the natural granularity of the system clock without adding artificial delays.
 
+== Avoiding Clock Regressions and Edge Cases
+
+System clocks do sometimes jump backwards—often due to corrections via NTP or oscillations in virtualised environments. Since our scheme depends on strictly increasing timestamps, we must handle these cases gracefully. If `currentTimeNanos()` detects that the new timestamp is not greater than the last used one, it increments the timestamp until it is. While this might temporarily lead to a slight run-ahead of the actual wall clock, this discrepancy is usually negligible in systems where the real resolution and jitter of the clock already dominate precision.
+
+Additionally, the resolution we work with is often at or around 100 nanoseconds, aligning with what typical hardware timers can realistically provide. Attempting finer granularity than the hardware can deliver often leads to redundant increments in the busy loop.
 == Configuring the Host Identifier
 
 You can assign a *hostId* either through the command line system property:
@@ -67,8 +92,15 @@ Up to the theoretical limit of one billion per second.
 
 The happy path is simple: take the current time, remove the lower two digits and add the hostId. As long as this is higher than the last identifier, it’s okay. Should the machine fail and the information as to the last identifier be lost, the assumption is that the time taken to restart the service is enough time to ensure there is no overlap. If the service fails, but not the machine, the information is retained.
 
+++++
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({ startOnLoad: true });
+</script>
+++++
+
 // change this to [mermaid] to see the diagram in IntelliJ IDEA
-[source,mermaid]
+[mermaid]
 ---------------------------------------------------------------------
 flowchart LR
 
@@ -223,7 +255,7 @@ Consider integrating the *DistributedUniqueTimeProvider* into a logging framewor
 - Experiment with different *hostId* allocations to confirm uniqueness and ordering.
 - Integrate into a distributed queue or event-processing system to verify end-to-end latency improvements.
 
-== About the author
+== About the Author
 
 As the CEO of https://chronicle.software/[Chronicle Software^,role=external],
 https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the development of cutting-edge,
@@ -247,3 +279,5 @@ By embedding host identifiers into nanosecond-level timestamps, developers gain 
 - **Readable identifiers** enabling quick debugging and event correlation.
 - **High performance** with minimal overhead, measurable in tens of nanoseconds.
 - **Ease of use**, achievable with a few lines of code and minimal configuration.
+
+Time-based uniqueness is a natural solution. When correctly implemented, it empowers developers to maintain a transparent and scalable view into their distributed systems, merging the logical flow of time with the practical need for global uniqueness.

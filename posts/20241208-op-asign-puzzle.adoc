@@ -95,9 +95,9 @@ Note: `Float.MAX_VALUE / Integer.MAX_VALUE` is `1.5845632E29` which is a huge er
 
 In short, for an `int` value `Integer.MAX_VALUE`, the statement `i += 0.0f;` causes the value to jump up one (casting to a float) and then down one (casting back to an int), so you end up with the value you started with.
 
-== Another Example: Char Division<
+== Another Example: Char Division
 
-Consider the following snippet:<
+Consider the following snippet:
 
 [source,java]
 ----
