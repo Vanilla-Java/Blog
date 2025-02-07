@@ -7,6 +7,7 @@ Peter lawrey
 // tag::readme[]
 
 This guide covers the fundamental concepts of Java programming. You will learn about:
+
 - The basics of Java syntax and data types.
 - Memory management, error handling, and best practices.
 - Core concepts such as the JDK, JRE, JVM, and the Java Memory Model.
