@@ -23,7 +23,7 @@ Some of the most common design patterns used in Java include:
 
 To implement the Singleton pattern in Java, you typically define a private constructor, a static method to access the instance, and a static field to hold the single instance.
 
-[source,java]
+[,java]
 ----
 public class Singleton {
     private static Singleton instance;
@@ -44,7 +44,7 @@ This implementation ensures that only one instance of the `Singleton` class is c
 
 To implement the Factory Method pattern in Java, you define an interface or abstract class for creating objects and let subclasses implement the creation logic.
 
-[source,java]
+[,java]
 ----
 public interface Product {
     void doSomething();
@@ -74,7 +74,7 @@ public class ConcreteProductFactory implements ProductFactory {
 
 To implement the Observer pattern in Java, you typically define an interface for observers (e.g., `Observer`) and one for the subject (e.g., `Subject`). The subject maintains a list of observers and notifies them when a state change occurs.
 
-[source,java]
+[,java]
 ----
 public interface Observer {
     void update(String event);
@@ -110,7 +110,7 @@ Observers implement the `update` method to react to changes.
 
 To implement the Strategy pattern in Java, you define a strategy interface (e.g., `Strategy`) and concrete strategy classes that implement this interface. A context class (e.g., `Context`) holds a reference to the strategy and delegates the behavior to it.
 
-[source,java]
+[,java]
 ----
 public interface Strategy {
     void execute();
@@ -124,7 +124,7 @@ public class ConcreteStrategyA implements Strategy {
 }
 ----
 
-[source,java]
+[,java]
 ----
 public class Context {
     private Strategy strategy;
@@ -147,7 +147,7 @@ public class Context {
 
 To implement the Decorator pattern in Java, you define a common interface or abstract class (e.g., `Component`) that represents the base component and concrete components. Decorators (e.g., `Decorator`) wrap the base component and add additional behavior.
 
-[source,java]
+[,java]
 ----
 public interface Component {
     void operation();
@@ -189,7 +189,7 @@ public class ConcreteDecoratorA extends Decorator {
 
 To implement the Builder pattern in Java, you define a builder interface (e.g., `Builder`) with methods for constructing parts of a complex object. Concrete builders (e.g., `ConcreteBuilder`) implement this interface, and a director class (e.g., `Director`) orchestrates the construction process.
 
-[source,java]
+[,java]
 ----
 public class Product {
     private final String part1;
@@ -237,7 +237,7 @@ Product product = ProductBuilder.builder("mandatory").part1("optional").part2("o
 To implement the Event pattern in Java, you define an event class (e.g., `Event`) that encapsulates information about the event. Event listeners (e.g., `EventListener`) implement an interface to handle specific events.
 
 .Common Event Pattern Implementation in Java
-[source,java]
+[,java]
 ----
 public class Event {
     private final String message;
@@ -275,7 +275,7 @@ public class EventSource {
 ----
 
 .When you have Multiple Event Types
-[source,java]
+[,java]
 ----
 public class EventA extends Event {
     public EventA(String message) {

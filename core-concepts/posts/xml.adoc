@@ -21,7 +21,7 @@ XML is organized as a hierarchy of elements:
 - *Text Content:* The actual data contained within an element.
 
 Example:
-[source,xml]
+[,xml]
 ----
 <book>
   <title>XML for Beginners</title>
@@ -45,7 +45,7 @@ NOTE: *Well‑formedness is like writing a grammatically correct sentence, while
 XML namespaces are used to avoid element name conflicts when combining XML documents from different sources. They are declared using the `xmlns` attribute, which binds a prefix to a URI. This prefix is then used to qualify element and attribute names.
 
 Example:
-[source,xml]
+[,xml]
 ----
 <book xmlns:ns="http://example.com/schema">
   <ns:title>XML Essentials</ns:title>
@@ -69,7 +69,7 @@ NOTE: *Think of DTDs and XSDs as blueprints for a building ensuring that the fin
 XPath is a query language used to select nodes from an XML document. It uses expressions to navigate the XML tree structure and can filter nodes based on conditions.
 
 Example:
-[source,xml]
+[,xml]
 ----
 /bookstore/book[price>35]
 ----
@@ -82,7 +82,7 @@ NOTE: *XPath works like a treasure map its expressions guide you directly to the
 XSLT (Extensible Stylesheet Language Transformations) is a language used to transform XML documents into other formats, such as HTML, plain text, or even another XML format. It uses template rules to match XML nodes and apply specific transformations.
 
 Example:
-[source,xml]
+[,xml]
 ----
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">

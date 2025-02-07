@@ -46,7 +46,7 @@ NOTE: Use interfaces to define capabilities (like "Drivable") and abstract class
 
 Answer:
 Anonymous inner classes are created inline when you need an ad-hoc implementation of an interface or abstract class. For example:
-[source,java]
+[,java]
 ----
 Runnable runnable = new Runnable() {
     @Override

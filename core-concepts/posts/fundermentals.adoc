@@ -83,7 +83,7 @@ NOTE: You can also write `public static void main(String... args)` to accept var
 
 You can write a program without a `main` method, but it is more confusing than helpful.
 
-[source, java]
+[,java]
 ----
 public class MyProgram {
     // When the class is initialised, this code is run before checking if there is a main method
@@ -101,7 +101,7 @@ While you can use `javac`, a modern build tool like Maven or Gradle makes more s
 1. Write your Java code in a `.java` file (e.g., `MyProgram.java`).
 2. Open a terminal and navigate to the directory containing the file.
 3. Compile the code using the `javac` command:
-[source, bash]
+[,bash]
 ----
 javac MyProgram.java
 ----
@@ -112,7 +112,7 @@ If there are no syntax errors, this creates a `MyProgram.class` file containing 
 
 After compilation, run the program with:
 
-[source, bash]
+[,bash]
 ----
 java -cp $CLASS_PATH MyProgram
 ----
@@ -150,7 +150,7 @@ Autoboxing automatically converts a primitive (like `int`) to its corresponding 
 
 Autoboxing might use a cached value for small integers, but if not handled correctly, this can lead to subtle bugs.
 
-[source, java]
+[,java]
 ----
 Integer a = 100, b = 100;
 assert a == b; // true, same object cached
@@ -183,13 +183,13 @@ Annotations are like the sticky notes on your code they provide essential contex
 == 17. How do you configure environment variables such as JAVA_HOME and PATH on Linux or Windows?
 
 - *Linux/macOS:* Add export commands to your shell configuration file (e.g., `~/.bashrc` or `~/.zshrc`):
-[source, bash]
+[,bash]
 ----
 export JAVA_HOME=/path/to/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 ----
 Reload the file with:
-[source, bash]
+[,bash]
 ----
 source ~/.bashrc
 ----
@@ -199,7 +199,7 @@ source ~/.bashrc
 === 18. What is the role of a package in Java, and how do you define one?
 
 A package groups related classes and interfaces into a namespace, helping organise code, avoid naming conflicts, and control access. Define a package at the top of a Java file using the `package` keyword:
-[source, java]
+[,java]
 ----
 package com.example.myapp;
 ----
@@ -211,7 +211,7 @@ NOTE: In a `package-info.java` file, you can define package‑level annotations,
 
 Use the `import` statement to bring classes or entire packages into scope:
 
-[source, java]
+[,java]
 ----
 import java.util.List;
 ----
@@ -243,7 +243,7 @@ The Official Java 21 Javadoc is available at: https://docs.oracle.com/en/java/ja
 === 22. How do you handle errors using try‑catch‑finally blocks?
 
 Enclose code that might throw an exception in a `try` block, catch specific exceptions in `catch` blocks, and optionally execute a `finally` block for cleanup, regardless of whether an exception was thrown:
-[source, java]
+[,java]
 ----
 try {
     // Code that may throw an exception
@@ -257,7 +257,7 @@ This structure ensures that resources are correctly released and errors are mana
 
 This can be combined with try-with-resources to close resources after use automatically.
 
-[source, java]
+[,java]
 ----
 try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
     // Read from the file
@@ -302,7 +302,7 @@ NOTE: Many classes are virtually immutable. For example, `String` has a hash cod
 
 A property file is a simple text file containing key‑value pairs to store configuration settings. It allows developers to externalise configuration (such as database settings or application parameters) and can be loaded at runtime using the java.util.Properties class, facilitating changes without recompiling the code.
 
-[source, properties]
+[,properties]
 ----
 # Database configuration
 db.url=jdbc:mysql://localhost:3306/mydb
@@ -362,7 +362,7 @@ Serialisation converts an object into a byte stream, enabling it to be stored or
 === 37. How do you use try‑with‑resources to manage external resources?
 
 The try‑with‑resources statement automatically closes resources that implement `AutoCloseable` or `Closeable`. For example:
-[source, java]
+[,java]
 ----
 try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
     // Use the resource
@@ -380,7 +380,7 @@ Some resources are closable but are not obvious. e.g. Most `Stream` don't need t
 - `Files.newOutputStream` returns a `OutputStream`
 - `Files.newByteChannel` returns a `SeekableByteChannel`
 
-[source, java]
+[,java]
 ----
 try (Stream<String> lines = Files.lines(Paths.get("file.txt"))) {
     // Use the resource
@@ -394,7 +394,7 @@ try (Stream<String> lines = Files.lines(Paths.get("file.txt"))) {
 For example, two distinct `String` objects containing the same characters will be considered equal by `equals()`, but not by `==`.
 - The `compareTo()` method is used to order objects, such as sorting collections.
 
-[source, java]
+[,java]
 ----
 import java.math.BigDecimal;
 BigDecimal a = new BigDecimal("1.0");
@@ -469,7 +469,7 @@ You can iterate over collections using:
 === 46. Give examples of each type of loop used for iterating over collections in Java.
 
 .Traditional for loop
-[source, java]
+[,java]
 ----
 for (Type element : collection) {
     // Process element
@@ -478,7 +478,7 @@ for (Type element : collection) {
 This reduces boilerplate code and improves readability.
 
 .Enhanced for loop (for‑each)
-[source, java]
+[,java]
 ----
 for (Iterator<Type> iterator = collection.iterator(); iterator.hasNext(); ) {
     Type element = iterator.next();
@@ -487,7 +487,7 @@ for (Iterator<Type> iterator = collection.iterator(); iterator.hasNext(); ) {
 ----
 
 .Iterator
-[source, java]
+[,java]
 ----
 Iterator<Type> iterator = collection.iterator();
 while (iterator.hasNext()) {
@@ -497,7 +497,7 @@ while (iterator.hasNext()) {
 ----
 
 .Stream API
-[source, java]
+[,java]
 ----
 collection.stream().forEach(element -> {
     // Process element
@@ -505,7 +505,7 @@ collection.stream().forEach(element -> {
 ----
 
 .forEach method
-[source, java]
+[,java]
 ----
 collection.forEach(element -> {
     // Process element
@@ -513,7 +513,7 @@ collection.forEach(element -> {
 ----
 
 .ListIterator
-[source, java]
+[,java]
 ----
 ListIterator<Type> iterator = list.listIterator();
 while (iterator.hasNext()) {
@@ -523,7 +523,7 @@ while (iterator.hasNext()) {
 ----
 
 .Spliterator
-[source, java]
+[,java]
 ----
 Spliterator<Type> spliterator = collection.spliterator();
 spliterator.forEachRemaining(element -> {
@@ -532,7 +532,7 @@ spliterator.forEachRemaining(element -> {
 ----
 
 .Enumeration
-[source, java]
+[,java]
 ----
 Enumeration<Type> enumeration = vector.elements();
 while (enumeration.hasMoreElements()) {
@@ -560,7 +560,7 @@ Java supports multithreading via the `Thread` class and the `Runnable` interface
 ExecutorService and ForkJoinPool are higher-level abstractions that simplify thread management and parallel processing.
 
 .parallelStream() uses a common ForkJoinPool to process streams in parallel.
-[source, java]
+[,java]
 ----
 List<String> list = Arrays.asList("a", "b", "c");
 list.parallelStream().forEach(System.out::println);

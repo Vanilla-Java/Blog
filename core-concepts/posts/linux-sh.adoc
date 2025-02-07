@@ -10,12 +10,12 @@ This document provides detailed answers to 15 essential questions on using Linux
 == 1. How do you compile and run a Java program using `javac` and `java` in Linux?
 
 To compile a Java source file (e.g., `MyProgram.java`), open your terminal and run:
-[source,bash]
+[,bash]
 ----
 javac MyProgram.java
 ----
 This command invokes the Java compiler (`javac`), producing one or more `.class` files containing bytecode. To run the compiled program, use the `java` command, specifying the main class (without the `.class` extension):
-[source,bash]
+[,bash]
 ----
 java MyProgram
 ----
@@ -26,13 +26,13 @@ NOTE: *Compiling and running your Java program is like baking and then serving a
 == 2. How do you set and persist environment variables such as JAVA_HOME in Linux?
 
 You can set an environment variable in a terminal session by using the `export` command:
-[source,bash]
+[,bash]
 ----
 export JAVA_HOME=/path/to/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 ----
 To persist these settings across sessions, add the export commands to your shell’s configuration file (e.g., `~/.bashrc`, `~/.zshrc`, or `~/.profile`). After editing the file, reload it with:
-[source,bash]
+[,bash]
 ----
 source ~/.bashrc
 ----
@@ -43,12 +43,12 @@ NOTE: *Setting environment variables is like setting the stage for a play – on
 == 3. How do you list running Java processes using the `jps` command?
 
 The `jps` (Java Virtual Machine Process Status Tool) command lists all running Java processes. Simply execute:
-[source,bash]
+[,bash]
 ----
 jps
 ----
 This will display a list of process IDs (PIDs) along with the short names of the running Java classes. For more detailed information, you can add the `-l` flag:
-[source,bash]
+[,bash]
 ----
 jps -l
 ----
@@ -57,7 +57,7 @@ NOTE: *The `jps` command acts like a roll call for Java applications – it quic
 == 4. How do you generate a thread dump with `jstack`?
 
 A thread dump can be generated using the `jstack` command followed by the process ID of the Java application. For example:
-[source,bash]
+[,bash]
 ----
 jstack <pid>
 ----
@@ -68,12 +68,12 @@ NOTE: *Generating a thread dump is like taking a snapshot of a busy intersection
 == 5. How can you analyze heap memory using `jmap`?
 
 The `jmap` tool provides memory-related statistics and can generate heap dumps. To print a summary of the heap, run:
-[source,bash]
+[,bash]
 ----
 jmap -heap <pid>
 ----
 To generate a heap dump, use:
-[source,bash]
+[,bash]
 ----
 jmap -dump:format=b,file=heapdump.hprof <pid>
 ----
@@ -84,18 +84,18 @@ NOTE: *Using `jmap` is like performing a detailed inventory of a warehouse – i
 == 6. How do you monitor CPU and memory usage with `top` or `htop`?
 
 - *top:* Run the command:
-[source,bash]
+[,bash]
 ----
 top
 ----
 This displays real‑time information about CPU usage, memory consumption, and running processes.
 - *htop:* A more user‑friendly alternative with a colorful, interactive interface. Install it if not available:
-[source,bash]
+[,bash]
 ----
 sudo apt-get install htop
 ----
 Then run:
-[source,bash]
+[,bash]
 ----
 htop
 ----
@@ -106,7 +106,7 @@ NOTE: *`top` and `htop` are like fitness trackers for your system – they provi
 == 7. How do you use `ps` to filter and display Java processes?
 
 The `ps` command displays information about running processes. To filter for Java processes, use:
-[source,bash]
+[,bash]
 ----
 ps aux | grep java
 ----
@@ -117,7 +117,7 @@ NOTE: *Using `ps` with `grep` is like using a searchlight in the dark – it hel
 == 8. How do you inspect open files or sockets used by a Java process with `lsof`?
 
 The `lsof` (list open files) command shows which files and network sockets are used by a process. To inspect a specific Java process, run:
-[source,bash]
+[,bash]
 ----
 lsof -p <pid>
 ----
@@ -128,12 +128,12 @@ NOTE: *`lsof` is like a detective’s magnifying glass – it reveals hidden det
 == 9. How do you use `tail` (and `tail -f`) to monitor log files in real time?
 
 To view the end of a log file, use:
-[source,bash]
+[,bash]
 ----
 tail logfile.log
 ----
 For real‑time monitoring, use the `-f` option:
-[source,bash]
+[,bash]
 ----
 tail -f logfile.log
 ----
@@ -144,12 +144,12 @@ NOTE: *`tail -f` is like watching a live news ticker – it continuously updates
 == 10. How do you search log files for specific keywords using `grep`?
 
 Use the `grep` command to search for patterns in log files. For example, to find all occurrences of the word “ERROR” in a log file:
-[source,bash]
+[,bash]
 ----
 grep "ERROR" logfile.log
 ----
 To perform a case‑insensitive search, add the `-i` flag:
-[source,bash]
+[,bash]
 ----
 grep -i "error" logfile.log
 ----
@@ -160,7 +160,7 @@ NOTE: *`grep` is like a spotlight that quickly highlights key phrases in a vast 
 == 11. How do you combine `find` and `xargs` to operate on multiple files in a Java project?
 
 The `find` command locates files based on criteria, and `xargs` passes the results as arguments to another command. For example, to search for all `.java` files and count lines:
-[source,bash]
+[,bash]
 ----
 find . -name "*.java" | xargs wc -l
 ----
@@ -172,13 +172,13 @@ NOTE: *Using `find` and `xargs` together is like having a dynamic duo – one lo
 
 - *curl:*
 Use `curl` to send HTTP requests and inspect responses. For example, to test a GET endpoint:
-[source,bash]
+[,bash]
 ----
 curl -X GET http://api.example.com/resource
 ----
 - *wget:*
 Use `wget` to download or test API responses. For example:
-[source,bash]
+[,bash]
 ----
 wget -qO- http://api.example.com/resource
 ----
@@ -190,19 +190,19 @@ NOTE: *`curl` and `wget` are like your portable testing kits – they allow you 
 
 - *SSH:*
 Securely log into a remote server:
-[source,bash]
+[,bash]
 ----
 ssh user@remote-host
 ----
 - *scp:*
 Securely copy files to/from a remote server:
-[source,bash]
+[,bash]
 ----
 scp localfile user@remote-host:/path/to/destination
 ----
 - *rsync:*
 Synchronize files/directories between local and remote systems:
-[source,bash]
+[,bash]
 ----
 rsync -avz localdir/ user@remote-host:/path/to/destination
 ----
@@ -213,17 +213,17 @@ NOTE: *SSH, scp, and rsync are like the postal service for your code – they en
 == 14. How do you schedule recurring tasks (such as backups or builds) using `cron`?
 
 `cron` is a time‑based job scheduler in Unix‑like systems. To schedule a task, edit the crontab file using:
-[source,bash]
+[,bash]
 ----
 crontab -e
 ----
 Then add an entry following the format:
-[source,bash]
+[,bash]
 ----
 * * * * * /path/to/script.sh
 ----
 The five fields represent minute, hour, day of month, month, and day of week, respectively. For example, to run a backup every day at midnight:
-[source,bash]
+[,bash]
 ----
 0 0 * * * /path/to/backup.sh
 ----
@@ -232,7 +232,7 @@ NOTE: *Using cron is like setting your alarm clock for your computer – it ensu
 == 15. How can you write shell scripts to automate Java builds and deployments?
 
 Shell scripts can automate repetitive tasks by combining commands into a single executable file. For example, a basic script to compile and run a Java application might look like:
-[source,bash]
+[,bash]
 ----
 #!/bin/bash
 # Clean and build the project using Maven
@@ -242,12 +242,12 @@ mvn clean install
 java -jar target/myapp.jar
 ----
 Make the script executable:
-[source,bash]
+[,bash]
 ----
 chmod +x build_and_run.sh
 ----
 Then run it:
-[source,bash]
+[,bash]
 ----
 ./build_and_run.sh
 ----

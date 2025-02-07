@@ -23,7 +23,7 @@ YAML represents three fundamental data types:
 - *Mappings:* Represented as key–value pairs, similar to dictionaries. They are written with a key followed by a colon and a value.
 
   Example:
-  [source,yaml]
+  [,yaml]
   ----
   person:
     name: Alice
@@ -33,7 +33,7 @@ YAML represents three fundamental data types:
 - *Sequences:* Represented as ordered lists, denoted by a hyphen (`-`) followed by a space.
 
   Example:
-  [source,yaml]
+  [,yaml]
   ----
   skills:
     - Java
@@ -44,7 +44,7 @@ YAML represents three fundamental data types:
 - *Scalars:* Simple values such as strings, numbers, booleans, or null values.
 
   Example:
-  [source,yaml]
+  [,yaml]
   ----
   active: true
   ----
@@ -62,7 +62,7 @@ NOTE: *Imagine a well-organized bookshelf where each shelf level is clearly defi
 Comments in YAML are denoted by the hash symbol (`#`). Any text following the `#` on the same line is ignored by the YAML parser.
 
 Example:
-[source,yaml]
+[,yaml]
 ----
 # This is a comment in YAML
 name: "Alice"  # Inline comment explaining the name field
@@ -77,7 +77,7 @@ YAML anchors and aliases allow you to define a section of content once and then 
 - *Alias (`*`):* References the content defined by an anchor.
 
 Example:
-[source,yaml]
+[,yaml]
 ----
 default: &default
   timeout: 30
@@ -102,7 +102,7 @@ YAML provides two primary styles for representing multi‑line strings:
 - *Literal Block Style (`|`):* Preserves line breaks exactly as written.
 
   Example:
-  [source,yaml]
+  [,yaml]
   ----
   description: |
     This is a literal block.
@@ -112,7 +112,7 @@ YAML provides two primary styles for representing multi‑line strings:
 - *Folded Block Style (`>`):* Folds newlines into spaces, creating a single line.
 
   Example:
-  [source,yaml]
+  [,yaml]
   ----
   summary: >
     This is a folded block.

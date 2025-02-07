@@ -46,9 +46,9 @@ AsciiDoc supports several inline formatting options:
 === 4. How do you create code blocks and specify a language for syntax highlighting?
 
 To create a code block in AsciiDoc and specify a language for syntax highlighting, you use a source block. For example:
-[source,asciidoc]
+[,asciidoc]
 ....
-[source,java]
+[,java]
 ----
 public class HelloWorld {
     public static void main(String[] args) {
@@ -57,7 +57,7 @@ public class HelloWorld {
 }
 ----
 ....
-This block uses `[source,java]` to indicate that the enclosed code is Java, enabling syntax highlighting.
+This block uses `[,java]` to indicate that the enclosed code is Java, enabling syntax highlighting.
 
 Code blocks in AsciiDoc are like spotlighting your code ensuring that the technical content stands out clearly and is easy to read, just as a well-lit stage enhances a performance.
 
@@ -67,7 +67,7 @@ TIP: To emded AsciiDoc in AsciiDoc you can use `-----` five `-` or `....` four `
 
 You can insert an image using the `image::` macro. To include alt text and a caption, use the following syntax:
 
-[source,asciidoc]
+[,asciidoc]
 ----
 image::path/to/image.png[Alt Text, caption="This is a caption"]
 ----
@@ -77,7 +77,7 @@ This tells the AsciiDoc processor to include the image with the provided alterna
 
 - *Unordered Lists:* Use a hyphen (`-`) or an asterisk (`*`) followed by a space.
 
-[source,asciidoc]
+[,asciidoc]
 ----
 - First item
 - Second item
@@ -92,7 +92,7 @@ OR
 
 - *Ordered Lists:* Use a period (`.`) or nest with (`..`) followed by a space.
 
-[source,asciidoc]
+[,asciidoc]
 ----
 . First item
 . Second item
@@ -107,7 +107,7 @@ Lists in AsciiDoc are like bullet points in a presentation they help organize in
 === 7. What is the syntax for creating tables in AsciiDoc?
 
 Tables in AsciiDoc can be created using the pipe (`|`) syntax. A simple table is structured as follows:
-[source,asciidoc]
+[,asciidoc]
 ----
 |===
 |Header 1 |Header 2
@@ -119,7 +119,7 @@ This syntax defines the table boundaries with `|===` and uses `|` to separate ce
 
 You can add justication to cells like this:
 
-[source,asciidoc]
+[,asciidoc]
 ----
 [cols="<1,^1,>1", options="header"]
 |===
@@ -132,7 +132,7 @@ Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to prese
 == 8. How do you define and use document‑level attributes?
 
 Document‑level attributes in AsciiDoc are defined at the top of the document using a colon syntax. For example:
-[source,asciidoc]
+[,asciidoc]
 ----
 = Title of the Document
 Author Name
@@ -150,7 +150,7 @@ NOTE: *Document-level attributes are like global variables for your document the
 
 You can include external files into your AsciiDoc document using the `include::` directive. For example:
 
-[source,asciidoc]
+[,asciidoc]
 ----
 include::path/to/filename.adoc[heading=level2]
 ----
@@ -159,9 +159,9 @@ This command inserts the content of `filename.adoc` at the location where the di
 
 or to include a portion of a file use tags like this:
 
-[source,asciidoc]
+[,asciidoc]
 ....
-[source, yaml]
+[,yaml]
 ----
 include::src/test/resource/mytest/in.yaml[tag=first-event]
 ----
@@ -169,7 +169,7 @@ include::src/test/resource/mytest/in.yaml[tag=first-event]
 
 and in the YAML file add the tag like this:
 
-[source, yaml]
+[,yaml]
 ----
 # tag::first-event[]
 first-event: {

@@ -42,7 +42,7 @@ Comprehensive documentation improves maintainability by:
 
 Generative AI will comments and documentation to help maintain code based on those comments. e.g. if I write a comment that says
 
-[source, java]
+[,java]
 ----
 // This function calculate the sum of two numbers.
 // Copilot will generate the following code

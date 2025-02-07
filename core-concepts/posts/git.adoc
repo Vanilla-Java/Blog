@@ -21,7 +21,7 @@ NOTE: *Think of Git as a powerful time machine for your code allowing you to tra
 == 2. How do you initialize a new Git repository?
 
 To initialize a new Git repository in your project directory, navigate to the directory in your terminal and run:
-[source,bash]
+[,bash]
 ----
 git init
 ----
@@ -44,12 +44,12 @@ NOTE: *The .gitignore file acts like a bouncer at a club only letting in the fil
 == 4. How do you stage and commit changes in Git?
 
 To stage changes, use the `git add` command:
-[source,bash]
+[,bash]
 ----
 git add <file-or-directory>
 ----
 To commit the staged changes, use:
-[source,bash]
+[,bash]
 ----
 git commit -m "Your commit message"
 ----
@@ -67,17 +67,17 @@ NOTE: *Consider `git add` as gathering your ingredients, and `git commit` as bak
 == 6. How do you create and switch branches in Git?
 
 To create a new branch, use:
-[source,bash]
+[,bash]
 ----
 git branch <branch-name>
 ----
 To switch to the new branch, run:
-[source,bash]
+[,bash]
 ----
 git checkout <branch-name>
 ----
 Alternatively, you can create and switch in one command:
-[source,bash]
+[,bash]
 ----
 git checkout -b <branch-name>
 ----
@@ -114,12 +114,12 @@ NOTE: *A pull request is like a proposal in a board meeting it invites discussio
 == 10. How do you use `git log` to inspect commit history?
 
 The `git log` command displays the commit history. Basic usage:
-[source,bash]
+[,bash]
 ----
 git log
 ----
 For more detailed or formatted output, you can use options like:
-[source,bash]
+[,bash]
 ----
 git log --oneline --graph --decorate
 ----
@@ -130,7 +130,7 @@ NOTE: *Using git log is like reading a diary of your project’s evolution each 
 == 11. How can you revert a commit that has already been pushed?
 
 To revert a pushed commit, use the `git revert` command, which creates a new commit that undoes the changes of a previous commit:
-[source,bash]
+[,bash]
 ----
 git revert <commit-hash>
 ----
@@ -141,17 +141,17 @@ NOTE: *Reverting a commit is like pressing the “undo” button in a well-track
 == 12. What is Git stash and how do you use it?
 
 Git stash temporarily shelves changes that are not yet ready to be committed. To stash changes:
-[source,bash]
+[,bash]
 ----
 git stash
 ----
 To view stashed changes:
-[source,bash]
+[,bash]
 ----
 git stash list
 ----
 To reapply stashed changes:
-[source,bash]
+[,bash]
 ----
 git stash apply
 ----
@@ -162,17 +162,17 @@ NOTE: *Think of Git stash as a clipboard for your code it holds your changes saf
 == 13. How do you create and manage tags in Git?
 
 Tags mark specific points in the commit history as important (e.g., releases). Create a lightweight tag:
-[source,bash]
+[,bash]
 ----
 git tag <tag-name>
 ----
 Or an annotated tag (recommended):
-[source,bash]
+[,bash]
 ----
 git tag -a <tag-name> -m "Tag message"
 ----
 Push tags to a remote repository:
-[source,bash]
+[,bash]
 ----
 git push origin <tag-name>
 ----

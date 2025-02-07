@@ -25,7 +25,7 @@ JSON is composed of:
 - *Key–Value Pairs:* Each key is a string, followed by a colon, and then a value (which can be a string, number, object, array, boolean, or null).
 
 For example:
-[source,json]
+[,json]
 ----
 {
   "name": "Alice",
@@ -58,7 +58,7 @@ NOTE: *JSON’s simplicity is its strength the limited set of data types ensures
 - *Null:* Represented as the keyword `null` (without quotes).
 
 For example:
-[source,json]
+[,json]
 ----
 {
   "price": 19.99,
@@ -81,7 +81,7 @@ Special characters in JSON strings must be escaped using a backslash (`\`). Comm
 - `\t` for tab.
 
 For example:
-[source,json]
+[,json]
 ----
 {
   "message": "He said, \"Hello, world!\""
@@ -97,7 +97,7 @@ JSON Schema is a vocabulary that allows you to define the structure, required pr
 - Providing clear documentation of expected JSON formats.
 
 For example, a simple JSON Schema might look like:
-[source,json]
+[,json]
 ----
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -117,12 +117,12 @@ NOTE: *JSON Schema is like a blueprint for your JSON data it sets clear expectat
 - *Minify:* Removes all unnecessary whitespace and line breaks to reduce file size. This can also be achieved using tools like `jq` or dedicated minification utilities.
 
 For example, using `jq` to pretty‑print:
-[source,bash]
+[,bash]
 ----
 jq . input.json > pretty.json
 ----
 And to minify:
-[source,bash]
+[,bash]
 ----
 jq -c . input.json > minified.json
 ----
@@ -152,7 +152,7 @@ Conversion between JSON and other formats can be done using various libraries an
 - *JSON to YAML:* Use libraries like SnakeYAML or online converters. Jackson also supports YAML through the `jackson-dataformat-yaml` module.
 
 For example, converting JSON to XML with Jackson might involve:
-[source,java]
+[,java]
 ----
 ObjectMapper jsonMapper = new ObjectMapper();
 XmlMapper xmlMapper = new XmlMapper();
