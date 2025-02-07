@@ -1,0 +1,30 @@
+= Core Concepts FAQ
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
+:toc:
+:toclevels: 1
+:source-highlighter: rouge
+
+
+This document provides FAQ style answers to key questions on core concepts in software development, covering fundamental principles, best practices, JVM internals, AsciiDoc, and additional topics.
+
+== Core Concepts FAQ
+
+include::fundermentals.adoc[Fundamentals,hlevel=2,tag=readme]
+
+== Best Practices
+
+include::best-practices.adoc[Best Practices,hlevel=2,tag=readme]
+
+== JVM Internals
+
+include::jvm-internals.adoc[Jvm Internals,hlevel=2,tag=readme]
+
+== AsciiDoc
+
+include::asciidoc.adoc[AsciiDoc,hlevel=2,tag=readme]
+
+== Additional Topics
+
+include::additional.adoc[Additional Topics,hlevel=2,tag=readme]

@@ -5,9 +5,9 @@ Peter Lawrey, 2023-04-05
 :toc:
 :source-highlighter: rouge
 
-== Overview
-
 This guide is designed for advanced Java developers and performance engineers who wish to deepen their understanding of JVM internals and advanced optimization techniques. In this document you will learn how the HotSpot JVM compiles and optimizes code, manages memory and garbage collection, handles concurrency, and supports dynamic behaviors—all while using diagnostic and tuning tools to monitor performance. By breaking the content into thematic parts, this guide helps you navigate topics ranging from JIT compilation to future enhancements like Project Loom.
+
+// tag::readme[]
 
 == Part 1: JIT Compilation and Code Optimization
 
@@ -184,3 +184,5 @@ Upcoming enhancements include:
 - *Vector API:* Enhanced support for vectorized operations for improved performance.
 
 These advancements promise to further simplify concurrency, reduce latency, and optimize performance in modern applications.
+
+// end::readme[]

@@ -6,6 +6,8 @@ Peter Lawrey
 
 AsciiDoc is a versatile and powerful markup language for technical documentation. It offers a rich set of features for creating structured, readable, and visually appealing documents. In this post, we explore some common questions about AsciiDoc and provide detailed answers with engaging side notes to enhance your understanding.
 
+// tag::readme[]
+
 == Part 1: Basic Syntax & Formatting
 
 === 1. What is AsciiDoc, and what are its primary use cases for technical documentation?
@@ -129,7 +131,7 @@ You can add justication to cells like this:
 
 Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that’s easy to read and reference.
 
-== 8. How do you define and use document‑level attributes?
+=== 8. How do you define and use document‑level attributes?
 
 Document‑level attributes in AsciiDoc are defined at the top of the document using a colon syntax. For example:
 [,asciidoc]
@@ -152,7 +154,7 @@ You can include external files into your AsciiDoc document using the `include::`
 
 [,asciidoc]
 ----
-include::path/to/filename.adoc[heading=level2]
+include::path/to/filename.adoc[hlevel=2]
 ----
 
 This command inserts the content of `filename.adoc` at the location where the directive appears. You can also specify a heading level for the included content.
@@ -182,7 +184,49 @@ first-event: {
 
 The include directive is like a modular puzzle each piece (file) can be developed separately and then combined to form a complete picture, promoting reuse and maintainability.
 
-== Part 2: Advanced Topics & Generative AI Integration
+=== 10. How do you include mermaid diagrams in AsciiDoc?
+
+To include Mermaid diagrams in AsciiDoc, you can use the `mermaid` block. For example:
+
+[,asciidoc]
+-----
+[mermaid]
+----
+graph TD
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+----
+-----
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+----
+graph TD
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+----
+
+However, this syntax does not work in GitHub which requires `[source,mermaid]`. To enable the different tag for GitHub only you can write
+
+[,asciidoc]
+-----
+\ifdef::env-github[]
+[source,mermaid]
+\endif::[]
+\ifndef::env-github[]
+[mermaid]
+\endif::[]
+-----
+
+== Part 2: Generative AI Integration
 
 === 1. How can generative AI be used to automate and enhance AsciiDoc documentation workflows?
 
@@ -193,7 +237,7 @@ Generative AI can be integrated to:
 - *Update Content:* Automatically adjust documentation (e.g., update changelogs or cross references) when code changes.
 - *Multi-format Export:* Seamlessly transform a single AsciiDoc source into various output formats for different audiences.
 
-*Example:* An AI system might scan project specifications and generate a comprehensive AsciiDoc requirements document, which can then be refined by a human editor.
+An AI system might scan project specifications, code, and test. It can generate a comprehensive AsciiDoc requirements document, which can then be refined by a human editor. After refinement, the AI can recommend improvements to the code and tests.
 
 === 2. How can generative AI assist in creating and updating requirements documents?
 
@@ -243,12 +287,17 @@ Be mindful of:
 - *Inconsistent Attributes:* Maintain a single source of truth for document‑level attributes to prevent discrepancies.
 - *Missing Escapes:* Remember to escape special characters when needed (e.g., using a backslash before reserved symbols).
 
-== Further Reading and Resources
+=== How can you troubleshoot rendering issues in AsciiDoc?
+
+To troubleshoot rendering issues:
+
+- *Check Syntax:* Verify that the AsciiDoc syntax is correct, especially for complex constructs like tables or code blocks.
+- *Use IntelliJ:* AsciiDoc plugins in IntelliJ IDEA can help identify syntax errors and provide real-time feedback.
+
+=== Further Reading and Resources
 
 - [AsciiDoc Syntax Quick Reference](https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/)
 - [AsciiDoc Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
 - Articles and tutorials on docs‑as‑code practices
 
-== Summary
-
-By following these best practices, you can produce technical documentation that is not only clear and maintainable but also seamlessly integrated with modern development and AI workflows. The combination of structured AsciiDoc syntax with generative AI tools creates a powerful “docs‑as‑code” pipeline that minimizes manual editing, enforces consistency, and adapts to multiple output formats—all while enhancing collaboration across your team.
+// end::readme[]

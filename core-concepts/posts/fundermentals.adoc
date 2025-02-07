@@ -1,11 +1,10 @@
 = Java Fundamentals and Core Concepts
 Peter lawrey
-:doctype: requirements
 :lang: en-GB
 :toc:
 :source-highlighter: rouge
 
-== Overview
+// tag::readme[]
 
 This guide covers the fundamental concepts of Java programming. You will learn about:
 - The basics of Java syntax and data types.
@@ -40,8 +39,7 @@ Java source code is compiled into bytecode, which is platform‑independent. The
 === 4. What is Java bytecode, and how does the JVM execute it?
 
 - *Java Bytecode:* The intermediate, platform‑neutral representation of Java source code produced by the compiler.
-- *JVM Execution:*
-The JVM reads the bytecode and either interprets it or compiles it on the fly (using Just‑In‑Time compilation) into native machine code.
+- *JVM Execution:* The JVM reads the bytecode and either interprets it or compiles it on the fly (using Just‑In‑Time compilation) into native machine code.
 
 Bytecode is the “universal language” of Java, translated by the JVM into the specific language of your computer’s hardware.
 
@@ -100,7 +98,8 @@ While you can use `javac`, a modern build tool like Maven or Gradle makes more s
 
 1. Write your Java code in a `.java` file (e.g., `MyProgram.java`).
 2. Open a terminal and navigate to the directory containing the file.
-3. Compile the code using the `javac` command:
+3. Compile the code using:
+
 [,bash]
 ----
 javac MyProgram.java
@@ -116,6 +115,7 @@ After compilation, run the program with:
 ----
 java -cp $CLASS_PATH MyProgram
 ----
+
 This instructs the JVM to load the compiled bytecode (from `MyProgram.class`) and execute its `main` method.
 
 === 10. What is the significance of the classpath in Java applications?
@@ -139,8 +139,7 @@ Garbage collection (GC) in Java is an automated process that reclaims memory use
 
 - *G1 (Garbage‑First):* Divides the heap into regions and collects those with the most garbage to reduce pause times.
 - *ZGC (Z Garbage Collector):* Designed for extremely low‑latency operations on large heaps with minimal pause times.
-
-Other collectors like CMS and Parallel GC balance throughput and pause time based on application needs.
+- *CMS/Parallel GC:* Balance throughput and pause time based on application needs.
 
 NOTE: In low-latency environments, you want to minimise garbage production and collection to reduce the risk of pauses. Reducing the garbage collector load can also achieve more predictable performance.
 
@@ -176,11 +175,11 @@ Annotations provide metadata for Java code. They can:
 
 - Guide the compiler (e.g., `@Override`).
 - Influence runtime behavior (e.g., `@Deprecated`).
-- Enable frameworks (like Spring) to perform dependency injection.
+- Enable frameworks (e.g., Spring) to perform dependency injection.
 
 Annotations are like the sticky notes on your code they provide essential context and reminders.
 
-== 17. How do you configure environment variables such as JAVA_HOME and PATH on Linux or Windows?
+=== 17. How do you configure environment variables such as JAVA_HOME and PATH on Linux or Windows?
 
 - *Linux/macOS:* Add export commands to your shell configuration file (e.g., `~/.bashrc` or `~/.zshrc`):
 [,bash]
@@ -290,13 +289,11 @@ Mutable objects can change their state after creation, while immutable objects c
 - Enhances thread safety.
 - Reduces unintended side effects.
 - Facilitates caching and reuse.
-- Supports effective error handling.
 
-The downside of immutable objects is that they create garbage which is to be avoided in low latency systems.
+Java’s `String` class is immutable, contributing to its security and reliability.
+Many classes are virtually immutable, such as, `String` which has a hash code that is calculated once and cached. This means the first time `hashCode()` is called, it is more expensive, but subsequent calls are faster.
 
-For example, Java’s `String` class is immutable, contributing to its security and reliability.
-
-NOTE: Many classes are virtually immutable. For example, `String` has a hash code that is calculated once and cached. This means the first time `hashCode()` is called, it is more expensive, but subsequent calls are faster.
+NOTE: The downside of immutable objects is that they create garbage which is to be avoided in low latency systems.
 
 === 26. What is a Java property file, and how is it typically used?
 
@@ -328,7 +325,7 @@ Using the `+` operator for string concatenation is simple and intuitive but inef
 
 NOTE: Don't use `StringBuffer` even for thread-safe operations, as it is error-prone and difficult to get right. You are much better off using `StringBuilder` and synchronising access to it if necessary.
 
-=== 31. Are subclasses of Throwable checked exceptions or unchecked exceptions in Java?
+=== 31. Are subclasses of Throwable checked or unchecked exceptions in Java?
 
 Direct subclasses of `Throwable` are checked exceptions. However, subclasses of `Error` and `RuntimeException` are not. Checked exceptions must be caught or declared in the method signature, while unchecked exceptions do not require explicit handling.
 
@@ -414,6 +411,8 @@ Java supports implicit widening conversions (e.g., from `int` to `long`) that do
 
 NOTE: the 4-byte `float` is considered wider than the 8-byte `long` because it has a larger range.
 
+WARNING: Casting may result in precision loss, even when widening e.g. `float f = Long.MAX_VALUE;`
+
 === 40. What is a transient variable, and how does it interact with serialisation?
 
 A transient variable is declared with the `transient` keyword, indicating that it should not be included in the serialisation process. When an object is serialised, transient fields are ignored, which is helpful for sensitive or derived data that should not be persisted.
@@ -434,11 +433,11 @@ Java supports standard operators:
 
 These operators form the basis of expressions and control flow in Java programs.
 
-NOTE: While you can use `%` with floating point, you probably shouldn't, as it can lead to subtle bugs due to rounding errors.
+WARNING: While you can use `%` with floating point, you probably shouldn't, as it can lead to subtle bugs due to rounding errors.
 
 === 42. What is a Java interface, and how does it differ from an abstract class?
 
-A Java interface defines a contract (a set of abstract methods) a class can implement. Before Java 8, interfaces could not have method implementations, though default and static methods are now allowed. An abstract class can have concrete methods and states (member variables). Interfaces support multiple inheritance of type, whereas a class may extend only one abstract class.
+A Java interface defines a contract (a set of abstract methods) a class can implement. An abstract class can have concrete methods and states (member variables). Interfaces support multiple inheritance of type, whereas a class may extend only one abstract class.
 
 === 43. How does exception propagation work in nested method calls?
 
@@ -449,8 +448,9 @@ If a method throws an exception and does not catch it, the exception propagates 
 The Java Collections Framework provides a standardised set of interfaces and classes (such as List, Set, and Map) for storing and manipulating groups of objects. Benefits include:
 
 - Dynamic sizing and flexibility.
-- A rich set of algorithms for searching, sorting, and iterating.
+- A standardized set of interfaces and classes (e.g., List, Set, Map) for managing groups of objects.
 - Type safety with generics.
+- Built‑in methods for searching, sorting, and iterating.
 - Improved code readability and maintainability.
 
 === 45. How do you iterate over collections using loops and enhanced for‑loops?
@@ -571,7 +571,7 @@ list.parallelStream().forEach(System.out::println);
 Portability is ensured by:
 
 - Using standard Java APIs and avoiding platform‑specific code.
-- Externalising configuration (e.g., using properties files).
+- Externalising configuration (e.g. properties files).
 - Adhering to established coding standards and style guides.
 - Writing modular, well‑documented code.
 - Thoroughly testing on multiple platforms.
@@ -584,15 +584,153 @@ Best practices include:
 - Employing design patterns where appropriate.
 - Regularly refactoring and optimising code.
 
-== Part 2: Performance, Low‑Latency, and Memory Optimisation
+== Part 2: Additional Core Topics
+
+Below are additional questions covering topics that further enrich your understanding of Java’s core concepts:
+
+=== 1. What are the four pillars of object‑oriented programming (OOP) in Java, and how are they implemented?
+
+OOP in Java is based on:
+- **Encapsulation:** Bundling data (fields) and methods, and restricting direct access to some of an object's components.
+- **Inheritance:** Allowing classes to inherit fields and methods from parent classes.
+- **Polymorphism:** Enabling objects to be treated as instances of their parent class rather than their actual class.
+- **Abstraction:** Hiding complex implementation details behind simpler interfaces.
+
+These principles are implemented through class design, access modifiers, method overriding, and interface usage.
+
+=== 2. How do lambda expressions and method references in Java, and what advantages do they provide?
+
+Lambda expressions allow you to write concise code by representing instances of functional interfaces (interfaces with a single abstract method) as inline expressions.
+
+.Lambda expression syntax
+[,java]
+----
+List<String> list = Arrays.asList("a", "b", "c");
+list.forEach(s -> System.out.println(s));
+----
+
+.Method reference syntax
+[,java]
+----
+List<String> list = Arrays.asList("a", "b", "c");
+list.forEach(System.out::println);
+----
+
+**Advantages:**
+
+- Reduced boilerplate code.
+- Enables functional programming styles.
+- Simplifies event handling and callbacks.
+- Improves readability and maintainability.
+
+*Disadvantages:*
+
+- Can be less readable for complex logic.
+- May require additional learning for developers unfamiliar with functional programming.
+- Can be harder to debug due to the lack of explicit method names.
+
+=== 3. What are Functional Interfaces in Java, and how do they relate to lambda expressions?
+
+Functional interfaces are interfaces with a single abstract method, such as `Runnable` or `Comparator`. They are used to represent lambda expressions and method references, enabling functional programming in Java.
+
+[,java]
+----
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void doSomething();
+}
+----
+
+Not all functional interfaces have to have the annotation `@FunctionalInterface`, but if it is added the compiler will check that it has only one abstract method.
+
+=== 4. What is the Stream API in Java, and how does it facilitate functional programming and parallel processing?
+
+The Stream API provides a high‑level abstraction for processing sequences of elements using functional operations such as filter, map, and reduce. It enables:
+
+- Declarative code style.
+- Easy parallelization via `parallelStream()`.
+- Improved readability and maintainability of data processing code.
+- Lazy evaluation, allowing operations to be chained without evaluating intermediate results.
+
+=== 5. How do you use reflection in Java, and what are its performance and security implications?
+
+Reflection allows you to inspect and manipulate classes, methods, and fields at runtime.
+
+**Benefits:**
+
+- Dynamic class loading
+- Method invocation
+- Object inspection.
+- Annotation processing.
+- Code generation.
+- Testing frameworks.
+
+**Implications:**
+
+- Slower than direct method calls due to overhead.
+- Can pose security risks if misused.
+- May break encapsulation and increase complexity.
+- Can lead to less readable and maintainable code.
+- Can be used to create objects without calling constructors or call private constructors.
+- Can be used to access private fields and modify final fields.
+- Can be used to access private classes, and methods.
+
+=== 6. What is the difference between method overloading and method overriding in Java?
+
+- **Method Overloading:** Multiple methods in the same class share the same name but have different parameter lists (compile-time polymorphism).
+- **Method Overriding:** A subclass provides its own implementation for a method defined in a parent class, maintaining the same signature (runtime polymorphism).
+
+[cols="1,^2,^2",options="header"]
+|===
+| Feature | Method Overloading | Method Overriding
+| Location | Same class | Subclass
+| Resolution | Compile time | Runtime
+| Inheritance | Not required | Required
+| Return Type | Different allowed | Same or covariant
+| Access Modifier | Different allowed | Same or less restrictive
+| Exceptions | Different allowed | Same or narrower
+| Static, Final, Private | Different allowed | Same or less restrictive
+|===
+
+=== 7. How do you properly override `equals()` and `hashCode()`, and why is it important?
+
+Properly overriding `equals()` and `hashCode()` ensures that objects can be compared based on their state and work correctly in collections like HashMap.
+
+**Guidelines:**
+
+- Follow the contract: equal objects must have equal hash codes.
+- If a class is `Comparable` or `Comparator` is used, ensure `equals()` is consistent with the comparison.
+- Use all significant fields. ie non transient fields.
+- Consider using IDE-generated code or libraries.
+
+=== 8. What is dependency injection, and which frameworks support it in Java?
+
+Dependency injection (DI) is a design pattern that decouples object creation from business logic by injecting required dependencies into a class.
+
+- **Frameworks:** Spring, CDI (Contexts and Dependency Injection), and Guice are commonly used to manage DI in Java applications.
+- **Benefits:** Promotes loose coupling, enhances testability, and simplifies object creation.
+- **Types:** Constructor injection, setter injection, and field injection.
+
+=== 9. What are the key principles of unit testing in Java using frameworks like JUnit?
+
+Effective unit testing in Java involves:
+
+- Writing small, focused test methods that cover one specific behavior.
+- Using annotations such as `@Test`, `@BeforeEach`, and `@AfterEach` to manage test lifecycle.
+- Isolating tests using mocks and stubs.
+- Following clear naming conventions to describe test purposes.
+- Ensuring tests are repeatable and independent.
+- Using `@ParameterizedTest` to run the same test with different parameters where appropriate.
+
+== Part 3: Performance, Low‑Latency, and Memory Optimisation
 
 For performance‑sensitive applications, consider these advanced guidelines:
 
-== Considerations for Low Latency and Low Garbage Environments
+=== Considerations for Low Latency and Low Garbage Environments
 
 For developers working on performance‑sensitive Java applications (e.g., high‑frequency trading, real‑time processing, gaming engines), consider the following guidelines:
 
-*Minimise Object Allocation:*
+==== Minimise Object Allocation
 
 - *Reuse Objects:* Implement object pooling or caching to avoid repeated allocation.
 - *Avoid Autoboxing:* Prefer primitives over wrapper classes to reduce unnecessary object creation.
@@ -602,7 +740,7 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *Avoid Premature Optimisation:* Profile your application to identify bottlenecks before optimising object allocation.
 - *Avoid String Interning:* While it can save memory, it can also lead to performance issues due to the overhead of maintaining the interned string pool.
 
-*Optimise Memory Usage:*
+==== Optimise Memory Usage
 
 - *Off‑Heap Memory:* Leverage direct ByteBuffers or off‑heap data structures to lessen GC pressure.
 - *Immutable Objects:* Use immutability to reduce accidental object creation.
@@ -611,7 +749,7 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *Memory‑Efficient Libraries:* Choose libraries optimised for low memory usage (e.g., FastUtil, Trove).
 - *Memory Leak Detection:* Monitor memory usage and detect leaks using profilers or tools like Flight Recorder.
 
-*Select a Low‑Latency Garbage Collector:*
+==== Select a Low‑Latency Garbage Collector
 
 - *GC Tuning:* Use collectors like ZGC or Shenandoah designed for low‑latency scenarios and fine‑tune GC parameters (e.g., `-XX:MaxGCPauseMillis=...`).
 - *GC Profiling:* Analyse GC logs to identify bottlenecks and optimise heap settings accordingly.
@@ -620,14 +758,14 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *GC‑Friendly Design:* Structure your application to minimise object churn and promote efficient memory management.
 - *Azul Pauseless GC:* Consider using Azul’s Pauseless GC for low‑latency requirements.
 
-*Write Efficient Code:*
+==== Write Efficient Code
 
 - *Lock-Free Algorithms:* Employ concurrent data structures and non‑blocking algorithms to minimise synchronisation overhead.
 - *Minimise Synchronisation:* Use advanced concurrency utilities (e.g., those in `java.util.concurrent`) to reduce thread contention.
 - *Inline Critical Code:* Manually inline performance‑critical code sections to eliminate method call overhead. The JVM should always do this for you, but sometime it doesn't. Always benchmark before and after to confirm it is an improvement.
 - *Avoid Reflection:* Limit reflection to improve performance and maintainability.
 
-*Profile and Monitor:*
+==== Profile and Monitor
 
 - *Continuous Profiling:* Utilise tools like Java Flight Recorder, JVisualVM, or dedicated low‑latency profilers to monitor GC pauses, allocation rates, and thread contention.
 - *Benchmarking:* Use microbenchmarking frameworks (e.g., JMH) to evaluate critical code sections and detect performance bottlenecks.
@@ -635,7 +773,7 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *Latency Monitoring:* Implement latency‑aware metrics and monitoring to track real-time application performance.
 - *High-resolution timers:* Use high-resolution timers to measure latency and throughput accurately. For example, Chronicle Core's `SystemTimeProvider.currentTimeNanos()` is a high-resolution timer and wall clock.
 
-*Consider Application Architecture:*
+==== Consider Application Architecture
 
 - *Event‑Driven Models:* Architect systems to use asynchronous, event‑driven paradigms that naturally reduce latency.
 - *Batch Processing:* Process data in batches where feasible to amortise the cost of object allocation and reduce GC overhead.
@@ -643,12 +781,13 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *Low‑Latency Messaging:* Use low‑latency messaging systems (e.g., Chronicle Queue) to minimise message processing times.
 - *Zero‑Copy I/O:* Implement zero‑copy I/O techniques to reduce data copying and improve throughput.
 
-*JVM and OS Tuning:*
+==== JVM and OS Tuning
 
-- *JVM Flags:* Experiment with JVM flags like `-XX:+UseCompressedOops` and tune parameters specific to your low‑latency requirements.
+- *JVM Flags:* Experiment with JVM flags like `-XX:+UseCompactObjectHeaders` in Java 25, and tune parameters specific to your low‑latency requirements.
 - *System-Level Optimizations:* Adjust OS-level settings (e.g., thread priorities, NUMA configurations) to complement your application’s performance goals.
 - *Hardware Acceleration:* Leverage hardware acceleration features (e.g., SIMD instructions) to boost computational performance.
 - *Memory Management:* Optimise memory allocation patterns to reduce fragmentation and improve cache utilisation.
 - *Low‑Latency Networking:* Utilise low‑latency networking libraries and protocols to minimise network‑related delays.
 - *CPU Affinity:* Assign threads to specific CPU cores to reduce context switching and improve cache locality.
 
+// end::readme[]
