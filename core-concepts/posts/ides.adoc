@@ -1,12 +1,14 @@
-= Integrated Development Environments (IDEs) – Detailed Answers and Engaging Side Notes
+= Integrated Development Environments (IDEs)
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
 This document provides detailed answers to 10 key questions regarding Integrated Development Environments (IDEs) in Java development, with engaging side notes to help you appreciate their nuances and benefits.
 
 == 1. What are the differences between IntelliJ IDEA, Eclipse, and NetBeans?
 
-*Answer:*
 - *IntelliJ IDEA:*
 - Known for its intelligent code completion, deep static analysis, and a polished user interface.
 - Provides robust refactoring tools and seamless integration with build tools.
@@ -24,7 +26,6 @@ NOTE: *Imagine IntelliJ as a high‑end sports car with all the bells and whistl
 
 == 2. How do IDEs enhance productivity in Java development?
 
-*Answer:*
 IDEs boost productivity by providing:
 - *Code Completion:* Suggests code snippets and auto‑completes methods, reducing typing and errors.
 - *Real‑Time Error Checking:* Identifies issues as you type, catching mistakes early.
@@ -38,7 +39,6 @@ NOTE: *Think of an IDE as your personal coding assistant it anticipates your nee
 
 == 3. What are some essential keyboard shortcuts in your preferred IDE?
 
-*Answer:*
 While shortcuts vary by IDE, common examples in IntelliJ IDEA include:
 - *Ctrl+Shift+A:* Find and execute actions.
 - *Ctrl+Alt+L:* Reformat code.
@@ -52,7 +52,6 @@ NOTE: *Keyboard shortcuts are like secret cheat codes they save you time and let
 
 == 4. How do you import a Maven or Gradle project into an IDE?
 
-*Answer:*
 Most modern IDEs support importing projects directly:
 - *For Maven Projects:*
 - In IntelliJ IDEA, use *File → New → Project from Existing Sources* and select the `pom.xml` file.
@@ -65,7 +64,6 @@ NOTE: *Importing a project is like opening a treasure chest the IDE automaticall
 
 == 5. How do you configure run and debug configurations in your IDE?
 
-*Answer:*
 Run and debug configurations are usually set up via the IDE’s dedicated menu:
 - *IntelliJ IDEA:*
 - Go to *Run → Edit Configurations*, then create a new configuration for your application.
@@ -77,7 +75,6 @@ NOTE: *Setting up run and debug configurations is like preparing your toolkit be
 
 == 6. How does code completion and real‑time error checking work in modern IDEs?
 
-*Answer:*
 Modern IDEs continuously analyze your code using built-in compilers and static analysis tools. They:
 - Offer *code completion* suggestions based on context, available classes, and methods.
 - Provide *real‑time error checking* by highlighting syntax errors, type mismatches, and potential bugs as you type.
@@ -88,7 +85,6 @@ NOTE: *Real‑time code completion is like having a knowledgeable co-pilot who n
 
 == 7. How do you integrate version control (e.g., Git) directly within your IDE?
 
-*Answer:*
 Most IDEs offer robust integration with Git and other version control systems:
 - *IntelliJ IDEA:*
 - Includes a built‑in Git tool window for commits, branching, merging, and viewing diffs.
@@ -103,7 +99,6 @@ NOTE: *Version control integration is like having a command center in your IDE m
 
 == 8. How do you set up and run unit tests (e.g., using JUnit) from the IDE?
 
-*Answer:*
 Unit tests can be run directly from your IDE:
 - *IntelliJ IDEA/Eclipse/NetBeans:*
 - Automatically detect test classes and methods (e.g., those annotated with `@Test` in JUnit).
@@ -116,7 +111,6 @@ NOTE: *Running tests from your IDE is like having an instant feedback machine it
 
 == 9. What refactoring tools are available in your IDE, and how do they improve code quality?
 
-*Answer:*
 IDEs offer a suite of refactoring tools such as:
 - *Rename:* Safely renames variables, methods, and classes while updating all references.
 - *Extract Method/Variable:* Breaks down large methods or expressions into smaller, more manageable pieces.
@@ -128,7 +122,6 @@ NOTE: *Refactoring tools are like professional editors for your code they help y
 
 == 10. How can you customize your IDE’s appearance and behavior with plugins?
 
-*Answer:*
 Modern IDEs support extensive customization through plugins:
 - *Themes and UI Customizations:* Install themes to change the color scheme, fonts, and overall layout.
 - *Language and Framework Support:* Plugins can add support for additional languages, frameworks, and libraries.

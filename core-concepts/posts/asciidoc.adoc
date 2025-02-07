@@ -1,45 +1,53 @@
-= Documentation Formats: AsciiDoc – Detailed Answers and Engaging Side Notes
+= Documentation Formats: AsciiDoc FAQs
+Peter Lawrey
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
-This document provides detailed answers to 10 key questions on AsciiDoc. Each answer is enriched with engaging side notes to help you deepen your understanding of AsciiDoc for technical documentation.
+AsciiDoc is a versatile and powerful markup language for technical documentation. It offers a rich set of features for creating structured, readable, and visually appealing documents. In this post, we explore some common questions about AsciiDoc and provide detailed answers with engaging side notes to enhance your understanding.
 
-== 1. What is AsciiDoc, and what are its primary use cases for technical documentation?
+== Part 1: Basic Syntax & Formatting
 
-*Answer:*
+=== 1. What is AsciiDoc, and what are its primary use cases for technical documentation?
+
 AsciiDoc is a lightweight, plain‑text markup language designed for writing technical documentation. It is highly readable in its raw form and can be transformed into multiple output formats such as HTML, PDF, ePub, and DocBook. Its primary use cases include:
+
 - Writing user guides and manuals
 - Creating project documentation (e.g., developer guides, API documentation)
 - Preparing technical specifications and design documents
 - Maintaining documentation in source code repositories
+- Collaborating on documentation with version control systems
 
-NOTE: *AsciiDoc is like Markdown’s sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.*
+*Side Note:* AsciiDoc is like Markdown’s sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.
 
-== 2. How do you define headings of various levels in AsciiDoc?
+=== 2. How do you define headings of various levels in AsciiDoc?
 
-*Answer:*
 Headings in AsciiDoc are defined by using the `=` character at the beginning of a line. The number of `=` characters indicates the heading level:
+
 - `= Title` for a Level 1 heading
 - `== Section Title` for a Level 2 heading
 - `=== Subsection Title` for a Level 3 heading
+
 …and so on.
 
-NOTE: *Headings in AsciiDoc are like chapter titles in a book each level helps structure your content clearly and guides readers through the document hierarchy.*
+*Best Practice:* Use consistent heading levels to structure your document logically. This improves navigation and supports automated table-of‑contents generation.
 
-== 3. What is the syntax for inline formatting such as bold, italic, and monospace text?
+=== 3. What is the syntax for inline formatting such as bold, italic, and monospace text?
 
-*Answer:*
 AsciiDoc supports several inline formatting options:
-- *Bold:* Wrap text in asterisks, e.g., `*bold text*`.
-- *Italic:* Wrap text in underscores, e.g., `_italic text_`.
-- *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `` `monospace` `` or `+monospace+`.
 
-NOTE: *Inline formatting is like adding emphasis in conversation you highlight important points and distinguish different types of content, making your document more expressive.*
+- *Bold:* Wrap text in asterisks, e.g., `\*bold text*`.
+- *Italic:* Wrap text in underscores, e.g., `\_italic text_`.
+- *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `+++`monospace`+++`.
+- *Inline Links:* Use square brackets and angle brackets for links, e.g., `+++link:https://example.com[Example]+++`.
+- *Superscript and Subscript:* Use the `^` and `~` characters, e.g., `2\^nd^` and `H\~2~O`.
+- *Passthrough*: Use `\pass:[blah]` e.g. `\pass:[<div style="color:red;">Red text</p>]` is pass:[<div style="color:red;">Red text</div>].
 
-== 4. How do you create code blocks and specify a language for syntax highlighting?
+=== 4. How do you create code blocks and specify a language for syntax highlighting?
 
-*Answer:*
 To create a code block in AsciiDoc and specify a language for syntax highlighting, you use a source block. For example:
+[source,asciidoc]
+....
 [source,java]
 ----
 public class HelloWorld {
@@ -48,99 +56,199 @@ public class HelloWorld {
     }
 }
 ----
+....
 This block uses `[source,java]` to indicate that the enclosed code is Java, enabling syntax highlighting.
 
-NOTE: *Code blocks in AsciiDoc are like spotlighting your code ensuring that the technical content stands out clearly and is easy to read, just as a well-lit stage enhances a performance.*
+Code blocks in AsciiDoc are like spotlighting your code ensuring that the technical content stands out clearly and is easy to read, just as a well-lit stage enhances a performance.
 
-== 5. How do you insert images with alt text and captions in AsciiDoc?
+TIP: To emded AsciiDoc in AsciiDoc you can use `-----` five `-` or `....` four `.`
 
-*Answer:*
+=== 5. How do you insert images with alt text and captions in AsciiDoc?
+
 You can insert an image using the `image::` macro. To include alt text and a caption, use the following syntax:
+
 [source,asciidoc]
 ----
 image::path/to/image.png[Alt Text, caption="This is a caption"]
 ----
 This tells the AsciiDoc processor to include the image with the provided alternate text and caption.
 
-NOTE: *Images in AsciiDoc are like illustrations in a story they add context and visual appeal, helping to convey complex information more effectively.*
+=== 6. How are ordered and unordered lists created in AsciiDoc?
 
-== 6. How are ordered and unordered lists created in AsciiDoc?
-
-*Answer:*
 - *Unordered Lists:* Use a hyphen (`-`) or an asterisk (`*`) followed by a space.
-Example:
+
 [source,asciidoc]
 ----
 - First item
 - Second item
 - Third item
+  * Nested item
+OR
+* First item
+* Second item
+* Third item
+  - Nested item
 ----
-- *Ordered Lists:* Use a period (`.`) followed by a space.
-Example:
+
+- *Ordered Lists:* Use a period (`.`) or nest with (`..`) followed by a space.
+
 [source,asciidoc]
 ----
 . First item
 . Second item
 . Third item
+.. Nested item A
+.. Nested item B
+. Forth item
 ----
 
-NOTE: *Lists in AsciiDoc are like bullet points in a presentation they help organize information in a concise, easy-to-digest format.*
+Lists in AsciiDoc are like bullet points in a presentation they help organize information in a concise, easy-to-digest format.
 
-== 7. What is the syntax for creating tables in AsciiDoc?
+=== 7. What is the syntax for creating tables in AsciiDoc?
 
-*Answer:*
 Tables in AsciiDoc can be created using the pipe (`|`) syntax. A simple table is structured as follows:
 [source,asciidoc]
 ----
 |===
 |Header 1 |Header 2
-
-|Row 1, Cell 1
-|Row 1, Cell 2
-
-|Row 2, Cell 1
-|Row 2, Cell 2
+|Row 1, Cell 1 |Row 1, Cell 2
+|Row 2, Cell 1 |Row 2, Cell 2
 |===
 ----
 This syntax defines the table boundaries with `|===` and uses `|` to separate cells.
 
-NOTE: *Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that’s easy to read and reference.*
+You can add justication to cells like this:
+
+[source,asciidoc]
+----
+[cols="<1,^1,>1", options="header"]
+|===
+|Left |Center |Right
+|===
+----
+
+Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that’s easy to read and reference.
 
 == 8. How do you define and use document‑level attributes?
 
-*Answer:*
 Document‑level attributes in AsciiDoc are defined at the top of the document using a colon syntax. For example:
 [source,asciidoc]
 ----
-:author: Jane Doe
-:title: My Technical Document
-:revdate: 2023-04-05
+= Title of the Document
+Author Name
+:revdate: 2022-01-01
+:doctype: requirements
+:lang: en-GB
+:toc:
+:source-highlighter: rouge
 ----
-These attributes can be referenced later in the document using curly braces, e.g., `{author}`.
+These attributes act like global variables that can be referenced later (e.g., `{revdate}`) to ensure consistency.
 
 NOTE: *Document-level attributes are like global variables for your document they allow you to maintain consistency and make updates easier by centralizing common information.*
 
-== 9. How do you include external files using the `include` directive?
+=== 9. How do you include external files using the `include` directive?
 
-*Answer:*
 You can include external files into your AsciiDoc document using the `include::` directive. For example:
+
 [source,asciidoc]
 ----
-include::path/to/filename.adoc[]
+include::path/to/filename.adoc[heading=level2]
 ----
-This command inserts the content of `filename.adoc` at the location where the directive appears.
 
-NOTE: *The include directive is like a modular puzzle each piece (file) can be developed separately and then combined to form a complete picture, promoting reuse and maintainability.*
+This command inserts the content of `filename.adoc` at the location where the directive appears. You can also specify a heading level for the included content.
 
-== 10. How can you automatically generate a table of contents in AsciiDoc?
+or to include a portion of a file use tags like this:
 
-*Answer:*
-To automatically generate a table of contents (TOC), include the `:toc:` attribute at the beginning of your document. For example:
 [source,asciidoc]
+....
+[source, yaml]
 ----
-:toc:
+include::src/test/resource/mytest/in.yaml[tag=first-event]
 ----
-When processed (e.g., with Asciidoctor), this directive creates a TOC based on the document's headings.
+....
 
-NOTE: *A table of contents is like a roadmap for your document it guides readers through the structure of your content, making navigation intuitive and efficient.*
+and in the YAML file add the tag like this:
 
+[source, yaml]
+----
+# tag::first-event[]
+first-event: {
+  name: "John",
+  age: 30,
+  city: "New York"
+}
+# end::first-event[]
+----
+
+The include directive is like a modular puzzle each piece (file) can be developed separately and then combined to form a complete picture, promoting reuse and maintainability.
+
+== Part 2: Advanced Topics & Generative AI Integration
+
+=== 1. How can generative AI be used to automate and enhance AsciiDoc documentation workflows?
+
+Generative AI can be integrated to:
+
+- *Automate Draft Creation:* Generate initial drafts of requirements or style guides based on minimal input.
+- *Review and Refine:* Analyze document structure and suggest improvements to maintain consistency.
+- *Update Content:* Automatically adjust documentation (e.g., update changelogs or cross references) when code changes.
+- *Multi-format Export:* Seamlessly transform a single AsciiDoc source into various output formats for different audiences.
+
+*Example:* An AI system might scan project specifications and generate a comprehensive AsciiDoc requirements document, which can then be refined by a human editor.
+
+=== 2. How can generative AI assist in creating and updating requirements documents?
+
+AI can:
+
+- *Parse Raw Input:* Convert unstructured stakeholder notes into a well‑defined requirements document.
+- *Highlight Ambiguities:* Detect unclear or conflicting requirements and suggest clarifications.
+- *Track Changes:* Automatically generate diffs for updated requirements to facilitate change management.
+
+*Best Practice:* Combine human oversight with AI suggestions to maintain clarity and precision in your requirements documents.
+
+=== 3. What best practices should be followed when integrating generative AI with structured documentation formats?
+
+To ensure that AI-driven documentation remains robust and maintainable, consider the following best practices:
+
+- *Structured Input:* Use AsciiDoc’s clear syntactical cues (headings, lists, tables) to delineate sections, making it easier for AI to parse content accurately.
+- *Validation and Review:* Always include a human review process to verify AI-generated changes.
+- *Version Control:* Leverage Git or similar tools to track changes, ensuring that automated edits are transparent and reversible.
+- *Contextual Prompts:* When using prompt engineering, include examples from existing documents so that the AI understands the desired style and structure.
+
+=== 4. How can AsciiDoc’s structured text support prompt engineering in AI workflows?
+
+AsciiDoc’s predictable structure—using markers like `=`, `==`, and code block delimiters—allows you to:
+
+- *Design Reusable Prompts:* Create templates that instruct AI to generate content for specific sections.
+- *Maintain Formatting:* Ensure that AI-generated text fits exactly into predefined document sections.
+- *Automate Repetitive Tasks:* For example, auto-generate tables, cross references, or even complete sections based on input prompts.
+
+=== 5. How can one ensure the integrity of structured text when using generative AI for updates or modifications?
+
+Maintaining the integrity of structured text is paramount. Techniques include:
+
+- *Tagging and Anchoring:* Use document-level attributes and unique tags (as with the `include::` directive) to anchor sections. AI should be prompted to respect these boundaries.
+- *Diff Tools:* Utilize diff tools integrated with version control systems to spot unintended changes in structure.
+- *Automated Testing:* Develop automated tests or linting tools that verify the document adheres to the expected AsciiDoc syntax before and after AI modifications.
+
+NOTE: These methods help preserve the human-readable nature of AsciiDoc while leveraging AI for content generation and update, ensuring that structure and clarity remain intact even after multiple rounds of automated editing.
+
+== Part 3: Additional Best Practices and Troubleshooting
+
+=== What common pitfalls should be avoided when writing AsciiDoc?
+
+Be mindful of:
+
+- *Overusing Inline Formatting:* Excessive formatting can clutter the document. Keep it simple.
+- *Improper Nesting:* Ensure that blocks (like lists or tables) are properly nested to avoid rendering issues.
+- *Inconsistent Attributes:* Maintain a single source of truth for document‑level attributes to prevent discrepancies.
+- *Missing Escapes:* Remember to escape special characters when needed (e.g., using a backslash before reserved symbols).
+
+== Further Reading and Resources
+
+- [AsciiDoc Syntax Quick Reference](https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/)
+- [AsciiDoc Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
+- Articles and tutorials on docs‑as‑code practices
+
+== Summary
+
+By following these best practices, you can produce technical documentation that is not only clear and maintainable but also seamlessly integrated with modern development and AI workflows. The combination of structured AsciiDoc syntax with generative AI tools creates a powerful “docs‑as‑code” pipeline that minimizes manual editing, enforces consistency, and adapts to multiple output formats—all while enhancing collaboration across your team.

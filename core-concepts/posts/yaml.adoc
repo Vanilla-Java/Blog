@@ -1,12 +1,14 @@
-= YAML – Detailed Answers and Engaging Side Notes
+= YAML
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
-This document provides detailed answers to 8 key questions on YAML. Each answer is enriched with engaging side notes to deepen your understanding of YAML's structure, usage, and best practices.
+This document covers key questions on YAML, a human-readable data serialization standard. Each answer is enriched with engaging side notes to deepen your understanding of YAML and its syntax.
 
 == 1. What is YAML, and how does its syntax differ from JSON?
 
-*Answer:*
 YAML (originally "Yet Another Markup Language" but now often interpreted as "YAML Ain't Markup Language") is a human‑readable data serialization standard. It is widely used for configuration files, data interchange, and scenarios where readability is key. Compared to JSON, YAML:
 - Emphasizes readability with minimal syntax.
 - Uses indentation (spaces) rather than braces and brackets to denote structure.
@@ -17,7 +19,6 @@ NOTE: *Think of YAML as a friendlier, more conversational version of JSON it sac
 
 == 2. How are mappings, sequences, and scalars represented in YAML?
 
-*Answer:*
 YAML represents three fundamental data types:
 - *Mappings:* Represented as key–value pairs, similar to dictionaries. They are written with a key followed by a colon and a value.
 
@@ -52,14 +53,12 @@ NOTE: *Think of mappings as labeled boxes, sequences as ordered lists within tho
 
 == 3. Why is indentation significant in YAML?
 
-*Answer:*
 Indentation in YAML is critical because it defines the structure and hierarchy of the data. Unlike JSON, which uses explicit braces and brackets, YAML uses indentation (typically spaces, not tabs) to indicate nested elements. Incorrect indentation can lead to parsing errors or misinterpretation of the data structure.
 
 NOTE: *Imagine a well-organized bookshelf where each shelf level is clearly defined by its position if the books aren’t aligned correctly, the entire organization falls apart. That’s the role of indentation in YAML!*
 
 == 4. How do you denote comments in a YAML file?
 
-*Answer:*
 Comments in YAML are denoted by the hash symbol (`#`). Any text following the `#` on the same line is ignored by the YAML parser.
 
 Example:
@@ -73,7 +72,6 @@ NOTE: *Comments in YAML are like little side notes in a textbook they provide ad
 
 == 5. How do YAML anchors and aliases work to reduce duplication?
 
-*Answer:*
 YAML anchors and aliases allow you to define a section of content once and then reference it elsewhere in the document:
 - *Anchor (`&`):* Assigns a label to a node (a mapping or sequence).
 - *Alias (`*`):* References the content defined by an anchor.
@@ -100,7 +98,6 @@ NOTE: *Anchors and aliases are like bookmarks in a novel once you set a referenc
 
 == 6. How do you represent multi‑line strings using literal and folded styles?
 
-*Answer:*
 YAML provides two primary styles for representing multi‑line strings:
 - *Literal Block Style (`|`):* Preserves line breaks exactly as written.
 
@@ -126,7 +123,6 @@ NOTE: *Literal and folded styles are like two ways of reading a poem one where e
 
 == 7. What are best practices for using YAML in configuration management?
 
-*Answer:*
 Best practices include:
 - *Consistent Indentation:* Use a standard number of spaces (typically 2 or 4) and avoid tabs.
 - *Use Anchors and Aliases:* To reduce duplication and maintain consistency.
@@ -139,7 +135,6 @@ NOTE: *Good YAML configuration is like a well-organized toolbox everything is in
 
 == 8. What are potential pitfalls when parsing YAML files?
 
-*Answer:*
 Potential pitfalls include:
 - *Indentation Errors:* Misaligned spaces can lead to parsing errors or incorrect data structure interpretation.
 - *Implicit Type Conversion:* YAML may automatically convert values (e.g., “yes” to a boolean) which may not be intended.

@@ -1,12 +1,14 @@
-= Git Best Practices – Detailed Answers and Engaging Side Notes
+= Git Best Practices
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
 This document provides detailed answers to 15 sample questions on Git in the context of Java development. Each answer includes engaging side notes to help you understand and appreciate the benefits and nuances of Git.
 
 == 1. What is Git and what advantages does it offer over other version control systems?
 
-*Answer:*
 Git is a distributed version control system (DVCS) that allows multiple developers to work on a project simultaneously. Its key advantages include:
 - *Distributed Architecture:* Every developer has a full copy of the repository, enabling offline work and robust redundancy.
 - *Branching and Merging:* Git’s lightweight branching model makes it easy to experiment and manage parallel development.
@@ -18,7 +20,6 @@ NOTE: *Think of Git as a powerful time machine for your code allowing you to tra
 
 == 2. How do you initialize a new Git repository?
 
-*Answer:*
 To initialize a new Git repository in your project directory, navigate to the directory in your terminal and run:
 [source,bash]
 ----
@@ -30,7 +31,6 @@ NOTE: *Initializing a repository is like laying the foundation of a building the
 
 == 3. What is the purpose of a .gitignore file in a Java project?
 
-*Answer:*
 The `.gitignore` file tells Git which files or directories to ignore in a repository. In a Java project, this typically includes:
 - Compiled class files (e.g., `*.class`)
 - Build directories (e.g., `target/`, `bin/`)
@@ -43,7 +43,6 @@ NOTE: *The .gitignore file acts like a bouncer at a club only letting in the fil
 
 == 4. How do you stage and commit changes in Git?
 
-*Answer:*
 To stage changes, use the `git add` command:
 [source,bash]
 ----
@@ -60,7 +59,6 @@ NOTE: *Staging and committing are like preparing a dish you select the best ingr
 
 == 5. What is the difference between `git add` and `git commit`?
 
-*Answer:*
 - *git add:* Stages changes by adding them to the index, preparing them for commit.
 - *git commit:* Records the staged changes into the repository with a commit message, creating a new snapshot of the project.
 
@@ -68,7 +66,6 @@ NOTE: *Consider `git add` as gathering your ingredients, and `git commit` as bak
 
 == 6. How do you create and switch branches in Git?
 
-*Answer:*
 To create a new branch, use:
 [source,bash]
 ----
@@ -90,7 +87,6 @@ NOTE: *Branches are like parallel universes for your code you can explore new id
 
 == 7. What is the difference between merging and rebasing?
 
-*Answer:*
 - *Merging:* Combines the histories of two branches, creating a new merge commit that preserves the branching history.
 - *Rebasing:* Moves or reapplies commits from one branch onto another, resulting in a linear history without merge commits.
 
@@ -98,7 +94,6 @@ NOTE: *Merging is like combining two streams into one river, complete with rippl
 
 == 8. How do you resolve merge conflicts in Git?
 
-*Answer:*
 Merge conflicts occur when changes from different branches conflict. To resolve them:
 - Open the conflicting files; Git marks the conflict areas with `<<<<<<<`, `=======`, and `>>>>>>>`.
 - Edit the file to choose or combine the changes.
@@ -109,7 +104,6 @@ NOTE: *Resolving merge conflicts is like untangling a knot carefully examine and
 
 == 9. What are pull requests (or merge requests), and how do they support collaboration?
 
-*Answer:*
 Pull requests (PRs) or merge requests are features on platforms like GitHub, GitLab, or Bitbucket that allow developers to propose changes from one branch to another. They facilitate:
 - Code reviews and discussions.
 - Automated testing and continuous integration.
@@ -119,7 +113,6 @@ NOTE: *A pull request is like a proposal in a board meeting it invites discussio
 
 == 10. How do you use `git log` to inspect commit history?
 
-*Answer:*
 The `git log` command displays the commit history. Basic usage:
 [source,bash]
 ----
@@ -136,7 +129,6 @@ NOTE: *Using git log is like reading a diary of your project’s evolution each 
 
 == 11. How can you revert a commit that has already been pushed?
 
-*Answer:*
 To revert a pushed commit, use the `git revert` command, which creates a new commit that undoes the changes of a previous commit:
 [source,bash]
 ----
@@ -148,7 +140,6 @@ NOTE: *Reverting a commit is like pressing the “undo” button in a well-track
 
 == 12. What is Git stash and how do you use it?
 
-*Answer:*
 Git stash temporarily shelves changes that are not yet ready to be committed. To stash changes:
 [source,bash]
 ----
@@ -170,7 +161,6 @@ NOTE: *Think of Git stash as a clipboard for your code it holds your changes saf
 
 == 13. How do you create and manage tags in Git?
 
-*Answer:*
 Tags mark specific points in the commit history as important (e.g., releases). Create a lightweight tag:
 [source,bash]
 ----
@@ -190,7 +180,6 @@ NOTE: *Tags are like bookmarks in a book they help you quickly locate significan
 
 == 14. How do you use Git hooks for tasks like pre‑commit checks?
 
-*Answer:*
 Git hooks are scripts that run automatically at certain points in the Git workflow. For pre‑commit checks:
 - Navigate to the `.git/hooks` directory.
 - Create or modify the `pre-commit` file (make it executable).
@@ -200,7 +189,6 @@ NOTE: *Git hooks are like automated gatekeepers they ensure that only code meeti
 
 == 15. How do you integrate Git with CI/CD pipelines?
 
-*Answer:*
 Integrating Git with CI/CD pipelines involves:
 - Connecting your repository to a CI/CD tool (such as Jenkins, Travis CI, GitLab CI, or GitHub Actions).
 - Configuring build and test scripts that run automatically on commit or pull request events.

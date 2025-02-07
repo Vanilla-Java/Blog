@@ -1,13 +1,31 @@
 = Java Fundamentals and Core Concepts
-Peter Lawrey, 2023-04-05
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
+:toc:
+:source-highlighter: rouge
 
-This document covers the fundamental concepts of Java programming, including syntax, data types, memory management, and best practices.
+== Overview
 
-== 1. What is Java, and why is it considered platform‑independent?
+This guide covers the fundamental concepts of Java programming. You will learn about:
+- The basics of Java syntax and data types.
+- Memory management, error handling, and best practices.
+- Core concepts such as the JDK, JRE, JVM, and the Java Memory Model.
+- Performance considerations for low‑latency and low‑garbage environments.
+- Practical techniques for coding, testing, debugging, and optimising Java applications.
 
-Java is a high‑level, object‑oriented programming language designed for simplicity, reliability, and security. It is considered platform‑independent because source code is compiled into an intermediate form called bytecode. This bytecode is executed by the Java Virtual Machine (JVM), which is available on many operating systems. Thus, the same Java program can run on any compatible platform with a JVM, embodying the “write once, run anywhere” philosophy.
+Whether you are new to Java or looking to refresh your core knowledge, this guide provides clear explanations, code examples, and best‑practice advice.
 
-== 2. What are the main differences between the JDK, JRE, and JVM?
+== Part 1: Java Fundamentals
+
+=== 1. What is Java, and why is it considered platform‑independent?
+
+Java is a high‑level, object‑oriented programming language designed for simplicity, reliability, and security. It is considered platform‑independent because:
+
+- *Compilation to Bytecode:* Java source code is compiled into an intermediate form called bytecode.
+- *Execution via the JVM:* The Java Virtual Machine (JVM) runs this bytecode on any operating system, fulfilling the “write once, run anywhere” philosophy.
+
+=== 2. What are the main differences between the JDK, JRE, and JVM?
 
 - *JDK (Java Development Kit):* Includes tools for developing Java applications (compiler, debugger, etc.) and the JRE.
 - *JRE (Java Runtime Environment):* Provides the libraries and JVM needed to run Java applications but does not include development tools.
@@ -15,45 +33,51 @@ Java is a high‑level, object‑oriented programming language designed for simp
 
 Think of the JDK as your complete toolkit, the JRE as the toolbox needed to run applications, and the JVM as the skilled craftsman executing the work.
 
-== 3. How does Java achieve the “write once, run anywhere” philosophy?
+=== 3. How does Java achieve the “write once, run anywhere” philosophy?
 
 Java source code is compiled into bytecode, which is platform‑independent. The JVM implemented for different operating systems interprets or compiles this bytecode into native instructions at runtime. This separation between compilation and execution allows the same Java program to run unaltered across multiple platforms.
 
-== 4. What is Java bytecode, and how does the JVM execute it?
+=== 4. What is Java bytecode, and how does the JVM execute it?
 
-Java bytecode is the intermediate, platform‑neutral representation of Java source code produced by the compiler. The JVM reads and interprets this bytecode or compiles it on the fly (using Just‑In‑Time compilation) into native machine code, ensuring that the same bytecode can be executed on any system with a compatible JVM.
+- *Java Bytecode:* The intermediate, platform‑neutral representation of Java source code produced by the compiler.
+- *JVM Execution:*
+The JVM reads the bytecode and either interprets it or compiles it on the fly (using Just‑In‑Time compilation) into native machine code.
 
 Bytecode is the “universal language” of Java, translated by the JVM into the specific language of your computer’s hardware.
 
-== 5. What are the primitive data types in Java, and how do they differ from their wrapper classes?
+=== 5. What are the primitive data types in Java, and how do they differ from their wrapper classes?
 
 Java’s eight primitive data types include:
 
-- Numeric: `byte` 1-byte, `short` 2-byte, `int` 4-byte, `long` 8-byte, `float` 4-byte, `double` 8-byte
-- Non‑numeric: `char` 2-byte unsigned integer and `boolean` 1-byte (not one bit as you might expect)
+- *Numeric:* `byte` 1-byte, `short` 2-byte, `int` 4-byte, `long` 8-byte, `float` 4-byte, `double` 8-byte
+- *Non‑numeric:* `char` 2-byte unsigned integer and `boolean` 1-byte (not one bit as you might expect)
 
 Primitives are stored directly in memory and are generally more efficient. Their corresponding wrapper classes (e.g., `Integer`, `Double`) are objects that encapsulate these values, offering methods for conversion and manipulation, but they incur additional overhead due to object allocation.
 
 Primitives are like raw ingredients, while wrapper classes are prepared dishes. Both serve important roles, but one is leaner and faster.
 
-NOTE: `void` is special in that its only legitimate uses are as a method return type and as a type literal. It has a "wrapper" called `Void` but is rarely used.
+NOTE: `void` is special in that its only legitimate uses are as a method return type and as a type literal `void.class`. It has a "wrapper" called `Void` but is rarely used.
 
-== 6. What is a literal in Java, and how do you represent numbers, strings, booleans, and null?
+=== 6. What is a literal in Java, and how do you represent numbers, strings, booleans, and null?
 
 A literal is a fixed value directly embedded in the source code. Examples include:
 
 - *Numbers:* `42`, `314L`
 - *Strings:* `"Hello, world!"`
 - *Booleans:* `true` or `false`
-- *chars:* `'a'`, `'b'`, `'c'`
+- *Characters:* `'a'`, `'b'`, `'c'`
+- *Floating‑point:* `3.14f` (float), `3.14d` (double)
 - *Null:* `null` indicates the absence of a value.
-- *Floating‑point literals:* `3.14f` (float), `3.14d` (double)
 
 NOTE: Literals are not keywords or variables; they are the raw data on which your program operates.
 
-== 7. Why must every standalone Java application include a `public static void main(String[] args)` method?
+=== 7. Why must every standalone Java application include a `public static void main(String[] args)` method?
 
-The `main` method serves as the entry point for a Java application. The JVM invokes this method to start program execution. Its signature `public static void main(String[] args)` ensures it is accessible without an instance of the class, can accept command‑line arguments, and does not return any value.
+The `main` method is the entry point for Java applications. Its signature ensures:
+
+- It is accessible without an instance of the class (`static`).
+- It accepts command‑line arguments.
+- It does not return a value (`void`).
 
 NOTE: You can also write `public static void main(String... args)` to accept variable‑length argument lists, making your program more flexible.
 
@@ -70,7 +94,7 @@ public class MyProgram {
 }
 ----
 
-== 8. How do you compile a Java program?
+=== 8. How do you compile a Java program?
 
 While you can use `javac`, a modern build tool like Maven or Gradle makes more sense. However, to compile a Java program manually:
 
@@ -81,33 +105,35 @@ While you can use `javac`, a modern build tool like Maven or Gradle makes more s
 ----
 javac MyProgram.java
 ----
-4. If there are no syntax errors, this creates a `MyProgram.class` file containing the compiled bytecode.
 
-== 9. How do you run a compiled Java program using the `java` command?
+If there are no syntax errors, this creates a `MyProgram.class` file containing the compiled bytecode.
+
+=== 9. How do you run a compiled Java program using the `java` command?
 
 After compilation, run the program with:
+
 [source, bash]
 ----
 java -cp $CLASS_PATH MyProgram
 ----
 This instructs the JVM to load the compiled bytecode (from `MyProgram.class`) and execute its `main` method.
 
-== 10. What is the significance of the classpath in Java applications?
+=== 10. What is the significance of the classpath in Java applications?
 
 The classpath tells the Java compiler and JVM where to look for class files and libraries. It can include directories and JAR files. Proper classpath configuration ensures that all necessary classes and dependencies are found at compile time and runtime, preventing ClassNotFoundExceptions.
 
-== 11. How does the Java Memory Model (JMM) affect concurrent programming?
+=== 11. How does the Java Memory Model (JMM) affect concurrent programming?
 
 The JMM specifies how threads interact through memory and provides rules about visibility and ordering (the “happens‑before” relationship). This model is crucial for writing thread‑safe code, as it guides the proper use of synchronisation, volatile variables, and concurrent utilities to ensure that changes made by one thread become visible to others in a predictable manner.
 
-== 12. What are checked and unchecked exceptions, and how does Java enforce error handling?
+=== 12. What are checked and unchecked exceptions, and how does Java enforce error handling?
 
 - *Checked exceptions:* Must be caught or declared in the method’s signature (e.g., `IOException`), ensuring that developers handle recoverable conditions.
 - *Unchecked exceptions:* Subclasses of `RuntimeException` that represent programming errors (e.g., `NullPointerException`). They do not require explicit handling by the compiler, though it is good practice to anticipate them.
 
 NOTE: As checked exceptions are a compile-time check, you can throw a checked exception without declaring it in the method signature using a vacuous cast. See `Jvm.rethrow` in Chronicle-Core for an example.
 
-== 13. How does Java perform garbage collection, and what are some of the main garbage collectors (e.g., G1, ZGC)?
+=== 13. How does Java perform garbage collection, and what are some of the main garbage collectors?
 
 Garbage collection (GC) in Java is an automated process that reclaims memory used by objects that are no longer accessible by the application. Modern collectors include:
 
@@ -118,7 +144,7 @@ Other collectors like CMS and Parallel GC balance throughput and pause time base
 
 NOTE: In low-latency environments, you want to minimise garbage production and collection to reduce the risk of pauses. Reducing the garbage collector load can also achieve more predictable performance.
 
-== 14. What is autoboxing and unboxing in Java?
+=== 14. What is autoboxing and unboxing in Java?
 
 Autoboxing automatically converts a primitive (like `int`) to its corresponding wrapper object (`Integer`) when an object is required. Unboxing is the reverse process. This feature simplifies coding by reducing explicit conversions, though it may introduce performance overhead in performance‑critical areas.
 
@@ -138,13 +164,19 @@ Character e2 = '£', f2 = '£';
 assert e2 == f2; // false, different objects
 ----
 
-== 15. How does the JVM’s Just‑In‑Time (JIT) compilation work, and what benefits does it provide?
+*TIP:* Be mindful of performance in critical sections when autoboxing occurs frequently.
+
+=== 15. How does the JVM’s Just‑In‑Time (JIT) compilation work, and what benefits does it provide?
 
 The JIT compiler converts frequently executed bytecode into native machine code at runtime. Optimisations like inlining, loop unrolling, and escape analysis are applied by analysing runtime behaviour. The benefit is improved performance, as the optimised native code runs much faster than interpreted bytecode.
 
-== 16. What are annotations in Java, and how are they used to influence compile‑time or runtime behaviour?
+=== 16. What are annotations in Java, and how are they used to influence compile‑time or runtime behaviour?
 
-Annotations add metadata to Java code without altering its logic. The compiler can process them (e.g., `@Override` to verify method overriding) or runtime (e.g., `@Deprecated` to signal that a method should no longer be used). Frameworks like Spring use annotations for dependency injection and configuration, decoupling behaviour from business logic.
+Annotations provide metadata for Java code. They can:
+
+- Guide the compiler (e.g., `@Override`).
+- Influence runtime behavior (e.g., `@Deprecated`).
+- Enable frameworks (like Spring) to perform dependency injection.
 
 Annotations are like the sticky notes on your code they provide essential context and reminders.
 
@@ -164,7 +196,7 @@ source ~/.bashrc
 - *Windows:* Set the variables via System Properties → Advanced → Environment Variables, and update the PATH to include `%JAVA_HOME%\bin`.
 - *IDEs:* Configure the JDK location in the IDE settings to ensure the correct Java version is used for compilation and execution.
 
-== 18. What is the role of a package in Java, and how do you define one?
+=== 18. What is the role of a package in Java, and how do you define one?
 
 A package groups related classes and interfaces into a namespace, helping organise code, avoid naming conflicts, and control access. Define a package at the top of a Java file using the `package` keyword:
 [source, java]
@@ -175,22 +207,23 @@ This statement must be the first non‑comment line in the file.
 
 NOTE: In a `package-info.java` file, you can define package‑level annotations, comments, and other metadata.
 
-== 19. How do you import classes from different packages in a Java file?
+=== 19. How do you import classes from different packages?
 
 Use the `import` statement to bring classes or entire packages into scope:
+
 [source, java]
 ----
 import java.util.List;
 ----
 You can also import all classes in a package using a wildcard (`import java.util.*;`), though importing specific classes improves readability.
 
-== 20. What is a Java API, and how do you access its documentation?
+=== 20. What is a Java API, and how do you access its documentation?
 
 The Java API is a collection of pre‑written classes and interfaces providing standard functionality (e.g., collections, networking, I/O). Official documentation is available on Oracle’s website and is integrated into most IDEs via Javadoc support, offering detailed descriptions, examples, and method references.
 
 The Official Java 21 Javadoc is available at: https://docs.oracle.com/en/java/javase/21/docs/api/index.html[https://docs.oracle.com/en/java/javase/21/docs/api/index.html]
 
-== 21. What are the benefits and limitations of using the `var` keyword for type inference in Java?
+=== 21. What are the benefits and limitations of using the `var` keyword for type inference?
 
 *Benefits:*
 
@@ -207,7 +240,7 @@ The Official Java 21 Javadoc is available at: https://docs.oracle.com/en/java/ja
 - Can lead to less readable code when used excessively or inappropriately.
 - Additional comments or documentation may be required to clarify the variable’s purpose.
 
-== 22. How do you handle errors using try‑catch‑finally blocks?
+=== 22. How do you handle errors using try‑catch‑finally blocks?
 
 Enclose code that might throw an exception in a `try` block, catch specific exceptions in `catch` blocks, and optionally execute a `finally` block for cleanup, regardless of whether an exception was thrown:
 [source, java]
@@ -235,13 +268,13 @@ try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
 }
 ----
 
-== 23. What is a stack trace, and how is it useful for diagnosing errors?
+=== 23. What is a stack trace, and how is it useful for diagnosing errors?
 
 A stack trace is a report that shows the sequence of method calls leading up to an exception, including class names, method names, and line numbers. It is invaluable for debugging because it pinpoints where the error occurred and helps trace the flow of execution that led to it.
 
 Stack traces are like breadcrumbs they guide you back through the code’s execution path, helping you identify where things went wrong.
 
-== 24. How do you create and use arrays and collections in Java?
+=== 24. How do you create and use arrays and collections in Java?
 
 - *Arrays:* Declared with a fixed size, e.g., `int[] numbers = new int[5];` or using an initializer (`int[] numbers = {1, 2, 3};`).
 - *Collections:* Part of the Java Collections Framework (e.g., `ArrayList`, `ArrayDeque`), they support dynamic sizing and provide useful methods for manipulating groups of objects.
@@ -249,7 +282,7 @@ Stack traces are like breadcrumbs they guide you back through the code’s execu
 
 Utilities such as `Arrays` and `Array` provide methods for sorting, searching, and manipulating arrays.
 
-== 25. What is the difference between mutable and immutable objects, and why is immutability important?
+=== 25. What is the difference between mutable and immutable objects, and why is immutability important?
 
 Mutable objects can change their state after creation, while immutable objects cannot. Immutability is important because it:
 
@@ -259,11 +292,13 @@ Mutable objects can change their state after creation, while immutable objects c
 - Facilitates caching and reuse.
 - Supports effective error handling.
 
+The downside of immutable objects is that they create garbage which is to be avoided in low latency systems.
+
 For example, Java’s `String` class is immutable, contributing to its security and reliability.
 
 NOTE: Many classes are virtually immutable. For example, `String` has a hash code that is calculated once and cached. This means the first time `hashCode()` is called, it is more expensive, but subsequent calls are faster.
 
-== 26. What is a Java property file, and how is it typically used?
+=== 26. What is a Java property file, and how is it typically used?
 
 A property file is a simple text file containing key‑value pairs to store configuration settings. It allows developers to externalise configuration (such as database settings or application parameters) and can be loaded at runtime using the java.util.Properties class, facilitating changes without recompiling the code.
 
@@ -275,43 +310,43 @@ db.user=admin
 db.password=secret
 ----
 
-== 27. How does Java handle internationalisation (i18n) and localisation (l10n)?
+=== 27. How does Java handle internationalisation (i18n) and localisation (l10n)?
 
 Java supports internationalisation by separating locale‑dependent data from code. The `ResourceBundle` class loads locale‑specific property files, and classes like `Locale`, `NumberFormat`, and `DateFormat` help format data according to cultural norms. This separation allows applications to adapt to various languages and regional settings without altering the underlying logic.
 
-== 28. What is the role of the Java Virtual Machine in executing applications?
+=== 28. What is the role of the Java Virtual Machine in executing applications?
 
 The JVM is the runtime engine that loads, verifies, and executes Java bytecode. It abstracts away the underlying hardware and operating system, manages memory (including garbage collection), performs JIT compilation, and enforces security policies. This makes Java applications portable and efficient.
 
-== 29. How do you convert between primitive types and objects in Java?
+=== 29. How do you convert between primitive types and objects in Java?
 
 Java uses autoboxing to convert primitives (e.g., `int`) to their corresponding wrapper classes (e.g., `Integer`) when needed and unboxing to convert them back. This process reduces the need for explicit casting but may introduce performance overhead in critical sections.
 
-== 30. How are string concatenation and the use of StringBuilder/Buffer different?
+=== 30. How are string concatenation and the use of StringBuilder/Buffer different?
 
 Using the `+` operator for string concatenation is simple and intuitive but inefficient for multiple concatenations since it creates new `String` objects each time. `StringBuilder` provides a mutable sequence of characters that can be modified without creating many temporary objects, making it more efficient for frequent modifications.
 
 NOTE: Don't use `StringBuffer` even for thread-safe operations, as it is error-prone and difficult to get right. You are much better off using `StringBuilder` and synchronising access to it if necessary.
 
-== 31. Are subclasses of Throwable checked exceptions or unchecked exceptions in Java?
+=== 31. Are subclasses of Throwable checked exceptions or unchecked exceptions in Java?
 
 Direct subclasses of `Throwable` are checked exceptions. However, subclasses of `Error` and `RuntimeException` are not. Checked exceptions must be caught or declared in the method signature, while unchecked exceptions do not require explicit handling.
 
-== 32. How do you use the Optional class to avoid null pointer exceptions?
+=== 32. How do you use the Optional class to avoid null pointer exceptions?
 
 The `Optional` class (introduced in Java 8) encapsulates a value that might be null, providing methods like `ifPresent()`, `orElse()`, and `map()` to gracefully handle the absence of a value. This reduces the risk of null pointer exceptions by making the presence or absence of a value explicit.
 
-== 33. What are the key differences between pass‑by‑value and pass‑by‑reference in Java?
+=== 33. What are the key differences between pass‑by‑value and pass‑by‑reference in Java?
 
 Java is strictly pass‑by‑value. When you pass a primitive type, its actual value is copied; when you pass an object, the reference (pointer) to the object is copied, not the object itself. This means you can modify the object’s internal state via its reference, but you cannot change the reference itself in the caller’s context.
 
 What is confusing is that object types are implicit references, and the reference is passed by value.
 
-== 34. How do you document Java code effectively using Javadoc comments?
+=== 34. How do you document Java code effectively using Javadoc comments?
 
-Javadoc comments start with `/**` and include detailed descriptions, usage examples, and annotations like `@param`, `@return`, and `@throws`. They should be placed immediately before class, method, or field declarations. Running the Javadoc tool generates comprehensive HTML documentation from these comments.
+Javadoc comments start with `/*` and include detailed descriptions, usage examples, and annotations like `@param`, `@return`, and `@throws`. They should be placed immediately before class, method, or field declarations. Running the Javadoc tool generates comprehensive HTML documentation from these comments.
 
-== 35. How do you implement basic I/O operations in Java?
+=== 35. How do you implement basic I/O operations in Java?
 
 Basic I/O in Java is achieved using:
 
@@ -320,11 +355,11 @@ Basic I/O in Java is achieved using:
 
 These APIs allow you to read from and write to files, network sockets, and other data sources.
 
-== 36. What is serialisation, and what is the purpose of `serialVersionUID`?
+=== 36. What is serialisation, and what is the purpose of `serialVersionUID`?
 
 Serialisation converts an object into a byte stream, enabling it to be stored or transmitted and later reconstructed (deserialised). The `serialVersionUID` is a unique identifier for each Serialisable class, ensuring a loaded class is compatible with the serialised object. Mismatches can lead to `InvalidClassException` during deserialisation.
 
-== 37. How do you use try‑with‑resources to manage external resources?
+=== 37. How do you use try‑with‑resources to manage external resources?
 
 The try‑with‑resources statement automatically closes resources that implement `AutoCloseable` or `Closeable`. For example:
 [source, java]
@@ -345,7 +380,6 @@ Some resources are closable but are not obvious. e.g. Most `Stream` don't need t
 - `Files.newOutputStream` returns a `OutputStream`
 - `Files.newByteChannel` returns a `SeekableByteChannel`
 
-
 [source, java]
 ----
 try (Stream<String> lines = Files.lines(Paths.get("file.txt"))) {
@@ -353,7 +387,7 @@ try (Stream<String> lines = Files.lines(Paths.get("file.txt"))) {
 } // `lines` is automatically closed here.
 ----
 
-== 38. How do you compare objects using the `equals()` method versus the `==` operator?
+=== 38. How do you compare objects using the `equals()` method versus the `==` operator?
 
 - The `==` operator checks whether two references point to the same object in memory.
 - The `equals()` method, which should be overridden for custom classes, checks whether two objects are logically equivalent based on their state.
@@ -374,17 +408,17 @@ assert a.compareTo(b) == 0; // 0, same value
 assert b.compareTo(c) == 0; // 0, same value
 ----
 
-== 39. How does Java handle type conversion and casting between different data types?
+=== 39. How does Java handle type conversion and casting between different data types?
 
 Java supports implicit widening conversions (e.g., from `int` to `long`) that do not require a cast and explicit narrowing conversions (e.g., from `double` to `int`) that require a cast. The casting uses parentheses, for example, `(int) someDouble`, which informs the compiler that you are aware of possible precision loss or truncation.
 
 NOTE: the 4-byte `float` is considered wider than the 8-byte `long` because it has a larger range.
 
-== 40. What is a transient variable, and how does it interact with serialisation?
+=== 40. What is a transient variable, and how does it interact with serialisation?
 
 A transient variable is declared with the `transient` keyword, indicating that it should not be included in the serialisation process. When an object is serialised, transient fields are ignored, which is helpful for sensitive or derived data that should not be persisted.
 
-== 41. How do you perform basic arithmetic, relational, and logical operations in Java?
+=== 41. How do you perform basic arithmetic, relational, and logical operations in Java?
 
 Java supports standard operators:
 
@@ -402,15 +436,15 @@ These operators form the basis of expressions and control flow in Java programs.
 
 NOTE: While you can use `%` with floating point, you probably shouldn't, as it can lead to subtle bugs due to rounding errors.
 
-== 42. What is a Java interface, and how does it differ from an abstract class?
+=== 42. What is a Java interface, and how does it differ from an abstract class?
 
 A Java interface defines a contract (a set of abstract methods) a class can implement. Before Java 8, interfaces could not have method implementations, though default and static methods are now allowed. An abstract class can have concrete methods and states (member variables). Interfaces support multiple inheritance of type, whereas a class may extend only one abstract class.
 
-== 43. How does exception propagation work in nested method calls?
+=== 43. How does exception propagation work in nested method calls?
 
 If a method throws an exception and does not catch it, the exception propagates up the call stack to its caller. This continues until the exception is caught by a try‑catch block or reaches the top level, potentially terminating the program. This propagation mechanism allows centralised handling of errors.
 
-== 44. What are the benefits of using the Java Collections Framework?
+=== 44. What are the benefits of using the Java Collections Framework?
 
 The Java Collections Framework provides a standardised set of interfaces and classes (such as List, Set, and Map) for storing and manipulating groups of objects. Benefits include:
 
@@ -419,7 +453,7 @@ The Java Collections Framework provides a standardised set of interfaces and cla
 - Type safety with generics.
 - Improved code readability and maintainability.
 
-== 45. How do you iterate over collections using loops and enhanced for‑loops?
+=== 45. How do you iterate over collections using loops and enhanced for‑loops?
 
 You can iterate over collections using:
 
@@ -432,7 +466,7 @@ You can iterate over collections using:
 - *Spliterator:* Introduced in Java 8, it supports parallel processing of collections.
 - *Enumeration:* Legacy interface for iterating over collections.
 
-== 46. Give examples of each type of loop used for iterating over collections in Java.
+=== 46. Give examples of each type of loop used for iterating over collections in Java.
 
 .Traditional for loop
 [source, java]
@@ -507,19 +541,19 @@ while (enumeration.hasMoreElements()) {
 }
 ----
 
-== 47. How do you compare and contrast arrays with ArrayLists in Java?
+=== 47. How do you compare and contrast arrays with ArrayLists in Java?
 
 - *[] arrays:* They have a fixed size and are faster for indexed access but lack many utility methods. They even lack a reasonable `toString`, `equals`, or `hashCode` method. The support arrays of primitives and references to objects.
 - *ArrayList(s):* Are dynamic in size, offer many convenient methods (e.g., add, remove, and contains), and are part of the Collections Framework. They only support references to objects for now; in the future, they might also support primitives.
 - *BitSet:* Is a special type of array that can be used to store bits, which can be more memory efficient than a boolean array.
 
-== 48. What is the purpose of generics in Java, and how do they improve type safety?
+=== 48. What is the purpose of generics in Java, and how do they improve type safety?
 
 Generics allow you to parameterise classes and methods with types, enabling compile‑time type checking and reducing the need for explicit casts. This leads to safer, more maintainable code, as errors related to incompatible types are caught early in the development cycle.
 
 NOTE: Generics are a compile-time feature that are erased at runtime. This means you can't use `instanceof` with a generic type.
 
-== 49. How does Java handle multithreading at a basic level?
+=== 49. How does Java handle multithreading at a basic level?
 
 Java supports multithreading via the `Thread` class and the `Runnable` interface, enabling concurrent code execution. Synchronisation constructs (e.g., the `synchronised` keyword, volatile variables, and classes in `java.util.concurrent`) help manage access to shared resources, ensuring thread safety and consistency.
 
@@ -532,7 +566,7 @@ List<String> list = Arrays.asList("a", "b", "c");
 list.parallelStream().forEach(System.out::println);
 ----
 
-== 50. How do you ensure your Java code is portable and follows best practices?
+=== 50. How do you ensure your Java code is portable and follows best practices?
 
 Portability is ensured by:
 
@@ -549,6 +583,10 @@ Best practices include:
 - Using meaningful variable and method names.
 - Employing design patterns where appropriate.
 - Regularly refactoring and optimising code.
+
+== Part 2: Performance, Low‑Latency, and Memory Optimisation
+
+For performance‑sensitive applications, consider these advanced guidelines:
 
 == Considerations for Low Latency and Low Garbage Environments
 
@@ -614,4 +652,3 @@ For developers working on performance‑sensitive Java applications (e.g., high�
 - *Low‑Latency Networking:* Utilise low‑latency networking libraries and protocols to minimise network‑related delays.
 - *CPU Affinity:* Assign threads to specific CPU cores to reduce context switching and improve cache locality.
 
-By incorporating these considerations into your design and development practices, you can significantly reduce garbage collection overhead and meet the rigorous latency demands of performance‑sensitive applications.

@@ -1,12 +1,14 @@
-= JSON – Detailed Answers and Engaging Side Notes
+= JSON
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
 This document provides detailed answers to 10 key questions on JSON, covering its structure, use cases, data types, and more. Each answer is enriched with engaging side notes to help deepen your understanding of JSON for data interchange.
 
 == 1. What is JSON, and what are its primary use cases in data interchange?
 
-*Answer:*
 JSON (JavaScript Object Notation) is a lightweight, text‑based data format used for storing and transporting data. It is easy for humans to read and write, and easy for machines to parse and generate. JSON is widely used for:
 - Exchanging data between a server and a web application.
 - Configuring applications.
@@ -17,7 +19,6 @@ NOTE: *Think of JSON as the lingua franca for data exchange it enables different
 
 == 2. How is JSON structured using objects, arrays, and key–value pairs?
 
-*Answer:*
 JSON is composed of:
 - *Objects:* Denoted by curly braces `{}`, they contain unordered key–value pairs.
 - *Arrays:* Denoted by square brackets `[]`, they contain ordered lists of values.
@@ -40,7 +41,6 @@ NOTE: *Imagine JSON as a set of nested containers objects are like labeled boxes
 
 == 3. Which data types are natively supported by JSON?
 
-*Answer:*
 JSON natively supports the following data types:
 - *String:* Text wrapped in double quotes (e.g., `"Hello"`).
 - *Number:* Numeric values (e.g., `42`, `3.14`). JSON does not distinguish between integer and floating‑point types.
@@ -53,7 +53,6 @@ NOTE: *JSON’s simplicity is its strength the limited set of data types ensures
 
 == 4. How are numbers, booleans, and null represented in JSON?
 
-*Answer:*
 - *Numbers:* Represented in their usual form, e.g., `100`, `-42`, `3.14`. There is no specific format for integers versus decimals.
 - *Booleans:* Represented as the keywords `true` and `false` (without quotes).
 - *Null:* Represented as the keyword `null` (without quotes).
@@ -71,7 +70,6 @@ NOTE: *Representation in JSON is very straightforward just like in everyday lang
 
 == 5. How do you escape special characters in JSON strings?
 
-*Answer:*
 Special characters in JSON strings must be escaped using a backslash (`\`). Common escapes include:
 - `\"` for a double quote.
 - `\\` for a backslash.
@@ -93,7 +91,6 @@ NOTE: *Escaping special characters is like using secret codes in a conversation 
 
 == 6. What is JSON Schema and how can it be used to validate JSON documents?
 
-*Answer:*
 JSON Schema is a vocabulary that allows you to define the structure, required properties, data types, and constraints of a JSON document. It is used to validate JSON data to ensure that it adheres to a predefined format. This is especially useful for:
 - Validating data received from external sources.
 - Enforcing consistent data structures in APIs.
@@ -116,7 +113,6 @@ NOTE: *JSON Schema is like a blueprint for your JSON data it sets clear expectat
 
 == 7. How do you pretty‑print and minify JSON?
 
-*Answer:*
 - *Pretty‑print:* Formats JSON with indentation and whitespace for readability. Tools like `jq` or online formatters can be used, or many programming environments provide libraries for this purpose.
 - *Minify:* Removes all unnecessary whitespace and line breaks to reduce file size. This can also be achieved using tools like `jq` or dedicated minification utilities.
 
@@ -134,7 +130,6 @@ NOTE: *Pretty‑printing is like formatting your essay with clear paragraphs and
 
 == 8. What are common pitfalls when parsing JSON in Java?
 
-*Answer:*
 Common pitfalls include:
 - *Improper Exception Handling:* Failing to catch parsing errors can lead to runtime exceptions.
 - *Data Type Mismatches:* Incorrect assumptions about data types in the JSON.
@@ -146,14 +141,12 @@ NOTE: *Parsing JSON is like reading a foreign language you need to be cautious a
 
 == 9. How do you handle date and time values in JSON given its lack of a native date type?
 
-*Answer:*
 Since JSON does not have a native date type, dates and times are typically represented as strings in a standard format (e.g., ISO 8601: `"2023-04-05T14:30:00Z"`) or as numeric timestamps (milliseconds since epoch). When parsing JSON in Java, libraries like Jackson or Gson can be configured to automatically convert these strings or numbers into `java.util.Date`, `java.time.LocalDateTime`, or other date/time objects.
 
 NOTE: *Handling dates in JSON is like interpreting a secret code you need to agree on a standard format to ensure that everyone decodes the message the same way, avoiding misinterpretations.*
 
 == 10. How can you convert JSON to other formats such as XML or YAML?
 
-*Answer:*
 Conversion between JSON and other formats can be done using various libraries and tools. For instance:
 - *JSON to XML:* Use libraries like Jackson with the `jackson-dataformat-xml` module, which can convert JSON to XML and vice versa.
 - *JSON to YAML:* Use libraries like SnakeYAML or online converters. Jackson also supports YAML through the `jackson-dataformat-yaml` module.

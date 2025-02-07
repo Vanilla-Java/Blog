@@ -1,8 +1,11 @@
-= Object‑Oriented Programming & Idiomatic Java – Answers and Side Notes
+= Object‑Oriented Programming & Idiomatic Java
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
-:toclevels: 2
+:source-highlighter: rouge
 
-This document provides answers to 30 questions on Object‑Oriented Programming (OOP) and idiomatic Java practices, along with engaging side notes to enrich your understanding.
+This document provides detailed answers to 30 key questions on Object‑Oriented Programming (OOP) and idiomatic Java practices. Each answer is enriched with engaging side notes to deepen your understanding of OOP concepts and best practices in Java.
 
 == 1. What are the four pillars of Object‑Oriented Programming (OOP) in Java?
 

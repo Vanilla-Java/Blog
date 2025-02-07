@@ -1,5 +1,9 @@
 = Additional Topics for Java Developers
+Peter lawrey
+:doctype: requirements
+:lang: en-GB
 :toc:
+:source-highlighter: rouge
 
 This docment covers additional topics that Java developers should be familiar with, including design patterns, RESTful APIs, microservices, caching, and more.
 
@@ -330,10 +334,12 @@ Best practices include:
 - *Input Validation:* Rigorously validate and sanitize all user inputs.
 - *Parameterized Queries:* Use prepared statements or ORM frameworks to avoid SQL injection.
 - *Output Encoding:* Properly encode output to prevent Cross-Site Scripting (XSS).
-- *Authentication and Authorization:*
-- Implement robust security mechanisms (e.g., OAuth, JWT).
+- *Authentication and Authorization:* Implement robust security mechanisms (e.g., OAuth, JWT).
+- *Session Management:* Use secure session handling and token management.
 - *Regular Updates:* Keep libraries and frameworks up to date.
 - *Security Testing:* Perform regular vulnerability scans and penetration tests.
+- *Logging and Monitoring:* Monitor for suspicious activities and log security events.
+- *Secure Configuration:* Store sensitive information securely and avoid hardcoding secrets.
 
 == How do dependency injection frameworks like Spring facilitate loose coupling?
 
