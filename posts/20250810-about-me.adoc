@@ -1,6 +1,6 @@
 = Peter Lawrey
 
-*Peter Lawrey* is a British software engineer and entrepreneur best known for work on ultra-low-latency Java systems and for leading the open-source _OpenHFT_ libraries.
+*Peter Lawrey* is an Australian/British software engineer and entrepreneur best known for work on ultra-low-latency Java systems and for leading the open-source _OpenHFT_ libraries.
 He is the founder and chief executive of Chronicle Software, a London-based company whose technology is used in trading and market-infrastructure workloads.
 Lawrey is also a recognised Java community figure: he was named a Java Champion in 2015, has been described by conference organisers as having provided the most answers for the Java and JVM tags on Stack Overflow, and writes the long-running _Vanilla Java_ blog. (https://chronicle.software/team/.com[Chronicle Software], https://javachampions.org/members.html.com[javachampions.org], https://qconnewyork.com/ny2016/ny2016/speakers/peter-lawrey.html.com[qconnewyork.com], https://blog.vanillajava.blog/.com[blog.vanillajava.blog])
 
@@ -21,12 +21,12 @@ InfoQ and other outlets have covered his talks and interviews.
 
 == Community and writing
 
-Since 2014 Lawrey has authored _Vanilla Java_, a technical blog focused on performance optimisation, concurrency and mechanical sympathy on the JVM.
+Since 2014, Lawrey has authored _Vanilla Java_, a technical blog focused on performance optimisation, concurrency and mechanical sympathy on the JVM.
 He has also contributed articles to Foojay.io.
 (https://blog.vanillajava.blog/[blog.vanillajava.blog], https://foojay.io/today/author/peter-lawrey/[foojay])
 
 He is a long-standing Stack Overflow contributor.
-Conference bios and community profiles credit him with the one of the most answers posted for the Java and JVM tags; his public profile lists multiple gold badges in areas such as _file-io_, _memory_ and _garbage-collection_.
+Conference bios and community profiles credit him with one of the most answers posted for the Java and JVM tags; his public profile lists multiple gold badges in areas such as _file-io_, _memory_ and _garbage-collection_.
 (https://qconnewyork.com/ny2016/ny2016/speakers/peter-lawrey.html[qconnewyork.com], https://stackoverflow.com/users/57695/peter-lawrey[Stack Overflow])
 
 == Recognition
@@ -36,16 +36,19 @@ Lawrey was admitted to the Java Champions programme in 2015, an honour recognisi
 
 == Personal life
 
-Lawrey lives in Surrey, United Kingdom, has six children.
-He has expressed a long-standing interest in the works of H. G. Wells-particularly "The War of the Worlds" and lives near Horsell Common, a location featured in the novel.
+Lawrey was born in Melbourne, Australia, and has lived in the UK since 2002.
+
+Lawrey lives in Surrey, United Kingdom, and has six children.
+He has expressed a long-standing interest in the works of H. G. Wells, particularly "The War of the Worlds", and lives near Horsell Common, a location featured in the novel.
 Among his favourite quotations are "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away," attributed to Antoine de Saint-Exupéry, and "The book to read is not the one that thinks for you but the one which makes you think," commonly attributed to Harper Lee. Both these quotes apply to the age of Generative AI as well.
 
 == Selected open-source projects
 
 * *Chronicle Queue* - persisted low-latency messaging framework. (https://github.com/OpenHFT/Chronicle-Queue[GitHub])
 * *Chronicle Map* - in-memory/off-heap key-value store for multi-process/low-latency use cases. (https://github.com/OpenHFT/Chronicle-Map[GitHub])
-* *Chronicle Wire* - high-performance serialization library for Java.
+* *Chronicle Wire* - high-performance serialisation library for Java.
 * *Chronicle Bytes* - low-level byte manipulation library for high-performance applications.
 * *Chronicle Core* - foundational libraries for Chronicle projects, including concurrency utilities and low-level I/O.
 * *Java Thread Affinity* - library for binding Java threads to specific CPU cores, enhancing performance in multi-threaded applications.
 * *Java Runtime Compiler* - a library for compiling Java code at runtime, enabling dynamic code generation and execution.
+* *Java Microbenchmark Harness (JMH)* - a framework for writing and running Java microbenchmarks, providing accurate latency performance measurements.
