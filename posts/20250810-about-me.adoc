@@ -2,7 +2,8 @@
 
 *Peter Lawrey* is an Australian/British software engineer and entrepreneur best known for work on ultra-low-latency Java systems and for leading the open-source _OpenHFT_ libraries.
 He is the founder and chief executive of Chronicle Software, a London-based company whose technology is used in trading and market-infrastructure workloads.
-Lawrey is also a recognised Java community figure: he was named a Java Champion in 2015, has been described by conference organisers as having provided the most answers for the Java and JVM tags on Stack Overflow, and writes the long-running _Vanilla Java_ blog. (https://chronicle.software/team/.com[Chronicle Software], https://javachampions.org/members.html.com[javachampions.org], https://qconnewyork.com/ny2016/ny2016/speakers/peter-lawrey.html.com[qconnewyork.com], https://blog.vanillajava.blog/.com[blog.vanillajava.blog])
+Lawrey is also a recognised Java community figure: he was named a Java Champion in 2015, has been described by conference organisers as having provided the most answers for the Java and JVM tags on Stack Overflow, and writes the long-running _Vanilla Java_ blog.
+(https://chronicle.software/team/.com[Chronicle Software], https://javachampions.org/members.html.com[javachampions.org], https://qconnewyork.com/ny2016/ny2016/speakers/peter-lawrey.html.com[qconnewyork.com], https://blog.vanillajava.blog/.com[blog.vanillajava.blog])
 
 == Career
 

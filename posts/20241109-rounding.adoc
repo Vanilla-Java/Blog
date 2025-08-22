@@ -81,8 +81,9 @@ byte m = (byte) (h + l) / 2; // -27
 For `int` this cast happens implicitly, so you can easily miss that this is happening.
 * `h + l = 102 + 99 = 201` (as `int`).
 * `(byte) 201` exceeds the `byte` maximum value (`127`), causing overflow:
-- `201 - 256 = -55`
-* Thus, `(byte) 201 = -55`.
+
+** `201 - 256 = -55`
+** Thus, `(byte) 201 = -55`.
 
 . *Division:*
 * `-55 / 2 = -27` (integer division truncates towards zero).

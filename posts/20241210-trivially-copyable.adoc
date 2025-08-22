@@ -1,5 +1,6 @@
 = Bringing C++-Style Memory Efficiency to Java Serialisation
 Peter Lawrey
+:pp: ++
 :icons: font
 :prettify-theme: default
 
@@ -7,8 +8,8 @@ Peter Lawrey
 .TL;DR
 ****
 * *Problem:* Java's standard serialisation can be slow due to scattered object fields and reflection-based overhead.
-* *Approach:* Emulate C++-style trivially copyable objects by restricting fields to primitives, enabling bulk memory copies.
-* *Result:* Near C++-like serialisation performance, dramatically reducing latency and improving throughput.
+* *Approach:* Emulate C{pp}-style trivially copyable objects by restricting fields to primitives, enabling bulk memory copies.
+* *Result:* Near C{pp}-like serialisation performance, dramatically reducing latency and improving throughput.
 * *Trade-offs:* Requires careful design, limited flexibility, and testing for JVM compatibility.
 * *Outcome:* Low-latency systems with high performance are suitable for financial data feeds, real-time analytics, and other latency-sensitive domains.
 ****
@@ -19,7 +20,7 @@ For low-latency systems, every microsecond has a tangible business impact.
 In high-frequency trading, real-time analytics, and similarly time-sensitive workloads, even minor inefficiencies in serialisation and deserialisation can degrade throughput and responsiveness.
 The seemingly mundane act of converting objects into bytes and back often becomes a performance bottleneck.
 
-This article explores how we can emulate a C++-like concept of _Trivially Copyable Objects_ within Java to achieve far more efficient serialisation.
+This article explores how we can emulate a C{pp}-like concept of _Trivially Copyable Objects_ within Java to achieve far more efficient serialisation.
 By ensuring objects contain only fixed-size primitives, we can sidestep the traditional overheads of object graph traversal, reflection, and per-field copying.
 Instead, we can treat them as contiguous memory blocks, dramatically reducing the time to read and write data.
 We shall also consider how to get close to this performance using Chronicle Bytes without strictly requiring trivial copyability.
@@ -38,13 +39,13 @@ The objective: reduce the cost of serialisation to something approaching a singl
 
 == Emulating Trivially Copyable Objects in Java
 
-C++ defines a _Trivially Copyable Object_ as one that can be safely cloned by copying its memory representation directly (e.g. using `memcpy`).
+C{pp} defines a _Trivially Copyable Object_ as one that can be safely cloned by copying its memory representation directly (e.g. using `memcpy`).
 This guarantees efficient and predictable memory layouts.
 Java does not expose this concept directly, but we can achieve a similar result.
 
 If an object is composed solely of primitive fields-`long`, `int`, `double`, etc.-with known fixed sizes, it resembles a flat, contiguous data block.
 This allows us to perform a bulk copy of its contents in one go.
-The result is similar to how C++ handles trivially copyable types, but now we are in Java's safe, garbage-collected environment.
+The result is similar to how C{pp} handles trivially copyable types, but now we are in Java's safe, garbage-collected environment.
 
 == Steps to Achieve a Contiguous Layout
 
@@ -70,7 +71,7 @@ For a moderate increase in complexity, explicitly reading and writing fields by 
 While more effort is required, this approach narrows the gap to trivial copyability.
 Full Trivial Copying ::
 For the absolute best performance, treat the entire object as a single contiguous memory block.
-Bulk copying here is the key to near C++-style efficiency.
+Bulk copying here is the key to near C{pp}-style efficiency.
 
 == Code Examples
 
@@ -210,7 +211,7 @@ While they add complexity, the performance pay-off justifies it in latency-criti
 
 * Treating objects as contiguous blocks of primitive fields significantly reduces serialisation overhead.
 * Moving from self-describing, reflective approaches to explicit field reads/writes yields large gains.
-* Using direct memory offsets or bulk copying is yet more efficient, approaching C++-like speeds.
+* Using direct memory offsets or bulk copying is yet more efficient, approaching C{pp}-like speeds.
 * While not free of trade-offs, trivial copyability offers a compelling pattern for systems where latency and throughput trump convenience.
 
 == Try It Yourself
@@ -225,11 +226,11 @@ Experiment with different layouts, measure the impact and adopt the approach inc
 
 == This Article Is Based On...
 
-This article is an update of two articles by Per Minborg https://chronicle.software/how-to-get-c-speed-in-java-serialisation/[How to Get C++ Speed in Java Serialisation^,role=external] and https://minborgsjavapot.blogspot.com/2022/01/[Did You Know the Fastest Way of Serializing a Java Field is not Serializing it at All?^,role=external] It builds on the original concepts and benchmarks, providing a fresh perspective on achieving low-latency Java systems.
+This article is an update of two articles by Per Minborg https://chronicle.software/how-to-get-c-speed-in-java-serialisation/[How to Get C{pp} Speed in Java Serialisation^,role=external] and https://minborgsjavapot.blogspot.com/2022/01/[Did You Know the Fastest Way of Serializing a Java Field is not Serializing it at All?^,role=external] It builds on the original concepts and benchmarks, providing a fresh perspective on achieving low-latency Java systems.
 
 == Conclusion
 
-Java may not natively support trivially copyable objects, but we can still achieve near C++-like serialisation speeds by restructuring data and using Chronicle's low-level operations.
+Java may not natively support trivially copyable objects, but we can still achieve near C{pp}-like serialisation speeds by restructuring data and using Chronicle's low-level operations.
 Developers can build low-latency Java systems that confidently handle high-throughput workloads by experimenting with these techniques and applying them judiciously.
 If you have been searching for that extra edge in performance, give trivial copyability-or its direct-copy variants-a try.
 It might just be the key to unlocking new levels of efficiency.

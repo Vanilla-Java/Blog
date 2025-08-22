@@ -178,7 +178,8 @@ However, it wasn't able to draw on two other questions I wrote in articles.
 
 ChatGPT gives several plausible suggestions, but none pick up the problem: the DGC runs every hour, causing the full GC. This only happens when the minor GC rate is low enough, so the full GC is triggered by the DGC to ensure that remote objects are cleaned up, whether you are using RMI or not.
 
-*AI's Error:* Not understanding the relationship between the minor GC and the DGC. I.e. Domain knowledge.
+===== AI's Error
+Not understanding the relationship between the minor GC and the DGC. I.e. Domain knowledge.
 
 A more detailed explanation is available at https://blog.vanillajava.blog/2024/11/unexpected-full-gcs-triggered-by-rmi-in.html[Unexpected Full GCs Triggered by RMI in Java].
 
@@ -407,7 +408,7 @@ Short.MIN_VALUE == Math.abs(Short.MIN_VALUE) // false
 ----
 
 . **Character.MIN_VALUE:**
-`Character.MIN_VALUE` is `'\u0000'` which is `0`.
+`Character.MIN_VALUE` is `'u0000'` which is `0`.
 `Math.abs(0)` is `0`, so:
 
 [source,java]

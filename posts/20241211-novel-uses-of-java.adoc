@@ -1,5 +1,6 @@
 = Novel Uses of Core Java for Low-Latency and High-Performance Systems
 Peter Lawrey
+:pp: ++
 :doctype: article
 :icons: font
 :source-highlighter: rouge
@@ -134,7 +135,7 @@ I discuss this further in this article https://blog.vanillajava.blog/2024/12/eff
 
 == Trivially Copyable Objects in Java
 
-While Java does not natively define "trivially copyable" objects as C++ does, you can achieve something similar using primitive fields and fixed layouts.
+While Java does not natively define "trivially copyable" objects as C{pp} does, you can achieve something similar using primitive fields and fixed layouts.
 By structuring data so that it can be copied en masse (e.g., using `Memory.copy()`
 operations or off-heap buffers), you can transform objects directly into their binary representations and back again with minimal overhead.
 

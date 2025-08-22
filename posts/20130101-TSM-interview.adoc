@@ -1,4 +1,5 @@
 = Interview with Peter Lawrey: High-Performance Systems in Java
+:pp: ++
 
 Attila-Mihaly Balazs, Software Panther at Synapp.io, interviews Peter Lawrey, a Java consultant specializing in low-latency systems.
 
@@ -12,7 +13,7 @@ I am a Java consultant in the low-latency space.
 I have a popular blog called "Vanilla Java," which gets about 120,000 hits per month.
 I also have a library called Chronicle, which is for low-latency persistence IPC and data store, and I'm third on StackOverflow for Java.
 
-[Attila-Mihaly Balazs] When people think about low latency or high performance, they usually say things like "C++ is better." They phrase things in terms of the programming language.
+[Attila-Mihaly Balazs] When people think about low latency or high performance, they usually say things like "C{pp} is better." They phrase things in terms of the programming language.
 How important do you think the programming language is, and what other factors influence the latency or throughput of the system besides the programming language?
 
 [Peter Lawrey] What I found is that different programming languages can attract different development styles and developers.
@@ -21,9 +22,9 @@ Whereas in Java, a lot of developers are deliberately protected from needing to 
 Except when you want to program in low latency, you need to have a much better understanding of what the code is really doing.
 It's not that Java can't do it; it's more that there aren't as many Java developers with that skill set.
 In C`, you're kind of forced to have that skill set-you won't survive if you don't.
-The libraries can make a difference as well, but the biggest advantage for Java is the fact that so many of the common libraries you're likely to need are built-in, whereas in C++ you have to go to third-party libraries to do a lot of the same things.
+The libraries can make a difference as well, but the biggest advantage for Java is the fact that so many of the common libraries you're likely to need are built-in, whereas in C{pp} you have to go to third-party libraries to do a lot of the same things.
 
-[Attila-Mihaly Balazs] So, do you find that the general opinion that C++ is faster, or that compiled languages are faster than Java, holds up, or is this just a myth?
+[Attila-Mihaly Balazs] So, do you find that the general opinion that C{pp} is faster, or that compiled languages are faster than Java, holds up, or is this just a myth?
 
 [Peter Lawrey] In theory, C` is always faster-in theory.
 The thing is that in practice, you have limited resources, limited time, limited expertise, and changing requirements.
@@ -39,7 +40,7 @@ You end up building a lot of the protections that Java gives you already.
 You end up having some sort of message brokering system to isolate the components of your system, to protect from crashes, for example-all those sorts of things Java will do for you efficiently.
 So there's no guarantee that the C` systems would be faster.
 In particular, I worked in one place where all of the client-facing application was written in C`, and that was the less latency-sensitive, whereas the hedging of all of the funds, the latency-sensitive code, was written in Java because we had a much faster time to market.
-In fact, a lot of the fast delivery, a lot of the new changes, were going into the Java system simply because the C++ had reached the point where it was very difficult to maintain.
+In fact, a lot of the fast delivery, a lot of the new changes, were going into the Java system simply because the C{pp} had reached the point where it was very difficult to maintain.
 They would print, for example, daily crash reports.
 Instead of throwing exceptions, the whole program would crash and restart-all those sorts of things that would be considered unacceptable in Java.
 

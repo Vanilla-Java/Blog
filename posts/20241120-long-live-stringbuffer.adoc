@@ -48,7 +48,8 @@ Consider the following scenario involving three threads in Java:
 * Thread 2 executes: `stringBuffer.append("A").append("B");`
 * Thread 3 executes: `System.out.println(stringBuffer);`
 
-*Question:* What are all the possible outputs that could be printed by the `System.out.println` statement in Thread 3?
+=== Question
+What are all the possible outputs that could be printed by the `System.out.println` statement in Thread 3?
 
 Keep in mind that `StringBuffer` is thread-safe and its methods are synchronized.
 The order of operations within each thread is fixed, but the execution order across threads can vary.

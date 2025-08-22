@@ -792,7 +792,7 @@ For developers working on performance-sensitive Java applications (e.g., high-fr
 
 * _Reuse Objects:_ Implement object pooling or caching to avoid repeated allocation.
 * _Avoid Autoboxing:_ Prefer primitives over wrapper classes to reduce unnecessary object creation.
-* _String Concatenation:_ Use `StringBuilder` for efficient string concatenation in loops instead of multiple `\+` appends. If you have a simple String concatenation, it will use one `StringBuilder` and `append` for each `\+` operator in the code.
+* _String Concatenation:_ Use `StringBuilder` for efficient string concatenation in loops instead of multiple `\+` appends. If you have a simple String concatenation, it will use one `StringBuilder` and `append` for each `+` operator in the code.
 * _Avoid Temporary Objects:_ Be mindful of temporary objects created during method calls or operations.
 * _Avoid Excessive Collections:_ Use primitive arrays or specialised collections to reduce object overhead.
 * _Avoid Premature Optimisation:_ Profile your application to identify bottlenecks before optimising object allocation.

@@ -1,5 +1,6 @@
 = Storing 1 TB in Virtual Memory on a 64 GB Machine with Chronicle Queue
 Peter Lawrey
+:pp: ++
 :hp-tags: Chronicle Queue, Off-Heap Memory
 
 As Java developers, we often face the challenge of handling very large datasets within the constraints of the Java Virtual Machine (JVM).
@@ -100,7 +101,7 @@ For more information on Chronicle Queue, visit the https://github.com/OpenHFT/Ch
 https://chronicle.software/queue-enterprise/[Chronicle Queue Enterprise] offers additional features, such as:
 
 * Replication across multiple servers for Fail Over and Disaster Recovery
-* C++, Rust, Python implementations
+* C{pp}, Rust, Python implementations
 * Tuning options to reduce latency jitter
 * Support for Windows, MacOSX, and Linux
 

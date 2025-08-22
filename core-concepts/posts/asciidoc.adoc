@@ -24,7 +24,8 @@ Its primary use cases include:
 * Maintaining documentation in source code repositories
 * Collaborating on documentation with version control systems
 
-*Side Note:* AsciiDoc is like Markdown's sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.
+==== Side Note
+AsciiDoc is like Markdown's sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.
 
 === 2. How do you define headings of various levels in AsciiDoc?
 
@@ -37,18 +38,19 @@ The number of `=` characters indicates the heading level:
 
 ...and so on.
 
-*Best Practice:* Use consistent heading levels to structure your document logically. This improves navigation and supports automated table-of-contents generation.
+==== Best Practice
+Use consistent heading levels to structure your document logically. This improves navigation and supports automated table-of-contents generation.
 
 === 3. What is the syntax for inline formatting such as bold, italic, and monospace text?
 
 AsciiDoc supports several inline formatting options:
 
-* *Bold:* Wrap text in asterisks, e.g., `\*bold text*`.
-* *Italic:* Wrap text in underscores, e.g., `\_italic text_`.
+* *Bold:* Wrap text in asterisks, e.g., `*bold text*`.
+* *Italic:* Wrap text in underscores, e.g., `_italic text_`.
 * *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `+``monospace``+`.
 * *Inline Links:* Use square brackets and angle brackets for links, e.g., `+`link:https://example.com[Example]`+`.
-* *Superscript and Subscript:* Use the `^` and `~` characters, e.g., `2\^nd^` and `H\~2~O`.
-* *Passthrough*: Use `\pass:[blah]` e.g. `\pass:[<div style="color:red;">Red text</p>]` is pass:[<div style="color:red;">Red text</div>].
+* *Superscript and Subscript:* Use the `^` and `~` characters, e.g., `2^nd^` and `H~2~O`.
+* *Passthrough*: Use `pass:[blah]` e.g. `pass:[<div style="color:red;">Red text</p>]` is pass:[<div style="color:red;">Red text</div>].
 
 === 4. How do you create code blocks and specify a language for syntax highlighting?
 
@@ -261,7 +263,8 @@ AI can:
 * *Highlight Ambiguities:* Detect unclear or conflicting requirements and suggest clarifications.
 * *Track Changes:* Automatically generate diffs for updated requirements to facilitate change management.
 
-*Best Practice:* Combine human oversight with AI suggestions to maintain clarity and precision in your requirements documents.
+==== Best Practice
+Combine human oversight with AI suggestions to maintain clarity and precision in your requirements documents.
 
 === 3. What best practices should be followed when integrating generative AI with structured documentation formats?
 

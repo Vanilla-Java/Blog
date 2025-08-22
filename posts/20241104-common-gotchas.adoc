@@ -1,8 +1,9 @@
 = Some Common Java Gotchas and How to Avoid Them
+:pp: ++
 :source-highlighter: rouge
 
 Java's simplicity often deceives newcomers.
-Although it avoids some complexities of languages like C++ or modern hybrids, Java still harbours subtleties that can trip up even experienced developers.
+Although it avoids some complexities of languages like C{pp} or modern hybrids, Java still harbours subtleties that can trip up even experienced developers.
 Understanding these nuances is not just a theoretical exercise-it influences your code's readability, maintainability, and often, its performance profile.
 
 Java developers frequently fall prey to pitfalls around references, equality comparison, object immutability, `hashCode()` contracts, and the nature of `toString()`.
@@ -23,7 +24,8 @@ For developers coming from languages where variables can directly store objects 
 
 === Example Misunderstanding:
 
-*Q:* If `String` is immutable, how can I change it, like in `s += "!"`?
+==== Q
+If `String` is immutable, how can I change it, like in `s += "!"`?
 *A:* You're creating a new `String` and updating the reference, not altering the original `String`.
 
 [source,java]

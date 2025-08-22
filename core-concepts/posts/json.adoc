@@ -76,14 +76,15 @@ NOTE: *Representation in JSON is very straightforward just like in everyday lang
 
 Special characters in JSON strings must be escaped using a backslash (`\`).
 Common escapes include:
-* `\"` for a double quote.
-* `\\` for a backslash.
-* `\/` for a forward slash (optional).
-* `\b` for backspace.
-* `\f` for form feed.
-* `\n` for newline.
-* `\r` for carriage return.
-* `\t` for tab.
+
+* `"` for a double quote.
+* `\` for a backslash.
+* `/` for a forward slash (optional).
+* `b` for backspace.
+* `f` for form feed.
+* `n` for newline.
+* `r` for carriage return.
+* `t` for tab.
 
 For example:
 [,json]
@@ -169,4 +170,3 @@ JsonNode json = jsonMapper.readTree(jsonInput);
 String xml = xmlMapper.writeValueAsString(json);
 ----
 NOTE: *Converting JSON to other formats is like translating a book into another language it allows you to share data with different systems that may prefer one format over another, all while preserving the underlying meaning.*
-

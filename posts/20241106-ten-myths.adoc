@@ -1,4 +1,5 @@
 = Ten Java Myths and Misconceptions
+:pp: ++
 :source-highlighter: rouge
 
 == Advanced Java Questions
@@ -39,7 +40,7 @@ Since `ThreadDeath` is not an error that generates a stack trace by default, no 
 
 === Myth 2: `String str = "Hello";` Creates a String Object
 
-Unlike C++, Java variables can only be primitives or references, not actual objects.
+Unlike C{pp}, Java variables can only be primitives or references, not actual objects.
 For instance:
 
 [source,java]
@@ -64,13 +65,13 @@ method(sb);         // The method can alter the instance but cannot change the r
 The `final` modifier only applies to the reference, meaning `sb` cannot be reassigned, but the object it references (the `StringBuilder` instance) can be modified, such as by appending text.
 This is a critical distinction to grasp for understanding immutability and reference manipulation in Java.
 
-=== Myth 3: Java Has Memory Leaks Like C++
+=== Myth 3: Java Has Memory Leaks Like C{pp}
 
 According to https://en.wikipedia.org/wiki/Memory_leak[Wikipedia], a memory leak is defined as:
 _"In computer science, a memory leak occurs when a computer program incorrectly manages memory allocations.
 In object-oriented programming, a memory leak may happen when an object is stored in memory but cannot be accessed by the running code."_
 
-In Java, however, memory leaks differ from the traditional C++ understanding.
+In Java, however, memory leaks differ from the traditional C{pp} understanding.
 Java's garbage collector automatically cleans up objects that are no longer _strongly referenced_, meaning objects that are inaccessible to the running code are eventually removed.
 Still, memory leaks can occur in Java when objects are unintentionally retained, often in collections, long after they are needed, leading to an undesirable increase in retained memory.
 
@@ -135,7 +136,7 @@ Many questions are based on practices or behaviours from older Java versions and
 == Key Points
 
 * Understand the distinction between object references and actual objects in Java.
-* Recognise that Java's garbage collector manages memory differently from C++.
+* Recognise that Java's garbage collector manages memory differently from C{pp}.
 * Approach multi-threading with disciplined best practices to mitigate complexity.
 * Focus optimisation efforts on operations that significantly impact performance.
 * Acknowledge the predictable nature of floating point arithmetic errors.

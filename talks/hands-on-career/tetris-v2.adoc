@@ -21,7 +21,8 @@ The player aims to achieve the highest possible score before the stack of blocks
 
 == Terminology
 
-_Tetromino_: A shape composed of four connected squares. Standard Tetris includes seven unique Tetromino shapes: I, O, T, J, L, S, and Z.
+_Tetromino_: A shape composed of four connected squares.
+Standard Tetris includes seven unique Tetromino shapes: I, O, T, J, L, S, and Z.
 
 _Playfield_: The grid-based area in which Tetrominoes fall and are placed by the player.
 

@@ -6,8 +6,10 @@
 
 GitHub repository for the examples discussed on the Vanilla Java blog, covering various topics in high-performance Java programming.
 
-*Repository URL:* https://github.com/Vanilla-Java/Blog
-*Blog URL:* https://blog.vanillajava.blog/
+Repository URL ::
+https://github.com/Vanilla-Java/Blog
+Blog URL ::
+https://blog.vanillajava.blog/
 
 == About
 

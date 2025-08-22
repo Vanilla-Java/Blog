@@ -105,7 +105,8 @@ Ensure every architectural decision, AI integration, and tooling choice is roote
 
 * "A goal without a plan is just a wish."
 _Attributed to:_ Antoine de Saint-Exupéry, "The Wisdom of the Sands" (1948)
-_Relevance:_ Aligning technology with business outcomes isn't about hope. It needs explicit planning-translating goals into actionable steps, supported by the right tooling and architectural decisions.
+_Relevance:_ Aligning technology with business outcomes isn't about hope.
+It needs explicit planning-translating goals into actionable steps, supported by the right tooling and architectural decisions.
 
 === Strategic Use of AI Tools - Used
 Identify where AI truly adds value-handling repetitive, data-intensive work-while keeping human insight, ethics, and holistic thinking indispensable.
@@ -534,28 +535,34 @@ These "soft" tasks are often undervalued, but the narrative suggests they're cri
 
 * "If you can't explain it simply, you don't understand it well enough."
 _Commonly attributed to:_ Albert Einstein (though exact source is apocryphal)
-_Relevance:_ The ability to communicate technical concepts clearly-both in documentation and stakeholder discussions-demonstrates true mastery. As AI and complex systems proliferate, ensuring everyone understands the "why" behind features becomes as important as delivering them.
+_Relevance:_ The ability to communicate technical concepts clearly-both in documentation and stakeholder discussions-demonstrates true mastery.
+As AI and complex systems proliferate, ensuring everyone understands the "why" behind features becomes as important as delivering them.
 
 * "The single biggest problem in communication is the illusion that it has taken place."
 _Attributed to:_ George Bernard Shaw
 _Era:_ Early 20th century
-_Relevance:_ Developers might assume others grasp their technical work. In reality, investing in documentation and communication ensures that customers, colleagues, and managers share a common understanding, avoiding costly misunderstandings.
+_Relevance:_ Developers might assume others grasp their technical work.
+In reality, investing in documentation and communication ensures that customers, colleagues, and managers share a common understanding, avoiding costly misunderstandings.
 
 * "Good documentation is a love letter you write to your future self."
 _Attributed to:_ Damian Conway, Perl programmer and author (circa early 2000s)
-_Relevance:_ Thoughtful, AI-assisted documentation isn't just an afterthought-it's a long-term asset. As systems evolve, clear, accurate documentation saves time, supports onboarding, and preserves organizational knowledge.
+_Relevance:_ Thoughtful, AI-assisted documentation isn't just an afterthought-it's a long-term asset.
+As systems evolve, clear, accurate documentation saves time, supports onboarding, and preserves organizational knowledge.
 
 * "Words are, in my not-so-humble opinion, our most inexhaustible source of magic."
 _Attributed to:_ J.K. Rowling (through the character Albus Dumbledore, "Harry Potter and the Deathly Hallows," 2007)
-_Relevance:_ In a tech context, well-chosen words-whether in documentation, emails, or presentations-can transform complex concepts into accessible insights. Communication thus becomes a key differentiator as AI reduces the effort needed for coding tasks.
+_Relevance:_ In a tech context, well-chosen words-whether in documentation, emails, or presentations-can transform complex concepts into accessible insights.
+Communication thus becomes a key differentiator as AI reduces the effort needed for coding tasks.
 
 * "Speak to be understood, not to be heard."
 _Common leadership and communication adage, no single confirmed author (20th century)_
-_Relevance:_ It's not enough to produce documentation or talk about features; developers must ensure their audience truly understands. Empathetic, audience-focused communication fosters trust and clarity in an AI-driven development environment.
+_Relevance:_ It's not enough to produce documentation or talk about features; developers must ensure their audience truly understands.
+Empathetic, audience-focused communication fosters trust and clarity in an AI-driven development environment.
 
 * "If you don't document it, it never happened."
 _Engineering and project management maxim, widely cited in software and construction industries_
-_Relevance:_ Even the best AI-generated code or groundbreaking features lose value if their purpose, usage, and design rationales are unclear. Robust documentation ensures that progress is recorded, reproducible, and sustainable.
+_Relevance:_ Even the best AI-generated code or groundbreaking features lose value if their purpose, usage, and design rationales are unclear.
+Robust documentation ensures that progress is recorded, reproducible, and sustainable.
 
 * *Hype Cycle Awareness as a Skill:*
 Encouraging developers to study historical hype cycles and apply that understanding to current AI trends might be surprising.
@@ -568,24 +575,29 @@ _Relevance:_ Recognizing that past technological booms and busts mirror current 
 * "When the tide goes out, you see who's been swimming naked."
 _Attributed to:_ Warren Buffett
 _Source/Date:_ Financial interviews and letters to shareholders, late 20th-early 21st century
-_Relevance:_ Once hype fades, the true value of a technology is revealed. Developers who study hype cycles can distinguish between fleeting trends and sustainable advancements, ensuring they aren't caught off guard when enthusiasm cools.
+_Relevance:_ Once hype fades, the true value of a technology is revealed.
+Developers who study hype cycles can distinguish between fleeting trends and sustainable advancements, ensuring they aren't caught off guard when enthusiasm cools.
 
 * "Forewarned is forearmed."
 _Proverb of uncertain origin, with roots in 16th-century English writing_
-_Relevance:_ By learning from past hype cycles (dot-com, mobile apps, Big Data), developers gain foresight. Understanding market psychology and trend patterns helps them prepare strategically rather than reactively.
+_Relevance:_ By learning from past hype cycles (dot-com, mobile apps, Big Data), developers gain foresight.
+Understanding market psychology and trend patterns helps them prepare strategically rather than reactively.
 
 * "It's tough to make predictions, especially about the future."**
 _Commonly attributed to:_ Yogi Berra or Niels Bohr (mid-20th century)
-_Relevance:_ While no one can perfectly predict AI's evolution, studying historical hype provides a lens. Developers who appreciate this uncertainty and learn from past misjudgments can better navigate emerging technologies.
+_Relevance:_ While no one can perfectly predict AI's evolution, studying historical hype provides a lens.
+Developers who appreciate this uncertainty and learn from past misjudgments can better navigate emerging technologies.
 
 * "In the short run, the market is a voting machine; in the long run, it is a weighing machine."
 _Attributed to:_ Benjamin Graham
 _Source/Date:_ "Security Analysis" (1934)
-_Relevance:_ Initial excitement (voting) may inflate AI's perceived value, but long-term substance (weighing) determines real impact. Developers aware of this distinction focus on technologies that withstand the test of time, not just the hype.
+_Relevance:_ Initial excitement (voting) may inflate AI's perceived value, but long-term substance (weighing) determines real impact.
+Developers aware of this distinction focus on technologies that withstand the test of time, not just the hype.
 
 * "When everyone's jumping on the bandwagon, it's time to find another bandwagon."
 _Common business/market adage, no single confirmed author (20th century)_
-_Relevance:_ Following hype blindly can lead to dead ends. Understanding past cycles encourages developers to be skeptical of mass enthusiasm, seeking originality and long-term utility over short-lived fervor.
+_Relevance:_ Following hype blindly can lead to dead ends.
+Understanding past cycles encourages developers to be skeptical of mass enthusiasm, seeking originality and long-term utility over short-lived fervor.
 
 * *Continuous Evolution of Professional Identity:*
 Developers may find it surprising that their identity as "coders" might shift to "strategic enablers" or "innovation navigators," blending technical acumen with leadership, mentorship, and domain strategy.
@@ -593,28 +605,35 @@ It's a redefinition of what it means to have a long, hands-on tech career.
 
 ** "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change."
 _Commonly misattributed to:_ Charles Darwin (No direct Darwin source; paraphrase of Darwinian concepts by 20th-century authors)
-_Relevance:_ As developers shift from pure coding to strategic guidance, adaptability defines success. Embracing evolving roles ensures longevity in a changing tech landscape.
+_Relevance:_ As developers shift from pure coding to strategic guidance, adaptability defines success.
+Embracing evolving roles ensures longevity in a changing tech landscape.
 
 * "In times of change, learners inherit the earth, while the learned find themselves beautifully equipped to deal with a world that no longer exists."
 _Attributed to:_ Eric Hoffer
 _Era:_ Mid-20th century works on social philosophy and change
-_Relevance:_ Clinging to a fixed developer identity is risky in a rapidly evolving field. Continuous learning and openness to new roles-like strategic enabler or domain navigator-allow professionals to remain relevant and impactful.
+_Relevance:_ Clinging to a fixed developer identity is risky in a rapidly evolving field.
+Continuous learning and openness to new roles-like strategic enabler or domain navigator-allow professionals to remain relevant and impactful.
 
 * "The measure of intelligence is the ability to change."
 _Commonly attributed to:_ Albert Einstein (exact source not confirmed)
-_Relevance:_ Expanding beyond coding into leadership, mentorship, and domain strategy reflects intellectual flexibility. Developers who embrace change can redefine their professional identity and find new avenues for creativity and influence.
+_Relevance:_ Expanding beyond coding into leadership, mentorship, and domain strategy reflects intellectual flexibility.
+Developers who embrace change can redefine their professional identity and find new avenues for creativity and influence.
 
 * "You are not your code."
 _Software engineering adage, widely shared in online forums and coding communities since the late 20th century_
-_Relevance:_ Identifying solely as a coder limits personal growth. Recognizing that one's value extends beyond syntax allows developers to explore roles in architecture, product strategy, and innovation, ultimately becoming more well-rounded professionals.
+_Relevance:_ Identifying solely as a coder limits personal growth.
+Recognizing that one's value extends beyond syntax allows developers to explore roles in architecture, product strategy, and innovation, ultimately becoming more well-rounded professionals.
 
 * "Becoming is better than being."
 _Attributed to:_ Carol Dweck, "Mindset" (2006)
-_Relevance:_ Instead of defining themselves by a static skill set, developers can focus on evolving abilities and responsibilities. Emphasizing growth and adaptation paves the way to take on strategic, high-impact roles as technology and business needs shift.
+_Relevance:_ Instead of defining themselves by a static skill set, developers can focus on evolving abilities and responsibilities.
+Emphasizing growth and adaptation paves the way to take on strategic, high-impact roles as technology and business needs shift.
 
 * "A mind that is stretched by a new experience can never go back to its old dimensions."**
-_Attributed to:_ Oliver Wendell Holmes Sr. (19th century)
-_Relevance:_ Once developers step into broader arenas-mentoring, domain-driven decision-making, innovation stewardship-their professional identities expand. They can't return to seeing themselves only as coders; they carry forward a richer, more strategic perspective.
+_Attributed to:_ Oliver Wendell Holmes Sr.
+(19th century)
+_Relevance:_ Once developers step into broader arenas-mentoring, domain-driven decision-making, innovation stewardship-their professional identities expand.
+They can't return to seeing themselves only as coders; they carry forward a richer, more strategic perspective.
 
 *Quality of Prompts Over Quantity of Code:*
 As AI models become integral to development, the skill of crafting effective prompts might matter more than writing code.
@@ -622,27 +641,33 @@ Developers who excel at "prompt engineering" could outshine those who rely solel
 
 * "Garbage in, garbage out."**
 _Origin:_ Early computing adage, widely cited since the mid-20th century as computer science developed
-_Relevance:_ If you feed an AI poor prompts (garbage in), you'll get poor code or advice (garbage out). Crafting thoughtful, precise prompts yields better results than producing large volumes of careless code.
+_Relevance:_ If you feed an AI poor prompts (garbage in), you'll get poor code or advice (garbage out).
+Crafting thoughtful, precise prompts yields better results than producing large volumes of careless code.
 
 * "A problem well stated is a problem half solved."**
 _Attributed to:_ Charles Kettering (Early 20th century, American inventor and engineer)
-_Relevance:_ Formulating a clear, strategic prompt for an AI model clarifies what needs to be done, reducing the code-writing effort needed. Good prompt engineering sets the stage for a more effective and efficient solution.
+_Relevance:_ Formulating a clear, strategic prompt for an AI model clarifies what needs to be done, reducing the code-writing effort needed.
+Good prompt engineering sets the stage for a more effective and efficient solution.
 
 * "Judge a man by his questions rather than by his answers."**
 _Attributed to:_ Voltaire (French Enlightenment writer, 18th century)
-_Relevance:_ In the context of AI-assisted development, the quality of the questions (prompts) you pose to the AI often matters more than how quickly you can produce code. Insightful prompts lead to superior guidance and end results.
+_Relevance:_ In the context of AI-assisted development, the quality of the questions (prompts) you pose to the AI often matters more than how quickly you can produce code.
+Insightful prompts lead to superior guidance and end results.
 
 * "The important thing is not to stop questioning."**
 _Attributed to:_ Albert Einstein (20th century, interviews and essays)
-_Relevance:_ Continually refining prompts and exploring various angles for AI queries ensures a deeper understanding and better output. Mastering prompt engineering becomes a crucial skill, just as important as coding itself.
+_Relevance:_ Continually refining prompts and exploring various angles for AI queries ensures a deeper understanding and better output.
+Mastering prompt engineering becomes a crucial skill, just as important as coding itself.
 
 * "If I had an hour to solve a problem, I'd spend 55 minutes thinking about the problem and 5 minutes thinking about the solution."**
 _Commonly attributed to:_ Albert Einstein (though exact sourcing is debated)
-_Relevance:_ Investing time in crafting an effective prompt (defining the problem clearly) greatly reduces the effort spent on coding. Good prompt engineering accelerates the path to a meaningful solution.
+_Relevance:_ Investing time in crafting an effective prompt (defining the problem clearly) greatly reduces the effort spent on coding.
+Good prompt engineering accelerates the path to a meaningful solution.
 
 * "It's not the answer that enlightens, but the question."**
 _Attributed to:_ Eugène Ionesco (Romanian-French playwright, mid-20th century)
-_Relevance:_ A well-crafted prompt drives better AI-generated code and insights. The prompt itself, rather than brute-force coding, can deliver a more enlightened and strategic approach to problem-solving.
+_Relevance:_ A well-crafted prompt drives better AI-generated code and insights.
+The prompt itself, rather than brute-force coding, can deliver a more enlightened and strategic approach to problem-solving.
 
 *Data Curation as a Developer Core Competency:*
 Future developers may spend as much time curating clean, domain-relevant training data as they do writing features.
@@ -656,20 +681,24 @@ _Relevance:_ As AI-driven solutions depend on high-quality training data, develo
 * "Data is the new oil."**
 _Attributed to:_ Clive Humby, British mathematician and data science innovator
 _Source/Date:_ Early 2000s (often cited around 2006)
-_Relevance:_ While raw oil must be refined to yield value, so too must raw data be curated, cleansed, and contextualized. Future developers will find themselves more focused on refining data than purely crafting features.
+_Relevance:_ While raw oil must be refined to yield value, so too must raw data be curated, cleansed, and contextualized.
+Future developers will find themselves more focused on refining data than purely crafting features.
 
 * "Garbage in, garbage out."**
 _Origin:_ Early computing adage, widespread by the mid-20th century
-_Relevance:_ No matter how advanced the AI model, feeding it poor-quality data leads to flawed outputs. Developers skilled in data curation ensure the "fuel" is clean, enabling the system to produce reliable insights and predictions.
+_Relevance:_ No matter how advanced the AI model, feeding it poor-quality data leads to flawed outputs.
+Developers skilled in data curation ensure the "fuel" is clean, enabling the system to produce reliable insights and predictions.
 
 * "If you torture the data long enough, it will confess to anything."**
 _Attributed to:_ Ronald Coase, Nobel Prize-winning economist (mid-20th century)
-_Relevance:_ While data can be manipulated to misleading ends, careful curation and validation help maintain integrity. Developers who pay close attention to data quality and honesty in data selection safeguard the trustworthiness of AI outputs.
+_Relevance:_ While data can be manipulated to misleading ends, careful curation and validation help maintain integrity.
+Developers who pay close attention to data quality and honesty in data selection safeguard the trustworthiness of AI outputs.
 
 * "You can't manage what you don't measure."**
 _Often attributed to:_ Peter Drucker (though exact phrasing is debated)
 _Era:_ Mid-20th century management thought
-_Relevance:_ Curating the right data and metrics allows developers to measure model performance, identify biases, and improve reliability. This transforms data curation into an essential management and engineering skill in the AI era.
+_Relevance:_ Curating the right data and metrics allows developers to measure model performance, identify biases, and improve reliability.
+This transforms data curation into an essential management and engineering skill in the AI era.
 
 *From Coding Guilds to AI Governance Committees:*
 Instead of traditional architecture boards or code review panels, organisations might form "AI governance committees" where developers collaborate with legal, security, and ethics experts.
@@ -678,27 +707,33 @@ Participating in these groups could be a developer's fast track to leadership ro
 * "Sunlight is said to be the best of disinfectants."**
 _Attributed to:_ Louis D. Brandeis
 _Source/Date:_ "Other People's Money-and How Bankers Use It" (1914)
-_Relevance:_ Transparency and oversight become paramount as AI decisions carry ethical and regulatory weight. AI governance committees shine a light on decisions, ensuring accountability and trustworthiness.
+_Relevance:_ Transparency and oversight become paramount as AI decisions carry ethical and regulatory weight.
+AI governance committees shine a light on decisions, ensuring accountability and trustworthiness.
 
 * "If you think compliance is expensive-try non-compliance."**
 _Attributed to:_ Paul McNulty, Former U.S. Deputy Attorney General (early 2000s)
-_Relevance:_ Forming AI governance committees, involving developers, legal, and ethics experts helps avoid costly missteps. Upfront investment in proper governance structures prevents reputational damage and legal troubles.
+_Relevance:_ Forming AI governance committees, involving developers, legal, and ethics experts helps avoid costly missteps.
+Upfront investment in proper governance structures prevents reputational damage and legal troubles.
 
 * "Coming together is a beginning; keeping together is progress; working together is success."**
 _Attributed to:_ Henry Ford (early 20th century)
-_Relevance:_ Cross-functional AI governance groups bring together developers, legal teams, security, and ethics professionals. Sustained collaboration fosters strong, responsible decision-making, turning technical talent into strategic leadership.
+_Relevance:_ Cross-functional AI governance groups bring together developers, legal teams, security, and ethics professionals.
+Sustained collaboration fosters strong, responsible decision-making, turning technical talent into strategic leadership.
 
 * "Power corrupts; absolute power corrupts absolutely."**
 _Attributed to:_ Lord Acton (Letter to Bishop Mandell Creighton, 1887)
-_Relevance:_ AI tools wield immense power. Governance committees guard against abuses by distributing decision-making authority and embedding ethical standards into the development process, preventing unchecked influence of any single entity.
+_Relevance:_ AI tools wield immense power.
+Governance committees guard against abuses by distributing decision-making authority and embedding ethical standards into the development process, preventing unchecked influence of any single entity.
 
 * "Management is doing things right; leadership is doing the right things."**
 _Attributed to:_ Peter Drucker (Mid-20th century management literature)
-_Relevance:_ Joining AI governance committees transforms developers from executors of code into leaders shaping ethical, long-term strategies. This shift from "doing things right" (coding efficiently) to "doing the right things" (ensuring fairness, safety, and compliance) exemplifies true leadership in the AI era.
+_Relevance:_ Joining AI governance committees transforms developers from executors of code into leaders shaping ethical, long-term strategies.
+This shift from "doing things right" (coding efficiently) to "doing the right things" (ensuring fairness, safety, and compliance) exemplifies true leadership in the AI era.
 
 * "In diversity there is strength."**
 _Proverb of uncertain origin, present in various cultural contexts for centuries_
-_Relevance:_ AI governance committees thrive on diverse skill sets and viewpoints-developers, ethicists, and legal experts. Their combined perspectives create robust policies and frameworks, guiding AI initiatives toward sustainable and principled success.
+_Relevance:_ AI governance committees thrive on diverse skill sets and viewpoints-developers, ethicists, and legal experts.
+Their combined perspectives create robust policies and frameworks, guiding AI initiatives toward sustainable and principled success.
 
 *Less Code, More Problem Definition:*
 With AI handling implementation details, developers may pivot toward refining problem statements, contextualising requirements, and validating outcomes.
@@ -711,24 +746,29 @@ _Relevance:_ As AI takes over routine coding, developers excel by clarifying req
 
 * "If I had an hour to solve a problem, I'd spend 55 minutes thinking about the problem and 5 minutes thinking about solutions."**
 _Commonly attributed to:_ Albert Einstein (though exact sourcing is apocryphal)
-_Relevance:_ Investing time in understanding and defining the problem pays off more than jumping into coding. In the AI era, strategic thinking outshines brute-force coding, leading to simpler, more targeted code generation.
+_Relevance:_ Investing time in understanding and defining the problem pays off more than jumping into coding.
+In the AI era, strategic thinking outshines brute-force coding, leading to simpler, more targeted code generation.
 
 * "Give me six hours to chop down a tree and I will spend the first four sharpening the axe."**
 _Commonly attributed to:_ Abraham Lincoln (no definitive source, but widely cited)
 _Era:_ Mid-19th century, American folklore
-_Relevance:_ Preparing and refining your understanding of the task (sharpening the axe) ensures that writing code (chopping the tree) is efficient and minimal. Developers who emphasize problem definition find that less code is needed.
+_Relevance:_ Preparing and refining your understanding of the task (sharpening the axe) ensures that writing code (chopping the tree) is efficient and minimal.
+Developers who emphasize problem definition find that less code is needed.
 
 * "First solve the problem, then write the code."**
 _Widely shared programming motto, popular in late 20th-early 21st-century software engineering communities_
-_Relevance:_ With AI ready to generate code snippets, the developer's value lies in crafting a clear, well-defined problem. By focusing on the essence of what needs solving, far fewer lines of code (and AI interventions) are required.
+_Relevance:_ With AI ready to generate code snippets, the developer's value lies in crafting a clear, well-defined problem.
+By focusing on the essence of what needs solving, far fewer lines of code (and AI interventions) are required.
 
 * "Think twice, code once."**
 _Adapted from "Measure twice, cut once," a traditional craftsman's adage (centuries old)_
-_Relevance:_ Before relying on AI for implementation, developers ensure they fully grasp the requirements and constraints. This careful thought process leads to cleaner solutions and less unnecessary coding.
+_Relevance:_ Before relying on AI for implementation, developers ensure they fully grasp the requirements and constraints.
+This careful thought process leads to cleaner solutions and less unnecessary coding.
 
 * "Programming is understanding."**
 _Attributed to:_ Kristen Nygaard (pioneer of object-oriented programming), late 20th century
-_Relevance:_ True development skill is about comprehending the domain, requirements, and desired outcomes. As AI handles the mechanical aspects of coding, the developer's role as a problem definer and system thinker becomes paramount.
+_Relevance:_ True development skill is about comprehending the domain, requirements, and desired outcomes.
+As AI handles the mechanical aspects of coding, the developer's role as a problem definer and system thinker becomes paramount.
 
 *Model Drift and Versioning Over Traditional Releases:*
 Managing "model drift" - the phenomenon where AI models degrade in accuracy over time - may become just as important as versioning traditional software.
@@ -737,28 +777,34 @@ Developers might be surprised to find themselves performing "model updates" rath
 * "All models are wrong, but some are useful."**
 _Attributed to:_ George E. P. Box, British statistician
 _Source/Date:_ "Science and Statistics" (1976), Journal of the American Statistical Association
-_Relevance:_ AI models inevitably drift from reality over time. Recognizing that no model perfectly captures the real world underscores the need to monitor, version, and update models continuously, just as developers do with code.
+_Relevance:_ AI models inevitably drift from reality over time.
+Recognizing that no model perfectly captures the real world underscores the need to monitor, version, and update models continuously, just as developers do with code.
 
 * "You cannot step into the same river twice."**
 _Attributed to:_ Heraclitus
 _Era:_ 6th century BCE, ancient Greece
-_Relevance:_ Conditions change, data evolves, and models that once performed well may degrade. This philosophical point highlights why model "releases" must be revisited and adjusted rather than treated as final milestones.
+_Relevance:_ Conditions change, data evolves, and models that once performed well may degrade.
+This philosophical point highlights why model "releases" must be revisited and adjusted rather than treated as final milestones.
 
 * "Change is the only constant."**
 _Attributed to:_ Heraclitus (6th century BCE)
-_Relevance:_ Model performance depends on ever-shifting data distributions and user behaviors. Just as software updates have become routine, so too must model updates be integrated as a standard practice, embracing constant adaptation.
+_Relevance:_ Model performance depends on ever-shifting data distributions and user behaviors.
+Just as software updates have become routine, so too must model updates be integrated as a standard practice, embracing constant adaptation.
 
 * "Trust, but verify."**
 _Popularized by:_ Ronald Reagan, referencing a Russian proverb, during 1980s Cold War diplomacy
-_Relevance:_ Even a previously successful model can drift in accuracy. While developers may initially trust a model's predictions, ongoing verification, testing, and versioning ensure that trust remains justified.
+_Relevance:_ Even a previously successful model can drift in accuracy.
+While developers may initially trust a model's predictions, ongoing verification, testing, and versioning ensure that trust remains justified.
 
 * "No battle plan survives first contact with the enemy."**
 _Attributed to:_ Helmuth von Moltke the Elder, 19th-century Prussian military strategist
-_Relevance:_ Even the best-trained AI model can falter once deployed in the real world. Developers must be ready to adapt by updating and refining models regularly-no static release strategy guarantees lasting accuracy.
+_Relevance:_ Even the best-trained AI model can falter once deployed in the real world.
+Developers must be ready to adapt by updating and refining models regularly-no static release strategy guarantees lasting accuracy.
 
 * "What got you here won't get you there."**
 _Attributed to:_ Marshall Goldsmith (Title of his 2007 business book)
-_Relevance:_ A model that performed well upon initial deployment won't necessarily remain effective as conditions evolve. Regular monitoring, retraining, and versioning of models become as integral as pushing software updates.
+_Relevance:_ A model that performed well upon initial deployment won't necessarily remain effective as conditions evolve.
+Regular monitoring, retraining, and versioning of models become as integral as pushing software updates.
 
 *Inverted Career Ladder: From Code Producer to Code Curator:*
 Instead of climbing a ladder that leads away from coding, the future path might place you at the top as a "code curator." You'll guide AI to produce the right code, orchestrating toolchains and ensuring alignment with strategic goals, effectively becoming a conductor of automated orchestras.
@@ -766,28 +812,34 @@ Instead of climbing a ladder that leads away from coding, the future path might 
 * "We shape our tools, and thereafter our tools shape us."**
 _Attributed to:_ Marshall McLuhan
 _Source/Date:_ "Understanding Media" (1964)
-_Relevance:_ As developers move from writing code line-by-line to curating AI-generated solutions, they still influence the nature of their tools. Their role shifts to guiding, orchestrating, and aligning outputs with strategic objectives.
+_Relevance:_ As developers move from writing code line-by-line to curating AI-generated solutions, they still influence the nature of their tools.
+Their role shifts to guiding, orchestrating, and aligning outputs with strategic objectives.
 
 * "Don't tell people how to do things, tell them what to do and let them surprise you with their results."**
 _Attributed to:_ General George S. Patton
 _Era:_ Mid-20th century (World War II leadership principles)
-_Relevance:_ Instead of manually coding every feature, future "code curators" define goals and let AI tools (and the team) produce surprising, efficient solutions. Leadership lies in setting direction rather than micromanaging every detail.
+_Relevance:_ Instead of manually coding every feature, future "code curators" define goals and let AI tools (and the team) produce surprising, efficient solutions.
+Leadership lies in setting direction rather than micromanaging every detail.
 
 * "The conductor of an orchestra doesn't make a sound. He depends, for his power, on his ability to make other people powerful."**
 _Attributed to:_ Benjamin Zander, conductor of the Boston Philharmonic Orchestra (late 20th-early 21st century talks and writings)
-_Relevance:_ Shifting from code producer to code curator mirrors the conductor's role. The developer-as-conductor empowers AI tools and team members to excel, ensuring harmony and coherence in the end product without personally playing every note.
+_Relevance:_ Shifting from code producer to code curator mirrors the conductor's role.
+The developer-as-conductor empowers AI tools and team members to excel, ensuring harmony and coherence in the end product without personally playing every note.
 
 * "A leader is best when people barely know he exists... when his work is done, his aim fulfilled, they will say: we did it ourselves."**
 _Attributed to:_ Lao Tzu, "Tao Te Ching" (6th century BCE)
-_Relevance:_ As AI takes over coding tasks, the developer's influence is subtle but strategic. By curating code and orchestrating AI-driven processes, they become the invisible force guiding outcomes, making the team (and the toolchains) shine.
+_Relevance:_ As AI takes over coding tasks, the developer's influence is subtle but strategic.
+By curating code and orchestrating AI-driven processes, they become the invisible force guiding outcomes, making the team (and the toolchains) shine.
 
 * "Strategy without tactics is the slowest route to victory. Tactics without strategy is the noise before defeat."**
 _Attributed to:_ Sun Tzu, "The Art of War" (5th century BCE)
-_Relevance:_ In the AI era, coding is the tactical implementation. Acting as a code curator means focusing on strategy-defining the right requirements, choosing the right models, ensuring compliance-so that tactics align smoothly with organizational goals.
+_Relevance:_ In the AI era, coding is the tactical implementation.
+Acting as a code curator means focusing on strategy-defining the right requirements, choosing the right models, ensuring compliance-so that tactics align smoothly with organizational goals.
 
 * "If you want to build a ship, don't drum up people to collect wood and don't assign them tasks and work, but rather teach them to long for the endless immensity of the sea."**
 _Attributed to:_ Antoine de Saint-Exupéry (Early-mid 20th century)
-_Relevance:_ Instead of handing out coding tasks, the "code curator" inspires a vision and sets parameters for AI and colleagues. This vision compels the AI-driven process to produce innovative, well-aligned solutions, making everyone involved yearn for excellence.
+_Relevance:_ Instead of handing out coding tasks, the "code curator" inspires a vision and sets parameters for AI and colleagues.
+This vision compels the AI-driven process to produce innovative, well-aligned solutions, making everyone involved yearn for excellence.
 
 *A/B Testing AI Outputs as Standard Practice:*
 A/B tests might no longer be limited to frontend design changes.
@@ -796,24 +848,29 @@ Teams may run parallel AIs or prompts to see which yields better long-term maint
 * "All life is an experiment. The more experiments you make, the better."**
 _Attributed to:_ Ralph Waldo Emerson, American essayist and philosopher
 _Era:_ Mid-19th century (Emerson's essays and lectures)
-_Relevance:_ Treating AI outputs like hypotheses to be tested mirrors Emerson's view of life as a series of experiments. Continuous A/B tests on AI models embody the spirit of learning through controlled experimentation.
+_Relevance:_ Treating AI outputs like hypotheses to be tested mirrors Emerson's view of life as a series of experiments.
+Continuous A/B tests on AI models embody the spirit of learning through controlled experimentation.
 
 * "In God we trust; all others must bring data."**
 _Attributed to:_ W. Edwards Deming, American statistician and quality guru
 _Era:_ Mid-20th century, associated with Deming's quality management teachings
-_Relevance:_ A/B testing AI outputs relies on empirical data rather than assumptions. This aphorism highlights the necessity of data-driven decisions in refining AI systems and ensuring that improvements are validated by evidence.
+_Relevance:_ A/B testing AI outputs relies on empirical data rather than assumptions.
+This aphorism highlights the necessity of data-driven decisions in refining AI systems and ensuring that improvements are validated by evidence.
 
 * "Without data, you're just another person with an opinion."**
 _Often attributed to:_ W. Edwards Deming (Mid-20th century quality management thought)
-_Relevance:_ When comparing multiple AI-generated solutions, data from A/B tests allows teams to move beyond opinions. Objective results guide improvements in maintainability, reliability, and customer satisfaction.
+_Relevance:_ When comparing multiple AI-generated solutions, data from A/B tests allows teams to move beyond opinions.
+Objective results guide improvements in maintainability, reliability, and customer satisfaction.
 
 * "Measure what is measurable, and make measurable what is not so."**
 _Attributed to:_ Galileo Galilei (16th-17th century), early scientific revolution era
-_Relevance:_ A/B testing AI outputs requires measuring factors previously considered intangible-like long-term maintainability and user trust. By finding ways to quantify these qualities, teams can systematically refine their models.
+_Relevance:_ A/B testing AI outputs requires measuring factors previously considered intangible-like long-term maintainability and user trust.
+By finding ways to quantify these qualities, teams can systematically refine their models.
 
 * "You can't improve what you don't measure."**
 _Common business and engineering maxim, often linked to Peter Drucker (20th-century management consultant)_
-_Relevance:_ Iterating AI models demands meaningful metrics. By implementing A/B testing as a standard practice, developers gain the measurements needed to guide iterative enhancements and ensure their models evolve responsibly.
+_Relevance:_ Iterating AI models demands meaningful metrics.
+By implementing A/B testing as a standard practice, developers gain the measurements needed to guide iterative enhancements and ensure their models evolve responsibly.
 
 *The Rise of "Non-Technical" Technical Expertise:*
 Communication skills, domain storytelling, and even a sense of narrative might become critical.
@@ -822,11 +879,13 @@ Explaining subtle domain constraints to AI tools or translating complex requirem
 * "The biggest problem in communication is the illusion that it has taken place."**
 _Attributed to:_ George Bernard Shaw
 _Era:_ Early 20th century, associated with Shaw's plays and essays
-_Relevance:_ Even as AI grows sophisticated, developers must communicate effectively with both humans and machines. The illusion of understanding fades when subtle domain details go unexpressed-making narrative and clarity vital assets.
+_Relevance:_ Even as AI grows sophisticated, developers must communicate effectively with both humans and machines.
+The illusion of understanding fades when subtle domain details go unexpressed-making narrative and clarity vital assets.
 
 * "If you can't explain it simply, you don't understand it well enough."**
 _Commonly attributed to:_ Albert Einstein (though exact source is apocryphal)
-_Relevance:_ In an era where prompts guide AI models, the ability to distill complex requirements into clear, simple terms becomes a competitive edge. Developers who can break down intricate concepts stand out in the crowd.
+_Relevance:_ In an era where prompts guide AI models, the ability to distill complex requirements into clear, simple terms becomes a competitive edge.
+Developers who can break down intricate concepts stand out in the crowd.
 
 * "The limits of my language mean the limits of my world."**
 _Attributed to:_ Ludwig Wittgenstein, "Tractatus Logico-Philosophicus" (1922)
@@ -834,16 +893,19 @@ _Relevance:_ As "non-technical" technical expertise rises, the range and precisi
 
 * "Storytelling reveals meaning without committing the error of defining it."**
 _Attributed to:_ Hannah Arendt, "Men in Dark Times" (1968)
-_Relevance:_ Domain storytelling can convey subtle constraints and user contexts more powerfully than dry specifications. Developers who can frame scenarios and narratives help AI models and colleagues grasp underlying truths without unnecessary rigidity.
+_Relevance:_ Domain storytelling can convey subtle constraints and user contexts more powerfully than dry specifications.
+Developers who can frame scenarios and narratives help AI models and colleagues grasp underlying truths without unnecessary rigidity.
 
 * "They may forget what you said, but they will never forget how you made them feel."**
 _Attributed to:_ Carl W. Buehner (often quoted by Maya Angelou)
 _Era:_ Mid-20th century leadership and communication principles
-_Relevance:_ Going beyond raw data or code, developers who evoke understanding, trust, and confidence in both users and team members-through empathetic communication-will thrive. These "soft" skills become core differentiators in the AI age.
+_Relevance:_ Going beyond raw data or code, developers who evoke understanding, trust, and confidence in both users and team members-through empathetic communication-will thrive.
+These "soft" skills become core differentiators in the AI age.
 
 * "Precision beats power, and timing beats speed."**
 _Attributed to:_ Conor McGregor (21st century, modern sports interviews)
-_Relevance:_ Just as a fighter carefully selects blows, a developer must choose the right words, timing, and narrative structure to guide AI tools effectively. It's not just technical might, but the precise, well-timed communication that wins the day.
+_Relevance:_ Just as a fighter carefully selects blows, a developer must choose the right words, timing, and narrative structure to guide AI tools effectively.
+It's not just technical might, but the precise, well-timed communication that wins the day.
 
 == How to include AI into our workflow for documentation and communication
 

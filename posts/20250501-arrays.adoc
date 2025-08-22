@@ -1,4 +1,5 @@
 = Things you might not know about arrays
+:pp: ++
 :toc: macro
 :lang: en-GB
 :source-highlighter: rouge
@@ -84,7 +85,8 @@ For short-lived collections, this isn't too important, however if you a signific
 
 == Reference Notes to be used in the content
 
-Arrays and Array-Based Collections in Java 21-25: Usage, Implementation, and Performance Frontiers . The Enduring Role of Arrays in High-Performance Java Arrays remain a cornerstone of Java programming, particularly in performance-sensitive applications.
+Arrays and Array-Based Collections in Java 21-25: Usage, Implementation, and Performance Frontiers .
+The Enduring Role of Arrays in High-Performance Java Arrays remain a cornerstone of Java programming, particularly in performance-sensitive applications.
 Their fundamental characteristics-contiguous memory allocation and direct indexing-provide a foundation upon which many higher-level abstractions and low-level optimizations are built.
 Understanding their implementation details and interaction with the Java Virtual Machine (JVM) is crucial for expert developers seeking to maximize performance.
 
@@ -437,7 +439,7 @@ The key consequence is that instances of inline types can be stored "inline" or 
 
 This directly addresses the long-standing performance dichotomy between primitive arrays and object arrays.
 Currently, an array of Point objects (Point) stores references, leading to scattered memory layout and poor cache locality.
-With Valhalla, if Point were declared as an inline class, an array Point could potentially be laid out in memory as a contiguous sequence of coordinate pairs (e.g., x0, y0, x1, y1, x2, y2,...), similar to how a struct Point { float x; float y; } array would be stored in C/C++.
+With Valhalla, if Point were declared as an inline class, an array Point could potentially be laid out in memory as a contiguous sequence of coordinate pairs (e.g., x0, y0, x1, y1, x2, y2,...), similar to how a struct Point { float x; float y; } array would be stored in C/C{pp}.
 
 This flattened layout promises significant benefits:
 
@@ -575,12 +577,12 @@ Collections.addAll() can bulk-add an array of elements into a Collection.
 The List.of(...) factory (Java 9) produces an immutable list implementation that internally uses an array for storage.
 This means small fixed lists (of up to 10 elements) are represented very compactly.
 For example, List.of("a","b","c") is backed by an array of exactly 3 elements - a pattern many developers may not realize, since these factory-created lists are often more efficient than, say, using Arrays.asList and wrapping with Collections.unmodifiableList.
-New Sequenced Collections (Java 21): JDK 21 introduced the concept of Sequenced Collections via JEP 431. This includes new interfaces SequencedCollection, SequencedSet, and SequencedMap that unify the notion of collections with a defined encounter order (like lists, deques, or ordered sets/maps) openjdk.org
+New Sequenced Collections (Java 21): JDK 21 introduced the concept of Sequenced Collections via JEP 431. This includes new interfaces SequencedCollection, SequencedSet, and SequencedMap that unify the notion of collections with a defined encounter order (like lists, deques, or ordered sets/maps)
 
-openjdk.org . These interfaces provide methods to manipulate elements at both ends and to obtain reversed views, addressing long-standing gaps in the Collections framework:
+These interfaces provide methods to manipulate elements at both ends and to obtain reversed views, addressing long-standing gaps in the Collections framework:
 SequencedCollection extends Collection and adds methods addFirst(E), addLast(E), getFirst(), getLast(), removeFirst(), removeLast(), and a reversed() view openjdk.org
 
-openjdk.org . This means any collection that maintains order (like a list or an insertion-ordered set) can expose deque-like operations.
+This means any collection that maintains order (like a list or an insertion-ordered set) can expose deque-like operations.
 For example, you can now treat a LinkedHashSet as a deque: linkedHashSet.addFirst(x) or get a reverse-iteration view via linkedHashSet.reversed().
 In the past, getting the last element of a LinkedHashSet or iterating it in reverse required manual workarounds; now it's one call openjdk.org
 
@@ -592,7 +594,7 @@ Now sc.getFirst() returns "A" and sc.getLast() returns "C".
 If you call sc.reversed(), you get a live view of the collection in reverse order - iterating over sc.reversed() would yield "C", "B", "A".
 The reversed() view works for any sequenced collection, so even a LinkedHashSet (which maintains insertion order) can be iterated backwards without copying: linkedHashSet.reversed().stream() now directly streams in reverse order openjdk.org
 
-openjdk.org . This fills a gap where previously only NavigableSet had a convenient descendingSet().
+This fills a gap where previously only NavigableSet had a convenient descendingSet().
 SequencedSet extends Set and SequencedCollection, and SequencedMap extends Map with similar first/last entry operations.
 These interfaces were retrofitted onto existing implementations: e.g. ArrayList and LinkedList implement SequencedCollection; LinkedHashSet implements SequencedSet; LinkedHashMap implements SequencedMap.
 Therefore, the standard array-backed list (ArrayList) now inherits default implementations for these methods.
@@ -630,13 +632,15 @@ However, one must be careful - there isn't a built-in pattern to iterate or matc
 So pattern matching involving arrays remains limited to type and null checks.
 Records and Array Fields Records, introduced in Java 16, are data classes that auto-generate equals, hashCode, and toString.
 A subtle point that may surprise experts is how records handle array fields.
-By default, a record's generated equals method uses shallow equality for array components (because it calls Objects.equals(field, other.field), and for arrays, Object.equals is identity-based) stackoverflow.com . This means if you have record R(int[] data) {}, two R instances will be considered unequal unless they reference the same array object, even if their array contents are identical.
+By default, a record's generated equals method uses shallow equality for array components (because it calls Objects.equals(field, other.field), and for arrays, Object.equals is identity-based) stackoverflow.com .
+This means if you have record R(int[] data) {}, two R instances will be considered unequal unless they reference the same array object, even if their array contents are identical.
 Similarly, the default toString() will print the array's identity (e.g. [I@1a2b3c4d) rather than contents.
 This is often not what is intended for a data carrier.
 The workaround is to override equals, hashCode, and toString to use Arrays.equals or Arrays.deepEquals.
 For example, one can override equals in the record as:
 java Copy Edit public boolean equals(Object o) {
-return o instanceof R r && Arrays.equals(this.data, r.data); } This design choice was deliberate - handling arrays deeply by default could lead to inconsistency (because arrays are mutable) and complexity stackoverflow.com . The takeaway is that arrays inside records are a potential pitfall: you often should defensively copy them (to maintain immutability) and override methods for deep equality.
+return o instanceof R r && Arrays.equals(this.data, r.data); } This design choice was deliberate - handling arrays deeply by default could lead to inconsistency (because arrays are mutable) and complexity stackoverflow.com .
+The takeaway is that arrays inside records are a potential pitfall: you often should defensively copy them (to maintain immutability) and override methods for deep equality.
 This is a nuanced corner that even seasoned devs might overlook when first using records with array fields.
 VarHandles and Atomic Array Operations VarHandles for Arrays: Java 9 introduced VarHandle (JEP 193) as a safer, more flexible alternative to sun.misc.Unsafe for performing low-level operations.
 VarHandles can give you a reference to array elements with specific access semantics.
@@ -650,11 +654,13 @@ vh.setRelease(array, 0, "Hello");
 // Atomically compare-and-set element 0
 boolean success = vh.compareAndSet(array, 0, "Hello", "World"); The JDK documentation illustrates this for compare-and-set: a VarHandle for String[] elements would have a signature (String[] array, int index, String expected, String newValue)boolean for compareAndSet docs.oracle.com
 
-docs.oracle.com . In code:
+docs.oracle.com .
+In code:
 java Copy Edit String[] sa = ...; VarHandle avh = MethodHandles.arrayElementVarHandle(String[].class); boolean r = avh.compareAndSet(sa, 10, "expected", "new"); This performs an atomic CAS on sa[10]
-docs.oracle.com . VarHandles support numerous memory access modes (plain, volatile, acquire/release, opaque) and atomic operations (get-and-set, compare-and-exchange, etc.) docs.oracle.com
 
-docs.oracle.com . Under the hood, these leverage the same low-level primitives as AtomicIntegerFieldUpdater or the Atomic*Array classes, but VarHandle provides a unified and flexible API.
+VarHandles support numerous memory access modes (plain, volatile, acquire/release, opaque) and atomic operations (get-and-set, compare-and-exchange, etc.)
+
+Under the hood, these leverage the same low-level primitives as AtomicIntegerFieldUpdater or the Atomic*Array classes, but VarHandle provides a unified and flexible API.
 Why is this powerful?
 It allows atomic operations on any array of reference or primitive type without specialized classes.
 Prior to VarHandle, if you wanted an atomic array of integers, you'd use AtomicIntegerArray.
@@ -668,13 +674,15 @@ There is no such thing as a volatile array element (declaring an array volatile 
 Instead, one can use volatile variables of type array to control visibility of replacing the whole array (as CopyOnWriteArrayList does), or use VarHandle/Atomic operations for element-wise concurrency.
 One nuance: For 64-bit primitives (long and double), the JMM allows non-atomic writes on 32-bit platforms (though most modern JVMs make word tearing impossible on aligned 64-bit values anyway).
 However, VarHandle operations like getVolatile or compareAndSet on an array will ensure atomic 64-bit access.
-So if you are updating a long[] in multi-threaded code without locks, using a VarHandle with getVolatile/setVolatile or an atomic method is wise to avoid any risk of word-tearing on older architectures docs.oracle.com . In summary, VarHandles are a low-level tool that unlock advanced usage of arrays:
+So if you are updating a long[] in multi-threaded code without locks, using a VarHandle with getVolatile/setVolatile or an atomic method is wise to avoid any risk of word-tearing on older architectures docs.oracle.com .
+In summary, VarHandles are a low-level tool that unlock advanced usage of arrays:
 You can treat an array element as an atomic variable (with CAS, etc.).
 You can enforce specific memory barriers on array accesses (e.g., release/acquire semantics) without making the entire array wrapped in a volatile field or using synchronized blocks.
 This is particularly useful in concurrent algorithms (e.g., ring buffers, work-stealing queues) where one might historically use Unsafe to fine-tune memory ordering on array slots - now VarHandle provides that in standard Java.
 Scoped Values (JDK 21) and Arrays Scoped Values (JEP 429/446) introduced in Java 21 (as a preview) are a new concurrency construct to safely share immutable data within and across threads, especially virtual threads.
 Scoped values aren't specific to arrays, but they could be used to share an array or collection as contextual data to many threads without using global variables.
-They are meant to replace ThreadLocal in many cases, offering a safer and more efficient mechanism for data that doesn't change after being set in a certain scope medium.com . For example, you might have: ScopedValue<List<String>> NAMES = ScopedValue.newInstance(); and you can run some code with ScopedValue.where(NAMES, List.of("Alice","Bob")).
+They are meant to replace ThreadLocal in many cases, offering a safer and more efficient mechanism for data that doesn't change after being set in a certain scope medium.com .
+For example, you might have: ScopedValue<List<String>> NAMES = ScopedValue.newInstance(); and you can run some code with ScopedValue.where(NAMES, List.of("Alice","Bob")).
 Inside that scope, any code (even in new threads spawned within) can access NAMES.get().
 If that list were an array or an array-backed list, you'd be effectively sharing a read-only view of that array without global variables.
 One could imagine using this to provide read-only access to a large lookup array or configuration that many threads need.
@@ -691,14 +699,15 @@ Stacks on the heap: A behind-the-scenes detail of Loom is that a virtual thread'
 In implementation terms, the JVM uses a moving stack buffer for each virtual thread that is essentially an array of stack frames or a contiguous memory chunk that can be reallocated.
 When a virtual thread is mounted on a carrier OS thread, its stack frames are copied to the native stack, and when it parks (blocks), the stack frames are copied back to the heap.
 Thus, the call stack becomes an array-like data structure that the JVM manages.
-This allows having a small initial stack (a few KB) that grows as needed, unlike platform threads which grab a large chunk upfront rockthejvm.com
+This allows having a small initial stack (a few KB) that grows as needed, unlike platform threads which grab a large chunk upfront
 
-rockthejvm.com . The result: creating a virtual thread is cheap in memory (only a few hundred bytes initially, as its stack is just a small heap buffer) rockthejvm.com . This implementation detail underscores how arrays (or contiguous memory regions) are leveraged in modern JVM features.
+The result: creating a virtual thread is cheap in memory (only a few hundred bytes initially, as its stack is just a small heap buffer)
+This implementation detail underscores how arrays (or contiguous memory regions) are leveraged in modern JVM features.
 By storing stack frames in heap-allocated segments (think of it as an Object[] or similar under the hood), the JVM can treat stacks like expandable arrays.
 This design is hidden from programmers, but it's a clever use of "array-like" data structure internally to enable millions of threads.
 A virtual thread's stack can be thought of as a dynamically resizing array of frames.
 When we talk about non-obvious uses of arrays, this is one at the JVM level: the age-old concept of a call stack has been reimplemented using heap arrays to gain flexibility.
-In practice, an expert developer might not interact with this directly, but it's useful to know: for example, dumping a stack trace of a virtual thread will show a bunch of internal frames related to continuation mechanics inside.java , which is the machinery dealing with those heap-stored frames.
+In practice, an expert developer might not interact with this directly, but it's useful to know: for example, dumping a stack trace of a virtual thread will show a bunch of internal frames related to continuation mechanics inside.java, which is the machinery dealing with those heap-stored frames.
 It shows how far the JVM has gone in using contiguous memory for performance - even thread stacks are now managed in heap memory (with the GC's help) rather than fixed OS stacks.
 Summary tip: When writing highly concurrent code (with many virtual threads), prefer using thread-local or scoped immutables for large data (like big arrays) rather than duplicating them per thread.
 The platform is optimized for sharing and isolating read-only data efficiently.
@@ -715,9 +724,9 @@ The layout in memory for Point[] pts = new Point[n] (where Point is some object 
 
 Layout of an array of object references (Point[]).
 The array (left) has a header and an element slot for each entry, which points to a separate Point object (each with its own header and fields).
-This indirection means extra memory and pointer chasing for each access openjdk.org
+This indirection means extra memory and pointer chasing for each access
 
-openjdk.org . Each array type (even for primitives) is actually a distinct class in the JVM, though these classes don't have a Java source.
+Each array type (even for primitives) is actually a distinct class in the JVM, though these classes don't have a Java source.
 They have names like [I for int[], [Ljava.lang.Point; for Point[].
 You can obtain the Class object for an array via Point[].class.
 These classes are created by the JVM at runtime as needed.
@@ -728,7 +737,8 @@ The JIT compiler, however, performs optimizations to eliminate redundant bounds 
 For example, in a loop iterating from 0 to array length, the JIT can see that the index is always valid and remove the check inside the loop.
 Such optimizations (range check elimination) are important for performance; they are usually effective, but developers should be aware when writing complex loop conditions that the optimizer may not always catch.
 If you ever do micro-optimizations with arrays, prefer straightforward loop idioms that the JIT can understand (to avoid it conservatively leaving in bounds checks).
-Compressed Oops: On 64-bit JVMs, unless you configure a very large heap, the JVM uses compressed oops (ordinary object pointers) to shrink reference size to 32 bits openjdk.org . This means an Object[] array's elements occupy 4 bytes each (not 8), saving space and improving cache usage.
+Compressed Oops: On 64-bit JVMs, unless you configure a very large heap, the JVM uses compressed oops (ordinary object pointers) to shrink reference size to 32 bits openjdk.org .
+This means an Object[] array's elements occupy 4 bytes each (not 8), saving space and improving cache usage.
 The JVM encodes the 32-bit reference as an offset (usually shifted by 3 bits) from the start of the heap.
 This is mostly transparent, but it's good to know because it affects memory footprint of arrays of references.
 If your heap exceeds the compression threshold (around 32GB), object references expand to 8 bytes, and suddenly an Object[] takes twice as much memory.
@@ -738,9 +748,9 @@ This is a longstanding limitation - if you need more, you have to use multiple a
 Intrinsics and Bulk Operations: The JVM has intrinsics for certain array operations.
 For example, System.arraycopy is a highly optimized native operation - the JIT often replaces it with a CPU-optimized memmove when possible (even using SIMD instructions internally).
 Similarly, methods like Arrays.equals and Arrays.hashCode for primitives may be intrinsified or auto-vectorized by HotSpot.
-JEP 338 noted that HotSpot's auto-vectorizer didn't cover some cases like Arrays.hashCode for arrays, which led to the introduction of the Vector API as a more robust solution openjdk.org
+JEP 338 noted that HotSpot's auto-vectorizer didn't cover some cases like Arrays.hashCode for arrays, which led to the introduction of the Vector API as a more robust solution.
 
-openjdk.org . Nonetheless, HotSpot does attempt superword optimization (vectorization) on simple loops over arrays, and with each release, these optimizations improve.
+Nonetheless, HotSpot does attempt superword optimization (vectorization) on simple loops over arrays, and with each release, these optimizations improve.
 For instance, a straightforward loop summing an int array can often be auto-vectorized to process 4 or 8 elements at a time using SSE/AVX registers.
 Memory Alignment: Array objects are aligned in memory (on 8-byte boundaries usually).
 Elements themselves have the natural alignment of their type (so an int[] element is 4-byte aligned).
@@ -766,17 +776,19 @@ The memory layout would be flat and contiguous, much like a C struct array.
 The difference in memory layout is illustrated by Valhalla designers:
 
 Conceptual flattened layout of an array of Points if Point is a value class (no identity).
-The array has one header and then the raw x, y fields laid out for each element openjdk.org
-
-openjdk.org . This eliminates the indirection and object headers, leading to better density and cache locality.
-This "flat array" is both denser (no headers for each element) and flatter (no level of indirection) openjdk.org . Accessing points[5].x would effectively compute an offset and fetch directly, rather than loading a reference then following it.
+The array has one header and then the raw x, y fields laid out for each element.
+This eliminates the indirection and object headers, leading to better density and cache locality.
+This "flat array" is both denser (no headers for each element) and flatter (no level of indirection) openjdk.org .
+Accessing points[5].x would effectively compute an offset and fetch directly, rather than loading a reference then following it.
 The performance benefits can be significant, especially for large arrays, as it reduces memory footprint and improves cache utilization (no chasing pointers all over the heap).
 Valhalla also introduces specialized generics (sometimes called universal generics), which means we could have generic types that work with primitives and value types without boxing.
-For example, List<int> could become legal and would internally use a primitive array for storage, avoiding Integer boxing blogs.oracle.com . The combination of value types and generics will also let collections like ArrayList<Point> store points flat (not as references) - because Point could be a value class.
+For example, List<int> could become legal and would internally use a primitive array for storage, avoiding Integer boxing blogs.oracle.com .
+The combination of value types and generics will also let collections like ArrayList<Point> store points flat (not as references) - because Point could be a value class.
 This is a major change: today, ArrayList<Point> always stores references (and thus can't beat the performance of a custom Point[]), but in the future, it could store raw Points equivalently to a Point[].
 This narrows the gap between using arrays and high-level collections in terms of performance.
 State as of Java 25: Project Valhalla is still in development.
-Early access builds have preview implementations of value classes (JEP 401, preview in JDK 23/24) infoq.com . It's likely to be a preview feature by Java 24 or 25. Once value classes are available, the JVM will implement flattening for them in arrays (and even in fields of other objects).
+Early access builds have preview implementations of value classes (JEP 401, preview in JDK 23/24).
+It's likely to be a preview feature by Java 24 or 25. Once value classes are available, the JVM will implement flattening for them in arrays (and even in fields of other objects).
 This requires significant JVM changes (for example, the GC and JIT need to handle these flattened structures).
 The payoff is big: we effectively get new "primitive-like" types that can be as efficient as int or long in arrays.
 Example use case: Imagine a large matrix of complex numbers.
@@ -794,21 +806,19 @@ This is an advanced point; the JEPs are addressing it (perhaps by having special
 In any case, from a developer perspective, we will opt in to flat arrays by using value classes, and in contexts where that's not possible (like needing subclassing or null elements), we'd stick to reference arrays.
 Notably, value class instances can be null-default (if not explicitly initialized, a value type array's elements might default to a special all-zero-bit pattern representing "null" or default value reddit.com ).
 In summary, Project Valhalla will allow us to use arrays in ways we couldn't before - storing new kinds of data types with the performance of primitives.
-This is a future-facing feature, but it's one of the biggest changes to arrays since Java's inception, and it directly addresses the "cost of indirection" issue in current arrays of objects openjdk.org
-
-openjdk.org . It essentially creates a continuum between arrays of primitives and collections of objects.
-Foreign Memory and Off-Heap "Arrays" Java 21 finalized the Foreign Function & Memory (FFM) API (Project Panama) blog.payara.fish
-
-blog.payara.fish . This API provides the ability to work with memory outside the Java heap in a safe, efficient manner.
+This is a future-facing feature, but it's one of the biggest changes to arrays since Java's inception, and it directly addresses the "cost of indirection" issue in current arrays of objects.
+It essentially creates a continuum between arrays of primitives and collections of objects.
+Foreign Memory and Off-Heap "Arrays" Java 21 finalized the Foreign Function & Memory (FFM) API (Project Panama).
+This API provides the ability to work with memory outside the Java heap in a safe, efficient manner.
 While not an array per se, an off-heap memory segment can be thought of as a giant array of bytes (or a structured array of some layout).
 Key points about the FFM API and arrays:
 MemorySegment: This is the central abstraction of the foreign memory API.
 A MemorySegment represents a contiguous region of memory, which could be on-heap or off-heap.
 The API allows creating native segments (off-heap, similar to C malloc or memory-mapped files) and heap segments that wrap existing Java arrays.
-For example, MemorySegment.ofArray(byte[] arr) will give you a MemorySegment that views the contents of that byte array docs.oracle.com . This is zero-copy and provides a unified way to access array data using the MemorySegment access API.
-There are overloads for all primitive types (ofArray(int[]), ofArray(long[]), etc.) docs.oracle.com
-
-docs.oracle.com . If you call MemorySegment.ofArray(myIntArray), any changes to the segment will reflect in the array and vice versa (the segment essentially pins the array's memory for the segment's lifetime).
+For example, MemorySegment.ofArray(byte[] arr) will give you a MemorySegment that views the contents of that byte array.
+This is zero-copy and provides a unified way to access array data using the MemorySegment access API.
+There are overloads for all primitive types (ofArray(int[]), ofArray(long[]), etc.).
+If you call MemorySegment.ofArray(myIntArray), any changes to the segment will reflect in the array and vice versa (the segment essentially pins the array's memory for the segment's lifetime).
 This bridging is very useful for interoperability.
 Accessing MemorySegments: You can read/write through a MemorySegment via methods like get and set with a ValueLayout that describes the data type and byte order.
 For instance:
@@ -821,10 +831,7 @@ Why wrap arrays in MemorySegment?
 One scenario is when interacting with native code: if you want to pass a Java array to a C function (e.g., a function that fills an array of structs), you can wrap it in a MemorySegment and then use the FFM API (MemoryAddress, etc.) to pass a pointer to that segment to C. For instance, if you had a byte[] data and a native function expecting uint8_t*, you could do MemorySegment seg = MemorySegment.ofArray(data) and then obtain an address to it (perhaps via seg.address() or implicitly when linking the function).
 The foreign linker will handle pinning and synchronization such that the GC won't move the array while native code is accessing it.
 This avoids a copy that JNI would typically require (or the awkwardness of GetPrimitiveArrayCritical).
-Essentially, MemorySegment.ofArray provides a safer zero-copy bridge between on-heap arrays and off-heap world blog.payara.fish
-
-docs.oracle.com
-.
+Essentially, MemorySegment.ofArray provides a safer zero-copy bridge between on-heap arrays and off-heap world.
 Large memory beyond array limits: Java arrays are limited by int indexing.
 If you need, say, a 10-billion element array of bytes (which is > 2^31), you cannot create a byte[] that large.
 But you could allocate an off-heap MemorySegment of that size (if you have enough memory and it's a 64-bit system).
@@ -853,14 +860,13 @@ A lot of advanced use cases (memory-mapped files, huge buffers, interoperability
 It's an area where an expert Java developer might not yet have much experience, but it's powerful for certain classes of problems (e.g., implementing your own memory manager, working with GPU memory via JNI, etc.).
 It complements the on-heap arrays: use on-heap arrays for typical business logic and when you need sheer speed on primitives; use off-heap MemorySegments when you need control over memory layout, sharing with native code, or sizes beyond the heap's limits.
 Data-Parallel Operations and the Vector API Another high-performance feature involving arrays is the Vector API (JEP 338 and follow-ups).
-This API, still incubating as of JDK 22 (7th incubator in JDK 22) symflower.com , provides a way to explicitly write SIMD (Single-Instruction-Multiple-Data) operations in Java.
+This API, still incubating as of JDK 22 (7th incubator in JDK 22) symflower.com, provides a way to explicitly write SIMD (Single-Instruction-Multiple-Data) operations in Java.
 It heavily leverages arrays as the source and destination of data:
 What is the Vector API?
 It's a set of classes (under jdk.incubator.vector) that represent vectors of primitive values (e.g., a 256-bit vector of 8 floats, or 512-bit of 8 doubles, etc.).
 It allows you to perform arithmetic on these vectors in a single operation.
-The JIT compiles these to optimal SIMD instructions on the CPU (like AVX, NEON, etc.) openjdk.org
-
-openjdk.org . The API is designed to be hardware-agnostic by using a VectorSpecies to represent the size and shape.
+The JIT compiles these to optimal SIMD instructions on the CPU (like AVX, NEON, etc.).
+The API is designed to be hardware-agnostic by using a VectorSpecies to represent the size and shape.
 Using the Vector API with arrays: Typically, you load data from a Java array into a Vector, operate, then write back to an array.
 For example, summing two float arrays into a third one using 256-bit vectors (which hold 8 floats each):
 java Copy Edit import jdk.incubator.vector.*; static final VectorSpecies<Float> SPECIES = FloatVector.SPECIES_256;
@@ -876,13 +882,18 @@ for (; i < loopBound; i += SPECIES.length()) {
     }
     // Handle remaining elements (if length not multiple of 8)
     for (; i < a.length; i++) {
-result[i] = a[i] + b[i]; } } In this code, fromArray and intoArray are key methods that move data between Java arrays and the Vector API openjdk.org . The JEP 338 documentation shows similar examples with vector operations for calculating things like $(a[i]*a[i] + b[i]*b[i]) * -1$ in a loop openjdk.org . The API also provides masks to handle loops without a scalar tail, but the above approach (do tail scalar loop) is common and usually efficient.
+result[i] = a[i] + b[i]; } } In this code, fromArray and intoArray are key methods that move data between Java arrays and the Vector API openjdk.org .
+The JEP 338 documentation shows similar examples with vector operations for calculating things like $(a[i]*a[i] + b[i]*b[i]) * -1$ in a loop openjdk.org .
+The API also provides masks to handle loops without a scalar tail, but the above approach (do tail scalar loop) is common and usually efficient.
 Performance: By using the Vector API, you can get near hand-written SIMD performance in pure Java.
 For operations on large arrays, this can be an order-of-magnitude faster than scalar loops.
 The explicit API ensures reliability: unlike HotSpot's auto-vectorization which might miss opportunities, code written with the Vector API will (given a supported CPU and JDK) consistently use vector instructions openjdk.org
 
-openjdk.org . The JEP notes that some array operations like Arrays.compareUnsigned(byte[], byte[]) (used in String.compareTo for example) or Arrays.mismatch had to use hand-tuned intrinsics because auto-vectorization wasn't covering them openjdk.org . The Vector API generalizes this: one can implement such routines in Java directly.
-Integration with Valhalla: It's expected that once Valhalla is mature, the Vector API will use value types for vectors (so that a FloatVector can be a value class, eliminating some overhead) infoq.com . Also, specialized generics could allow vectors to be elements of collections or otherwise handled more generically.
+openjdk.org .
+The JEP notes that some array operations like Arrays.compareUnsigned(byte[], byte[]) (used in String.compareTo for example) or Arrays.mismatch had to use hand-tuned intrinsics because auto-vectorization wasn't covering them openjdk.org .
+The Vector API generalizes this: one can implement such routines in Java directly.
+Integration with Valhalla: It's expected that once Valhalla is mature, the Vector API will use value types for vectors (so that a FloatVector can be a value class, eliminating some overhead) infoq.com .
+Also, specialized generics could allow vectors to be elements of collections or otherwise handled more generically.
 But already, the Vector API benefits from being an API rather than built-in, as it can evolve faster (through incubators).
 Use cases: Besides obvious numerical methods (vectorized math, image processing, signal processing), the Vector API is useful for things like:
 Bulk XOR/CRC computations (cryptography, hashing).
@@ -895,7 +906,9 @@ It's low-level (you see manual loops with vector load/store), but it's safe (no 
 In a sense, it elevates arrays to a new dimension: an array of floats can now be processed 8 at a time with one Java operation (the add on FloatVector), which would have been impossible to express before except in native code.
 Example with Vector API (from JEP 338): The JEP shows how even computing something like the sum of squares of two arrays can be done with clear code and will JIT to few instructions:
 java Copy Edit for (int i = 0; i < upperBound; i += SPECIES.length()) {
-var va = FloatVector.fromArray(SPECIES, a, i); var vb = FloatVector.fromArray(SPECIES, b, i); var vc = va.mul(va).add(vb.mul(vb)).neg(); vc.intoArray(c, i); } This corresponds to c[i] = - (a[i]*a[i] + b[i]*b[i]) for each element, done 8 at a time (for SPECIES_256) openjdk.org . The generated machine code uses vector registers and instructions (the JEP even provided an annotated assembly snippet showing AVX instructions doing the work in a tight loop) openjdk.org . In summary, the Vector API leverages arrays as the primary data source/sink and achieves performance that was previously out of reach in pure Java.
+var va = FloatVector.fromArray(SPECIES, a, i); var vb = FloatVector.fromArray(SPECIES, b, i); var vc = va.mul(va).add(vb.mul(vb)).neg(); vc.intoArray(c, i); } This corresponds to c[i] = - (a[i]*a[i] + b[i]*b[i]) for each element, done 8 at a time (for SPECIES_256) openjdk.org .
+The generated machine code uses vector registers and instructions (the JEP even provided an annotated assembly snippet showing AVX instructions doing the work in a tight loop) openjdk.org .
+In summary, the Vector API leverages arrays as the primary data source/sink and achieves performance that was previously out of reach in pure Java.
 It's an underutilized gem at the moment simply because it's new and incubating - many developers haven't tried it yet.
 But for those doing numerical computing in Java, it can be transformative.
 As of Java 25, it's still a preview/incubator, but likely nearing stabilization.
@@ -984,7 +997,8 @@ Primitives and performance: If you need to store millions of primitive numbers, 
 Until Valhalla arrives, this is a case where plain arrays often win.
 There are libraries (FastUtil, Trove, etc.) that offer primitive collections to help bridge this gap with specialized classes, but those are outside standard JDK.
 Multithreading: If multiple threads access an array, you either use immutable patterns (e.g., publish a reference to a fully populated array that never changes), or ensure proper synchronization.
-The JDK's java.util.concurrent provides some ready solutions: e.g., AtomicIntegerArray if you need to update individual indices atomically (under the hood it's an int[], with CAS operations via VarHandle) igm.univ-mlv.fr . Or ForkJoinTask.invokeAll can help parallelize filling or processing different sections of a large array (Java also has parallel streams or Arrays.parallelSort).
+The JDK's java.util.concurrent provides some ready solutions: e.g., AtomicIntegerArray if you need to update individual indices atomically (under the hood it's an int[], with CAS operations via VarHandle).
+Or ForkJoinTask.invokeAll can help parallelize filling or processing different sections of a large array (Java also has parallel streams or Arrays.parallelSort).
 With virtual threads, you could even spawn, say, 1000 tasks to work on chunks of a huge array in parallel - it might be overkill, but the framework can handle lots of tasks now.
 Garbage collection considerations: A single large array is easier on the GC than the equivalent number of objects.
 For example, an array of 1,000,000 int is one object for GC to track, whereas a list of 1,000,000 Integer is one million objects (plus the list itself).
