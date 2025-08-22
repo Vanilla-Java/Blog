@@ -1,0 +1,39 @@
+= Evolving AI Pair Programming
+
+== Key Points
+
+* Understanding the problem is 90% of the work, and writing the code is only 10%.
+* Using AI for moderately complex problems follows a 80/20 rule.
+** Accuracy: 80% is correct, 20% is incorrect.
+** Value: 80% does not add value, 20% does add value.
+** If AI can generate documentation, it probably doesn't need to be written.
+Focus on what AI cannot do or what it gets wrong.
+* Using AI for difficult problems is closer to 50/50 accuracy, and using AI for niche problems is closer to 20/80 accuracy.
+* AI can _feel_ far more productive than it actually is.
+Subjective estimates can be double, while objective estimates might be 20% increase in productivity.
+* The goal should be how AI can elevate your work, not how it make your job easier ie. replaceable.
+
+== Value of AI
+
+* The greatest value of AI is in revealing unknown unknowns.
+It can highlight techniques, libraries, papers, and ideas you might not have considered.
+* AI reduces mental load.
+This frees you to consider high-level design and architecture.
+* AI can help reduce blockers by providing suggestions and alternatives when you are stuck.
+
+== Understanding the Problem
+
+* Start with Deep Research of the Business Problem, the Technical Problems and the Domain should follow.
+* Utilise multiple AIs to assist with research, providing diverse responses.
+You can get AI to compare the results of other AIs to help highlight differences.
+* As well as reading the research, you can get it to read it to you, which can help you understand it better.
+
+== Vibe Coding as a Proto-Prototype
+
+* Using Vibe coding can help you understand what the AI can do with minimal effort and can lead you in a direction you might not have considered.
+* This can be followed by a more traditional prototype which like the Vibe coding you should expect to replace almost in its entirety with the final code.
+
+== Reverse Diffusion of your Project
+
+* You can start with the structure of the project, breaking down the problem into manageable parts, both for you and the AI.
+* This approach is similar to reverse diffusion used in text-to-image generation, which starts with noise in an image of a known size, iteratively improving the image until it matches the desired output.
