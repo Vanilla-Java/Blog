@@ -7,7 +7,7 @@ Peter Lawrey, Java Champion & CEO of Chronicle Software
 ----
 https://softwareengineering.stackexchange.com/questions/14914/whats-the-difference-between-entry-level-jr-sr-developers[What's the difference between entry-level/junior/senior developers?]
 
-Senior developers distinguish themselves through a blend of deep technical expertise, broad experience, and the ability to make informed, strategic decisions. Unlike entry-level or junior developers who are just beginning to understand the development cycle, or intermediate-level developers who focus primarily on their assigned piece of a project, senior developers consider the entire system’s architecture and long-term implications. They frequently handle the most complex or ambiguous tasks, draw on a history of lessons learned, and anticipate issues before they arise.
+Senior developers distinguish themselves through a blend of deep technical expertise, broad experience, and the ability to make informed, strategic decisions. Unlike entry-level or junior developers who are just beginning to understand the development cycle, or intermediate-level developers who focus primarily on their assigned piece of a project, senior developers consider the entire system's architecture and long-term implications. They frequently handle the most complex or ambiguous tasks, draw on a history of lessons learned, and anticipate issues before they arise.
 
 They mentor less experienced team members, offering guidance on best practices, troubleshooting techniques, and domain knowledge beyond coding itself. Their approach often involves pushing back on poorly defined requirements, suggesting improvements, and understanding the business and regulatory environments in which their software operates. Additionally, senior developers are recognized for their ability to work more independently, produce maintainable solutions under tight deadlines, and select appropriate technologies with a sense of pragmatism rather than chasing trends. Ultimately, senior developers stand out not merely by their years of experience, but by the depth of their skills, their judgment, and their capacity to add value across the entire project lifecycle.
 ----
@@ -16,7 +16,7 @@ They mentor less experienced team members, offering guidance on best practices, 
 ----
 https://www.developernation.net/blog/how-to-differentiate-junior-and-senior-developers/[How to Differentiate Junior and Senior Developers]
 
-Senior developers differentiate themselves primarily through a combination of technical depth, problem-solving prowess, leadership, and communication skills, rather than just a job title. While junior developers focus on building foundational competencies, improving through guidance, and mastering basic tools, senior developers leverage a broad range of technologies and frameworks, create efficient and scalable code, and solve complex challenges independently. They typically possess deep industry experience that informs strategic technical decisions, and they often assume leadership roles—guiding projects from concept to delivery, mentoring junior team members, and communicating effectively with both technical peers and non-technical stakeholders. In essence, senior developers distinguish themselves through their ability to handle complexity, drive project success, foster team growth, and connect technical solutions with organizational goals.
+Senior developers differentiate themselves primarily through a combination of technical depth, problem-solving prowess, leadership, and communication skills, rather than just a job title. While junior developers focus on building foundational competencies, improving through guidance, and mastering basic tools, senior developers leverage a broad range of technologies and frameworks, create efficient and scalable code, and solve complex challenges independently. They typically possess deep industry experience that informs strategic technical decisions, and they often assume leadership roles-guiding projects from concept to delivery, mentoring junior team members, and communicating effectively with both technical peers and non-technical stakeholders. In essence, senior developers distinguish themselves through their ability to handle complexity, drive project success, foster team growth, and connect technical solutions with organizational goals.
 ----
 
 [.context]
@@ -25,13 +25,13 @@ https://devskiller.com/blog/junior-developer/[Differences between a junior, midd
 
 Senior developers set themselves apart from junior and mid-level developers by applying a more holistic, strategic approach to both technical tasks and overall project direction. Their experience shapes the way they think about code, business goals, and team collaboration, making them valuable assets in any tech environment.
 
-Unlike junior developers, whose main focus is writing functional code and gaining foundational skills, senior developers have a deep, well-rounded understanding of technologies and architectural patterns. They create scalable, maintainable solutions and anticipate potential issues before they become critical problems. Rather than needing step-by-step guidance, senior developers operate with a high degree of independence, frequently making key decisions that affect the project’s direction and long-term success.
+Unlike junior developers, whose main focus is writing functional code and gaining foundational skills, senior developers have a deep, well-rounded understanding of technologies and architectural patterns. They create scalable, maintainable solutions and anticipate potential issues before they become critical problems. Rather than needing step-by-step guidance, senior developers operate with a high degree of independence, frequently making key decisions that affect the project's direction and long-term success.
 
-Compared to mid-level developers, who can work independently but remain focused on ensuring the application meets defined requirements, senior developers take a broader view. They balance technical excellence with business needs, understanding when a product is “good enough” and when quality must be raised. This involves managing trade-offs between complexity, performance, and budget constraints.
+Compared to mid-level developers, who can work independently but remain focused on ensuring the application meets defined requirements, senior developers take a broader view. They balance technical excellence with business needs, understanding when a product is "good enough" and when quality must be raised. This involves managing trade-offs between complexity, performance, and budget constraints.
 
 In addition, senior developers excel at communication and leadership. They mentor less experienced team members, foster constructive discussions, and articulate complex technical concepts to non-technical stakeholders. They help shape processes, refine requirements, and guide the team toward strategic decisions, ultimately driving more value for the business.
 
-In short, senior developers distinguish themselves through their technical mastery, problem-solving foresight, decision-making autonomy, and ability to elevate the entire team—traits that junior and mid-level developers develop over time through experience and learning.
+In short, senior developers distinguish themselves through their technical mastery, problem-solving foresight, decision-making autonomy, and ability to elevate the entire team-traits that junior and mid-level developers develop over time through experience and learning.
 ----
 
 [.context]
@@ -40,7 +40,7 @@ https://www.linkedin.com/pulse/whats-difference-between-senior-developer-junior-
 
 Senior developers distinguish themselves through a combination of technical depth, practical experience, and strategic thinking. They typically have a broader understanding of system architecture, security considerations, and industry best practices. Unlike junior developers who are still building foundational skills, senior developers can work independently, handle entire projects end-to-end, and often guide or mentor their peers.
 
-Their approach focuses not just on making code work, but on optimizing for long-term maintainability, scalability, and business impact. While years of experience often play a role in defining a senior developer, true seniority comes from demonstrable skill and the ability to solve complex problems, communicate effectively with stakeholders, and lead technical decisions. In short, senior developers stand out by leveraging deep expertise to deliver robust solutions, mentor others, and contribute strategically to an organization’s success.
+Their approach focuses not just on making code work, but on optimizing for long-term maintainability, scalability, and business impact. While years of experience often play a role in defining a senior developer, true seniority comes from demonstrable skill and the ability to solve complex problems, communicate effectively with stakeholders, and lead technical decisions. In short, senior developers stand out by leveraging deep expertise to deliver robust solutions, mentor others, and contribute strategically to an organization's success.
 ----
 
 [.context]
@@ -146,9 +146,9 @@ In summary, the roles commonly value technical expertise in modern programming l
 
 A number of big challenges face senior developers
 
-- Is the only option to progressing my career to become a manager?
-- How will changes in IT change the way I work? e.g. AI
-- How will AI change the way junior developers work, and how we hire in the future?
+* Is the only option to progressing my career to become a manager?
+* How will changes in IT change the way I work? e.g. AI
+* How will AI change the way junior developers work, and how we hire in the future?
 
 '''
 
@@ -172,68 +172,90 @@ What does history have to teach us?
 '''
 
 [quote, Marc Benioff, Salesforce CEO]
-The only constant in the technology industry is change. We are now in the most exciting time of our industry.
+The only constant in the technology industry is change.
+We are now in the most exciting time of our industry.
 
-It is a privilege to work in an industry which is always changing. It requires constant learning, but that doesn't mean there isn't anything to learn from the past.
+It is a privilege to work in an industry which is always changing.
+It requires constant learning, but that doesn't mean there isn't anything to learn from the past.
 
 '''
 
 [quote, Jean-Baptiste Alphonse Karr, 1849]
 The more things change, the more they stay the same.
 
-The IT industry has gone through these cycles before. I remember when you had to pay for a web browser, even though there wasn't much use to it. Then it seemed websites would dominate everything.
+The IT industry has gone through these cycles before.
+I remember when you had to pay for a web browser, even though there wasn't much use to it.
+Then it seemed websites would dominate everything.
 
 '''
 
-When ATMs were introduced into banking there was a fear that Bank Tellers would be replaced. Instead, the number of bank tellers increased, though perhaps not as much as they would have done.
+When ATMs were introduced into banking there was a fear that Bank Tellers would be replaced.
+Instead, the number of bank tellers increased, though perhaps not as much as they would have done.
 
 image::https://i0.wp.com/conversableeconomist.com/wp-content/uploads/2021/05/bab42-bessen2b1.jpg[alt=Bank tellers vs ATMs 1970-2010, align="center"]
 
 '''
 
 [quote, wiki.c2.com]
-This community has been around since 1995 ... If you haven't used a wiki before, be prepared for a bit of CultureShock. The usefulness of Wiki is in the freedom, simplicity, and power it offers.
+This community has been around since 1995 ... If you haven't used a wiki before, be prepared for a bit of CultureShock.
+The usefulness of Wiki is in the freedom, simplicity, and power it offers.
 
-I remember which Wikis were first introduced. They were seen as a novelty, but now they are a standard tool for many developers. Today, chat AI is seen as a novelty or even a culture shock, but it will become a standard tool for many developers.
+I remember which Wikis were first introduced.
+They were seen as a novelty, but now they are a standard tool for many developers.
+Today, chat AI is seen as a novelty or even a culture shock, but it will become a standard tool for many developers.
 
 '''
 
 [quote, Peter Lamborn Wilson, author]
 Those who understand history are condemned to watch other idiots repeat it.
 
-We should expect that the introduction of AI will see people making the same mistakes as they have in the past. We should be prepared to learn from the past and avoid these mistakes.
+We should expect that the introduction of AI will see people making the same mistakes as they have in the past.
+We should be prepared to learn from the past and avoid these mistakes.
 
 '''
 
 [quote, Marie Curie, Nobel Prizes in Physics and Chemistry]
 I was taught that the way of progress was neither swift nor easy.
 
-It's likely that the introduction of AI will be slower and more difficult than people expect. It will take time to go from being a novelty to learn how to use it effectively.
+It's likely that the introduction of AI will be slower and more difficult than people expect.
+It will take time to go from being a novelty to learn how to use it effectively.
 
 == Quotes about capturing requirements
 
 [quote, An old Programmer's Proverb, according to Kent Beck]
 Users don't know what they want until you show it to them.
 
-You must identify who will pay for an effort, check it is fit for purpose, and use the product. You need to understand the business need first. Without this the project is likely to fail.
+You must identify who will pay for an effort, check it is fit for purpose, and use the product.
+You need to understand the business need first.
+Without this the project is likely to fail.
 
-In my first contracting job for a bank, I was shocked that they not only didn't do any testing, they actively discouraged it. When it came to user acceptance testing, they couldn't identify who would test the software, because it turned out no one wanted it. They saved a lot of money by not testing it, but would have saved more by checking it was needed first.
+In my first contracting job for a bank, I was shocked that they not only didn't do any testing, they actively discouraged it.
+When it came to user acceptance testing, they couldn't identify who would test the software, because it turned out no one wanted it.
+They saved a lot of money by not testing it, but would have saved more by checking it was needed first.
 
 [quote, Anonymous]
 To replace programmers with AI, clients will have to accurately describe what they want.
 
-Capturing requirements and understanding the problem you are solving is 90% of the effort. Writing code is a small proportion. I have written an average of 100 lines of code a day for the last 10 years. This would take at most 30 minutes a day to rewrite. I have spent far more time understanding the problem I am solving.
+Capturing requirements and understanding the problem you are solving is 90% of the effort.
+Writing code is a small proportion.
+I have written an average of 100 lines of code a day for the last 10 years.
+This would take at most 30 minutes a day to rewrite.
+I have spent far more time understanding the problem I am solving.
 
 [quote, Lucius Annæus Seneca the Younger, philosopher 3-65 AD]
 There is no fair wind for one who knows not whither he is bound.
 
-The first thing to determine is what the problem is, how to solve it, and share it with others. The last part is easily forgotten. I can't count the number of projects that were finished, but no one knew about them.
+The first thing to determine is what the problem is, how to solve it, and share it with others.
+The last part is easily forgotten.
+I can't count the number of projects that were finished, but no one knew about them.
 
 [quote, Richard James, engineer]
-Engineering problems are under-defined; there are many solutions, good, bad, and indifferent. The art is to arrive at a good solution
+Engineering problems are under-defined; there are many solutions, good, bad, and indifferent.
+The art is to arrive at a good solution
 
 [quote, Freeman Dyson, physicist]
-A good scientist is a person with original ideas. A good engineer is a person who makes a design that works with as few original ideas as possible.
+A good scientist is a person with original ideas.
+A good engineer is a person who makes a design that works with as few original ideas as possible.
 
 [quote, Lee Iacocca, CEO of Chrysler]
 The discipline of writing something down is the first step toward making it happen.
@@ -246,16 +268,19 @@ No project will be foolproof, so you need a plan for when things go wrong.
 == Identify and solve the hard problems first
 
 [quote, Scott Adams, Dilbert creator]
-Engineers like to solve problems. If there are no problems handily available, they will create their own problems.
+Engineers like to solve problems.
+If there are no problems handily available, they will create their own problems.
 
-Solve the hard problem first. The rest will be easy.
+Solve the hard problem first.
+The rest will be easy.
 
 [quote, Heinz Kabutz, Dynamic Proxies in Java]
-Security is either extremely boring, when it works, or super exciting (in a bad way), when it doesn’t.
+Security is either extremely boring, when it works, or super exciting (in a bad way), when it doesn't.
 
 == Focus and simplicity
 
-You need to take responsibility for your own career progression. Don't expect a manager, or a company do this for you.
+You need to take responsibility for your own career progression.
+Don't expect a manager, or a company do this for you.
 
 [quote, Richard Hamming, mathematician]
 If you don't work on important problems, it's not likely that you'll do important work.
@@ -294,14 +319,17 @@ Things turn out best for the people who make the best of the way things work out
 Behold the turtle: He only makes progress when he sticks his neck out.
 
 [quote, Diana Ross, singer]
-You can’t just sit there and wait for people to give you that golden dream. You’ve got to get out there and make it happen for yourself.
+You can't just sit there and wait for people to give you that golden dream.
+You've got to get out there and make it happen for yourself.
 
 == Understanding the value of AI
 
 [quote, Ward Cunningham, inventor of the Wiki]
 The best way to get the right answer on the internet is not to ask a question; it's to post the wrong answer.
 
-Often I don't know how to start a project, so I start with a wrong answer. I ask AI to produce it for me. I then discard it, but this is often faster than starting from scratch.
+Often I don't know how to start a project, so I start with a wrong answer.
+I ask AI to produce it for me.
+I then discard it, but this is often faster than starting from scratch.
 
 == Positive message
 

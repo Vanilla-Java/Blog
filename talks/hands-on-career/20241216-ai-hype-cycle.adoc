@@ -4,7 +4,9 @@ Peter Lawrey
 
 This is the first in a series of posts supporting a talk I will be giving online at JChampionConf 27th January 27th 2025. https://www.youtube.com/watch?v=t8Oq-Hr6ua8[Lessons learnt from founding my own company, and over 30 years hands on coding] In these posts, I am looking to provide some theory as well as practical examples.
 
-One way to try to predict what is possible in the future is to look at the past. One of may favourite ways to look at the past is through aphorisms. Aphorisms are short, pithy statements that express a general truth or opinion.
+One way to try to predict what is possible in the future is to look at the past.
+One of may favourite ways to look at the past is through aphorisms.
+Aphorisms are short, pithy statements that express a general truth or opinion.
 
 [quote, Marlene Dietrich, 1901-1992]
 ____
@@ -13,69 +15,85 @@ ____
 
 == Quotes about Learning from History and Adaptability
 
-[quote, Heraclitus of Ephesus, c. 500 BCE]
+[quote, Heraclitus of Ephesus, c.
+500 BCE]
 The only constant is change.
 
-In the ever-evolving realm of AI, this ancient wisdom remains pertinent. Today's cutting-edge AI models may become tomorrow's standard tools. Developers must stay agile, continually updating their skill sets to keep pace with technological advancements.
+In the ever-evolving realm of AI, this ancient wisdom remains pertinent.
+Today's cutting-edge AI models may become tomorrow's standard tools.
+Developers must stay agile, continually updating their skill sets to keep pace with technological advancements.
 
 [quote, Marc Benioff, Salesforce CEO]
 ____
-The only constant in the technology industry is change. We are now in the most exciting time of our industry.
+The only constant in the technology industry is change.
+We are now in the most exciting time of our industry.
 ____
 
-Embracing this change is a hallmark of a senior developer. In an industry where new frameworks, platforms, and tools appear constantly, the ability to evolve, learn from past experiences, and mentor others ensures you remain indispensable.
+Embracing this change is a hallmark of a senior developer.
+In an industry where new frameworks, platforms, and tools appear constantly, the ability to evolve, learn from past experiences, and mentor others ensures you remain indispensable.
 
 [quote, Mark Twain (no definitive written source), Early 20th century]
-History doesn’t repeat itself, but it often rhymes.
+History doesn't repeat itself, but it often rhymes.
 
 History provides a blueprint for what might be possible with AI. By studying previous technological trends, developers can better prepare for the challenges and opportunities that AI presents.
 
 [quote, Roy Amara, Institute for the Future, Circa 1970s]
 We tend to overestimate the effect of a technology in the short run and underestimate the effect in the long run.
 
-Known as Amara’s Law, this principle is crucial when assessing AI's impact. While the immediate benefits of AI can seem overstated, its long-term implications are profound and far-reaching. Developers should maintain a balanced perspective, recognising both the hype and the enduring value of AI innovations.
+Known as Amara's Law, this principle is crucial when assessing AI's impact.
+While the immediate benefits of AI can seem overstated, its long-term implications are profound and far-reaching.
+Developers should maintain a balanced perspective, recognising both the hype and the enduring value of AI innovations.
 
 == Emerging Technology Hype Cycle
 
-The Gartner Hype Cycle for Emerging Technologies 2024 provides a comprehensive overview of AI's current standing within the broader technology landscape. This graphical representation outlines the stages AI technologies traverse from inception to mainstream adoption, offering strategic insights for developers and organisations.
+The Gartner Hype Cycle for Emerging Technologies 2024 provides a comprehensive overview of AI's current standing within the broader technology landscape.
+This graphical representation outlines the stages AI technologies traverse from inception to mainstream adoption, offering strategic insights for developers and organisations.
 
 image::https://emt.gartnerweb.com/ngw/globalassets/en/articles/images/hype-cycle-for-emerging-technologies-2024.png[Gartner Hype Cycle for Emerging Technologies 2024, 800, 600]
 
 == Previous Hype Cycles
 
-Examining past Hype Cycles offers valuable lessons for interpreting AI's future trajectory. Each cycle is characterised by initial enthusiasm, followed by a period of disillusionment, and eventual maturity. Here are some notable examples:
+Examining past Hype Cycles offers valuable lessons for interpreting AI's future trajectory.
+Each cycle is characterised by initial enthusiasm, followed by a period of disillusionment, and eventual maturity.
+Here are some notable examples:
 
-1. **Enterprise Resource Planning (ERP) Systems (Late 1990s–Early 2000s):**
-   ERP systems were lauded for integrating various business processes. However, their complexity and high implementation costs led to tempered expectations over time. Today, ERPs are essential but require meticulous planning and skilled execution.
+. *Enterprise Resource Planning (ERP) Systems (Late 1990s-Early 2000s):*
+ERP systems were lauded for integrating various business processes.
+However, their complexity and high implementation costs led to tempered expectations over time.
+Today, ERPs are essential but require meticulous planning and skilled execution.
 
-2. **Offshoring and Outsourcing (Early–Mid 2000s):**
-   Initially seen as cost-saving measures, offshoring and outsourcing introduced challenges like cultural barriers and quality control issues. Over time, these practices have become strategic choices tailored to specific organisational needs.
+. *Offshoring and Outsourcing (Early-Mid 2000s):*
+Initially seen as cost-saving measures, offshoring and outsourcing introduced challenges like cultural barriers and quality control issues.
+Over time, these practices have become strategic choices tailored to specific organisational needs.
 
-3. **Service-Oriented Architecture (SOA) (Mid–Late 2000s):**
-   SOA promised modular and interoperable systems but often resulted in governance overheads and vendor lock-in. Lessons from SOA have paved the way for more flexible architectures like microservices.
+. *Service-Oriented Architecture (SOA) (Mid-Late 2000s):*
+SOA promised modular and interoperable systems but often resulted in governance overheads and vendor lock-in.
+Lessons from SOA have paved the way for more flexible architectures like microservices.
 
-4. **Big Data (Early 2010s):**
-   The surge in data availability led to high expectations for transformative insights. The subsequent realization of the importance of data quality and governance has refined the focus towards actionable analytics and machine learning.
+. *Big Data (Early 2010s):*
+The surge in data availability led to high expectations for transformative insights.
+The subsequent realization of the importance of data quality and governance has refined the focus towards actionable analytics and machine learning.
 
-5. **Cloud Computing (Late 2000s–Mid 2010s):**
+. *Cloud Computing (Late 2000s-Mid 2010s):*
    Cloud computing evolved from a skeptical reception to a ubiquitous standard, emphasizing the need for strategic migration and cost management to fully leverage its benefits.
 
-6. **Blockchain (Mid–Late 2010s):**
+. *Blockchain (Mid-Late 2010s):*
    Blockchain technology faced scalability and regulatory challenges, leading to a shift towards domain-specific applications rather than broad-based implementations.
 
-7. **Internet of Things (IoT) (Mid 2010s–Present):**
+. *Internet of Things (IoT) (Mid 2010s-Present):*
    Initial excitement around interconnected devices has been tempered by concerns over security, data privacy, and infrastructure complexity, steering efforts towards robust standards and practical applications.
 
-8. **Artificial Intelligence and Machine Learning (Mid–Late 2010s–Present):**
+. *Artificial Intelligence and Machine Learning (Mid-Late 2010s-Present):*
    AI and ML have maintained their momentum, focusing on responsible and explainable implementations to address biases and integration challenges.
 
-In each of these hype cycles, the pattern is similar: early enthusiasm and inflated expectations give way to realism, best practices, and a more mature understanding of the technology’s actual strengths and limitations.
+In each of these hype cycles, the pattern is similar: early enthusiasm and inflated expectations give way to realism, best practices, and a more mature understanding of the technology's actual strengths and limitations.
 
 == An Examples of the Hype Cycle in Action
 
 === This is Cool, Let's Use It Everywhere!
 
-In the early stages of a technology’s hype cycle, developers and organisations are often eager to adopt it across the board. This enthusiasm can lead to overinvestment, unrealistic expectations, and a lack of understanding of the technology’s limitations.
+In the early stages of a technology's hype cycle, developers and organisations are often eager to adopt it across the board.
+This enthusiasm can lead to overinvestment, unrealistic expectations, and a lack of understanding of the technology's limitations.
 
 [chat]
 ----
@@ -99,14 +117,14 @@ Write a tetris game in HTML/CSS/JS
 <div id="instructions">
     <h2>How to Play</h2>
     <ul>
-        <li><strong>Move Left:</strong> Left Arrow (⬅️)</li>
-        <li><strong>Move Right:</strong> Right Arrow (➡️)</li>
-        <li><strong>Soft Drop:</strong> Down Arrow (⬇️)</li>
-        <li><strong>Rotate Counterclockwise:</strong> Q (🅀)</li>
-        <li><strong>Rotate Clockwise:</strong> W (🅆)</li>
-        <li><strong>Hard Drop:</strong> Spacebar (⎵)</li>
-        <li><strong>Pause/Resume:</strong> P (🅿️)</li>
-        <li><strong>Hold Tetromino:</strong> Shift (⇧)</li>
+        <li><strong>Move Left:</strong> Left Arrow ()</li>
+        <li><strong>Move Right:</strong> Right Arrow ()</li>
+        <li><strong>Soft Drop:</strong> Down Arrow ()</li>
+        <li><strong>Rotate Counterclockwise:</strong> Q ()</li>
+        <li><strong>Rotate Clockwise:</strong> W ()</li>
+        <li><strong>Hard Drop:</strong> Spacebar ()</li>
+        <li><strong>Pause/Resume:</strong> P ()</li>
+        <li><strong>Hold Tetromino:</strong> Shift ()</li>
     </ul>
 </div>
 
@@ -498,117 +516,123 @@ give some instructions on how to play this game including all keys available to 
 
 Absolutely! Here's a comprehensive guide on how to play the Tetris game you have, including detailed instructions on all available controls and gameplay mechanics.
 
-== 🎮 **How to Play Tetris**
+==  *How to Play Tetris*
 
-Tetris is a classic puzzle game where the objective is to manipulate falling blocks, known as tetrominoes, to create complete horizontal lines without gaps. When a line is completed, it disappears, and any blocks above it fall down to fill the space. The game ends when the stack of tetrominoes reaches the top of the playing field.
+Tetris is a classic puzzle game where the objective is to manipulate falling blocks, known as tetrominoes, to create complete horizontal lines without gaps.
+When a line is completed, it disappears, and any blocks above it fall down to fill the space.
+The game ends when the stack of tetrominoes reaches the top of the playing field.
 
-=== 🧩 **Game Components**
+===  *Game Components*
 
-1. **Playing Field (Arena):**
-- A grid (12 columns wide and 20 rows high) where tetrominoes fall.
-- Each cell in the grid can be empty or filled with a part of a tetromino.
+. *Playing Field (Arena):*
+* A grid (12 columns wide and 20 rows high) where tetrominoes fall.
+* Each cell in the grid can be empty or filled with a part of a tetromino.
 
-2. **Tetrominoes:**
-- Seven distinct shapes, each made up of four squares.
-- Shapes include:
-- **I** (Cyan)
-- **J** (Blue)
-- **L** (Orange)
-- **O** (Yellow)
-- **S** (Green)
-- **T** (Purple)
-- **Z** (Red)
+. *Tetrominoes:*
+* Seven distinct shapes, each made up of four squares.
+* Shapes include:
+* *I* (Cyan)
+* *J* (Blue)
+* *L* (Orange)
+* *O* (Yellow)
+* *S* (Green)
+* *T* (Purple)
+* *Z* (Red)
 
-3. **Score Display:**
-- Shows the player's current score, which increases as lines are cleared.
+. *Score Display:*
+* Shows the player's current score, which increases as lines are cleared.
 
-=== 🎯 **Objective**
+===  *Objective*
 
-- **Primary Goal:** Clear as many horizontal lines as possible by arranging tetrominoes without gaps.
-- **Secondary Goal:** Prevent the tetrominoes from stacking up to the top of the arena.
+* *Primary Goal:* Clear as many horizontal lines as possible by arranging tetrominoes without gaps.
+* *Secondary Goal:* Prevent the tetrominoes from stacking up to the top of the arena.
 
-=== 🔑 **Controls and Key Bindings**
+===  *Controls and Key Bindings*
 
-Your keyboard inputs directly influence the movement and rotation of the falling tetrominoes. Here's a breakdown of all available controls:
+Your keyboard inputs directly influence the movement and rotation of the falling tetrominoes.
+Here's a breakdown of all available controls:
 
 [options="header"]
 |===
-| **Action** | **Key** | **Description**
+| *Action* | *Key* | *Description*
 
-| **Move Left** | Left Arrow (⬅️) | Shifts the tetromino one cell to the left.
-| **Move Right** | Right Arrow (➡️) | Shifts the tetromino one cell to the right.
-| **Soft Drop** | Down Arrow (⬇️) | Accelerates the tetromino's descent, causing it to fall faster.
-| **Rotate Counterclockwise** | Q (🅀) | Rotates the tetromino 90 degrees to the left (counterclockwise).
-| **Rotate Clockwise** | W (🅆) | Rotates the tetromino 90 degrees to the right (clockwise).
-| **Hard Drop** *(Advanced)* | Spacebar (⎵) | *(Optional)* Instantly drops the tetromino to the bottom of the arena. *(Not implemented in current version)*
-| **Pause/Resume** *(Advanced)* | P (🅿️) | *(Optional)* Pauses or resumes the game. *(Not implemented in current version)*
+| *Move Left* | Left Arrow () | Shifts the tetromino one cell to the left.
+| *Move Right* | Right Arrow () | Shifts the tetromino one cell to the right.
+| *Soft Drop* | Down Arrow () | Accelerates the tetromino's descent, causing it to fall faster.
+| *Rotate Counterclockwise* | Q () | Rotates the tetromino 90 degrees to the left (counterclockwise).
+| *Rotate Clockwise* | W () | Rotates the tetromino 90 degrees to the right (clockwise).
+| *Hard Drop* _(Advanced)_ | Spacebar () | _(Optional)_ Instantly drops the tetromino to the bottom of the arena. _(Not implemented in current version)_
+| *Pause/Resume* _(Advanced)_ | P () | _(Optional)_ Pauses or resumes the game. _(Not implemented in current version)_
 |===
 
 
-=== 🕹️ **Gameplay Mechanics**
+===  *Gameplay Mechanics*
 
-1. **Spawning Tetrominoes:**
-- A new tetromino appears at the top-center of the arena after the previous one locks in place.
+. *Spawning Tetrominoes:*
+* A new tetromino appears at the top-center of the arena after the previous one locks in place.
 
-2. **Movement:**
-- Use the **Left** and **Right Arrow** keys to position the tetromino horizontally.
-- Press the **Down Arrow** to make the tetromino descend faster (soft drop).
+. *Movement:*
+* Use the *Left* and *Right Arrow* keys to position the tetromino horizontally.
+* Press the *Down Arrow* to make the tetromino descend faster (soft drop).
 
-3. **Rotation:**
-- Use the **Q** key to rotate the tetromino counterclockwise.
-- Use the **W** key to rotate the tetromino clockwise.
-- Rotation helps in fitting tetrominoes into tight spaces.
+. *Rotation:*
+* Use the *Q* key to rotate the tetromino counterclockwise.
+* Use the *W* key to rotate the tetromino clockwise.
+* Rotation helps in fitting tetrominoes into tight spaces.
 
-4. **Locking Tetrominoes:**
-- When a tetromino cannot move down any further (either due to reaching the bottom or colliding with another tetromino), it locks into place, and a new tetromino spawns.
+. *Locking Tetrominoes:*
+* When a tetromino cannot move down any further (either due to reaching the bottom or colliding with another tetromino), it locks into place, and a new tetromino spawns.
 
-5. **Clearing Lines:**
-- Complete a horizontal line without any gaps to clear it.
-- Multiple lines can be cleared simultaneously for higher scores.
-- Each cleared line increases the player's score by 10 points, with the score multiplier doubling for multiple lines cleared in a single move.
+. *Clearing Lines:*
+* Complete a horizontal line without any gaps to clear it.
+* Multiple lines can be cleared simultaneously for higher scores.
+* Each cleared line increases the player's score by 10 points, with the score multiplier doubling for multiple lines cleared in a single move.
 
-6. **Scoring:**
-- **Single Line Clear:** +10 points
-- **Double Line Clear:** +30 points
-- **Triple Line Clear:** +60 points
-- **Tetris (Four Lines Clear):** +100 points
-- *(Note: The current implementation multiplies points based on the number of lines cleared consecutively.)*
+. *Scoring:*
+* *Single Line Clear:* +10 points
+* *Double Line Clear:* +30 points
+* *Triple Line Clear:* +60 points
+* *Tetris (Four Lines Clear):* +100 points
+* _(Note: The current implementation multiplies points based on the number of lines cleared consecutively.)_
 
-7. **Game Over:**
-- The game ends when new tetrominoes cannot spawn without overlapping existing blocks in the arena.
-- Upon game over, the arena resets, and the score returns to zero.
+. *Game Over:*
+* The game ends when new tetrominoes cannot spawn without overlapping existing blocks in the arena.
+* Upon game over, the arena resets, and the score returns to zero.
 
-=== 📈 **Tips and Strategies**
+===  *Tips and Strategies*
 
-- **Plan Ahead:** Look at the tetromino queue and plan where each piece will fit best.
-- **Clear Multiple Lines:** Aim to clear multiple lines at once for higher score multipliers.
-- **Keep the Stack Low:** Avoid stacking tetrominoes too high; keep the playfield as clear as possible.
-- **Use Rotation Wisely:** Rotate tetrominoes to fit them into tight spots and to create flat surfaces for easier line clearing.
-- **Manage Different Shapes:** Each tetromino has unique characteristics; familiarize yourself with their rotations and best placement strategies.
+* *Plan Ahead:* Look at the tetromino queue and plan where each piece will fit best.
+* *Clear Multiple Lines:* Aim to clear multiple lines at once for higher score multipliers.
+* *Keep the Stack Low:* Avoid stacking tetrominoes too high; keep the playfield as clear as possible.
+* *Use Rotation Wisely:* Rotate tetrominoes to fit them into tight spots and to create flat surfaces for easier line clearing.
+* *Manage Different Shapes:* Each tetromino has unique characteristics; familiarize yourself with their rotations and best placement strategies.
 
 '''
 
 == This is the best thing ever!
 
-This is amazing, we won't need developers in the future. But what if someone wants more than a basic tertis game. This is a great start, but when you try to use it for real world problems, it can be more challenging.
+This is amazing, we won't need developers in the future.
+But what if someone wants more than a basic tertis game.
+This is a great start, but when you try to use it for real world problems, it can be more challenging.
 
 That will be the subject of the next post in this series.
 
 == Lessons from Past Hype Cycles Applied to AI
 
-Drawing from historical trends, AI's journey through its Hype Cycle mirrors previous technological evolutions. Initial overenthusiasm often gives way to critical assessments, leading to more sustainable and impactful applications.
+Drawing from historical trends, AI's journey through its Hype Cycle mirrors previous technological evolutions.
+Initial overenthusiasm often gives way to critical assessments, leading to more sustainable and impactful applications.
 
 == Key Takeaways
 
-- **Embrace Change:** Stay adaptable in the face of AI's rapid advancements.
-- **Learn from History:** Use past Hype Cycles to inform your approach to AI adoption.
-- **Balance Hype with Realism:** Recognise AI's potential while acknowledging its limitations.
-- **Strategic Implementation:** Focus on practical, domain-specific AI solutions rather than broad, unfocused applications.
+* *Embrace Change:* Stay adaptable in the face of AI's rapid advancements.
+* *Learn from History:* Use past Hype Cycles to inform your approach to AI adoption.
+* *Balance Hype with Realism:* Recognise AI's potential while acknowledging its limitations.
+* *Strategic Implementation:* Focus on practical, domain-specific AI solutions rather than broad, unfocused applications.
 
 == Resources
 
-- https://www.gartner.com/en/research/methodologies/gartner-hype-cycle[Gartner Hype Cycle Methodology] - Learn more about Gartner's Hype Cycle for Emerging Technologies.
-- https://chatgpt.com/[ChatGPT]: Generate code snippets, tutorials, and more with AI.
+* https://www.gartner.com/en/research/methodologies/gartner-hype-cycle[Gartner Hype Cycle Methodology] - Learn more about Gartner's Hype Cycle for Emerging Technologies.
+* https://chatgpt.com/[ChatGPT]: Generate code snippets, tutorials, and more with AI.
 
 == About the author
 
@@ -617,12 +641,15 @@ https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the 
 low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks^,role=external].
 With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient
 enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed
-and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him
-as a thought leader and mentor in the Java and FinTech communities. Follow Peter on
+and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him
+as a thought leader and mentor in the Java and FinTech communities.
+Follow Peter on
 https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
 https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
 
 == Conclusion
 
-Navigating the AI Hype Cycle requires a nuanced understanding of both the technology's potential and its inherent challenges. By learning from past trends and maintaining a balanced perspective, developers and organisations can harness AI's capabilities
+Navigating the AI Hype Cycle requires a nuanced understanding of both the technology's potential and its inherent challenges.
+By learning from past trends and maintaining a balanced perspective, developers and organisations can harness AI's capabilities
 

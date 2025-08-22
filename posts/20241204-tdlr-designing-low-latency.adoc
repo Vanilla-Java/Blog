@@ -1,6 +1,8 @@
 = TLDR: Designing Hyper-Deterministic, High-Frequency Trading Systems
 
-Peter Lawrey is the CEO of Chronicle Software, which counts multiple Tier 1 banks among its clients. He is a Java Champion who has provided the highest number of Java and JVM-related answers on stackoverflow.com. He also architected low-latency Java trading libraries that were downloaded 17 million times in 2018.
+Peter Lawrey is the CEO of Chronicle Software, which counts multiple Tier 1 banks among its clients.
+He is a Java Champion who has provided the highest number of Java and JVM-related answers on stackoverflow.com.
+He also architected low-latency Java trading libraries that were downloaded 17 million times in 2018.
 
 In this video, Peter examines how trading systems are designed to support microsecond-latency microservices, and how these can be combined to construct complex trading solutions such as Order Management Systems (OMS), pricers, and hedging tools.
 
@@ -9,27 +11,43 @@ link:https://www.youtube.com/watch?v=_Y1EhpKKFcc[Link the video] or read a summa
 
 == Introduction
 
-Building a hyper-deterministic high-frequency trading (HFT) platform requires careful attention to detail. Every microservice, data structure, and line of code must be optimised for both performance and predictability. This article explores practical approaches and techniques—drawn from real-world financial systems—to design and implement Java-based trading microservices that deliver sub-millisecond, and often even sub-microsecond, latencies.
+Building a hyper-deterministic high-frequency trading (HFT) platform requires careful attention to detail.
+Every microservice, data structure, and line of code must be optimised for both performance and predictability.
+This article explores practical approaches and techniques-drawn from real-world financial systems-to design and implement Java-based trading microservices that deliver sub-millisecond, and often even sub-microsecond, latencies.
 
-We will examine the importance of doing less work per microservice, discuss the critical role of deterministic behaviour, highlight the value of event-sourced architectures, and show how to test, tune, and debug such systems with confidence. Throughout, we focus on British English usage, a concise writing style, and a practical tone inspired by the Vanilla Java blog posts cited above.
+We will examine the importance of doing less work per microservice, discuss the critical role of deterministic behaviour, highlight the value of event-sourced architectures, and show how to test, tune, and debug such systems with confidence.
+Throughout, we focus on British English usage, a concise writing style, and a practical tone inspired by the Vanilla Java blog posts cited above.
 
 == Defining the Challenge
 
-In modern trading environments, participants compete on speed and consistency. Latency is no longer measured in milliseconds; nanoseconds matter. The key problem: how can we design microservices that handle complex workflows—such as order handling or price aggregation—while keeping latencies consistently low, even at the tail end of distributions (e.g. worst 1 in 1000 events)?
+In modern trading environments, participants compete on speed and consistency.
+Latency is no longer measured in milliseconds; nanoseconds matter.
+The key problem: how can we design microservices that handle complex workflows-such as order handling or price aggregation-while keeping latencies consistently low, even at the tail end of distributions (e.g. worst 1 in 1000 events)?
 
-Why does this matter? Because in HFT, the difference between 20 microseconds and 1 millisecond can mean the difference between capitalising on a market opportunity and missing it entirely. Low and predictable latency directly correlates with profit, risk mitigation, and a firm’s competitiveness.
+Why does this matter?
+Because in HFT, the difference between 20 microseconds and 1 millisecond can mean the difference between capitalising on a market opportunity and missing it entirely.
+Low and predictable latency directly correlates with profit, risk mitigation, and a firm's competitiveness.
 
 == Less Work, More Speed
 
-One guiding principle is that microservices should do as little as possible. The less processing they perform, the faster and more predictable they become. In one real-world example, three chained microservices—executing an order management scenario and persisting six messages end-to-end—achieved a worst-case 99.9% latency under 20 microseconds. In certain simple persistence-only cases, we have seen under 1 microsecond from message ingest to persisted output.
+One guiding principle is that microservices should do as little as possible.
+The less processing they perform, the faster and more predictable they become.
+In one real-world example, three chained microservices-executing an order management scenario and persisting six messages end-to-end-achieved a worst-case 99.9% latency under 20 microseconds.
+In certain simple persistence-only cases, we have seen under 1 microsecond from message ingest to persisted output.
 
-The lesson is clear: minimise complexity. For instance, if simply transferring a message between two processes can be done in under 1 microsecond, any additional overhead—unnecessary logging, complex calculations, blocking I/O—quickly erodes performance.
+The lesson is clear: minimise complexity.
+For instance, if simply transferring a message between two processes can be done in under 1 microsecond, any additional overhead-unnecessary logging, complex calculations, blocking I/O-quickly erodes performance.
 
 == Focus on Determinism
 
-Predictability is as important as raw speed. When optimising the worst one-in-a-thousand or one-in-ten-thousand events, every source of jitter matters. Even small utilisation increases cause queue build-ups and unpredictable delays. Designing for 1% CPU utilisation ensures that occasional bursts do not create cascading latency spikes.
+Predictability is as important as raw speed.
+When optimising the worst one-in-a-thousand or one-in-ten-thousand events, every source of jitter matters.
+Even small utilisation increases cause queue build-ups and unpredictable delays.
+Designing for 1% CPU utilisation ensures that occasional bursts do not create cascading latency spikes.
 
-Caching, a common optimisation in less time-sensitive domains, rarely helps when targeting worst-case latencies. A cache hit might be fast most of the time, but for that one-in-a-thousand event, a cache miss can be catastrophic. Minimising dependency on external resources—like databases—and avoiding reliance on caches during critical low-latency paths ensures that performance remains stable under pressure.
+Caching, a common optimisation in less time-sensitive domains, rarely helps when targeting worst-case latencies.
+A cache hit might be fast most of the time, but for that one-in-a-thousand event, a cache miss can be catastrophic.
+Minimising dependency on external resources-like databases-and avoiding reliance on caches during critical low-latency paths ensures that performance remains stable under pressure.
 
 == Understanding Latency Sources
 
@@ -39,39 +57,62 @@ In a high-frequency trading stack, every component adds latency:
 * Operating system and network card overhead can introduce jitter.
 * Message queues with millisecond-level latencies (e.g. Kafka) are impractical for sub-100-microsecond targets.
 
-By choosing kernel-bypass networking, carefully selecting messaging layers, and placing core business logic on a single powerful server, it is possible to achieve extraordinary consistency and speed. For deployments that must run in the cloud or across multiple servers, these optimisations still ensure the software’s overhead is minimal, leaving the deployment architecture as the main constraint.
+By choosing kernel-bypass networking, carefully selecting messaging layers, and placing core business logic on a single powerful server, it is possible to achieve extraordinary consistency and speed.
+For deployments that must run in the cloud or across multiple servers, these optimisations still ensure the software's overhead is minimal, leaving the deployment architecture as the main constraint.
 
 == Avoiding External Dependencies
 
-The fastest and most deterministic systems rarely perform external lookups mid-flight. Querying a database during a trade decision introduces millisecond-scale delays—far too slow if you are aiming for tens of microseconds. Instead, maintain all required state in-memory and use event sourcing as the golden source of truth.
+The fastest and most deterministic systems rarely perform external lookups mid-flight.
+Querying a database during a trade decision introduces millisecond-scale delays-far too slow if you are aiming for tens of microseconds.
+Instead, maintain all required state in-memory and use event sourcing as the golden source of truth.
 
-In an event-sourced system, inputs are recorded sequentially and can be replayed to rebuild state deterministically. This approach ensures that if a failure occurs, or if engineers need to debug a scenario that only appears after a million events, they can simply replay the input stream. By doing this, they always recreate the exact same state and outcomes.
+In an event-sourced system, inputs are recorded sequentially and can be replayed to rebuild state deterministically.
+This approach ensures that if a failure occurs, or if engineers need to debug a scenario that only appears after a million events, they can simply replay the input stream.
+By doing this, they always recreate the exact same state and outcomes.
 
 == Managing Garbage Collection and Memory Pressure
 
-Java’s garbage collector (GC) can introduce unpredictable pause times. Minimising object creation is crucial. Excess object churn pollutes CPU caches and increases memory pressure, degrading worst-case latency even before a collection pause occurs.
+Java's garbage collector (GC) can introduce unpredictable pause times.
+Minimising object creation is crucial.
+Excess object churn pollutes CPU caches and increases memory pressure, degrading worst-case latency even before a collection pause occurs.
 
-However, achieving zero-garbage code everywhere can be cumbersome. Instead, aim for extremely low churn, perhaps under a gigabyte of allocated objects per hour. With such modest garbage production, a system can run for many hours or even a full trading day without triggering a significant GC pause. Strategic trade-offs, such as using primitive types and efficient data structures, strike a balance between maintainability and performance.
+However, achieving zero-garbage code everywhere can be cumbersome.
+Instead, aim for extremely low churn, perhaps under a gigabyte of allocated objects per hour.
+With such modest garbage production, a system can run for many hours or even a full trading day without triggering a significant GC pause.
+Strategic trade-offs, such as using primitive types and efficient data structures, strike a balance between maintainability and performance.
 
 == Time as an Input, Not a Global Call
 
-In deterministic architectures, time is treated as an input rather than read directly from `System.currentTimeMillis()` or `System.nanoTime()`. Recording time events in your input stream means that when you replay the system, you always see the same "time" for each event. This enables perfect reproducibility and easier debugging, as time-dependent logic no longer introduces variability.
+In deterministic architectures, time is treated as an input rather than read directly from `System.currentTimeMillis()` or `System.nanoTime()`.
+Recording time events in your input stream means that when you replay the system, you always see the same "time" for each event.
+This enables perfect reproducibility and easier debugging, as time-dependent logic no longer introduces variability.
 
 == Structuring Microservices as Pure Functions
 
-Consider designing core microservices as pure functions, driven entirely by their input streams. State is merely a cache derived from these inputs. If the cache is lost, it can be rebuilt from the event log. This technique encourages deterministic behaviour and testability. You do not need a running database, external services, or complex test harnesses. You can reconstruct scenarios simply by replaying input messages.
+Consider designing core microservices as pure functions, driven entirely by their input streams.
+State is merely a cache derived from these inputs.
+If the cache is lost, it can be rebuilt from the event log.
+This technique encourages deterministic behaviour and testability.
+You do not need a running database, external services, or complex test harnesses.
+You can reconstruct scenarios simply by replaying input messages.
 
-By separating normalisation, core logic, and output formatting into distinct components, each can be tested in isolation. Developers can confidently refactor code, knowing that replaying recorded inputs will produce identical results. This shortens the feedback loop, enhances reliability, and reduces development costs.
+By separating normalisation, core logic, and output formatting into distinct components, each can be tested in isolation.
+Developers can confidently refactor code, knowing that replaying recorded inputs will produce identical results.
+This shortens the feedback loop, enhances reliability, and reduces development costs.
 
 == Example: Efficiency Trade-Offs in Arithmetic Operations
 
-Consider the performance difference between using `double` and `BigDecimal` for arithmetic operations. While `BigDecimal` avoids floating-point rounding issues, it creates more objects and complexity, which can inflate worst-case latency. Even a seemingly simple `BigDecimal` calculation might burn your entire latency budget under stress conditions.
+Consider the performance difference between using `double` and `BigDecimal` for arithmetic operations.
+While `BigDecimal` avoids floating-point rounding issues, it creates more objects and complexity, which can inflate worst-case latency.
+Even a seemingly simple `BigDecimal` calculation might burn your entire latency budget under stress conditions.
 
-For example, a JMH benchmark might show a `double` operation completing in ~0.05 microseconds, while `BigDecimal` might take five times longer on average. The outliers matter most: the worst 1 in 1000 `BigDecimal` operations might hit tens of microseconds, undermining your latency targets. If deterministic ultra-low latency is paramount, consider representing monetary values as scaled long integers instead.
+For example, a JMH benchmark might show a `double` operation completing in ~0.05 microseconds, while `BigDecimal` might take five times longer on average.
+The outliers matter most: the worst 1 in 1000 `BigDecimal` operations might hit tens of microseconds, undermining your latency targets.
+If deterministic ultra-low latency is paramount, consider representing monetary values as scaled long integers instead.
 
 == Example Code Snippet (Asciidoc Listing)
 
-Here’s a simplified JMH snippet illustrating the cost difference between `double` and `BigDecimal` arithmetic:
+Here's a simplified JMH snippet illustrating the cost difference between `double` and `BigDecimal` arithmetic:
 
 [source,java]
 ----
@@ -100,23 +141,36 @@ While `BigDecimal` ensures perfect rounding, its worst-case latency can be signi
 
 == Testing and Debugging at Scale
 
-With deterministic microservices, tests become simpler. Each test can supply a known input sequence and compare the output events against an expected result file. When logic changes, developers can easily update these baseline results. Complex scenarios involving millions of events become manageable, as you can confidently replay and verify behaviour after fixes or enhancements.
+With deterministic microservices, tests become simpler.
+Each test can supply a known input sequence and compare the output events against an expected result file.
+When logic changes, developers can easily update these baseline results.
+Complex scenarios involving millions of events become manageable, as you can confidently replay and verify behaviour after fixes or enhancements.
 
-The ability to "regress all tests at once" and confirm every change yields the expected new output makes large-scale refactoring far more tractable. Instead of painstakingly adjusting hundreds of tests by hand, you can adjust them in minutes by regenerating expected outputs, reviewing changes, and committing them once verified.
+The ability to "regress all tests at once" and confirm every change yields the expected new output makes large-scale refactoring far more tractable.
+Instead of painstakingly adjusting hundreds of tests by hand, you can adjust them in minutes by regenerating expected outputs, reviewing changes, and committing them once verified.
 
 == Real-World Impact
 
-Such an approach can yield enormous returns. One Tier 1 bank replaced its FX trading core with a deterministic, low-latency system and recouped the entire project cost within three months due to improved trading efficiency.
+Such an approach can yield enormous returns.
+One Tier 1 bank replaced its FX trading core with a deterministic, low-latency system and recouped the entire project cost within three months due to improved trading efficiency.
 
-These systems also make scaling simpler. While the best latency is achieved by colocating processes on a single high-performance server, the underlying code remains efficient if deployed across multiple machines or in the cloud. The minimal overhead introduced by carefully chosen data structures, message formats, and network configurations ensures performance remains as high as possible within given constraints.
+These systems also make scaling simpler.
+While the best latency is achieved by colocating processes on a single high-performance server, the underlying code remains efficient if deployed across multiple machines or in the cloud.
+The minimal overhead introduced by carefully chosen data structures, message formats, and network configurations ensures performance remains as high as possible within given constraints.
 
 == Key Takeaways
 
-* **Do less to go faster:** Focus microservices on minimal necessary work.
-* **Determinism is king:** Remove jitter sources, treat time as input, and use event sourcing.
-* **Minimal external dependencies:** Avoid databases and complex caches on critical paths.
-* **Manage memory diligently:** Reduce object churn to lower GC impact and ensure stable latencies.
-* **Replay for debugging:** Event sourcing and pure functions simplify reproducing complex scenarios.
-* **Simple tests at scale:** Automated comparison of entire input-output sequences makes refactoring painless.
+Do less to go faster ::
+Focus microservices on minimal necessary work.
+Determinism is king ::
+Remove jitter sources, treat time as input, and use event sourcing.
+Minimal external dependencies ::
+Avoid databases and complex caches on critical paths.
+Manage memory diligently ::
+Reduce object churn to lower GC impact and ensure stable latencies.
+Replay for debugging ::
+Event sourcing and pure functions simplify reproducing complex scenarios.
+Simple tests at scale ::
+Automated comparison of entire input-output sequences makes refactoring painless.
 
 By adhering to these principles and continuously refining both code and architecture, developers can build hyper-deterministic systems that support sophisticated trading strategies, scale with demand, and adapt swiftly to evolving markets, all while maintaining ultra-low and stable latencies.

@@ -1,25 +1,30 @@
 = Some Common Java Gotchas and How to Avoid Them
 :source-highlighter: rouge
 
-Java’s simplicity often deceives newcomers. Although it avoids some complexities of languages like C++ or modern hybrids, Java still harbours subtleties that can trip up even experienced developers. Understanding these nuances is not just a theoretical exercise—it influences your code’s readability, maintainability, and often, its performance profile.
+Java's simplicity often deceives newcomers.
+Although it avoids some complexities of languages like C++ or modern hybrids, Java still harbours subtleties that can trip up even experienced developers.
+Understanding these nuances is not just a theoretical exercise-it influences your code's readability, maintainability, and often, its performance profile.
 
-Java developers frequently fall prey to pitfalls around references, equality comparison, object immutability, `hashCode()` contracts, and the nature of `toString()`. By mastering these concepts, you can write more predictable, efficient, and robust Java applications.
+Java developers frequently fall prey to pitfalls around references, equality comparison, object immutability, `hashCode()` contracts, and the nature of `toString()`.
+By mastering these concepts, you can write more predictable, efficient, and robust Java applications.
 
 == Variables Are References or Primitives, Not Objects
 
-In Java, variables represent references (for objects) or primitives, not the objects themselves. For example:
+In Java, variables represent references (for objects) or primitives, not the objects themselves.
+For example:
 
 [source,java]
 ----
 String s = "Hello";
 ----
 
-`s` refers to a `String` object; it does not hold the object itself. For developers coming from languages where variables can directly store objects or structs, this can feel counter-intuitive.
+`s` refers to a `String` object; it does not hold the object itself.
+For developers coming from languages where variables can directly store objects or structs, this can feel counter-intuitive.
 
 === Example Misunderstanding:
 
-**Q:** If `String` is immutable, how can I change it, like in `s += "!"`?
-**A:** You’re creating a new `String` and updating the reference, not altering the original `String`.
+*Q:* If `String` is immutable, how can I change it, like in `s += "!"`?
+*A:* You're creating a new `String` and updating the reference, not altering the original `String`.
 
 [source,java]
 ----
@@ -35,9 +40,13 @@ assert sb2 == sb;
 ----
 
 == Using `==` vs `.equals()`: Comparing References vs Content
-Equality in Java may confuse developers accustomed to operator overloading in other languages. The `==` operator checks whether two references point to the same object. The `.equals()` method checks whether two objects are logically equivalent.
 
-Certain classes, like `String` and `Integer`, use internal caching (also known as interning). If two variables hold references to the same interned value, `==` can return `true`:
+Equality in Java may confuse developers accustomed to operator overloading in other languages.
+The `==` operator checks whether two references point to the same object.
+The `.equals()` method checks whether two objects are logically equivalent.
+
+Certain classes, like `String` and `Integer`, use internal caching (also known as interning).
+If two variables hold references to the same interned value, `==` can return `true`:
 
 [source,java]
 ----
@@ -51,7 +60,7 @@ By contrast, dynamically allocated objects or values outside of these caches are
 
 [source,java]
 ----
-String s3 = new String("Hi");
+String s3 = "Hi";
 Integer c = -222, d = -222;
 System.out.println(s1 == s3);      // false, different objects
 System.out.println(s1.equals(s3)); // true, equal content
@@ -59,10 +68,16 @@ System.out.println(c == d);        // false, outside the cached integer range
 System.out.println(c.equals(d));   // true, equal numeric value
 ----
 
-From a performance perspective, comparing references with `==` is trivial, but it can yield incorrect semantics if you intend to compare content. For large-scale applications, such subtle differences can lead to perplexing bugs. Using `.equals()` is safer when checking object content, especially with collections and domain objects.
+From a performance perspective, comparing references with `==` is trivial, but it can yield incorrect semantics if you intend to compare content.
+For large-scale applications, such subtle differences can lead to perplexing bugs.
+Using `.equals()` is safer when checking object content, especially with collections and domain objects.
 
 == Java Passes References by Value, Not by Reference
-A crucial misunderstanding is that Java passes references by reference. In truth, Java always passes arguments by value. When passing a reference variable to a method, Java copies the reference, not the underlying object. Thus, mutating the object within the method affects the original, but reassigning the reference within the method has no effect outside it.
+
+A crucial misunderstanding is that Java passes references by reference.
+In truth, Java always passes arguments by value.
+When passing a reference variable to a method, Java copies the reference, not the underlying object.
+Thus, mutating the object within the method affects the original, but reassigning the reference within the method has no effect outside it.
 
 [source,java]
 ----
@@ -76,9 +91,12 @@ addWord(sb);
 System.out.println(sb); // "first word"
 ----
 
-The behaviour above is vital to internalise. If you intend to replace an object entirely, you must return the new reference from the method rather than hoping the caller’s reference is updated automatically.
+The behaviour above is vital to internalise.
+If you intend to replace an object entirely, you must return the new reference from the method rather than hoping the caller's reference is updated automatically.
 
-To clarify how references and values interplay, consider a simple memory model diagram. Think of references as pointers to boxes holding objects. Passing them to methods copies the pointer, not the box:
+To clarify how references and values interplay, consider a simple memory model diagram.
+Think of references as pointers to boxes holding objects.
+Passing them to methods copies the pointer, not the box:
 
 // change to [mermaid] to see in IntelliJ
 [source,mermaid]
@@ -92,15 +110,24 @@ flowchart LR
 ----
 
 == Surprises with `hashCode()` and `toString()`
-It is easy to assume `hashCode()` returns a memory address or that `toString()` prints a human-readable form of an object. Java’s choices here are rooted in design constraints that support hashing contracts and object lifecycle management within the JVM.
+
+It is easy to assume `hashCode()` returns a memory address or that `toString()` prints a human-readable form of an object.
+Java's choices here are rooted in design constraints that support hashing contracts and object lifecycle management within the JVM.
 
 === `hashCode()` Is Stable, Not a Memory Address
-For objects in `HashSet`, `HashMap`, or `ConcurrentHashMap`, `hashCode()` must be consistent during the object’s lifetime. The JVM might relocate objects in memory (e.g., due to garbage collection), so using memory addresses would break this contract. Instead, the JVM ensures a stable `hashCode()` value, often calculated and stored in the object header.
 
-This consistency ensures that hash-based data structures work predictably, but it can lead to confusion. Knowing that `hashCode()` does not correlate to physical memory location can help you avoid misassumptions, especially when debugging or optimising performance-sensitive code.
+For objects in `HashSet`, `HashMap`, or `ConcurrentHashMap`, `hashCode()` must be consistent during the object's lifetime.
+The JVM might relocate objects in memory (e.g., due to garbage collection), so using memory addresses would break this contract.
+Instead, the JVM ensures a stable `hashCode()` value, often calculated and stored in the object header.
+
+This consistency ensures that hash-based data structures work predictably, but it can lead to confusion.
+Knowing that `hashCode()` does not correlate to physical memory location can help you avoid misassumptions, especially when debugging or optimising performance-sensitive code.
 
 === `toString()` Often Needs a Human-Friendly Override
-By default, `toString()` for most objects returns something akin to `ClassName@hashCode_in_hex`. This low-level identifier is rarely meaningful to end-users. Arrays are even more perplexing, printing something like:
+
+By default, `toString()` for most objects returns something akin to `ClassName@hashCode_in_hex`.
+This low-level identifier is rarely meaningful to end-users.
+Arrays are even more perplexing, printing something like:
 
 [source,java]
 ----
@@ -112,19 +139,26 @@ System.out.println(Arrays.toString(words)); // [Hello, World]
 Custom `toString()` implementations can greatly aid debugging and logging by presenting domain-relevant information rather than cryptic identifiers.
 
 == Applying These Insights in Your Own Code
-To gain confidence, try writing small tests. Run the above examples in your IDE or a simple build setup. Experiment with `String.intern()` and `new` allocations, or measure performance trade-offs when using `.equals()` vs `==` on non-interned strings. Consider a quick microbenchmark with JMH to see if minor differences matter in your context.
+
+To gain confidence, try writing small tests.
+Run the above examples in your IDE or a simple build setup.
+Experiment with `String.intern()` and `new` allocations, or measure performance trade-offs when using `.equals()` vs `==` on non-interned strings.
+Consider a quick microbenchmark with JMH to see if minor differences matter in your context.
 == Understanding `hashCode()` and `toString()` in Java
 
 === The Default `toString()` Output
 
-The default behaviour of `toString()` prints the class name and `hashCode` in hexadecimal. For arrays, this can be particularly confusing. For instance, a `String[]` array might print as:
+The default behaviour of `toString()` prints the class name and `hashCode` in hexadecimal.
+For arrays, this can be particularly confusing.
+For instance, a `String[]` array might print as:
 
 [source]
 ----
 [Ljava.lang.String;@45ee12a7
 ----
 
-The `[` indicates it’s an array, `L` specifies it as a non-primitive class, and the hex value is the `hashCode`. To make arrays more readable, use `Arrays.toString()`:
+The `[` indicates it's an array, `L` specifies it as a non-primitive class, and the hex value is the `hashCode`.
+To make arrays more readable, use `Arrays.toString()`:
 
 [source,java]
 ----
@@ -137,12 +171,15 @@ You can run this code here: https://github.com/Vanilla-Java/Blog/blob/main/java-
 To see the original article, visit: https://blog.vanillajava.blog/2014/02/most-common-gotchas-in-java.html[here].
 
 == Key Takeaways
-- Variables in Java store references or primitives, never objects directly.
-- `==` compares references, not object content; use `.equals()` for logical comparison.
-- Java passes references by value—reassignments inside methods do not propagate out.
-- `hashCode()` is stable and not tied to memory addresses.
-- Override `toString()` or use `Arrays.toString()` for more meaningful output.
+
+* Variables in Java store references or primitives, never objects directly.
+* `==` compares references, not object content; use `.equals()` for logical comparison.
+* Java passes references by value-reassignments inside methods do not propagate out.
+* `hashCode()` is stable and not tied to memory addresses.
+* Override `toString()` or use `Arrays.toString()` for more meaningful output.
 
 == About the Author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

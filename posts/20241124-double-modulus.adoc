@@ -1,6 +1,7 @@
 = Unveiling Floating-Point Modulus Surprises in Java
 
-When working with `double` in Java, floating-point representation errors can accumulate, leading to unexpected behaviour—especially when using the modulus operator. In this article, we'll explore how these errors manifest and why they can cause loops to terminate earlier than anticipated.
+When working with `double` in Java, floating-point representation errors can accumulate, leading to unexpected behaviour-especially when using the modulus operator.
+In this article, we'll explore how these errors manifest and why they can cause loops to terminate earlier than anticipated.
 
 == The Unexpected Loop Termination
 
@@ -19,7 +20,10 @@ for (int i = 0; set.size() < 1000; i++) {
 }
 ----
 
-At first glance, this loop should run indefinitely. After all, the modulus of `d % 0.1` for multiples of `0.1` should always be zero, right? Surprisingly, this loop completes after 2,243 iterations, having collected 1,000 unique modulus values. How is this possible?
+At first glance, this loop should run indefinitely.
+After all, the modulus of `d % 0.1` for multiples of `0.1` should always be zero, right?
+Surprisingly, this loop completes after 2,243 iterations, having collected 1,000 unique modulus values.
+How is this possible?
 
 The https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/RepresentationError.java[full code] is available on GitHub.
 
@@ -29,7 +33,9 @@ To grasp what's happening, we need to delve into how floating-point numbers are 
 
 === The Illusion of Precision
 
-While integers and some fractions can be represented exactly in binary, numbers like `0.1` cannot. The `double` representation of `0.1` isn't precisely `0.1`; instead, it's a close approximation. Using `BigDecimal`, we can reveal the exact value:
+While integers and some fractions can be represented exactly in binary, numbers like `0.1` cannot.
+The `double` representation of `0.1` isn't precisely `0.1`; instead, it's a close approximation.
+Using `BigDecimal`, we can reveal the exact value:
 
 [source,java]
 ----
@@ -49,7 +55,8 @@ As you can see, `0.1d` is actually slightly more than `0.1`.
 
 === Division Introduces Errors
 
-When we divide an integer by `10.0`, we might assume the result is precise. However, due to floating-point representation, even these results can be slightly off.
+When we divide an integer by `10.0`, we might assume the result is precise.
+However, due to floating-point representation, even these results can be slightly off.
 
 Let's examine the case when `i = 3` and `i=11`:
 
@@ -78,7 +85,9 @@ Instead of `0.3`, we get a number slightly less, and instead of `1.1`, we get a 
 
 == The Modulus Operation's Sensitivity
 
-The modulus operator `%` is particularly sensitive to these tiny discrepancies. When we compute `d % 0.1`, we calculate the remainder after dividing `d` by `0.1`. If both `d` and `0.1` have representation errors, the result can be unpredictable.
+The modulus operator `%` is particularly sensitive to these tiny discrepancies.
+When we compute `d % 0.1`, we calculate the remainder after dividing `d` by `0.1`.
+If both `d` and `0.1` have representation errors, the result can be unpredictable.
 
 Continuing with `i = 3`:
 
@@ -95,6 +104,7 @@ Output for `i = 3`:
 ----
 d % 0.1 = 0.09999999999999997779553950749686919152736663818359375
 ----
+
 Here, instead of `0.0`, we get a value slightly less than `0.1`.
 
 Output for `i = 11`:
@@ -104,32 +114,37 @@ Output for `i = 11`:
 d % 0.1 = 2.77555756156289135105907917022705078125E-17
 ----
 
-
 Here, we get a value slightly more than `0.0`.
 
 == Accumulation of Unique Modulus Values
 
-Due to these minute differences, each iteration may produce a unique `mod` value that the `Set<Double>` considers distinct. This is why our loop terminates after 2,243 iterations—the set reaches 1,000 unique modulus values much sooner than expected.
+Due to these minute differences, each iteration may produce a unique `mod` value that the `Set<Double>` considers distinct.
+This is why our loop terminates after 2,243 iterations-the set reaches 1,000 unique modulus values much sooner than expected.
 
 == Practical Implications
 
-In real-world applications, such floating-point anomalies can lead to bugs that are hard to detect and fix. For instance:
+In real-world applications, such floating-point anomalies can lead to bugs that are hard to detect and fix.
+For instance:
 
-- **Incorrect Loop Termination**: Loops might exit earlier or later than intended.
-- **Equality Checks Fail**: Comparisons using `==` may fail unexpectedly.
-- **Data Structures Misbehave**: Hash-based collections like `Set` and `Map` might treat nearly identical values as distinct keys.
+* *Incorrect Loop Termination*: Loops might exit earlier or later than intended.
+* *Equality Checks Fail*: Comparisons using `==` may fail unexpectedly.
+* *Data Structures Misbehave*: Hash-based collections like `Set` and `Map` might treat nearly identical values as distinct keys.
 
 == Conclusion
 
-Floating-point representation errors are a subtle yet significant aspect of programming in Java. They can lead to surprising results, particularly when using operations sensitive to these errors, like modulus. By understanding these issues and adopting best practices, we can write more robust and reliable code.
+Floating-point representation errors are a subtle yet significant aspect of programming in Java.
+They can lead to surprising results, particularly when using operations sensitive to these errors, like modulus.
+By understanding these issues and adopting best practices, we can write more robust and reliable code.
 
 == Key Takeaways
 
-- **Floating-point numbers may not represent decimal values precisely** due to binary limitations.
-- **Modulus operations on doubles can produce unexpected results** because of accumulated representation errors.
-- **Use `BigDecimal` for precise decimal arithmetic or appropriate rounding** to avoid floating-point inaccuracies.
-- **Implement tolerance levels** when comparing floating-point numbers.
+* *Floating-point numbers may not represent decimal values precisely* due to binary limitations.
+* *Modulus operations on doubles can produce unexpected results* because of accumulated representation errors.
+* *Use `BigDecimal` for precise decimal arithmetic or appropriate rounding* to avoid floating-point inaccuracies.
+* *Implement tolerance levels* when comparing floating-point numbers.
 
 == Engage and Share
 
-Have you encountered unexpected behaviour due to floating-point errors in your projects? How did you address them? Share your experiences in the comments below.
+Have you encountered unexpected behaviour due to floating-point errors in your projects?
+How did you address them?
+Share your experiences in the comments below.

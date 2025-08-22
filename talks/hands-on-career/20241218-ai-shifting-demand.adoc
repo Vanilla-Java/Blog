@@ -2,110 +2,148 @@
 
 == Abstract
 
-Rather than heralding the end of the profession, AI could influence the types of skills, roles, and approaches that developers must embrace to remain relevant. History suggests that while technology shifts are disruptive, those who learn from the past and evolve their skill sets often flourish.
+Rather than heralding the end of the profession, AI could influence the types of skills, roles, and approaches that developers must embrace to remain relevant.
+History suggests that while technology shifts are disruptive, those who learn from the past and evolve their skill sets often flourish.
 
 == Quotes About Learning From History
 
 Will AI completely replace developers?
 
 [quote, anonymous]
-AI won’t replace developers, but developers who use AI will replace those who don’t.
+AI won't replace developers, but developers who use AI will replace those who don't.
 
-Over time, the ability to integrate AI into daily development tasks—such as code generation, testing, and optimisation—will distinguish successful developers from those who fall behind.
+Over time, the ability to integrate AI into daily development tasks-such as code generation, testing, and optimisation-will distinguish successful developers from those who fall behind.
 
 '''
 
 [quote, Marc Benioff, Salesforce CEO]
-The only constant in the technology industry is change. We are now in the most exciting time of our industry.
+The only constant in the technology industry is change.
+We are now in the most exciting time of our industry.
 
-It is a privilege to work in an industry which is constantly changing. It requires constant learning, but that doesn’t mean there isn’t anything to learn from the past.
+It is a privilege to work in an industry which is constantly changing.
+It requires constant learning, but that doesn't mean there isn't anything to learn from the past.
 
 '''
 
 [quote, Jean-Baptiste Alphonse Karr, 1849]
 The more things change, the more they stay the same.
 
-The IT industry has seen countless waves of innovation. From the rise of the web to cloud computing, many initially disruptive changes later became standard practice. Decades ago, you might have paid for a web browser at a time when few foresaw its ubiquity. Similarly, AI may now seem novel or overhyped, but it’s poised to become as commonplace in the developer toolkit as version control and continuous integration.
+The IT industry has seen countless waves of innovation.
+From the rise of the web to cloud computing, many initially disruptive changes later became standard practice.
+Decades ago, you might have paid for a web browser at a time when few foresaw its ubiquity.
+Similarly, AI may now seem novel or overhyped, but it's poised to become as commonplace in the developer toolkit as version control and continuous integration.
 
 '''
 
-When ATMs were introduced in banking, there was a fear that they would replace bank tellers. Instead, their numbers increased—albeit not as much as they might have without automation. Technology shifts reconfigure the workforce rather than eradicating it. Developers may not vanish, but their roles and focus will shift.
+When ATMs were introduced in banking, there was a fear that they would replace bank tellers.
+Instead, their numbers increased-albeit not as much as they might have without automation.
+Technology shifts reconfigure the workforce rather than eradicating it.
+Developers may not vanish, but their roles and focus will shift.
 
 image::https://i0.wp.com/conversableeconomist.com/wp-content/uploads/2021/05/bab42-bessen2b1.jpg[alt=Bank tellers vs ATMs 1970-2010, align="center"]
 
 '''
 
 [quote, wiki.c2.com]
-This community has been around since 1995 ... If you haven’t used a wiki before, be prepared for a bit of CultureShock. The usefulness of Wiki is in the freedom, simplicity, and power it offers.
+This community has been around since 1995 ... If you haven't used a wiki before, be prepared for a bit of CultureShock.
+The usefulness of Wiki is in the freedom, simplicity, and power it offers.
 
-I remember which Wikis were first introduced. They were seen as a novelty, but now they are a standard tool for many developers. Today, chat AI is seen as a novelty or even a culture shock, but it will become a standard tool for many developers.
+I remember which Wikis were first introduced.
+They were seen as a novelty, but now they are a standard tool for many developers.
+Today, chat AI is seen as a novelty or even a culture shock, but it will become a standard tool for many developers.
 
 '''
 
 [quote, Winston Churchill, British Prime Minister]
 Those that fail to learn from history are doomed to repeat it.
 
-The introduction of AI should lead to people making the same mistakes they have in the past. We should be prepared to learn from the past and avoid these mistakes.
+The introduction of AI should lead to people making the same mistakes they have in the past.
+We should be prepared to learn from the past and avoid these mistakes.
 
 '''
 
 [quote, Marie Curie, Nobel Prizes in Physics and Chemistry]
 I was taught that the way of progress was neither swift nor easy.
 
-The introduction of AI will likely be slower and more complicated than people expect. It will take time to go from being a novelty to learning how to use it effectively.
+The introduction of AI will likely be slower and more complicated than people expect.
+It will take time to go from being a novelty to learning how to use it effectively.
 
 == The future of the IT industry
 
-The future of IT will be shaped by AI, much as the web, open-source software, and DevOps practices shaped past innovations. While AI already influences sectors like healthcare, finance, and logistics, it remains relatively early in software development. Just as once-novel technologies became norms, AI will likely standardise and deeply embed into every aspect of the development lifecycle—from requirements analysis and architecture recommendations to code implementation, refactoring, testing, and documentation maintenance.
+The future of IT will be shaped by AI, much as the web, open-source software, and DevOps practices shaped past innovations.
+While AI already influences sectors like healthcare, finance, and logistics, it remains relatively early in software development.
+Just as once-novel technologies became norms, AI will likely standardise and deeply embed into every aspect of the development lifecycle-from requirements analysis and architecture recommendations to code implementation, refactoring, testing, and documentation maintenance.
 
 == How AI Will Change the Demand for Developers
 
-AI’s influence on developer demand is complex. Rather than wholesale replacement, it’s more about role evolution and skill diversification.
+AI's influence on developer demand is complex.
+Rather than wholesale replacement, it's more about role evolution and skill diversification.
 
-1. **Focus on Higher-Level Problems:**
-   As AI handles routine coding tasks—boilerplate generation, test scaffolding, and code reviews—developers can shift their focus to more creative and challenging work. Architectural decisions, system design, performance tuning, and complex problem-solving will become core developer responsibilities.
+. *Focus on Higher-Level Problems:*
+As AI handles routine coding tasks-boilerplate generation, test scaffolding, and code reviews-developers can shift their focus to more creative and challenging work.
+Architectural decisions, system design, performance tuning, and complex problem-solving will become core developer responsibilities.
 
-2. **New Specialisations Emerge:**
-   We may see the rise of “prompt engineers,” developers who excel at guiding AI models to produce optimal results. Others might specialise in *validating* and *curating* AI outputs or integrating multiple AI services to create cohesive engineering workflows.
+. *New Specialisations Emerge:*
+We may see the rise of "prompt engineers," developers who excel at guiding AI models to produce optimal results.
+Others might specialise in _validating_ and _curating_ AI outputs or integrating multiple AI services to create cohesive engineering workflows.
 
-3. **Enhanced Productivity and Efficiency:**
-   Properly integrated AI tools have the potential to significantly reduce time to market, helping developers iterate faster and produce more stable, secure, and maintainable code. Teams that embrace these tools can handle larger, more complex projects effectively, potentially requiring fewer junior engineers to accomplish the same output—although those juniors might still find opportunities in new areas of need.
+. *Enhanced Productivity and Efficiency:*
+Properly integrated AI tools have the potential to significantly reduce time to market, helping developers iterate faster and produce more stable, secure, and maintainable code.
+Teams that embrace these tools can handle larger, more complex projects effectively, potentially requiring fewer junior engineers to accomplish the same output-although those juniors might still find opportunities in new areas of need.
 
-4. **Importance of Foundational Knowledge:**
-   While AI can assist with syntax and patterns, a deep understanding of data structures, algorithms, and system fundamentals remains indispensable. Developers must still recognise and correct these issues when the AI yields a suboptimal or misunderstood suggestion. Foundational knowledge ensures you are not beholden to the AI’s advice but capable of judiciously filtering it.
+. *Importance of Foundational Knowledge:*
+While AI can assist with syntax and patterns, a deep understanding of data structures, algorithms, and system fundamentals remains indispensable.
+Developers must still recognise and correct these issues when the AI yields a suboptimal or misunderstood suggestion.
+Foundational knowledge ensures you are not beholden to the AI's advice but capable of judiciously filtering it.
 
-5. **Continuous Learning and Adaptation:**
-   As the industry transitioned through mainframes, PCs, the internet, and mobile, developers must now adapt to the AI era. Continuous learning remains a core expectation. Rather than fearing AI, forward-thinking developers will embrace it, using historical lessons to guide their approach and maintain a growth mindset.
+. *Continuous Learning and Adaptation:*
+As the industry transitioned through mainframes, PCs, the internet, and mobile, developers must now adapt to the AI era.
+Continuous learning remains a core expectation.
+Rather than fearing AI, forward-thinking developers will embrace it, using historical lessons to guide their approach and maintain a growth mindset.
 
 == Skills Developers Need to Work Effectively Alongside AI
 
-As AI becomes increasingly embedded into development workflows, the role of a software engineer will inevitably shift. While traditional coding expertise remains invaluable, harnessing AI’s capabilities demands a new set of complementary skills. Here are some key areas developers should focus on:
+As AI becomes increasingly embedded into development workflows, the role of a software engineer will inevitably shift.
+While traditional coding expertise remains invaluable, harnessing AI's capabilities demands a new set of complementary skills.
+Here are some key areas developers should focus on:
 
-1. **Prompt Engineering and Tool Familiarity:**
-   Just as skilled artisans know their tools, effective developers must learn to “speak AI” through well-crafted prompts. Prompt engineering involves asking questions and giving instructions to generative models in a way that yields useful, accurate results. Becoming familiar with AI-focused IDE extensions, CLI tools, and APIs will streamline the integration of AI into everyday development tasks.
+. *Prompt Engineering and Tool Familiarity:*
+Just as skilled artisans know their tools, effective developers must learn to "speak AI" through well-crafted prompts.
+Prompt engineering involves asking questions and giving instructions to generative models in a way that yields useful, accurate results.
+Becoming familiar with AI-focused IDE extensions, CLI tools, and APIs will streamline the integration of AI into everyday development tasks.
 
-2. **Interpreting and Validating AI Outputs:**
-   AI can produce code quickly, but it cannot guarantee correctness. Developers need strong critical-thinking skills to assess AI-suggested solutions, spot errors, optimise performance, and ensure security best practices. The goal is not to accept AI outputs unquestioningly but to refine and guide them, applying domain knowledge to verify correctness and maintainability.
+. *Interpreting and Validating AI Outputs:*
+AI can produce code quickly, but it cannot guarantee correctness.
+Developers need strong critical-thinking skills to assess AI-suggested solutions, spot errors, optimise performance, and ensure security best practices.
+The goal is not to accept AI outputs unquestioningly but to refine and guide them, applying domain knowledge to verify correctness and maintainability.
 
-3. **Mastery of Core Computer Science Fundamentals:**
-   Although AI might suggest a snippet to solve a particular problem, understanding why that solution works (or doesn’t) requires a solid foundation in algorithms, data structures, and architectural principles. These fundamentals allow developers to evaluate, debug, and improve AI-derived code, ensuring that performance and complexity constraints are met.
+. *Mastery of Core Computer Science Fundamentals:*
+Although AI might suggest a snippet to solve a particular problem, understanding why that solution works (or doesn't) requires a solid foundation in algorithms, data structures, and architectural principles.
+These fundamentals allow developers to evaluate, debug, and improve AI-derived code, ensuring that performance and complexity constraints are met.
 
-4. **Continuous Learning and Adaptability:**
-   Much like the transition from monolithic architectures to microservices, working alongside AI represents a paradigm shift. Embracing a growth mindset is critical. Developers who remain curious, test new approaches, and stay abreast of emerging AI-driven frameworks, libraries, and services will adapt more quickly. Building confidence through experimentation and continuous learning ensures developers remain relevant and valuable contributors.
+. *Continuous Learning and Adaptability:*
+Much like the transition from monolithic architectures to microservices, working alongside AI represents a paradigm shift.
+Embracing a growth mindset is critical.
+Developers who remain curious, test new approaches, and stay abreast of emerging AI-driven frameworks, libraries, and services will adapt more quickly.
+Building confidence through experimentation and continuous learning ensures developers remain relevant and valuable contributors.
 
-5. **Effective Communication and Collaboration:**
-   Incorporating AI-generated components often involves explaining decisions to stakeholders, managers, and peers. Developers must hone their written and verbal communication skills to articulate how AI-assisted solutions were derived and how they meet business goals. By fostering a collaborative environment, teams can share best practices for AI usage and collectively raise their expertise.
+. *Effective Communication and Collaboration:*
+Incorporating AI-generated components often involves explaining decisions to stakeholders, managers, and peers.
+Developers must hone their written and verbal communication skills to articulate how AI-assisted solutions were derived and how they meet business goals.
+By fostering a collaborative environment, teams can share best practices for AI usage and collectively raise their expertise.
 
-6. **Ethical and Responsible Use of AI:**
-   Understanding the ethical implications of AI-driven development is increasingly important. Developers should become familiar with fairness, bias detection, privacy considerations, and regulatory frameworks. By applying ethical guidelines and responsible data handling, teams can ensure that their AI-enhanced products are trustworthy and in line with legal and social expectations.
+. *Ethical and Responsible Use of AI:*
+Understanding the ethical implications of AI-driven development is increasingly important.
+Developers should become familiar with fairness, bias detection, privacy considerations, and regulatory frameworks.
+By applying ethical guidelines and responsible data handling, teams can ensure that their AI-enhanced products are trustworthy and in line with legal and social expectations.
 
 == Key Takeaways
-- Treat AI as a coding partner, not a coding replacement.
-- Strengthen fundamentals to interpret AI suggestions better.
-- Cultivate prompt engineering skills to guide AI toward valuable outputs.
-- Stay adaptable, continually learning new tools and techniques.
-- Communicate effectively, ensuring your team and stakeholders understand the rationale behind AI-driven decisions.
-- Embrace ethical principles to maintain user trust and product integrity.
+* Treat AI as a coding partner, not a coding replacement.
+* Strengthen fundamentals to interpret AI suggestions better.
+* Cultivate prompt engineering skills to guide AI toward valuable outputs.
+* Stay adaptable, continually learning new tools and techniques.
+* Communicate effectively, ensuring your team and stakeholders understand the rationale behind AI-driven decisions.
+* Embrace ethical principles to maintain user trust and product integrity.
 
 By acquiring these skills, developers position themselves at the forefront of the AI-enhanced future, ready to leverage new technologies without sacrificing quality, reliability, or professional integrity.
 
@@ -116,13 +154,18 @@ https://www.linkedin.com/in/peterlawrey/[Peter Lawrey^,role=external] leads the 
 low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks^,role=external].
 With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient
 enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed
-and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him
-as a thought leader and mentor in the Java and FinTech communities. Follow Peter on
+and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him
+as a thought leader and mentor in the Java and FinTech communities.
+Follow Peter on
 https://bsky.app/profile/peterlawrey.bsky.social[BlueSky^,role=external] or
 https://mastodon.social/@PeterLawrey[Mastodon^,role=external].
 
 == Conclusion
 
-The introduction of AI into the IT industry is not a sudden end but another chapter in a long history of evolution. Earlier shifts—from proprietary tools to open-source collaboration, from manual deployments to CI/CD automation—have taught us that developers who adapt, learn and thrive, while those who cling to old ways risk irrelevance. AI will inevitably reshape the demand for developers, but it will also open new avenues of growth, specialisation, and creativity.
+The introduction of AI into the IT industry is not a sudden end but another chapter in a long history of evolution.
+Earlier shifts-from proprietary tools to open-source collaboration, from manual deployments to CI/CD automation-have taught us that developers who adapt, learn and thrive, while those who cling to old ways risk irrelevance.
+AI will inevitably reshape the demand for developers, but it will also open new avenues of growth, specialisation, and creativity.
 
-By looking to the past, we prepare for a future in which AI complements human ingenuity rather than displacing it. The question is not whether developers will remain but in what form.
+By looking to the past, we prepare for a future in which AI complements human ingenuity rather than displacing it.
+The question is not whether developers will remain but in what form.

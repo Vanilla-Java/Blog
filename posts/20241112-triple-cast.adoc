@@ -2,13 +2,17 @@
 
 *OMG: Using a Triple Cast*
 
-We've all faced situations where a simple task spirals into unexpected complexity. In 2010, I encountered such a scenario and wrote a triple cast! 😅
+We've all faced situations where a simple task spirals into unexpected complexity.
+In 2010, I encountered such a scenario and wrote a triple cast!
 
 == The Problem: Default Values for Primitive Types
 
-Dealing with default values for various Java primitive types can be surprisingly tricky. Primitives each have a well-defined default—`0` for numeric types, `false` for `boolean`, and `'\u0000'` (the null character) for `char`. Yet, when working with generics and requiring a "default value" factory, we may be tempted to do something unorthodox.
+Dealing with default values for various Java primitive types can be surprisingly tricky.
+Primitives each have a well-defined default-`0` for numeric types, `false` for `boolean`, and `'\u0000'` (the null character) for `char`.
+Yet, when working with generics and requiring a "default value" factory, we may be tempted to do something unorthodox.
 
-I needed a method to return a given type's default value. Here's the first approach I wrote at the time:
+I needed a method to return a given type's default value.
+Here's the first approach I wrote at the time:
 
 [source,java]
 ----
@@ -20,13 +24,17 @@ public static <T> T defaultValue(Class<T> clazz) {
 }
 ----
 
-Yes, this is casting madness! Let’s break it down:
+Yes, this is casting madness!
+Let's break it down:
 
-- `(byte) 0`: Initialises the default value for the `byte` primitive type.
-- `(Byte)`: Wraps the primitive into its wrapper type, `Byte`.
-- `(T)`: Casts it to the generic type `T`.
+* `(byte) 0`: Initialises the default value for the `byte` primitive type.
+* `(Byte)`: Wraps the primitive into its wrapper type, `Byte`.
+* `(T)`: Casts it to the generic type `T`.
 
-While functional, this approach is overly verbose, difficult to read, and frankly, not very elegant. So, I decided to refactor it. A more elegant solution leverages a pre-populated, immutable map that associates each primitive type with its corresponding default value. By setting this map up once, we avoid the messy casting and improve both readability and performance:
+While functional, this approach is overly verbose, difficult to read, and frankly, not very elegant.
+So, I decided to refactor it.
+A more elegant solution leverages a pre-populated, immutable map that associates each primitive type with its corresponding default value.
+By setting this map up once, we avoid the messy casting and improve both readability and performance:
 
 [source,java]
 ----
@@ -52,28 +60,31 @@ public static <T> T defaultValue(Class<T> type) {
 }
 ----
 
-Here’s why this approach is better:
+Here's why this approach is better:
 
-- *Centralised Logic:* All default values are stored in a map (`DEFAULT_MAP`), making adding or modifying default values easy.
-- *Reduced Casting:* While casting still occurs, it’s simplified and separated into manageable steps.
-- *Improved Readability:* The intent of the method is much clearer and easier to understand for future developers.
-- *Efficiency:* The map is pre-populated during static initialisation, ensuring quick lookups at runtime.
+* *Centralised Logic:* All default values are stored in a map (`DEFAULT_MAP`), making adding or modifying default values easy.
+* *Reduced Casting:* While casting still occurs, it's simplified and separated into manageable steps.
+* *Improved Readability:* The intent of the method is much clearer and easier to understand for future developers.
+* *Efficiency:* The map is pre-populated during static initialisation, ensuring quick lookups at runtime.
 
 == Conclusion
 
-While triple casts might work in a pinch, they often lead to code that is harder to read and maintain. By leveraging structures like maps and focusing on immutability, we can achieve solutions that are not only more elegant but also more robust and flexible. Remember, clear and concise code is always worth the extra effort!
+While triple casts might work in a pinch, they often lead to code that is harder to read and maintain.
+By leveraging structures like maps and focusing on immutability, we can achieve solutions that are not only more elegant but also more robust and flexible.
+Remember, clear and concise code is always worth the extra effort!
 
 == Resources
 
 Check out the official Java docs for more details on primitive wrappers:
 
-- https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Byte.html[Byte Javadoc]
-- https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html[Integer Javadoc]
+* https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Byte.html[Byte Javadoc]
+* https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html[Integer Javadoc]
 
 == About the Author
 
 As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
 
-With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
 
 Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

@@ -5,20 +5,32 @@ Peter Lawrey
 :source-highlighter: rouge
 
 [abstract]
-One of Java’s guiding principles is that you should not need to worry about the exact size of an object. Yet, many developers want to understand object memory footprints as systems evolve. For instance, when tuning application performance or working with memory-constrained environments, knowing how much memory your objects occupy can help guide better decisions. While the JVM obscures this detail for good reasons—portability, security, and abstraction—there are practical scenarios where deeper insight is valuable.
+One of Java's guiding principles is that you should not need to worry about the exact size of an object.
+Yet, many developers want to understand object memory footprints as systems evolve.
+For instance, when tuning application performance or working with memory-constrained environments, knowing how much memory your objects occupy can help guide better decisions.
+While the JVM obscures this detail for good reasons-portability, security, and abstraction-there are practical scenarios where deeper insight is valuable.
 
 == Introduction
 
-Measuring an object’s size in Java is not straightforward. The platform encourages you to consider references and abstractions rather than raw memory usage. Still, understanding how objects fit into memory can yield significant benefits, especially for high-performance, low-latency systems.
+Measuring an object's size in Java is not straightforward.
+The platform encourages you to consider references and abstractions rather than raw memory usage.
+Still, understanding how objects fit into memory can yield significant benefits, especially for high-performance, low-latency systems.
 
-Over time, the JVM has introduced optimisations like Compressed Ordinary Object Pointers (Compressed Oops) and, more recently, Compact Object Headers. Each of these can influence how large or small your objects appear. Understanding these factors helps you reason about memory usage more concretely.
+Over time, the JVM has introduced optimisations like Compressed Ordinary Object Pointers (Compressed Oops) and, more recently, Compact Object Headers.
+Each of these can influence how large or small your objects appear.
+Understanding these factors helps you reason about memory usage more concretely.
 
 == Measuring Object Sizes
 
-In principle, you can estimate an object’s size by creating instances and observing changes in the JVM’s free memory. However, you must neutralise certain factors to get consistent results. For example, turning off TLAB allocation (`-XX:-UseTLAB`) makes memory usage more directly observable. Repeated measurements and median calculations can reduce the impact of GC and concurrent allocations.
+In principle, you can estimate an object's size by creating instances and observing changes in the JVM's free memory.
+However, you must neutralise certain factors to get consistent results.
+For example, turning off TLAB allocation (`-XX:-UseTLAB`) makes memory usage more directly observable.
+Repeated measurements and median calculations can reduce the impact of GC and concurrent allocations.
 
-A GC can occur while you are creating your object. This will result in more free memory at the end than when you started. I ignore any negative sizes in this test ;)
-Other threads in the system could use memory at the same time. I perform multiple test and take the median, which removes any outliers.
+A GC can occur while you are creating your object.
+This will result in more free memory at the end than when you started.
+I ignore any negative sizes in this test ;) Other threads in the system could use memory at the same time.
+I perform multiple test and take the median, which removes any outliers.
 
 Below is a rough approach:
 
@@ -30,7 +42,8 @@ long after = usedMemory();
 long approximateSize = after - before;
 ----
 
-This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/memory/SizeofTest.java[SizeofTest.java] is a simple test which creates a number of objects and measures the memory used to create each object. This is usually the same as the amount of memory the object retains for simple objects.
+This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/java/blog/vanillajava/memory/SizeofTest.java[SizeofTest.java] is a simple test which creates a number of objects and measures the memory used to create each object.
+This is usually the same as the amount of memory the object retains for simple objects.
 
 == Approximate layout of an object
 
@@ -43,7 +56,7 @@ This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/
 |8 bytes (on 64-bit JVMs)
 
 |Class Pointer (Klass Pointer)
-|Reference to the object’s class metadata, used internally by the JVM
+|Reference to the object's class metadata, used internally by the JVM
 |Typically 4 bytes with Compressed Class Pointers, otherwise 8 bytes
 
 |Array Length (Arrays Only)
@@ -59,33 +72,37 @@ This test https://github.com/Vanilla-Java/Blog/blob/main/core-concepts/src/main/
 |0 to 7 bytes, as needed
 |===
 
-
 == JEP 450: Compact Object Headers (Experimental)
 
 Starting with Java 24 (Early Access), the JVM introduces *Compact Object Headers* via https://openjdk.org/jeps/450[Java Enhancement Proposal 450]
 
 === Summary
-Reduce the size of object headers in the HotSpot JVM from between 96 and 128 bits down to 64 bits on 64-bit architectures. This will reduce heap size, improve deployment density, and increase data locality.
+
+Reduce the size of object headers in the HotSpot JVM from between 96 and 128 bits down to 64 bits on 64-bit architectures.
+This will reduce heap size, improve deployment density, and increase data locality.
 
 === Goals
+
 When enabled, this feature
 
- - Must reduce the object header size to 64 bits (8 bytes) on the target 64-bit platforms (x64 and AArch64),
- - Should reduce object sizes and memory footprint on realistic workloads,
- - Should not introduce more than 5% throughput or latency overheads on the target 64-bit platforms, and only in infrequent cases, and
- - Should not introduce measurable throughput or latency overheads on non-target 64-bit platforms.
+* Must reduce the object header size to 64 bits (8 bytes) on the target 64-bit platforms (x64 and AArch64),
+* Should reduce object sizes and memory footprint on realistic workloads,
+* Should not introduce more than 5% throughput or latency overheads on the target 64-bit platforms, and only in infrequent cases, and
+* Should not introduce measurable throughput or latency overheads on non-target 64-bit platforms.
 
 == Performance Considerations
 
-A smaller object footprint can improve performance by increasing the number of objects that fit into CPU caches, reducing the cost of GC, and even improving startup times. However, enabling these features (or disabling them) should be accompanied by testing and benchmarking (e.g., using JMH). Depending on your workload, these optimisations may yield modest gains or have negligible impact.
+A smaller object footprint can improve performance by increasing the number of objects that fit into CPU caches, reducing the cost of GC, and even improving startup times.
+However, enabling these features (or disabling them) should be accompanied by testing and benchmarking (e.g., using JMH).
+Depending on your workload, these optimisations may yield modest gains or have negligible impact.
 
 These improvements can translate into substantial cost savings and better utilisation of available resources for memory-sensitive environments, especially those running microservices where each instance might have limited heap space.
 
 == Sizeof objects with different options
 
-- Compact Headers: `-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders` in Java 24 EA
-- Compressed Oops: `-XX:+UseCompressedOops` added in Java 8 as the default for a heap size up to 32 GB
-- No Compressed Oops: `-XX:-UseCompressedOops` for heap sizes over 32 GB
+* Compact Headers: `-XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders` in Java 24 EA
+* Compressed Oops: `-XX:+UseCompressedOops` added in Java 8 as the default for a heap size up to 32 GB
+* No Compressed Oops: `-XX:-UseCompressedOops` for heap sizes over 32 GB
 
 .Wrappers
 [cols="2,1,1,1",options="header"]
@@ -165,8 +182,12 @@ NOTE: These values are approximate, environment-dependent, and should be conside
 
 == Conclusion
 
-Java’s abstractions often free you from worrying about memory details, but understanding how object sizes change with different JVM configurations can help fine-tune performance. Compact Headers and Compressed Oops are powerful features that let you reduce memory footprints and potentially improve efficiency. Experimentation, measurements, and thoughtful benchmarking will guide you in making informed choices for your specific workloads.
+Java's abstractions often free you from worrying about memory details, but understanding how object sizes change with different JVM configurations can help fine-tune performance.
+Compact Headers and Compressed Oops are powerful features that let you reduce memory footprints and potentially improve efficiency.
+Experimentation, measurements, and thoughtful benchmarking will guide you in making informed choices for your specific workloads.
 
-In my experience, scrutinising object sizes has proven valuable when dealing with large-scale, memory-sensitive applications. Testing these configurations allows you to discover the right balance for your services and potentially save on infrastructure costs.
+In my experience, scrutinising object sizes has proven valuable when dealing with large-scale, memory-sensitive applications.
+Testing these configurations allows you to discover the right balance for your services and potentially save on infrastructure costs.
 
-Consider starting small: measure a few objects, toggle TLAB or Compressed Oops settings, and see what changes. Over time, you will build a deeper mental model of how Java’s memory behaves, enabling you to write more efficient and predictable code.
+Consider starting small: measure a few objects, toggle TLAB or Compressed Oops settings, and see what changes.
+Over time, you will build a deeper mental model of how Java's memory behaves, enabling you to write more efficient and predictable code.

@@ -11,20 +11,22 @@ GitHub repository for the examples discussed on the Vanilla Java blog, covering 
 
 == About
 
-This repository hosts a collection of example projects discussed in articles on the Vanilla Java blog, authored by Peter Lawrey. Each example is designed to illustrate concepts in Java programming, ranging from low-latency persistence and high-throughput application design to Java’s core language features and best practices.
+This repository hosts a collection of example projects discussed in articles on the Vanilla Java blog, authored by Peter Lawrey.
+Each example is designed to illustrate concepts in Java programming, ranging from low-latency persistence and high-throughput application design to Java's core language features and best practices.
 
-Peter Lawrey, known for his expertise in Java and JVM optimization, has developed these examples to help Java developers deepen their understanding of both foundational and advanced programming techniques. This repository organizes the examples into separate modules for easy exploration.
+Peter Lawrey, known for his expertise in Java and JVM optimization, has developed these examples to help Java developers deepen their understanding of both foundational and advanced programming techniques.
+This repository organizes the examples into separate modules for easy exploration.
 
 == Structure
 
 The project follows a multi-module structure where each module represents a unique topic or example:
 
-* `core-concepts` – Demonstrates core Java concepts such as data types, collections, concurrency, and more.
-* `performance-optimizations` – Contains examples on memory management, CPU efficiency, and Java profiling tools.
-* `low-latency` – Focuses on techniques for achieving low-latency and high-throughput performance in Java applications.
-* `java-misconceptions` – Covers common misconceptions and pitfalls in Java, explained in-depth with examples.
-* `advanced-topics` – Includes examples on topics such as off-heap memory management, thread pinning, and direct memory access.
-* `case-studies` – Real-world applications and case studies discussed on the blog.
+* `core-concepts` - Demonstrates core Java concepts such as data types, collections, concurrency, and more.
+* `performance-optimizations` - Contains examples on memory management, CPU efficiency, and Java profiling tools.
+* `low-latency` - Focuses on techniques for achieving low-latency and high-throughput performance in Java applications.
+* `java-misconceptions` - Covers common misconceptions and pitfalls in Java, explained in-depth with examples.
+* `advanced-topics` - Includes examples on topics such as off-heap memory management, thread pinning, and direct memory access.
+* `case-studies` - Real-world applications and case studies discussed on the blog.
 
 Each module contains a `README.adoc` file with detailed explanations for each example.
 
@@ -33,7 +35,7 @@ Each module contains a `README.adoc` file with detailed explanations for each ex
 === Prerequisites
 
 * Java 8 or later
-* Apache Maven 3.6+ 
+* Apache Maven 3.6+
 
 === Cloning the Repository
 
@@ -45,7 +47,8 @@ $ cd Blog
 
 === Building the Project
 
-This project uses Maven for building. Run the following command from the root directory to build all modules:
+This project uses Maven for building.
+Run the following command from the root directory to build all modules:
 
 [source,bash]
 ----
@@ -54,7 +57,8 @@ $ mvn clean install
 
 === Running Examples
 
-Each module can be executed individually. For example, to run an example from the `core-concepts` module:
+Each module can be executed individually.
+For example, to run an example from the `core-concepts` module:
 
 [source,bash]
 ----
@@ -68,10 +72,10 @@ Replace `MainExample` with the specific example class you wish to execute.
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Commit your changes with descriptive commit messages.
-4. Submit a pull request.
+. Fork the repository.
+. Create a new branch for your feature or bug fix.
+. Commit your changes with descriptive commit messages.
+. Submit a pull request.
 
 == License
 

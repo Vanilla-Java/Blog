@@ -21,7 +21,7 @@ public class JavaConversionPuzzler {
 
         // Example 3: Char division causing a character change
         char ch = '0'; // '0' has ASCII code 48
-        ch /= 0.9;     // dividing 48 by 0.9 ≈ 53.3333, truncated to 53 = '5'
+        ch /= 0.9;     // dividing 48 by 0.9 ~= 53.3333, truncated to 53 = '5'
         System.out.println("\nChar division example:");
         System.out.println("ch after division: " + ch); // prints '5'
     }

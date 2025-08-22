@@ -1,18 +1,25 @@
 = Unexpected Full GCs Triggered by RMI in Latency-Sensitive Applications
 
-We observed an unexpected increase in Full Garbage Collections (Full GCs) while optimising a latency-sensitive application with minimal object creation. Despite reducing the frequency of minor GCs to enhance performance, the system began to exhibit hourly periodic pauses due to Full GCs, which was counterintuitive.
+We observed an unexpected increase in Full Garbage Collections (Full GCs) while optimising a latency-sensitive application with minimal object creation.
+Despite reducing the frequency of minor GCs to enhance performance, the system began to exhibit hourly periodic pauses due to Full GCs, which was counterintuitive.
 
 == Investigating the Source of Full GCs
 
-Upon closer examination, we discovered that the Java Remote Method Invocation (RMI) system was initiating Full GCs every hour. Specifically, the RMI Distributed Garbage Collector (DGC) checks if a GC has occurred in the last hour and, if not, forces a Full GC. This behaviour occurs even if the application does not actively use RMI, leading to unnecessary performance overhead.
+Upon closer examination, we discovered that the Java Remote Method Invocation (RMI) system was initiating Full GCs every hour.
+Specifically, the RMI Distributed Garbage Collector (DGC) checks if a GC has occurred in the last hour and, if not, forces a Full GC.
+This behaviour occurs even if the application does not actively use RMI, leading to unnecessary performance overhead.
 
 == Understanding RMI's Impact on Garbage Collection
 
-The RMI DGC collects periodic garbage to clean up unused remote objects. By default, it is configured to trigger a Full GC if none has occurred within a specified interval (defaulting to one hour). This mechanism ensures that stale references are collected in distributed applications. However, for applications that do not use RMI or where latency is critical, this can introduce unwelcome Full GCs.
+The RMI DGC collects periodic garbage to clean up unused remote objects.
+By default, it is configured to trigger a Full GC if none has occurred within a specified interval (defaulting to one hour).
+This mechanism ensures that stale references are collected in distributed applications.
+However, for applications that do not use RMI or where latency is critical, this can introduce unwelcome Full GCs.
 
 == Configuring RMI DGC Intervals
 
-To mitigate this issue, we can adjust the intervals at which the RMI DGC checks for garbage collection. This is done by setting the following JVM options:
+To mitigate this issue, we can adjust the intervals at which the RMI DGC checks for garbage collection.
+This is done by setting the following JVM options:
 
 [source]
 ----
@@ -20,23 +27,30 @@ To mitigate this issue, we can adjust the intervals at which the RMI DGC checks 
 -Dsun.rmi.dgc.server.gcInterval=86400000
 ----
 
-The values are in milliseconds, so setting them to `86400000` extends the interval to 24 hours. It's important to note that the client and server intervals must be increased; adjusting only one has no effect due to how RMI DGC schedules its checks.
+The values are in milliseconds, so setting them to `86400000` extends the interval to 24 hours.
+It's important to note that the client and server intervals must be increased; adjusting only one has no effect due to how RMI DGC schedules its checks.
 
 == Applying the Solution
 
-By updating these JVM options, we observed a significant reduction in unnecessary Full GCs. Our application's latency improved as the unexpected pauses caused by the RMI DGC were eliminated.
+By updating these JVM options, we observed a significant reduction in unnecessary Full GCs.
+Our application's latency improved as the unexpected pauses caused by the RMI DGC were eliminated.
 
 == Performance Considerations
 
-While extending the RMI DGC intervals mitigates the issue for non-RMI applications, be cautious if your application uses RMI. Increasing the intervals might delay the cleanup of unused remote objects, potentially leading to memory leaks or other resource management issues.
+While extending the RMI DGC intervals mitigates the issue for non-RMI applications, be cautious if your application uses RMI.
+Increasing the intervals might delay the cleanup of unused remote objects, potentially leading to memory leaks or other resource management issues.
 
 == Conclusion
 
-Unanticipated behaviours like RMI-induced Full GCs can impact application performance, especially in latency-sensitive systems. You must be aware of default JVM settings that may not align with your application's needs. Adjusting the `sun.rmi.dgc.client.gcInterval` and `sun.rmi.dgc.server.gcInterval` options can help optimise garbage collection behaviour.
+Unanticipated behaviours like RMI-induced Full GCs can impact application performance, especially in latency-sensitive systems.
+You must be aware of default JVM settings that may not align with your application's needs.
+Adjusting the `sun.rmi.dgc.client.gcInterval` and `sun.rmi.dgc.server.gcInterval` options can help optimise garbage collection behaviour.
 
 == Have You Experienced Similar Issues?
 
-Have you encountered unexpected Full GCs in your applications? How did you address them? Share your experiences and insights below.
+Have you encountered unexpected Full GCs in your applications?
+How did you address them?
+Share your experiences and insights below.
 
 == About the Author
 

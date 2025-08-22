@@ -3,7 +3,8 @@
 
 == Advanced Java Questions
 
-These questions delve into Java's more intricate behaviours and are often too advanced for typical interviews, as they might be discouraging for candidates. However, they are excellent for deepening your understanding of Java's core workings in your own time.
+These questions delve into Java's more intricate behaviours and are often too advanced for typical interviews, as they might be discouraging for candidates.
+However, they are excellent for deepening your understanding of Java's core workings in your own time.
 
 === Myth 1: `System.exit(0)` Prevents `finally` Block Execution
 
@@ -32,11 +33,14 @@ This code will output:
 In the finally block
 ----
 
-**Explanation**: The `System.exit(0)` call triggers the `checkExit` method in the custom `SecurityManager`. By throwing a `ThreadDeath` exception instead of terminating, the `finally` block is allowed to execute, explaining the `"In the finally block"` output. Since `ThreadDeath` is not an error that generates a stack trace by default, no stack trace is printed.
+*Explanation*: The `System.exit(0)` call triggers the `checkExit` method in the custom `SecurityManager`.
+By throwing a `ThreadDeath` exception instead of terminating, the `finally` block is allowed to execute, explaining the `"In the finally block"` output.
+Since `ThreadDeath` is not an error that generates a stack trace by default, no stack trace is printed.
 
 === Myth 2: `String str = "Hello";` Creates a String Object
 
-Unlike C++, Java variables can only be primitives or references, not actual objects. For instance:
+Unlike C++, Java variables can only be primitives or references, not actual objects.
+For instance:
 
 [source,java]
 ----
@@ -56,24 +60,33 @@ sb.append("Hello"); // The reference sb is final, but the instance it references
 method(sb);         // The method can alter the instance but cannot change the reference.
 ----
 
-**Explanation**: In this example, `sb` is a final reference to a `StringBuilder` instance. The `final` modifier only applies to the reference, meaning `sb` cannot be reassigned, but the object it references (the `StringBuilder` instance) can be modified, such as by appending text. This is a critical distinction to grasp for understanding immutability and reference manipulation in Java.
+*Explanation*: In this example, `sb` is a final reference to a `StringBuilder` instance.
+The `final` modifier only applies to the reference, meaning `sb` cannot be reassigned, but the object it references (the `StringBuilder` instance) can be modified, such as by appending text.
+This is a critical distinction to grasp for understanding immutability and reference manipulation in Java.
 
 === Myth 3: Java Has Memory Leaks Like C++
 
 According to https://en.wikipedia.org/wiki/Memory_leak[Wikipedia], a memory leak is defined as:
-*"In computer science, a memory leak occurs when a computer program incorrectly manages memory allocations. In object-oriented programming, a memory leak may happen when an object is stored in memory but cannot be accessed by the running code."*
+_"In computer science, a memory leak occurs when a computer program incorrectly manages memory allocations.
+In object-oriented programming, a memory leak may happen when an object is stored in memory but cannot be accessed by the running code."_
 
-In Java, however, memory leaks differ from the traditional C++ understanding. Java’s garbage collector automatically cleans up objects that are no longer *strongly referenced*, meaning objects that are inaccessible to the running code are eventually removed. Still, memory leaks can occur in Java when objects are unintentionally retained, often in collections, long after they are needed, leading to an undesirable increase in retained memory.
+In Java, however, memory leaks differ from the traditional C++ understanding.
+Java's garbage collector automatically cleans up objects that are no longer _strongly referenced_, meaning objects that are inaccessible to the running code are eventually removed.
+Still, memory leaks can occur in Java when objects are unintentionally retained, often in collections, long after they are needed, leading to an undesirable increase in retained memory.
 
 === Myth 4: Multi-Threading Is Hard
 
-Multi-threading can indeed be challenging—if not approached with discipline. Creating a multi-threaded program without a clear structure or organisation often leads to complexity and hard-to-resolve issues.
+Multi-threading can indeed be challenging-if not approached with discipline.
+Creating a multi-threaded program without a clear structure or organisation often leads to complexity and hard-to-resolve issues.
 
-However, with a disciplined approach, multi-threading can be made manageable. By limiting thread creation to only those required, controlling interactions between threads, and adopting well-understood patterns, multi-threaded programming can be straightforward. The key challenge often lies in ensuring that the entire team consistently follows these best practices.
+However, with a disciplined approach, multi-threading can be made manageable.
+By limiting thread creation to only those required, controlling interactions between threads, and adopting well-understood patterns, multi-threaded programming can be straightforward.
+The key challenge often lies in ensuring that the entire team consistently follows these best practices.
 
 === Myth 5: I Don't Need to Understand the Relative Performance of Different Operations to Care About Performance
 
-Performance optimisation isn't just about making everything "faster"—it's about understanding the relative cost of different operations. For example:
+Performance optimisation isn't just about making everything "faster"-it's about understanding the relative cost of different operations.
+For example:
 
 [source,java]
 ----
@@ -81,36 +94,43 @@ int a = 5 + 10; // Fast operation
 System.out.println(a); // Slower operation
 ----
 
-In some cases, developers focus on speeding up faster operations while ignoring slower bottlenecks, such as I/O or memory access. Effective optimisation targets the most expensive operations to improve overall performance.
+In some cases, developers focus on speeding up faster operations while ignoring slower bottlenecks, such as I/O or memory access.
+Effective optimisation targets the most expensive operations to improve overall performance.
 
 === Myth 6: Random Numbers Always Look Random
 
-It’s a common misconception that random numbers always appear random. Specific combinations of random numbers are just as likely as those that seem to follow a pattern. This is due to the nature of pseudo-random number generators, which may produce sequences that look non-random over short intervals but are statistically valid.
+It's a common misconception that random numbers always appear random.
+Specific combinations of random numbers are just as likely as those that seem to follow a pattern.
+This is due to the nature of pseudo-random number generators, which may produce sequences that look non-random over short intervals but are statistically valid.
 
 === Myth 7: Floating Point Should Be Avoided Because It Has Random Errors
 
-Floating point arithmetic does not produce random errors; the errors are predictable and repeatable for the same operations. This predictability makes floating point operations manageable when precautions like rounding are applied.
+Floating point arithmetic does not produce random errors; the errors are predictable and repeatable for the same operations.
+This predictability makes floating point operations manageable when precautions like rounding are applied.
 
 Floating point is also significantly faster and more memory-efficient than `BigDecimal`, making it suitable for most use cases where high performance is required.
 
 === Myth 8: Timezones Are Timeless
 
-Timezones are not fixed—they change over time. For example:
+Timezones are not fixed-they change over time.
+For example:
 
-- Europe/London observed Daylight Saving Time (DST) at the epoch (January 1, 1970), making it GMT+1 instead of GMT.
-- Moscow changed from GMT+4 to GMT+3 on 27 March 2011.
+* Europe/London observed Daylight Saving Time (DST) at the epoch (January 1, 1970), making it GMT+1 instead of GMT.
+* Moscow changed from GMT+4 to GMT+3 on 27 March 2011.
 
-Historical anomalies, such as February 30th in Sweden (1721) or George Washington’s birthday change due to calendar adoption, highlight the complexities of timezone handling.
+Historical anomalies, such as February 30th in Sweden (1721) or George Washington's birthday change due to calendar adoption, highlight the complexities of timezone handling.
 
 === Myth 9: When You Read a Non-Volatile Value in One Thread, You Will Eventually See an Updated Value
 
-The Java JIT compiler may optimise code by inlining non-volatile fields, potentially preventing updates made by other threads from being visible. Using the `volatile` keyword ensures that changes to a variable are visible across threads.
+The Java JIT compiler may optimise code by inlining non-volatile fields, potentially preventing updates made by other threads from being visible.
+Using the `volatile` keyword ensures that changes to a variable are visible across threads.
 
 === Myth 10: Most Content on Java Interview Questions Is Accurate
 
-A significant portion of Java interview questions found online is outdated or incorrect. Many questions are based on practices or behaviours from older Java versions and no longer apply to modern Java.
+A significant portion of Java interview questions found online is outdated or incorrect.
+Many questions are based on practices or behaviours from older Java versions and no longer apply to modern Java.
 
-//+ Suggest reliable resources for up-to-date Java interview preparation.
+// + Suggest reliable resources for up-to-date Java interview preparation.
 
 == Key Points
 
@@ -133,8 +153,10 @@ Experiment with the myths discussed:
 * Develop multi-threaded applications following best practices to manage complexity.
 * Benchmark different operations to identify performance bottlenecks.
 
-//+ Links to runnable code snippets or repositories can facilitate hands-on learning.
+// + Links to runnable code snippets or repositories can facilitate hands-on learning.
 
 == About the Author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

@@ -4,11 +4,14 @@ First Published: June 14, 2011
 
 == Introduction
 
-Have you ever considered the performance implications of converting collections to arrays in Java? It's a common task; your chosen method can impact your application's efficiency. In this article, I will explore different approaches to `toArray()`, benchmark their performance, and determine which method is optimal for various scenarios.
+Have you ever considered the performance implications of converting collections to arrays in Java?
+It's a common task; your chosen method can impact your application's efficiency.
+In this article, I will explore different approaches to `toArray()`, benchmark their performance, and determine which method is optimal for various scenarios.
 
 == The Challenge
 
-Converting a `Collection` to an array seems straightforward, but the standard practice of using `collection.toArray(new Type[0])` might not be the most efficient. Understanding the nuances of this method can help you write more performant code.
+Converting a `Collection` to an array seems straightforward, but the standard practice of using `collection.toArray(new Type[0])` might not be the most efficient.
+Understanding the nuances of this method can help you write more performant code.
 
 == Exploring the Approaches
 
@@ -30,7 +33,8 @@ While this approach avoids additional array creation and can be fast, it lacks t
 
 A common practice involves passing a new zero-length array to the `toArray()` method.
 
-Creating a new zero-length array each time combines reflection costs and creating an empty array each time. A long time ago, for Java 6, I recommended that this “is never a good idea,” but is this still true in Java 21?
+Creating a new zero-length array each time combines reflection costs and creating an empty array each time.
+A long time ago, for Java 6, I recommended that this "is never a good idea," but is this still true in Java 21?
 
 .Example from `javax.management.timer.Timer.getNotificationInfo()`
 [source,java]
@@ -40,7 +44,9 @@ String[] notifTypesArray = notifTypes.toArray(new String[0]);
 
 This code creates a new zero-length array every time, incurring unnecessary allocation and reflection costs, especially in performance-critical applications.
 
-This approach may create one or two arrays and a reflective call. At first glance, it's best to avoid this option. But is it?
+This approach may create one or two arrays and a reflective call.
+At first glance, it's best to avoid this option.
+But is it?
 
 === 3. Pre-Sizing the Array: `toArray(new Type[collection.size()])`
 
@@ -62,7 +68,8 @@ This appears most efficient for collections with sizes greater than zero.
 
 Reusing a constant empty array can be efficient for collections that are often empty.
 
-Using a pre-built empty array as an argument is most efficient when the collection is usually empty. If the collection has elements, an extra reflective call is required.
+Using a pre-built empty array as an argument is most efficient when the collection is usually empty.
+If the collection has elements, an extra reflective call is required.
 
 .Example using a constant empty array
 [source,java]
@@ -77,18 +84,19 @@ This approach minimises array creation when the collection is empty but may intr
 
 Generally, it's safe to assume all zero-length arrays of a given type are the same, i.e., immutable.
 
-NOTE: The only side effect you can get from an empty array is if you use it for a lock with `synchronized`. This will likely be more confusing than useful, so don’t use the lock on an array if you can help it.
+NOTE: The only side effect you can get from an empty array is if you use it for a lock with `synchronized`.
+This will likely be more confusing than useful, so don't use the lock on an array if you can help it.
 
 === 5. Attempt to get the Best of Both Worlds
 
 If the size is likely to be zero, you might think the fastest option is to combine the benefits of the third and forth approaches.
 
-[source, java]
+[source,java]
 ----
 return s.isEmpty() ? NO_STRINGS : (String[]) s.toArray(new String[s.size()]);
 ----
 
-[source, java]
+[source,java]
 ----
 private static final String[] NO_STRINGS  = {};
 ----
@@ -102,15 +110,15 @@ available here https://github.com/Vanilla-Java/Blog/blob/main/performance-optimi
 
 === Collections Tested
 
-- **ArrayList**: Sizes of 0, 3, 7, and 16 elements.
-- **HashSet** and **TreeSet**: Created from the same elements as the ArrayLists.
+* *ArrayList*: Sizes of 0, 3, 7, and 16 elements.
+* *HashSet* and *TreeSet*: Created from the same elements as the ArrayLists.
 
 === Benchmark Configuration
 
-- **Warmup**: 2 iterations, 1 second each.
-- **Measurement**: 3 iterations, 10 seconds each.
-- **Threads**: Configurable via `-Dthreads`, defaulting to 8.
-- **Forks**: 7 separate JVM instances for accurate results.
+* *Warmup*: 2 iterations, 1 second each.
+* *Measurement*: 3 iterations, 10 seconds each.
+* *Threads*: Configurable via `-Dthreads`, defaulting to 8.
+* *Forks*: 7 separate JVM instances for accurate results.
 
 === Methods Benchmarked
 
@@ -120,30 +128,34 @@ Each benchmark method tested one of the approaches across different collection t
 
 The benchmark results on an 8-core Ryzen 5950X were illuminating:
 
-- **Throughput**: Between 210 million and 450 million operations per second.
-- **Margin of Error**: Approximately 15 million ops/sec for `HashSet` and `ArrayList`, and about 40 million ops/sec for `TreeSet`.
+* *Throughput*: Between 210 million and 450 million operations per second.
+* *Margin of Error*: Approximately 15 million ops/sec for `HashSet` and `ArrayList`, and about 40 million ops/sec for `TreeSet`.
 
 image::https://raw.githubusercontent.com/Vanilla-Java/Blog/refs/heads/main/images/toArray-perf.png[Performance Comparison of toArray() Methods]
 
-**Observations:**
+*Observations:*
 
-- **ArrayList** outperformed **HashSet** and **TreeSet**, likely due to its array-based implementation.
-- The `toArray(new Type[0])` method was marginally slower across all collections.
-- Pre-sizing the array (`new Type[collection.size()]`) consistently offered better performance.
-- Using `toArray()` without arguments was the fastest way to use `ArrayList` but isn't type-safe.
+* *ArrayList* outperformed *HashSet* and *TreeSet*, likely due to its array-based implementation.
+* The `toArray(new Type[0])` method was marginally slower across all collections.
+* Pre-sizing the array (`new Type[collection.size()]`) consistently offered better performance.
+* Using `toArray()` without arguments was the fastest way to use `ArrayList` but isn't type-safe.
 
 == Practical Recommendations
 
 Based on the results:
 
-- **Avoid `toArray(new Type[0])`**: It introduces unnecessary overhead without significant benefits.
-- **Use Pre-Sized Arrays**: `toArray(new Type[collection.size()])` is efficient and straightforward.
-- **Leverage Constant Empty Arrays When Appropriate**: If collections are frequently empty, reusing a constant can save resources.
+* *Avoid `toArray(new Type[0])`*: It introduces unnecessary overhead without significant benefits.
+* *Use Pre-Sized Arrays*: `toArray(new Type[collection.size()])` is efficient and straightforward.
+* *Leverage Constant Empty Arrays When Appropriate*: If collections are frequently empty, reusing a constant can save resources.
 
 == Conclusion
 
-Avoid using `Collection.toArray(new Type[0])` if you can. It’s probably not worth changing your code for, but if you use another approach, go with whatever you consider simplest. For me, that means using the `NO_STRINGS` constant.
+Avoid using `Collection.toArray(new Type[0])` if you can.
+It's probably not worth changing your code for, but if you use another approach, go with whatever you consider simplest.
+For me, that means using the `NO_STRINGS` constant.
 
 What details about the benchmark would you like to know in the comments or a follow-up post?
 
-Have you faced performance issues with the `toArray()` methods? How did you tackle them? Share your experiences and join the discussion!
+Have you faced performance issues with the `toArray()` methods?
+How did you tackle them?
+Share your experiences and join the discussion!

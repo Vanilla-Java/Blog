@@ -2,21 +2,28 @@
 
 == Introduction
 
-Despite being considered legacy since Java 1.2 (1998), `Vector` and `Hashtable` remain prevalent in many Java applications. A common belief is that their synchronised methods render them inherently thread-safe. However, this assumption can lead to subtle concurrency problems that are often overlooked.
+Despite being considered legacy since Java 1.2 (1998), `Vector` and `Hashtable` remain prevalent in many Java applications.
+A common belief is that their synchronised methods render them inherently thread-safe.
+However, this assumption can lead to subtle concurrency problems that are often overlooked.
 
-Have you encountered unexpected exceptions when iterating over a `Vector` in a multi-threaded environment? Let's delve into why this happens and how to address it.
+Have you encountered unexpected exceptions when iterating over a `Vector` in a multi-threaded environment?
+Let's delve into why this happens and how to address it.
 
 == The Misconception of Thread Safety
 
-Both `Vector` and `Hashtable` synchronise individual method calls, leading many developers to assume that these classes are safe to use concurrently without additional synchronisation. While each method is thread-safe, combining multiple method calls can introduce race conditions if not properly managed.
+Both `Vector` and `Hashtable` synchronise individual method calls, leading many developers to assume that these classes are safe to use concurrently without additional synchronisation.
+While each method is thread-safe, combining multiple method calls can introduce race conditions if not properly managed.
 
 == Are Iterators Thread-Safe?
 
-The' Iterator' is not thread-safe for most collections, including `Vector`. Iterators are designed to fail fast by throwing a `ConcurrentModificationException` when they detect concurrent modifications. However, this detection is not guaranteed, as the modification counter is not marked as `volatile`. This means that changes made in one thread might not be immediately visible to the iterator in another thread.
+The' Iterator' is not thread-safe for most collections, including `Vector`.
+Iterators are designed to fail fast by throwing a `ConcurrentModificationException` when they detect concurrent modifications.
+However, this detection is not guaranteed, as the modification counter is not marked as `volatile`.
+This means that changes made in one thread might not be immediately visible to the iterator in another thread.
 
 Here's a summary of iterator behaviours across different collections:
 
-[cols="1,2", options="header"]
+[cols="1,2",options="header"]
 |===
 | Collection | Iterator Behaviour
 
@@ -35,11 +42,14 @@ Here's a summary of iterator behaviours across different collections:
 
 == Is Enumeration Thread-Safe?
 
-`Vector` provides an `Enumeration` via the `elements()` method. Each method of `Enumeration`, such as `hasMoreElements()` and `nextElement()`, is synchronised. At first glance, this might suggest that iterating over a `Vector` using `Enumeration` is thread-safe. However, the reality is more nuanced.
+`Vector` provides an `Enumeration` via the `elements()` method.
+Each method of `Enumeration`, such as `hasMoreElements()` and `nextElement()`, is synchronised.
+At first glance, this might suggest that iterating over a `Vector` using `Enumeration` is thread-safe.
+However, the reality is more nuanced.
 
 Consider the following code snippet:
 
-[source, java]
+[source,java]
 ----
 Vector<Integer> ints = new Vector<>();
 ints.add(1);
@@ -53,15 +63,19 @@ while (en.hasMoreElements()) {
 }
 ----
 
-In this example, after the first iteration, the call to `ints.remove(0);` modifies the `Vector`. Because `hasMoreElements()` and `nextElement()` are separate synchronised methods, another thread can alter the collection between these calls. This can lead to a `NoSuchElementException` when `nextElement()` is called, as the expected element may no longer be present.
+In this example, after the first iteration, the call to `ints.remove(0);` modifies the `Vector`.
+Because `hasMoreElements()` and `nextElement()` are separate synchronised methods, another thread can alter the collection between these calls.
+This can lead to a `NoSuchElementException` when `nextElement()` is called, as the expected element may no longer be present.
 
 From personal experience, such issues can be particularly challenging to debug, especially in systems where the concurrency problem manifests intermittently.
 
 === Making Enumeration Thread-Safe
 
-To ensure thread safety during iteration, you need to lock the collection for the entire duration of the enumeration. This prevents other threads from modifying the collection while it's being iterated. Here's how you can modify the previous example:
+To ensure thread safety during iteration, you need to lock the collection for the entire duration of the enumeration.
+This prevents other threads from modifying the collection while it's being iterated.
+Here's how you can modify the previous example:
 
-[source, java]
+[source,java]
 ----
 Vector<Integer> ints = new Vector<>();
 ints.add(1);
@@ -75,64 +89,72 @@ synchronized (ints) {
 }
 ----
 
-By synchronising on the `Vector` itself, we ensure that no other thread can enter any synchronised methods on the same object until the block is exited. This approach effectively serialises access to the collection during iteration.
+By synchronising on the `Vector` itself, we ensure that no other thread can enter any synchronised methods on the same object until the block is exited.
+This approach effectively serialises access to the collection during iteration.
 
-However, this solution comes with a performance trade-off. Locking the collection for the duration of the iteration can lead to contention in multi-threaded applications, potentially impacting scalability. It's essential to balance thread safety with performance considerations.
+However, this solution comes with a performance trade-off.
+Locking the collection for the duration of the iteration can lead to contention in multi-threaded applications, potentially impacting scalability.
+It's essential to balance thread safety with performance considerations.
 
 == Alternatives to Vector and Hashtable
 
-Modern Java provides several concurrent collection classes in the `java.util.concurrent` package designed for high concurrency and thread safety. For instance, `ConcurrentHashMap` and `CopyOnWriteArrayList` perform better in multi-threaded environments without external synchronisation during iteration.
+Modern Java provides several concurrent collection classes in the `java.util.concurrent` package designed for high concurrency and thread safety.
+For instance, `ConcurrentHashMap` and `CopyOnWriteArrayList` perform better in multi-threaded environments without external synchronisation during iteration.
 
 == Conclusion
 
-Synchronisation at the method level does not guarantee thread safety when combined methods are used. When working with collections like `Vector` and `Hashtable`, it's crucial to understand that thread safety requires careful coordination of multiple method calls. Locking the collection during iteration is one way to prevent concurrent modifications and ensure consistent behaviour, but it may not be the most efficient solution.
+Synchronisation at the method level does not guarantee thread safety when combined methods are used.
+When working with collections like `Vector` and `Hashtable`, it's crucial to understand that thread safety requires careful coordination of multiple method calls.
+Locking the collection during iteration is one way to prevent concurrent modifications and ensure consistent behaviour, but it may not be the most efficient solution.
 
-Consider reviewing your codebase: Are there places where you rely on `Vector` or `Hashtable` for thread safety? It might be time to refactor these parts using modern concurrent collections that provide better performance and scalability.
+Consider reviewing your codebase: Are there places where you rely on `Vector` or `Hashtable` for thread safety?
+It might be time to refactor these parts using modern concurrent collections that provide better performance and scalability.
 
 == Key Takeaways
 
-- Do not assume `synchronized` methods make a class thread-safe in all contexts.
-- Iterators and enumerations may not be thread-safe when used across multiple methods.
-- Synchronise the collection during iteration to prevent concurrent modifications.
-- Be mindful of the performance implications of locking collections.
-- Consider using concurrent collection classes designed for multi-threaded environments.
+* Do not assume `synchronized` methods make a class thread-safe in all contexts.
+* Iterators and enumerations may not be thread-safe when used across multiple methods.
+* Synchronise the collection during iteration to prevent concurrent modifications.
+* Be mindful of the performance implications of locking collections.
+* Consider using concurrent collection classes designed for multi-threaded environments.
 
 == Further Reading
 
-- **Concurrency in Java**
+* *Concurrency in Java*
 
-Oracle’s official tutorial on concurrency, covering threads, synchronisation, and thread safety in Java.
+Oracle's official tutorial on concurrency, covering threads, synchronisation, and thread safety in Java.
 
 https://docs.oracle.com/javase/tutorial/essential/concurrency/[Concurrency in Java]
 
-- **Java Concurrency in Practice** by Brian Goetz
+* *Java Concurrency in Practice* by Brian Goetz
 
 An in-depth guide to writing reliable and high-performance concurrent applications in Java.
 
 https://jcip.net/[Java Concurrency in Practice]
 
-- **Effective Java, Third Edition** by Joshua Bloch
+* *Effective Java, Third Edition* by Joshua Bloch
 
 This book provides best practices for coding in Java, including a chapter dedicated to concurrency.
 
 https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/[Effective Java, Third Edition]
 
-- **Java Collections Framework**
+* *Java Collections Framework*
 
-Official documentation on Java’s collection classes, including details about synchronised collections and alternatives.
+Official documentation on Java's collection classes, including details about synchronised collections and alternatives.
 
 https://docs.oracle.com/en/java/javase/21/core/java-collections-framework.html[Java Collections Framework]
 
-- **The Java Memory Model**
+* *The Java Memory Model*
 
 Understanding the Java Memory Model is crucial for writing correct concurrent programs.
 
 https://www.cs.umd.edu/~pugh/java/memoryModel/[The Java Memory Model]
 
-- **Java Specialist Newsletter**
+* *Java Specialist Newsletter*
 
 A resource with articles on advanced Java topics, including concurrency issues and best practices.
 
 https://www.javaspecialists.eu/archive/Issue164-Why-0x61c88647.html[Java Specialist Newsletter]
 
-These resources offer deeper insights into concurrency in Java, helping you write thread-safe and efficient applications. Exploring them will enhance your understanding of the challenges and solutions associated with multi-threaded programming.
+These resources offer deeper insights into concurrency in Java, helping you write thread-safe and efficient applications.
+Exploring them will enhance your understanding of the challenges and solutions associated with multi-threaded programming.

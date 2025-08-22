@@ -1,7 +1,8 @@
 = StringBuffer is Dead, Long Live StringBuffer
 Peter Lawrey, CEO of Chronicle Software
 
-When Java 5.0 was released on 30^th^ September 2004, it introduced `StringBuilder` as a replacement for `StringBuffer` in cases where thread safety isn't required. The idea was simple: if you're manipulating strings within a single thread, `StringBuilder` offers a faster, unsynchronized alternative to `StringBuffer`.
+When Java 5.0 was released on 30^th^ September 2004, it introduced `StringBuilder` as a replacement for `StringBuffer` in cases where thread safety isn't required.
+The idea was simple: if you're manipulating strings within a single thread, `StringBuilder` offers a faster, unsynchronized alternative to `StringBuffer`.
 
 This is an updated https://blog.vanillajava.blog/2011/05/stringbuffer-is-dead-long-live.html[article from 2011].
 
@@ -9,12 +10,15 @@ This is an updated https://blog.vanillajava.blog/2011/05/stringbuffer-is-dead-lo
 
 [quote]
 ____
-This class provides an API compatible with `StringBuffer`, but with no guarantee of synchronization. This class is designed for use as a drop-in replacement for `StringBuffer` in places where the string buffer was being used by a single thread (as is generally the case). Where possible, it is recommended that this class be used in preference to `StringBuffer` as it will be faster under most implementations.
+This class provides an API compatible with `StringBuffer`, but with no guarantee of synchronization.
+This class is designed for use as a drop-in replacement for `StringBuffer` in places where the string buffer was being used by a single thread (as is generally the case).
+Where possible, it is recommended that this class be used in preference to `StringBuffer` as it will be faster under most implementations.
 ____
 
 == Is `StringBuffer` Really Dead?
 
-You might think that `StringBuffer` has become redundant, given that most single-threaded scenarios can use `StringBuilder`, and thread safety often requires explicit synchronization beyond what `StringBuffer` provides. Yet, if we look at the latest OpenJDK (Java 21), it appears that `StringBuffer` is still very much alive.
+You might think that `StringBuffer` has become redundant, given that most single-threaded scenarios can use `StringBuilder`, and thread safety often requires explicit synchronization beyond what `StringBuffer` provides.
+Yet, if we look at the latest OpenJDK (Java 21), it appears that `StringBuffer` is still very much alive.
 
 Consider the usage statistics in OpenJDK Java 21 compared to Java 6 Update 25:
 
@@ -31,7 +35,8 @@ Consider the usage statistics in OpenJDK Java 21 compared to Java 6 Update 25:
 | 311
 |===
 
-While `StringBuilder` usage has significantly increased, `StringBuffer` still has a substantial presence. This raises the question: why hasn't `StringBuffer` been phased out in favor of its unsynchronized counterpart, especially in the JDK's own codebase?
+While `StringBuilder` usage has significantly increased, `StringBuffer` still has a substantial presence.
+This raises the question: why hasn't `StringBuffer` been phased out in favor of its unsynchronized counterpart, especially in the JDK's own codebase?
 
 == Why is `StringBuffer` Only Kind of Thread-Safe
 
@@ -45,35 +50,40 @@ Consider the following scenario involving three threads in Java:
 
 *Question:* What are all the possible outputs that could be printed by the `System.out.println` statement in Thread 3?
 
-Keep in mind that `StringBuffer` is thread-safe and its methods are synchronized. The order of operations within each thread is fixed, but the execution order across threads can vary.
+Keep in mind that `StringBuffer` is thread-safe and its methods are synchronized.
+The order of operations within each thread is fixed, but the execution order across threads can vary.
 
 *Answer:*
 
 The possible outputs that might be printed are:
 
-- `""` (empty string)
-- `"1"`
-- `"1A"`
-- `"1AB"`
-- `"1A2"`
-- `"1A2B"`
-- `"1AB2"`
-- `"12"`
-- `"12A"`
-- `"12AB"`
-- `"A"`
-- `"A1"`
-- `"A1B"`
-- `"A1B2"`
-- `"A12"`
-- `"A12B"`
-- `"AB"`
-- `"AB1"`
-- `"AB12"`
+* `""` (empty string)
+* `"1"`
+* `"1A"`
+* `"1AB"`
+* `"1A2"`
+* `"1A2B"`
+* `"1AB2"`
+* `"12"`
+* `"12A"`
+* `"12AB"`
+* `"A"`
+* `"A1"`
+* `"A1B"`
+* `"A1B2"`
+* `"A12"`
+* `"A12B"`
+* `"AB"`
+* `"AB1"`
+* `"AB12"`
 
 == Why Does `StringBuffer` Persist?
 
-Migration is hard. Much harder than you might expect. Especially when you have a codebase that works. Oracle can't force developers to migrate their code, but one might expect that the JDK's internal code would adopt `StringBuilder` where appropriate. Yet, even after nearly two decades, `StringBuffer` remains in use in places where thread safety isn't a concern.
+Migration is hard.
+Much harder than you might expect.
+Especially when you have a codebase that works.
+Oracle can't force developers to migrate their code, but one might expect that the JDK's internal code would adopt `StringBuilder` where appropriate.
+Yet, even after nearly two decades, `StringBuffer` remains in use in places where thread safety isn't a concern.
 
 Let's look at some examples from Java 21 where `StringBuffer` is used as a local variable in methods that are not thread-safe:
 
@@ -92,7 +102,8 @@ And in an ironic twist, non-thread-safe classes like `SimpleDateFormat` and othe
 
 == Performance Implications
 
-Using `StringBuffer` when thread safety isn't needed introduces unnecessary overhead due to its synchronized methods. To illustrate the performance difference, consider the following benchmark:
+Using `StringBuffer` when thread safety isn't needed introduces unnecessary overhead due to its synchronized methods.
+To illustrate the performance difference, consider the following benchmark:
 
 [source,java]
 ----
@@ -151,15 +162,19 @@ StringBuffer took an average of 388 ns
 StringBuilder took an average of 97 ns
 ----
 
-The results show that `StringBuffer` is approximately four times slower than `StringBuilder` in this scenario. While the absolute difference in nanoseconds might seem trivial, in performance-critical applications or loops, this overhead can accumulate.
+The results show that `StringBuffer` is approximately four times slower than `StringBuilder` in this scenario.
+While the absolute difference in nanoseconds might seem trivial, in performance-critical applications or loops, this overhead can accumulate.
 
 == Why Doesn't Escape Analysis Help?
 
-One might hope that the JVM's Escape Analysis could optimize away the synchronization overhead of `StringBuffer` when used locally. However, the JVM doesn't eliminate this overhead in such cases.
+One might hope that the JVM's Escape Analysis could optimize away the synchronization overhead of `StringBuffer` when used locally.
+However, the JVM doesn't eliminate this overhead in such cases.
 
 == Conclusion
 
-Despite the introduction of `StringBuilder` nearly two decades ago, `StringBuffer` persists in both third-party and JDK internal code. This suggests that relying on passive adoption of improvements isn't sufficient. A deliberate effort is needed to refactor existing codebases.
+Despite the introduction of `StringBuilder` nearly two decades ago, `StringBuffer` persists in both third-party and JDK internal code.
+This suggests that relying on passive adoption of improvements isn't sufficient.
+A deliberate effort is needed to refactor existing codebases.
 
 For developers, it's crucial to:
 * *Audit your code*: Identify where `StringBuffer` is used and assess if `StringBuilder` can replace it.
@@ -179,8 +194,11 @@ For developers, it's crucial to:
 * Are there areas where replacing `StringBuffer` with `StringBuilder` could yield performance improvements?
 * What strategies do you use to keep your code up-to-date with language improvements?
 
-Feel free to share your thoughts or experiences on this topic. Let's discuss how we can collectively improve our Java applications by adopting best practices and optimizations.
+Feel free to share your thoughts or experiences on this topic.
+Let's discuss how we can collectively improve our Java applications by adopting best practices and optimizations.
 
 == About the Author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specializes in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specializes in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.

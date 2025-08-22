@@ -5,46 +5,50 @@ Peter lawrey
 :toc:
 :source-highlighter: rouge
 
-This guide covers essential best practices for Java projects, focusing on documentation, code quality, testing, debugging, and profiling. By following these guidelines, you can ensure that your codebase remains maintainable, reliable, and high‑performance over time. Generative AI tools (e.g., GitHub Copilot) can also be integrated to streamline documentation updates, code reviews, and refactoring.
+This guide covers essential best practices for Java projects, focusing on documentation, code quality, testing, debugging, and profiling.
+By following these guidelines, you can ensure that your codebase remains maintainable, reliable, and high-performance over time.
+Generative AI tools (e.g., GitHub Copilot) can also be integrated to streamline documentation updates, code reviews, and refactoring.
 
 // tag::readme[]
 
 == Part 1: Documentation Best Practices
 
-Effective documentation serves as the backbone of a maintainable codebase. It improves knowledge transfer and facilitates both human and AI-driven understanding of your project.
+Effective documentation serves as the backbone of a maintainable codebase.
+It improves knowledge transfer and facilitates both human and AI-driven understanding of your project.
 
 === 1.1. Key Elements of Effective Documentation
 
 Effective documentation should include:
 
-- *Project Overview:* A clear explanation of the project’s purpose, scope, and target audience.
-- *API Documentation:* Comprehensive, well‑structured API docs (e.g., via Javadoc) detailing classes, methods, parameters, return types, and exceptions.
-- *Inline Comments:* Concise comments within the code that explain complex or non‑obvious logic.
-- *Design and Architecture Documents:* Diagrams, flowcharts, and written descriptions that capture the system’s structure and rationale.
-- *User Guides and Tutorials:* Step‑by‑step instructions, usage examples, and how‑to guides for both developers and end users.
-- *Changelogs and Version History:* Records that document the evolution of the project over time.
-- *Coding Standards and Style Guides:* Documents that enforce consistency in code and documentation.
-- *Generative AI Integration:* Leverage tools like GitHub Copilot or custom AI assistants to generate or update documentation automatically from code comments and requirements.
+* _Project Overview:_ A clear explanation of the project's purpose, scope, and target audience.
+* _API Documentation:_ Comprehensive, well-structured API docs (e.g., via Javadoc) detailing classes, methods, parameters, return types, and exceptions.
+* _Inline Comments:_ Concise comments within the code that explain complex or non-obvious logic.
+* _Design and Architecture Documents:_ Diagrams, flowcharts, and written descriptions that capture the system's structure and rationale.
+* _User Guides and Tutorials:_ Step-by-step instructions, usage examples, and how-to guides for both developers and end users.
+* _Changelogs and Version History:_ Records that document the evolution of the project over time.
+* _Coding Standards and Style Guides:_ Documents that enforce consistency in code and documentation.
+* _Generative AI Integration:_ Leverage tools like GitHub Copilot or custom AI assistants to generate or update documentation automatically from code comments and requirements.
 
 === 1.2. Benefits of Comprehensive Documentation
 
 Comprehensive documentation improves maintainability by:
 
-- *Enhancing Accessibility:* Making the codebase easier to understand for new developers and for AI-powered analysis.
-- *Clarifying Design Decisions:* Serving as a reference that explains why certain architectural or design choices were made.
-- *Reducing Debugging Time:* Enabling quicker troubleshooting and feature enhancements.
-- *Promoting Consistency:* Establishing clear coding standards and conventions that streamline collaboration.
-- *Facilitating Knowledge Transfer:* Acting as a central source of truth for both developers and automated tools.
+* _Enhancing Accessibility:_ Making the codebase easier to understand for new developers and for AI-powered analysis.
+* _Clarifying Design Decisions:_ Serving as a reference that explains why certain architectural or design choices were made.
+* _Reducing Debugging Time:_ Enabling quicker troubleshooting and feature enhancements.
+* _Promoting Consistency:_ Establishing clear coding standards and conventions that streamline collaboration.
+* _Facilitating Knowledge Transfer:_ Acting as a central source of truth for both developers and automated tools.
 
 Generative AI Tip: AI tools can review and update documentation as code changes, ensuring that both human readers and automated systems always have access to accurate information.
 
 === 1.3. Types of Documentation
 
-- *Inline Comments:* Brief notes within the code that explain specific lines or blocks; they help clarify complex logic.
-- *Javadoc Comments:* Structured comments (starting with `/**`) used to generate API documentation; they detail the purpose, parameters, return types, and exceptions of methods and classes.
-- *External Documentation:* Comprehensive documents maintained separately from the code (e.g., design documents, user manuals, and architectural diagrams) that provide broader context and usage guidance.
+* _Inline Comments:_ Brief notes within the code that explain specific lines or blocks; they help clarify complex logic.
+* _Javadoc Comments:_ Structured comments (starting with `/**`) used to generate API documentation; they detail the purpose, parameters, return types, and exceptions of methods and classes.
+* _External Documentation:_ Comprehensive documents maintained separately from the code (e.g., design documents, user manuals, and architectural diagrams) that provide broader context and usage guidance.
 
-Generative AI will comments and documentation to help maintain code based on those comments. e.g. if I write a comment that says
+Generative AI will comments and documentation to help maintain code based on those comments.
+e.g. if I write a comment that says
 
 [,java]
 ----
@@ -61,138 +65,139 @@ TIP: If you are stuck for what code to write, add a comment and Copilot might ge
 
 To ensure effective Javadoc documentation:
 
-- *Write Clear Comments:* Document each class, method, and field with descriptive comments using tags like `@param`, `@return`, and `@throws`.
-- *Automate Generation:* Use the JDK’s `javadoc` tool (or integrate it with Maven/Gradle) to generate HTML documentation.
-- *Integrate with CI/CD:* Automate documentation builds as part of your continuous integration pipeline.
-- *Review Regularly:* Update documentation alongside code changes to keep it current.
+* _Write Clear Comments:_ Document each class, method, and field with descriptive comments using tags like `@param`, `@return`, and `@throws`.
+* _Automate Generation:_ Use the JDK's `javadoc` tool (or integrate it with Maven/Gradle) to generate HTML documentation.
+* _Integrate with CI/CD:_ Automate documentation builds as part of your continuous integration pipeline.
+* _Review Regularly:_ Update documentation alongside code changes to keep it current.
 
-*Generative AI Tip:* AI can suggest improvements to Javadoc comments when code is updated and even generate new comments based on method signatures.
+_Generative AI Tip:_ AI can suggest improvements to Javadoc comments when code is updated and even generate new comments based on method signatures.
 
-== Part 2: Writing Clean, Self‑Documenting Code
+== Part 2: Writing Clean, Self-Documenting Code
 
-High‑quality code is clear, maintainable, and minimizes the need for extensive external documentation.
+High-quality code is clear, maintainable, and minimizes the need for extensive external documentation.
 
-=== 2.1. Characteristics of Clean, Self‑Documenting Code
+=== 2.1. Characteristics of Clean, Self-Documenting Code
 
-* **Descriptive Naming:**
+Descriptive Naming ::
 Use meaningful names for variables, methods, and classes.
 
-* **Simplicity:**
+Simplicity ::
 Write clear, concise logic with minimal complexity.
 
-* **Consistent Structure:**
+Consistent Structure ::
 Follow established formatting and coding conventions.
 
-* **Elimination of “Magic Numbers”:**
+Elimination of "Magic Numbers" ::
 Replace unexplained literal values with constants or enums.
 
-* **Readable Organization:**
+Readable Organization ::
 Structure code so its intent is evident, reducing the need for excessive comments.
 
 Generative AI Tip: Use AI tools to refactor code and suggest more descriptive naming conventions.
 
 === 2.2. Enforcing Code Quality with Standards and Linters
 
-* **Consistency Enforcement:**
+Consistency Enforcement ::
 Apply uniform formatting, naming, and style guidelines.
 
-* **Early Issue Detection:**
+Early Issue Detection ::
 Use linters and static analysis tools (e.g., SonarQube) to flag potential bugs and code smells.
 
-* **Streamlined Code Reviews:**
+Streamlined Code Reviews ::
 Automated tools help reduce trivial issues, allowing reviewers to focus on more significant concerns.
 
-* **Improved Readability:**
+Improved Readability ::
 Consistent code is easier to understand and maintain.
 
 === 2.3. How should design decisions and architectural choices be documented?
 
-Document design decisions and architectural choices in dedicated documents or Architecture Decision Records (ADRs). They should include:
+Document design decisions and architectural choices in dedicated documents or Architecture Decision Records (ADRs).
+They should include:
 
-- *Decision Overview:* A summary of the decision and its context.
-- *Alternatives Considered:* The pros and cons of other options and reasons for rejecting them.
-- *Benefits and Trade‑offs:* Expected advantages and potential downsides.
-- *Visual Aids:* Diagrams and flowcharts to illustrate the architecture.
-- *References:* Links to related code modules and configuration files.
+* _Decision Overview:_ A summary of the decision and its context.
+* _Alternatives Considered:_ The pros and cons of other options and reasons for rejecting them.
+* _Benefits and Trade-offs:_ Expected advantages and potential downsides.
+* _Visual Aids:_ Diagrams and flowcharts to illustrate the architecture.
+* _References:_ Links to related code modules and configuration files.
 
 == Part 3: Testing Strategies and Best Practices
 
 Testing is essential for ensuring code correctness and facilitating safe refactoring.
 
-=== 3.1. Benefits of Test‑Driven Development (TDD)
+=== 3.1. Benefits of Test-Driven Development (TDD)
 
-* **Better Design:**
+Better Design ::
 Encourages writing modular and loosely coupled code.
 
-* **Immediate Feedback:**
+Immediate Feedback ::
 Tests provide rapid validation of code correctness.
 
-* **Clear Requirements:**
+Clear Requirements ::
 Writing tests before coding clarifies what functionality needs to be built.
 
-* **Safer Refactoring:**
+Safer Refactoring ::
 A robust test suite ensures that changes do not break existing functionality.
 
-* **Living Documentation:**
+Living Documentation ::
 Tests serve as practical examples of how the code should behave.
 
 === 3.2. Structuring Unit Tests
 
-* **Mirroring the Codebase:**
+Mirroring the Codebase ::
 Organize test classes to reflect the structure of production code.
 
-* **Focused Test Methods:**
+Focused Test Methods ::
 Write tests that cover one behavior or case at a time.
 
-* **Lifecycle Management:**
+Lifecycle Management ::
 Use setup (`@BeforeEach`) and teardown (`@AfterEach`) methods to manage test resources.
 
-* **Descriptive Naming:**
+Descriptive Naming ::
 Clearly name tests to indicate their purpose.
 
-* **Robust Assertions:**
+Robust Assertions ::
 Use clear assertions to verify expected outcomes.
 
 === 3.3. Ensuring Test Isolation and Maintainability
 
-* **Use Mocks:**
+Use Mocks ::
 Employ frameworks like Mockito to simulate external dependencies.
 
-* **Avoid Shared State:**
+Avoid Shared State ::
 Design tests that do not rely on data from other tests.
 
-* **Single Responsibility:**
+Single Responsibility ::
 Each test should address one specific behavior.
 
-* **Regular Refactoring:**
+Regular Refactoring ::
 Keep tests updated as the code evolves.
 
-* **Leverage Dependency Injection:**
+Leverage Dependency Injection ::
 Minimize hard-coded dependencies in tests to improve isolation.
 
 === 3.4. Utilizing Mocking Frameworks
 
-* **Simulate Dependencies:**
+Simulate Dependencies ::
 Create dummy objects to mimic complex external systems.
 
-* **Define Expected Behaviors:**
+Define Expected Behaviors ::
 Specify what mocks should return or how they should behave.
 
-* **Verify Interactions:**
+Verify Interactions ::
 Ensure the code under test interacts with its dependencies as expected.
 
-* **Enhance Isolation:**
-Allow tests to focus solely on the unit’s behavior without interference.
+Enhance Isolation ::
+Allow tests to focus solely on the unit's behavior without interference.
 
 === 3.5. Measuring Test Coverage
 
-* **Coverage Tools:**
+Coverage Tools ::
 Use tools like JaCoCo, Cobertura, or Emma to instrument your code.
 
-* **Metrics:**
+Metrics ::
 Track Line Coverage, Branch Coverage, and Method Coverage.
 
-* **Quality Assurance:**
+Quality Assurance ::
 High test coverage ensures that critical functionality is exercised and untested parts are identified.
 
 == Part 4: Debugging, Profiling, and Performance Tuning
@@ -201,62 +206,62 @@ Optimizing performance and troubleshooting issues is crucial for maintaining eff
 
 === 4.1. Role of Profiling Tools
 
-* **Monitor Resource Usage:**
+Monitor Resource Usage ::
 Track CPU, memory, and garbage collection behavior.
 
-* **Identify Bottlenecks:**
+Identify Bottlenecks ::
 Pinpoint performance-critical sections of code.
 
-* **Visualize Thread Activity:**
+Visualize Thread Activity ::
 Detect contention and synchronization issues.
 
-* **Collect Performance Data:**
+Collect Performance Data ::
 Gather metrics over time to guide optimizations.
 
 Tools to Consider: Java Flight Recorder, JVisualVM
 
-== Part 5: Managing Technical Debt and Long‑Term Maintainability
+== Part 5: Managing Technical Debt and Long-Term Maintainability
 
-Balancing rapid development with sustainable practices helps reduce technical debt and ensures long‑term project success.
+Balancing rapid development with sustainable practices helps reduce technical debt and ensures long-term project success.
 
 === 5.1. Strategies to Minimize Technical Debt
 
-* **Regular Refactoring:**
+Regular Refactoring ::
 Continuously improve and simplify the code.
 
-* **Adopt TDD/BDD:**
+Adopt TDD/BDD ::
 Write tests or behavior specifications before coding to clarify requirements.
 
-* **Follow Coding Standards:**
+Follow Coding Standards ::
 Consistent practices reduce complexity.
 
-* **Conduct Code Reviews:**
+Conduct Code Reviews ::
 Leverage peer reviews to catch issues early.
 
-* **Automate Static Analysis:**
-Use tools to detect code smells and anti‑patterns.
+Automate Static Analysis ::
+Use tools to detect code smells and anti-patterns.
 
-* **Incremental Improvements:**
+Incremental Improvements ::
 Address debt gradually rather than undertaking large overhauls.
 
-=== 5.2. Balancing Speed with Long‑Term Maintainability
+=== 5.2. Balancing Speed with Long-Term Maintainability
 
-* **Clear Requirements:**
-Establish well‑defined goals before coding.
+Clear Requirements ::
+Establish well-defined goals before coding.
 
-* **Modular Design:**
+Modular Design ::
 Write code that is clear, modular, and scalable.
 
-* **Invest in Testing and CI/CD:**
+Invest in Testing and CI/CD ::
 Prioritize automated testing and continuous integration to catch issues early.
 
-* **Regular Reviews:**
+Regular Reviews ::
 Conduct frequent code reviews and scheduled refactoring sessions.
 
-* **Plan for Scalability:**
-Align short‑term development with long‑term architectural goals.
+Plan for Scalability ::
+Align short-term development with long-term architectural goals.
 
-* **Leverage Generative AI:**
+Leverage Generative AI ::
 Automate routine tasks (e.g., code generation, refactoring suggestions, documentation updates) to maintain both speed and quality.
 
 // end::readme[]

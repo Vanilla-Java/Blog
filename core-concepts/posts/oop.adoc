@@ -1,49 +1,52 @@
-= Object‑Oriented Programming & Idiomatic Java
+= Object-Oriented Programming & Idiomatic Java
 Peter lawrey
 :doctype: requirements
 :lang: en-GB
 :toc:
 :source-highlighter: rouge
 
-This document provides detailed answers to 30 key questions on Object‑Oriented Programming (OOP) and idiomatic Java practices. Each answer is enriched with engaging side notes to deepen your understanding of OOP concepts and best practices in Java.
+This document provides detailed answers to 30 key questions on Object-Oriented Programming (OOP) and idiomatic Java practices.
+Each answer is enriched with engaging side notes to deepen your understanding of OOP concepts and best practices in Java.
 
-== 1. What are the four pillars of Object‑Oriented Programming (OOP) in Java?
+== 1. What are the four pillars of Object-Oriented Programming (OOP) in Java?
 
 The four pillars of OOP are:
 
-- *Encapsulation:* Hiding internal state and requiring all interaction to be performed through an object's methods.
-- *Inheritance:* Deriving new classes from existing ones to promote code reuse.
-- *Polymorphism:* Allowing objects to be treated as instances of their parent class rather than their actual class.
-- *Abstraction:* Hiding complex implementation details and showing only the necessary features of an object.
+* *Encapsulation:* Hiding internal state and requiring all interaction to be performed through an object's methods.
+* *Inheritance:* Deriving new classes from existing ones to promote code reuse.
+* *Polymorphism:* Allowing objects to be treated as instances of their parent class rather than their actual class.
+* *Abstraction:* Hiding complex implementation details and showing only the necessary features of an object.
 
-NOTE: Think of these pillars as the sturdy legs of a table – remove one, and your entire program might wobble!
+NOTE: Think of these pillars as the sturdy legs of a table - remove one, and your entire program might wobble!
 
 == 2. How do you implement encapsulation, inheritance, polymorphism, and abstraction in Java?
 
-- *Encapsulation:* Use private fields with public getters and setters to control access.
-- *Inheritance:* Use the `extends` keyword to create a subclass that inherits properties and behaviors from a superclass.
-- *Polymorphism:* Override methods in subclasses and leverage dynamic method dispatch to allow a parent class reference to call subclass implementations.
-- *Abstraction:* Define abstract classes and interfaces to specify what methods should be implemented without dictating how they are implemented.
+* *Encapsulation:* Use private fields with public getters and setters to control access.
+* *Inheritance:* Use the `extends` keyword to create a subclass that inherits properties and behaviors from a superclass.
+* *Polymorphism:* Override methods in subclasses and leverage dynamic method dispatch to allow a parent class reference to call subclass implementations.
+* *Abstraction:* Define abstract classes and interfaces to specify what methods should be implemented without dictating how they are implemented.
 
-NOTE: Encapsulation hides details like a sealed box, while inheritance and polymorphism let you extend and customize behaviors. Abstraction lets you work with ideas rather than implementation specifics.
+NOTE: Encapsulation hides details like a sealed box, while inheritance and polymorphism let you extend and customize behaviors.
+Abstraction lets you work with ideas rather than implementation specifics.
 
 == 3. What is the difference between an interface and an abstract class?
 
 Answer:
-- *Interface:*
-- Defines a contract with abstract methods (and default methods since Java 8).
-- Does not maintain state (prior to default methods and static fields).
-- Supports multiple inheritance of type.
-- *Abstract Class:*
-- Can provide both method implementations and state (instance variables).
-- Used when there is a clear hierarchical relationship.
-- A class can extend only one abstract class.
+* *Interface:*
+* Defines a contract with abstract methods (and default methods since Java 8).
+* Does not maintain state (prior to default methods and static fields).
+* Supports multiple inheritance of type.
+* *Abstract Class:*
+* Can provide both method implementations and state (instance variables).
+* Used when there is a clear hierarchical relationship.
+* A class can extend only one abstract class.
 
 NOTE: Use interfaces to define capabilities (like "Drivable") and abstract classes when you want to share common code among closely related classes (like a "Vehicle" base class).
 
 == 4. How do you create and use anonymous inner classes?
 
-Anonymous inner classes are created inline when you need an ad-hoc implementation of an interface or abstract class. For example:
+Anonymous inner classes are created inline when you need an ad-hoc implementation of an interface or abstract class.
+For example:
 [,java]
 ----
 Runnable runnable = new Runnable() {
@@ -53,203 +56,223 @@ Runnable runnable = new Runnable() {
     }
 };
 ----
-They’re instantiated at the point of declaration without a formal class name.
+They're instantiated at the point of declaration without a formal class name.
 
 NOTE: They are perfect for one-time use; however, in modern Java, lambda expressions can often replace anonymous classes for functional interfaces, reducing boilerplate even further.
 
 == 5. What is method overloading, and how does it differ from method overriding?
 
-- *Method Overloading:* Multiple methods in the same class have the same name but different parameter lists (signatures). The compiler determines which one to call based on the argument types.
-- *Method Overriding:* A subclass provides its own implementation for a method already defined in its superclass. The JVM uses dynamic dispatch to call the overridden method at runtime.
+* *Method Overloading:* Multiple methods in the same class have the same name but different parameter lists (signatures). The compiler determines which one to call based on the argument types.
+* *Method Overriding:* A subclass provides its own implementation for a method already defined in its superclass. The JVM uses dynamic dispatch to call the overridden method at runtime.
 
 NOTE: Overloading is like offering different flavors of a dish (same name, different ingredients), while overriding is tailoring a family recipe to suit your own taste.
 
 == 6. How do you use the `this` and `super` keywords in Java?
 
-- *this:* Refers to the current object instance. It's used to differentiate instance variables from parameters and to call other constructors in the same class.
-- *super:* Refers to the parent class instance. It is used to invoke the parent class’s methods or constructors.
+* *this:* Refers to the current object instance. It's used to differentiate instance variables from parameters and to call other constructors in the same class.
+* *super:* Refers to the parent class instance. It is used to invoke the parent class's methods or constructors.
 
 NOTE: Think of `this` as "me" and `super` as "my parent" both help navigate within your class hierarchy.
 
 == 7. What defines a utility class, and why are they often made final with private constructors?
 
 Answer:
-A utility class is a class that provides a collection of static methods and constants (e.g., `java.lang.Math`). Such classes are made final to prevent subclassing and include a private constructor to prevent instantiation, as they are not meant to hold state or be instantiated.
+A utility class is a class that provides a collection of static methods and constants (e.g., `java.lang.Math`).
+Such classes are made final to prevent subclassing and include a private constructor to prevent instantiation, as they are not meant to hold state or be instantiated.
 
-NOTE: Imagine a utility class as a toolbox there’s no need to create multiple toolboxes when all you need is one well‑organized set of tools.
+NOTE: Imagine a utility class as a toolbox there's no need to create multiple toolboxes when all you need is one well-organized set of tools.
 
 == 8. How do you implement a singleton pattern in Java, and what challenges might you face (e.g., reflection, serialization, cloning)?
 
-A singleton ensures a class has only one instance. Common methods include:
-- *Eager Initialization:* Instantiate the singleton at class loading.
-- *Lazy Initialization with Double‑Checked Locking:* Instantiate only when needed while ensuring thread safety.
-- *Enum Singleton:* Use an enum with a single element (recommended since it handles serialization and reflection out-of-the-box).
+A singleton ensures a class has only one instance.
+Common methods include:
+* *Eager Initialization:* Instantiate the singleton at class loading.
+* *Lazy Initialization with Double-Checked Locking:* Instantiate only when needed while ensuring thread safety.
+* *Enum Singleton:* Use an enum with a single element (recommended since it handles serialization and reflection out-of-the-box).
 
 Challenges:
-- *Reflection:* Can break singletons by invoking private constructors.
-- *Serialization:* Can create new instances unless the `readResolve()` method is used.
-- *Cloning:* May allow a duplicate if the `clone()` method isn’t properly overridden.
+* *Reflection:* Can break singletons by invoking private constructors.
+* *Serialization:* Can create new instances unless the `readResolve()` method is used.
+* *Cloning:* May allow a duplicate if the `clone()` method isn't properly overridden.
 
-NOTE: The enum approach is often the simplest and safest it’s like having a royal decree that only one instance shall ever exist.
+NOTE: The enum approach is often the simplest and safest it's like having a royal decree that only one instance shall ever exist.
 
 == 9. What is the difference between eager and lazy initialization in a singleton?
 
-- *Eager Initialization:* The singleton instance is created at the time of class loading. It’s simple but may waste resources if the instance is never used.
-- *Lazy Initialization:* The instance is created only when it’s first requested. This saves resources but requires careful synchronization to avoid race conditions.
+* *Eager Initialization:* The singleton instance is created at the time of class loading. It's simple but may waste resources if the instance is never used.
+* *Lazy Initialization:* The instance is created only when it's first requested. This saves resources but requires careful synchronization to avoid race conditions.
 
-NOTE: Eager initialization is like buying a ticket in advance for every show, while lazy initialization is like waiting in line until you’re sure you want to see the performance.
+NOTE: Eager initialization is like buying a ticket in advance for every show, while lazy initialization is like waiting in line until you're sure you want to see the performance.
 
 == 10. How do records (introduced in recent Java versions) simplify the creation of data carrier classes?
 
-Records offer a concise syntax for creating immutable data carriers. When you declare a record, the compiler automatically provides a constructor, accessors, `equals()`, `hashCode()`, and `toString()` methods, eliminating boilerplate code.
+Records offer a concise syntax for creating immutable data carriers.
+When you declare a record, the compiler automatically provides a constructor, accessors, `equals()`, `hashCode()`, and `toString()` methods, eliminating boilerplate code.
 
 NOTE: Records are a breath of fresh air like shorthand for creating simple, immutable objects without all the extra clutter.
 
 == 11. What are sealed classes, and how do they restrict class hierarchies?
 
-Sealed classes limit which other classes or interfaces may extend or implement them. By declaring a class as sealed and specifying its permitted subclasses, you maintain control over your inheritance structure, enhancing security and clarity.
+Sealed classes limit which other classes or interfaces may extend or implement them.
+By declaring a class as sealed and specifying its permitted subclasses, you maintain control over your inheritance structure, enhancing security and clarity.
 
-NOTE: Think of sealed classes as an exclusive club you decide who gets in, ensuring a well‑controlled hierarchy.
+NOTE: Think of sealed classes as an exclusive club you decide who gets in, ensuring a well-controlled hierarchy.
 
 == 12. How do lambda expressions and method references reduce boilerplate code in Java?
 
-Lambda expressions let you write inline implementations of functional interfaces, eliminating the need for verbose anonymous inner classes. Method references provide a shortcut for invoking existing methods without additional syntax.
+Lambda expressions let you write inline implementations of functional interfaces, eliminating the need for verbose anonymous inner classes.
+Method references provide a shortcut for invoking existing methods without additional syntax.
 
 NOTE: Lambdas are like shorthand notes they condense verbose code into clear, concise expressions that make your intent immediately apparent.
 
 == 13. What is a functional interface, and why is it important for lambda expressions?
 
 Answer:
-A functional interface is an interface with a single abstract method, serving as the target for lambda expressions and method references. The `@FunctionalInterface` annotation can enforce this constraint. They are central to functional programming in Java.
+A functional interface is an interface with a single abstract method, serving as the target for lambda expressions and method references.
+The `@FunctionalInterface` annotation can enforce this constraint.
+They are central to functional programming in Java.
 
-NOTE: Think of functional interfaces as single‑purpose tools designed to work seamlessly with lambdas simple, focused, and incredibly useful.
+NOTE: Think of functional interfaces as single-purpose tools designed to work seamlessly with lambdas simple, focused, and incredibly useful.
 
 == 14. How do default methods in interfaces work, and what problem do they solve?
 
 Answer:
-Default methods in interfaces allow you to include a method body within an interface. They provide a way to add new functionality to interfaces without breaking existing implementations, thus easing API evolution.
+Default methods in interfaces allow you to include a method body within an interface.
+They provide a way to add new functionality to interfaces without breaking existing implementations, thus easing API evolution.
 
 NOTE: Default methods are like bonus features they let you upgrade your interfaces without forcing everyone to change their implementations immediately.
 
 == 15. What are some common idioms for error handling and resource management in Java?
 
 Common idioms include:
-- Using try‑with‑resources to automatically close resources.
-- Creating custom exceptions for domain-specific errors.
-- Wrapping checked exceptions into unchecked ones when appropriate.
-- Logging errors with context to aid in debugging.
+* Using try-with-resources to automatically close resources.
+* Creating custom exceptions for domain-specific errors.
+* Wrapping checked exceptions into unchecked ones when appropriate.
+* Logging errors with context to aid in debugging.
 
 NOTE: Good error handling is like a safety net it catches unexpected issues gracefully and helps you figure out what went wrong without letting the program crash unexpectedly.
 
-== 16. How do you design self‑documenting code in Java to reduce the need for excessive comments?
+== 16. How do you design self-documenting code in Java to reduce the need for excessive comments?
 
-Self‑documenting code can be achieved by:
-- Using descriptive names for variables, methods, and classes.
-- Keeping methods short and focused.
-- Structuring code logically and consistently.
-- Avoiding deep nesting and complex logic.
-- Leveraging clear interfaces and method signatures.
+Self-documenting code can be achieved by:
+* Using descriptive names for variables, methods, and classes.
+* Keeping methods short and focused.
+* Structuring code logically and consistently.
+* Avoiding deep nesting and complex logic.
+* Leveraging clear interfaces and method signatures.
 
-NOTE: Writing self‑documenting code is like telling a story that’s so clear you don’t need extra footnotes it speaks for itself!
+NOTE: Writing self-documenting code is like telling a story that's so clear you don't need extra footnotes it speaks for itself!
 
 == 17. How do generics improve code reuse and type safety in Java?
 
-Generics allow you to parameterize classes, methods, and interfaces with types, ensuring compile‑time type checking and reducing the need for explicit casts. This leads to safer and more reusable code, as type mismatches are caught early.
+Generics allow you to parameterize classes, methods, and interfaces with types, ensuring compile-time type checking and reducing the need for explicit casts.
+This leads to safer and more reusable code, as type mismatches are caught early.
 
 NOTE: Generics are like templates that let you create a blueprint for your classes ensuring that you get the right type every time without surprises.
 
 == 18. What is type erasure, and what limitations does it impose on generic programming?
 
-Type erasure is the process where the compiler removes generic type information at runtime, replacing it with raw types. This means that:
+Type erasure is the process where the compiler removes generic type information at runtime, replacing it with raw types.
+This means that:
 
-- Generic type parameters are not available at runtime.
-- You cannot create instances of a generic type parameter.
-- Certain type comparisons or reflective operations become more challenging.
+* Generic type parameters are not available at runtime.
+* You cannot create instances of a generic type parameter.
+* Certain type comparisons or reflective operations become more challenging.
 
-NOTE: Type erasure is a trade‑off it maintains backward compatibility but sometimes forces you to use workarounds when dealing with generics.
+NOTE: Type erasure is a trade-off it maintains backward compatibility but sometimes forces you to use workarounds when dealing with generics.
 
 == 19. How do you implement design patterns like the Builder, Factory, or Observer pattern in Java?
 
-- *Builder Pattern:* Create a separate builder class with methods for setting properties and a `build()` method to create the object.
-- *Factory Pattern:* Use a factory method that encapsulates object creation, returning objects of a specific type without exposing instantiation logic.
-- *Observer Pattern:* Implement a mechanism where an object (subject) maintains a list of dependents (observers) that are notified when its state changes.
+* *Builder Pattern:* Create a separate builder class with methods for setting properties and a `build()` method to create the object.
+* *Factory Pattern:* Use a factory method that encapsulates object creation, returning objects of a specific type without exposing instantiation logic.
+* *Observer Pattern:* Implement a mechanism where an object (subject) maintains a list of dependents (observers) that are notified when its state changes.
 
 NOTE: Design patterns are like recipes for common problems they provide proven solutions and help maintain consistency across your codebase.
 
 == 20. What best practices exist for naming conventions and coding style in Java?
 
-- Use meaningful and descriptive names.
-- Follow Java naming conventions (camelCase for methods/variables, PascalCase for classes).
-- Keep code consistent with established style guides (such as Oracle’s or Google’s Java Style Guide).
-- Avoid abbreviations that reduce clarity.
-- Maintain readability and simplicity.
+* Use meaningful and descriptive names.
+* Follow Java naming conventions (camelCase for methods/variables, PascalCase for classes).
+* Keep code consistent with established style guides (such as Oracle's or Google's Java Style Guide).
+* Avoid abbreviations that reduce clarity.
+* Maintain readability and simplicity.
 
 NOTE: Good naming conventions are the signposts of your code they guide others (and your future self) through your thought process and implementation.
 
 == 21. How do you decide between composition and inheritance when designing classes?
 
-Composition (has‑a relationship) involves including instances of other classes as fields, promoting flexibility and decoupling. Inheritance (is‑a relationship) is best used when a clear hierarchical relationship exists and shared behavior is prominent. Favor composition when you want to combine behaviors and inheritance when you want to extend existing functionality.
+Composition (has-a relationship) involves including instances of other classes as fields, promoting flexibility and decoupling.
+Inheritance (is-a relationship) is best used when a clear hierarchical relationship exists and shared behavior is prominent.
+Favor composition when you want to combine behaviors and inheritance when you want to extend existing functionality.
 
 NOTE: Think of composition as building with Lego blocks you can mix and match pieces whereas inheritance is more like a family tree, where relationships are predefined.
 
 == 22. How do varargs work, and when should you use them?
 
-Varargs (variable‑length arguments) allow a method to accept zero or more arguments of a specified type using the ellipsis syntax (`...`). They are useful when the number of parameters may vary. However, overuse can hide potential errors and may affect readability.
+Varargs (variable-length arguments) allow a method to accept zero or more arguments of a specified type using the ellipsis syntax (`...`).
+They are useful when the number of parameters may vary.
+However, overuse can hide potential errors and may affect readability.
 
 NOTE: Varargs are like a flexible bag you can put in as many items as needed, but be cautious to keep the contents consistent.
 
 == 23. What is the role of immutability in designing robust Java classes?
 
-Immutability means that once an object is created, its state cannot be changed. This simplifies reasoning about the code, improves thread‑safety, and minimizes bugs associated with mutable shared state. Immutable classes are inherently safer to share across threads and are easier to test.
+Immutability means that once an object is created, its state cannot be changed.
+This simplifies reasoning about the code, improves thread-safety, and minimizes bugs associated with mutable shared state.
+Immutable classes are inherently safer to share across threads and are easier to test.
 
 NOTE: An immutable object is like a photograph it captures a moment in time that never changes, making it predictable and reliable.
 
 == 24. How do you compare objects using `compareTo()`, `equals()`, and `hashCode()`?
 
-- *compareTo():* Defines natural ordering for objects, returning a negative number, zero, or a positive number.
-- *equals():* Checks logical equality between objects.
-- *hashCode():* Returns an integer hash code, used in conjunction with equals() for collections like HashMap. Equal objects must have the same hash code.
+* *compareTo():* Defines natural ordering for objects, returning a negative number, zero, or a positive number.
+* *equals():* Checks logical equality between objects.
+* *hashCode():* Returns an integer hash code, used in conjunction with equals() for collections like HashMap. Equal objects must have the same hash code.
 
-NOTE: These methods are crucial for collections and sorting. Getting them right is like ensuring that every key fits perfectly into its lock.
+NOTE: These methods are crucial for collections and sorting.
+Getting them right is like ensuring that every key fits perfectly into its lock.
 
 == 25. What pitfalls can arise from using static methods and variables in Java?
 
 Static members belong to the class rather than an instance, which can lead to:
 
-- Shared state across threads, causing synchronization issues.
-- Difficulty in testing (they can’t be easily mocked).
-- Reduced flexibility and potential tight coupling.
+* Shared state across threads, causing synchronization issues.
+* Difficulty in testing (they can't be easily mocked).
+* Reduced flexibility and potential tight coupling.
 Excessive use of static members may lead to code that is hard to maintain and extend.
 
 NOTE: Use static members judiciously they're powerful tools, but too many can turn your code into a tangled web of dependencies.
 
-== 26. How do you handle cross‑cutting concerns (e.g., logging, security) using aspect‑oriented programming in Java?
+== 26. How do you handle cross-cutting concerns (e.g., logging, security) using aspect-oriented programming in Java?
 
-Aspect‑Oriented Programming (AOP) allows you to modularize concerns that cut across multiple classes. Frameworks like Spring AOP let you define aspects (with pointcuts and advices) to handle tasks like logging, security, or transaction management without cluttering the business logic.
+Aspect-Oriented Programming (AOP) allows you to modularize concerns that cut across multiple classes.
+Frameworks like Spring AOP let you define aspects (with pointcuts and advices) to handle tasks like logging, security, or transaction management without cluttering the business logic.
 
 NOTE: AOP is like hiring a specialist contractor to handle recurring tasks keeping your main code clean and focused on its primary purpose.
 
 == 27. How does the use of annotations improve code readability and reduce configuration overhead?
 
-Annotations embed metadata directly in the source code, reducing the need for separate configuration files. They make it easier to understand how components interact (e.g., `@Autowired` in Spring) and allow for cleaner, more declarative programming styles.
+Annotations embed metadata directly in the source code, reducing the need for separate configuration files.
+They make it easier to understand how components interact (e.g., `@Autowired` in Spring) and allow for cleaner, more declarative programming styles.
 
 NOTE: Annotations are like sticky notes on your code they provide essential context right where you need it without interrupting the flow.
 
-== 28. What is the importance of following the SOLID principles in object‑oriented design?
+== 28. What is the importance of following the SOLID principles in object-oriented design?
 
-SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion) guide you in creating software that is maintainable, scalable, and robust. They help reduce complexity, promote code reuse, and make the code easier to test and extend.
+SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion) guide you in creating software that is maintainable, scalable, and robust.
+They help reduce complexity, promote code reuse, and make the code easier to test and extend.
 
-NOTE: Following SOLID is like having a well‑charted roadmap it steers you clear of design pitfalls and ensures your code can grow gracefully over time.
+NOTE: Following SOLID is like having a well-charted roadmap it steers you clear of design pitfalls and ensures your code can grow gracefully over time.
 
 == 29. How do you enforce immutability in custom Java classes?
 
 To enforce immutability:
 
-- Declare all fields as `private` and `final`.
-- Initialize all fields through the constructor.
-- Do not provide setters.
-- Defensively copy mutable objects if they must be returned.
-- Consider marking the class as `final` to prevent subclassing.
+* Declare all fields as `private` and `final`.
+* Initialize all fields through the constructor.
+* Do not provide setters.
+* Defensively copy mutable objects if they must be returned.
+* Consider marking the class as `final` to prevent subclassing.
 
 NOTE: Enforcing immutability is like sealing a time capsule once created, the contents remain unchanged and trustworthy.
 
@@ -257,12 +280,12 @@ NOTE: Enforcing immutability is like sealing a time capsule once created, the co
 
 Document best practices by:
 
-- Adhering to established coding standards and style guides.
-- Writing clear, self‑documenting code with descriptive names.
-- Using comprehensive Javadoc for public APIs.
-- Conducting regular code reviews to enforce standards.
-- Utilizing linters and static analysis tools.
-- Keeping documentation and guidelines updated as the code evolves.
+* Adhering to established coding standards and style guides.
+* Writing clear, self-documenting code with descriptive names.
+* Using comprehensive Javadoc for public APIs.
+* Conducting regular code reviews to enforce standards.
+* Utilizing linters and static analysis tools.
+* Keeping documentation and guidelines updated as the code evolves.
 
 NOTE: Maintaining best practices is like tending a garden regular care and consistent standards keep your code healthy and thriving.
 

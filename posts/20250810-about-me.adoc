@@ -40,7 +40,8 @@ Lawrey was born in Melbourne, Australia, and has lived in the UK since 2002.
 
 Lawrey lives in Surrey, United Kingdom, and has six children.
 He has expressed a long-standing interest in the works of H. G. Wells, particularly "The War of the Worlds", and lives near Horsell Common, a location featured in the novel.
-Among his favourite quotations are "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away," attributed to Antoine de Saint-Exupéry, and "The book to read is not the one that thinks for you but the one which makes you think," commonly attributed to Harper Lee. Both these quotes apply to the age of Generative AI as well.
+Among his favourite quotations are "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away," attributed to Antoine de Saint-Exupéry, and "The book to read is not the one that thinks for you but the one which makes you think," commonly attributed to Harper Lee.
+Both these quotes apply to the age of Generative AI as well.
 
 == Selected open-source projects
 

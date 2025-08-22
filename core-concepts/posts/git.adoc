@@ -5,16 +5,18 @@ Peter lawrey
 :toc:
 :source-highlighter: rouge
 
-This document provides detailed answers to 15 sample questions on Git in the context of Java development. Each answer includes engaging side notes to help you understand and appreciate the benefits and nuances of Git.
+This document provides detailed answers to 15 sample questions on Git in the context of Java development.
+Each answer includes engaging side notes to help you understand and appreciate the benefits and nuances of Git.
 
 == 1. What is Git and what advantages does it offer over other version control systems?
 
-Git is a distributed version control system (DVCS) that allows multiple developers to work on a project simultaneously. Its key advantages include:
-- *Distributed Architecture:* Every developer has a full copy of the repository, enabling offline work and robust redundancy.
-- *Branching and Merging:* Git’s lightweight branching model makes it easy to experiment and manage parallel development.
-- *Speed and Performance:* Git is optimized for performance, handling large projects efficiently.
-- *Data Integrity:* Git uses SHA-1 hashing to ensure the integrity of your data.
-- *Collaboration:* With platforms like GitHub, GitLab, and Bitbucket, Git facilitates code reviews, pull requests, and collaborative development.
+Git is a distributed version control system (DVCS) that allows multiple developers to work on a project simultaneously.
+Its key advantages include:
+* *Distributed Architecture:* Every developer has a full copy of the repository, enabling offline work and robust redundancy.
+* *Branching and Merging:* Git's lightweight branching model makes it easy to experiment and manage parallel development.
+* *Speed and Performance:* Git is optimized for performance, handling large projects efficiently.
+* *Data Integrity:* Git uses SHA-1 hashing to ensure the integrity of your data.
+* *Collaboration:* With platforms like GitHub, GitLab, and Bitbucket, Git facilitates code reviews, pull requests, and collaborative development.
 
 NOTE: *Think of Git as a powerful time machine for your code allowing you to travel back, experiment freely, and always have a backup at hand!*
 
@@ -31,11 +33,12 @@ NOTE: *Initializing a repository is like laying the foundation of a building the
 
 == 3. What is the purpose of a .gitignore file in a Java project?
 
-The `.gitignore` file tells Git which files or directories to ignore in a repository. In a Java project, this typically includes:
-- Compiled class files (e.g., `*.class`)
-- Build directories (e.g., `target/`, `bin/`)
-- IDE-specific files (e.g., `.idea/`, `*.iml`, `.project`)
-- Temporary files and logs
+The `.gitignore` file tells Git which files or directories to ignore in a repository.
+In a Java project, this typically includes:
+* Compiled class files (e.g., `*.class`)
+* Build directories (e.g., `target/`, `bin/`)
+* IDE-specific files (e.g., `.idea/`, `*.iml`, `.project`)
+* Temporary files and logs
 
 By excluding these files, you keep the repository clean and avoid committing unnecessary or sensitive files.
 
@@ -59,8 +62,8 @@ NOTE: *Staging and committing are like preparing a dish you select the best ingr
 
 == 5. What is the difference between `git add` and `git commit`?
 
-- *git add:* Stages changes by adding them to the index, preparing them for commit.
-- *git commit:* Records the staged changes into the repository with a commit message, creating a new snapshot of the project.
+* *git add:* Stages changes by adding them to the index, preparing them for commit.
+* *git commit:* Records the staged changes into the repository with a commit message, creating a new snapshot of the project.
 
 NOTE: *Consider `git add` as gathering your ingredients, and `git commit` as baking the final cake each step is essential, but they serve distinct purposes.*
 
@@ -87,33 +90,36 @@ NOTE: *Branches are like parallel universes for your code you can explore new id
 
 == 7. What is the difference between merging and rebasing?
 
-- *Merging:* Combines the histories of two branches, creating a new merge commit that preserves the branching history.
-- *Rebasing:* Moves or reapplies commits from one branch onto another, resulting in a linear history without merge commits.
+* *Merging:* Combines the histories of two branches, creating a new merge commit that preserves the branching history.
+* *Rebasing:* Moves or reapplies commits from one branch onto another, resulting in a linear history without merge commits.
 
-NOTE: *Merging is like combining two streams into one river, complete with ripples (merge commits), whereas rebasing is like smoothing the river’s flow into a single, continuous line.*
+NOTE: *Merging is like combining two streams into one river, complete with ripples (merge commits), whereas rebasing is like smoothing the river's flow into a single, continuous line.*
 
 == 8. How do you resolve merge conflicts in Git?
 
-Merge conflicts occur when changes from different branches conflict. To resolve them:
-- Open the conflicting files; Git marks the conflict areas with `<<<<<<<`, `=======`, and `>>>>>>>`.
-- Edit the file to choose or combine the changes.
-- Stage the resolved files using `git add`.
-- Complete the merge with `git commit` if necessary.
+Merge conflicts occur when changes from different branches conflict.
+To resolve them:
+* Open the conflicting files; Git marks the conflict areas with `<<<<<<<`, `=======`, and `>>>>>>>`.
+* Edit the file to choose or combine the changes.
+* Stage the resolved files using `git add`.
+* Complete the merge with `git commit` if necessary.
 
 NOTE: *Resolving merge conflicts is like untangling a knot carefully examine and smooth out the discrepancies until the threads (code changes) align perfectly.*
 
 == 9. What are pull requests (or merge requests), and how do they support collaboration?
 
-Pull requests (PRs) or merge requests are features on platforms like GitHub, GitLab, or Bitbucket that allow developers to propose changes from one branch to another. They facilitate:
-- Code reviews and discussions.
-- Automated testing and continuous integration.
-- Collaborative decision-making before integrating changes into the main branch.
+Pull requests (PRs) or merge requests are features on platforms like GitHub, GitLab, or Bitbucket that allow developers to propose changes from one branch to another.
+They facilitate:
+* Code reviews and discussions.
+* Automated testing and continuous integration.
+* Collaborative decision-making before integrating changes into the main branch.
 
 NOTE: *A pull request is like a proposal in a board meeting it invites discussion, feedback, and consensus before making important decisions.*
 
 == 10. How do you use `git log` to inspect commit history?
 
-The `git log` command displays the commit history. Basic usage:
+The `git log` command displays the commit history.
+Basic usage:
 [,bash]
 ----
 git log
@@ -125,7 +131,7 @@ git log --oneline --graph --decorate
 ----
 This visualizes the commit history, showing branches and merges.
 
-NOTE: *Using git log is like reading a diary of your project’s evolution each commit is a memorable entry in the story of your code.*
+NOTE: *Using git log is like reading a diary of your project's evolution each commit is a memorable entry in the story of your code.*
 
 == 11. How can you revert a commit that has already been pushed?
 
@@ -136,11 +142,12 @@ git revert <commit-hash>
 ----
 This approach preserves history and is safe for shared repositories.
 
-NOTE: *Reverting a commit is like pressing the “undo” button in a well-tracked history it fixes mistakes while keeping a record of what happened.*
+NOTE: *Reverting a commit is like pressing the "undo" button in a well-tracked history it fixes mistakes while keeping a record of what happened.*
 
 == 12. What is Git stash and how do you use it?
 
-Git stash temporarily shelves changes that are not yet ready to be committed. To stash changes:
+Git stash temporarily shelves changes that are not yet ready to be committed.
+To stash changes:
 [,bash]
 ----
 git stash
@@ -161,7 +168,8 @@ NOTE: *Think of Git stash as a clipboard for your code it holds your changes saf
 
 == 13. How do you create and manage tags in Git?
 
-Tags mark specific points in the commit history as important (e.g., releases). Create a lightweight tag:
+Tags mark specific points in the commit history as important (e.g., releases).
+Create a lightweight tag:
 [,bash]
 ----
 git tag <tag-name>
@@ -176,24 +184,25 @@ Push tags to a remote repository:
 ----
 git push origin <tag-name>
 ----
-NOTE: *Tags are like bookmarks in a book they help you quickly locate significant milestones in your project’s history.*
+NOTE: *Tags are like bookmarks in a book they help you quickly locate significant milestones in your project's history.*
 
-== 14. How do you use Git hooks for tasks like pre‑commit checks?
+== 14. How do you use Git hooks for tasks like pre-commit checks?
 
-Git hooks are scripts that run automatically at certain points in the Git workflow. For pre‑commit checks:
-- Navigate to the `.git/hooks` directory.
-- Create or modify the `pre-commit` file (make it executable).
-- Add your custom scripts (e.g., linting or tests) to run before a commit is finalized.
+Git hooks are scripts that run automatically at certain points in the Git workflow.
+For pre-commit checks:
+* Navigate to the `.git/hooks` directory.
+* Create or modify the `pre-commit` file (make it executable).
+* Add your custom scripts (e.g., linting or tests) to run before a commit is finalized.
 
-NOTE: *Git hooks are like automated gatekeepers they ensure that only code meeting certain criteria gets committed, maintaining quality standards from the get‑go.*
+NOTE: *Git hooks are like automated gatekeepers they ensure that only code meeting certain criteria gets committed, maintaining quality standards from the get-go.*
 
 == 15. How do you integrate Git with CI/CD pipelines?
 
 Integrating Git with CI/CD pipelines involves:
-- Connecting your repository to a CI/CD tool (such as Jenkins, Travis CI, GitLab CI, or GitHub Actions).
-- Configuring build and test scripts that run automatically on commit or pull request events.
-- Using webhooks to trigger pipelines and report build statuses back to your repository.
-- Automating deployment steps after successful tests.
+* Connecting your repository to a CI/CD tool (such as Jenkins, Travis CI, GitLab CI, or GitHub Actions).
+* Configuring build and test scripts that run automatically on commit or pull request events.
+* Using webhooks to trigger pipelines and report build statuses back to your repository.
+* Automating deployment steps after successful tests.
 
 NOTE: *Integrating Git with CI/CD is like setting up an assembly line that runs every time you make a change automating tests and deployments ensures a smooth, continuous delivery process.*
 

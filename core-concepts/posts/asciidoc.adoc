@@ -4,7 +4,9 @@ Peter Lawrey
 :toc:
 :source-highlighter: rouge
 
-AsciiDoc is a versatile and powerful markup language for technical documentation. It offers a rich set of features for creating structured, readable, and visually appealing documents. In this post, we explore some common questions about AsciiDoc and provide detailed answers with engaging side notes to enhance your understanding.
+AsciiDoc is a versatile and powerful markup language for technical documentation.
+It offers a rich set of features for creating structured, readable, and visually appealing documents.
+In this post, we explore some common questions about AsciiDoc and provide detailed answers with engaging side notes to enhance your understanding.
 
 // tag::readme[]
 
@@ -12,42 +14,46 @@ AsciiDoc is a versatile and powerful markup language for technical documentation
 
 === 1. What is AsciiDoc, and what are its primary use cases for technical documentation?
 
-AsciiDoc is a lightweight, plain‑text markup language designed for writing technical documentation. It is highly readable in its raw form and can be transformed into multiple output formats such as HTML, PDF, ePub, and DocBook. Its primary use cases include:
+AsciiDoc is a lightweight, plain-text markup language designed for writing technical documentation.
+It is highly readable in its raw form and can be transformed into multiple output formats such as HTML, PDF, ePub, and DocBook.
+Its primary use cases include:
 
-- Writing user guides and manuals
-- Creating project documentation (e.g., developer guides, API documentation)
-- Preparing technical specifications and design documents
-- Maintaining documentation in source code repositories
-- Collaborating on documentation with version control systems
+* Writing user guides and manuals
+* Creating project documentation (e.g., developer guides, API documentation)
+* Preparing technical specifications and design documents
+* Maintaining documentation in source code repositories
+* Collaborating on documentation with version control systems
 
-*Side Note:* AsciiDoc is like Markdown’s sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.
+*Side Note:* AsciiDoc is like Markdown's sophisticated cousin it offers more features and flexibility while remaining easy to read and write, making it ideal for extensive technical documentation.
 
 === 2. How do you define headings of various levels in AsciiDoc?
 
-Headings in AsciiDoc are defined by using the `=` character at the beginning of a line. The number of `=` characters indicates the heading level:
+Headings in AsciiDoc are defined by using the `=` character at the beginning of a line.
+The number of `=` characters indicates the heading level:
 
-- `= Title` for a Level 1 heading
-- `== Section Title` for a Level 2 heading
-- `=== Subsection Title` for a Level 3 heading
+* `= Title` for a Level 1 heading
+* `== Section Title` for a Level 2 heading
+* `=== Subsection Title` for a Level 3 heading
 
-…and so on.
+...and so on.
 
-*Best Practice:* Use consistent heading levels to structure your document logically. This improves navigation and supports automated table-of‑contents generation.
+*Best Practice:* Use consistent heading levels to structure your document logically. This improves navigation and supports automated table-of-contents generation.
 
 === 3. What is the syntax for inline formatting such as bold, italic, and monospace text?
 
 AsciiDoc supports several inline formatting options:
 
-- *Bold:* Wrap text in asterisks, e.g., `\*bold text*`.
-- *Italic:* Wrap text in underscores, e.g., `\_italic text_`.
-- *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `+++`monospace`+++`.
-- *Inline Links:* Use square brackets and angle brackets for links, e.g., `+++link:https://example.com[Example]+++`.
-- *Superscript and Subscript:* Use the `^` and `~` characters, e.g., `2\^nd^` and `H\~2~O`.
-- *Passthrough*: Use `\pass:[blah]` e.g. `\pass:[<div style="color:red;">Red text</p>]` is pass:[<div style="color:red;">Red text</div>].
+* *Bold:* Wrap text in asterisks, e.g., `\*bold text*`.
+* *Italic:* Wrap text in underscores, e.g., `\_italic text_`.
+* *Monospace (Literal):* Wrap text in backticks or plus signs, e.g., `+``monospace``+`.
+* *Inline Links:* Use square brackets and angle brackets for links, e.g., `+`link:https://example.com[Example]`+`.
+* *Superscript and Subscript:* Use the `^` and `~` characters, e.g., `2\^nd^` and `H\~2~O`.
+* *Passthrough*: Use `\pass:[blah]` e.g. `\pass:[<div style="color:red;">Red text</p>]` is pass:[<div style="color:red;">Red text</div>].
 
 === 4. How do you create code blocks and specify a language for syntax highlighting?
 
-To create a code block in AsciiDoc and specify a language for syntax highlighting, you use a source block. For example:
+To create a code block in AsciiDoc and specify a language for syntax highlighting, you use a source block.
+For example:
 [,asciidoc]
 ....
 [,java]
@@ -67,7 +73,8 @@ TIP: To emded AsciiDoc in AsciiDoc you can use `-----` five `-` or `....` four `
 
 === 5. How do you insert images with alt text and captions in AsciiDoc?
 
-You can insert an image using the `image::` macro. To include alt text and a caption, use the following syntax:
+You can insert an image using the `image::` macro.
+To include alt text and a caption, use the following syntax:
 
 [,asciidoc]
 ----
@@ -77,7 +84,7 @@ This tells the AsciiDoc processor to include the image with the provided alterna
 
 === 6. How are ordered and unordered lists created in AsciiDoc?
 
-- *Unordered Lists:* Use a hyphen (`-`) or an asterisk (`*`) followed by a space.
+* *Unordered Lists:* Use a hyphen (`-`) or an asterisk (`*`) followed by a space.
 
 [,asciidoc]
 ----
@@ -92,7 +99,7 @@ OR
   - Nested item
 ----
 
-- *Ordered Lists:* Use a period (`.`) or nest with (`..`) followed by a space.
+* *Ordered Lists:* Use a period (`.`) or nest with (`..`) followed by a space.
 
 [,asciidoc]
 ----
@@ -129,11 +136,12 @@ You can add justication to cells like this:
 |===
 ----
 
-Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that’s easy to read and reference.
+Tables in AsciiDoc are like neatly arranged spreadsheets they allow you to present data in an organized manner that's easy to read and reference.
 
-=== 8. How do you define and use document‑level attributes?
+=== 8. How do you define and use document-level attributes?
 
-Document‑level attributes in AsciiDoc are defined at the top of the document using a colon syntax. For example:
+Document-level attributes in AsciiDoc are defined at the top of the document using a colon syntax.
+For example:
 [,asciidoc]
 ----
 = Title of the Document
@@ -150,14 +158,16 @@ NOTE: *Document-level attributes are like global variables for your document the
 
 === 9. How do you include external files using the `include` directive?
 
-You can include external files into your AsciiDoc document using the `include::` directive. For example:
+You can include external files into your AsciiDoc document using the `include::` directive.
+For example:
 
 [,asciidoc]
 ----
 include::path/to/filename.adoc[hlevel=2]
 ----
 
-This command inserts the content of `filename.adoc` at the location where the directive appears. You can also specify a heading level for the included content.
+This command inserts the content of `filename.adoc` at the location where the directive appears.
+You can also specify a heading level for the included content.
 
 or to include a portion of a file use tags like this:
 
@@ -186,7 +196,8 @@ The include directive is like a modular puzzle each piece (file) can be develope
 
 === 10. How do you include mermaid diagrams in AsciiDoc?
 
-To include Mermaid diagrams in AsciiDoc, you can use the `mermaid` block. For example:
+To include Mermaid diagrams in AsciiDoc, you can use the `mermaid` block.
+For example:
 
 [,asciidoc]
 -----
@@ -214,7 +225,8 @@ graph TD
     C --> D
 ----
 
-However, this syntax does not work in GitHub which requires `[source,mermaid]`. To enable the different tag for GitHub only you can write
+However, this syntax does not work in GitHub which requires `[source,mermaid]`.
+To enable the different tag for GitHub only you can write
 
 [,asciidoc]
 -----
@@ -232,20 +244,22 @@ However, this syntax does not work in GitHub which requires `[source,mermaid]`. 
 
 Generative AI can be integrated to:
 
-- *Automate Draft Creation:* Generate initial drafts of requirements or style guides based on minimal input.
-- *Review and Refine:* Analyze document structure and suggest improvements to maintain consistency.
-- *Update Content:* Automatically adjust documentation (e.g., update changelogs or cross references) when code changes.
-- *Multi-format Export:* Seamlessly transform a single AsciiDoc source into various output formats for different audiences.
+* *Automate Draft Creation:* Generate initial drafts of requirements or style guides based on minimal input.
+* *Review and Refine:* Analyze document structure and suggest improvements to maintain consistency.
+* *Update Content:* Automatically adjust documentation (e.g., update changelogs or cross references) when code changes.
+* *Multi-format Export:* Seamlessly transform a single AsciiDoc source into various output formats for different audiences.
 
-An AI system might scan project specifications, code, and test. It can generate a comprehensive AsciiDoc requirements document, which can then be refined by a human editor. After refinement, the AI can recommend improvements to the code and tests.
+An AI system might scan project specifications, code, and test.
+It can generate a comprehensive AsciiDoc requirements document, which can then be refined by a human editor.
+After refinement, the AI can recommend improvements to the code and tests.
 
 === 2. How can generative AI assist in creating and updating requirements documents?
 
 AI can:
 
-- *Parse Raw Input:* Convert unstructured stakeholder notes into a well‑defined requirements document.
-- *Highlight Ambiguities:* Detect unclear or conflicting requirements and suggest clarifications.
-- *Track Changes:* Automatically generate diffs for updated requirements to facilitate change management.
+* *Parse Raw Input:* Convert unstructured stakeholder notes into a well-defined requirements document.
+* *Highlight Ambiguities:* Detect unclear or conflicting requirements and suggest clarifications.
+* *Track Changes:* Automatically generate diffs for updated requirements to facilitate change management.
 
 *Best Practice:* Combine human oversight with AI suggestions to maintain clarity and precision in your requirements documents.
 
@@ -253,26 +267,27 @@ AI can:
 
 To ensure that AI-driven documentation remains robust and maintainable, consider the following best practices:
 
-- *Structured Input:* Use AsciiDoc’s clear syntactical cues (headings, lists, tables) to delineate sections, making it easier for AI to parse content accurately.
-- *Validation and Review:* Always include a human review process to verify AI-generated changes.
-- *Version Control:* Leverage Git or similar tools to track changes, ensuring that automated edits are transparent and reversible.
-- *Contextual Prompts:* When using prompt engineering, include examples from existing documents so that the AI understands the desired style and structure.
+* *Structured Input:* Use AsciiDoc's clear syntactical cues (headings, lists, tables) to delineate sections, making it easier for AI to parse content accurately.
+* *Validation and Review:* Always include a human review process to verify AI-generated changes.
+* *Version Control:* Leverage Git or similar tools to track changes, ensuring that automated edits are transparent and reversible.
+* *Contextual Prompts:* When using prompt engineering, include examples from existing documents so that the AI understands the desired style and structure.
 
-=== 4. How can AsciiDoc’s structured text support prompt engineering in AI workflows?
+=== 4. How can AsciiDoc's structured text support prompt engineering in AI workflows?
 
-AsciiDoc’s predictable structure—using markers like `=`, `==`, and code block delimiters—allows you to:
+AsciiDoc's predictable structure-using markers like `=`, `==`, and code block delimiters-allows you to:
 
-- *Design Reusable Prompts:* Create templates that instruct AI to generate content for specific sections.
-- *Maintain Formatting:* Ensure that AI-generated text fits exactly into predefined document sections.
-- *Automate Repetitive Tasks:* For example, auto-generate tables, cross references, or even complete sections based on input prompts.
+* *Design Reusable Prompts:* Create templates that instruct AI to generate content for specific sections.
+* *Maintain Formatting:* Ensure that AI-generated text fits exactly into predefined document sections.
+* *Automate Repetitive Tasks:* For example, auto-generate tables, cross references, or even complete sections based on input prompts.
 
 === 5. How can one ensure the integrity of structured text when using generative AI for updates or modifications?
 
-Maintaining the integrity of structured text is paramount. Techniques include:
+Maintaining the integrity of structured text is paramount.
+Techniques include:
 
-- *Tagging and Anchoring:* Use document-level attributes and unique tags (as with the `include::` directive) to anchor sections. AI should be prompted to respect these boundaries.
-- *Diff Tools:* Utilize diff tools integrated with version control systems to spot unintended changes in structure.
-- *Automated Testing:* Develop automated tests or linting tools that verify the document adheres to the expected AsciiDoc syntax before and after AI modifications.
+* *Tagging and Anchoring:* Use document-level attributes and unique tags (as with the `include::` directive) to anchor sections. AI should be prompted to respect these boundaries.
+* *Diff Tools:* Utilize diff tools integrated with version control systems to spot unintended changes in structure.
+* *Automated Testing:* Develop automated tests or linting tools that verify the document adheres to the expected AsciiDoc syntax before and after AI modifications.
 
 NOTE: These methods help preserve the human-readable nature of AsciiDoc while leveraging AI for content generation and update, ensuring that structure and clarity remain intact even after multiple rounds of automated editing.
 
@@ -282,22 +297,22 @@ NOTE: These methods help preserve the human-readable nature of AsciiDoc while le
 
 Be mindful of:
 
-- *Overusing Inline Formatting:* Excessive formatting can clutter the document. Keep it simple.
-- *Improper Nesting:* Ensure that blocks (like lists or tables) are properly nested to avoid rendering issues.
-- *Inconsistent Attributes:* Maintain a single source of truth for document‑level attributes to prevent discrepancies.
-- *Missing Escapes:* Remember to escape special characters when needed (e.g., using a backslash before reserved symbols).
+* *Overusing Inline Formatting:* Excessive formatting can clutter the document. Keep it simple.
+* *Improper Nesting:* Ensure that blocks (like lists or tables) are properly nested to avoid rendering issues.
+* *Inconsistent Attributes:* Maintain a single source of truth for document-level attributes to prevent discrepancies.
+* *Missing Escapes:* Remember to escape special characters when needed (e.g., using a backslash before reserved symbols).
 
 === How can you troubleshoot rendering issues in AsciiDoc?
 
 To troubleshoot rendering issues:
 
-- *Check Syntax:* Verify that the AsciiDoc syntax is correct, especially for complex constructs like tables or code blocks.
-- *Use IntelliJ:* AsciiDoc plugins in IntelliJ IDEA can help identify syntax errors and provide real-time feedback.
+* *Check Syntax:* Verify that the AsciiDoc syntax is correct, especially for complex constructs like tables or code blocks.
+* *Use IntelliJ:* AsciiDoc plugins in IntelliJ IDEA can help identify syntax errors and provide real-time feedback.
 
 === Further Reading and Resources
 
-- [AsciiDoc Syntax Quick Reference](https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/)
-- [AsciiDoc Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
-- Articles and tutorials on docs‑as‑code practices
+* [AsciiDoc Syntax Quick Reference](https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/)
+* [AsciiDoc Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
+* Articles and tutorials on docs-as-code practices
 
 // end::readme[]

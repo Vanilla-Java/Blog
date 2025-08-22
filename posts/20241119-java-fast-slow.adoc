@@ -1,13 +1,16 @@
 = What can make Java code go faster, and then slower?
 Peter Lawrey, CEO of Chronicle Software
 
-It's well-known that the JVM optimises code during execution, resulting in faster performance over time. However, less commonly understood is how operations performed *before* a code section can negatively impact its execution speed. In this post, I'll use practical examples to explore how warming up and cooling down code affects performance.
+It's well-known that the JVM optimises code during execution, resulting in faster performance over time.
+However, less commonly understood is how operations performed *before* a code section can negatively impact its execution speed.
+In this post, I'll use practical examples to explore how warming up and cooling down code affects performance.
 
 The https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/coldcode/FastAndSlowMain.java[code is available here] for you to run.
 
 == Warming Up Code
 
-When code is executed repeatedly, the JVM optimizes performance. Consider the following code snippet:
+When code is executed repeatedly, the JVM optimizes performance.
+Consider the following code snippet:
 
 [source,java]
 ----
@@ -21,7 +24,8 @@ for (int i = 0; i &lt;= display[display.length - 1]; i++) {
 }
 ----
 
-This code measures the time taken to execute `doTask()` over multiple iterations, printing the results at specific intervals. Running this on a Windows 10 machine with an i7-10710U processor and Azul JDK 21.0.2 yields:
+This code measures the time taken to execute `doTask()` over multiple iterations, printing the results at specific intervals.
+Running this on a Windows 10 machine with an i7-10710U processor and Azul JDK 21.0.2 yields:
 
 [source]
 ----
@@ -35,11 +39,14 @@ This code measures the time taken to execute `doTask()` over multiple iterations
 100,001: Took 41 us to serialise/deserialise GregorianCalendar
 ----
 
-Notice how the execution time decreases dramatically with more iterations. This is due to the JVM's Just-In-Time (JIT) compiler optimising the code during runtime.
+Notice how the execution time decreases dramatically with more iterations.
+This is due to the JVM's Just-In-Time (JIT) compiler optimising the code during runtime.
 
 == Cooling Down Code
 
-Conversely, certain operations can degrade performance by affecting the CPU caches and power settings. Even a simple `Thread.sleep()` or blocking call can slow down subsequent code execution. Here's an example:
+Conversely, certain operations can degrade performance by affecting the CPU caches and power settings.
+Even a simple `Thread.sleep()` or blocking call can slow down subsequent code execution.
+Here's an example:
 
 [source,java]
 ----
@@ -72,7 +79,8 @@ After sleep 50 ms: Took 297 us to serialise/deserialise GregorianCalendar
 After sleep 100 ms: Took 353 us to serialise/deserialise GregorianCalendar
 ----
 
-As the sleep time increases, the execution time of `doTask()` also increases. This occurs because the CPU caches are cleared during sleep, and power management reduces the CPU speed, causing the subsequent operations to fetch data from slower memory and execute slower.
+As the sleep time increases, the execution time of `doTask()` also increases.
+This occurs because the CPU caches are cleared during sleep, and power management reduces the CPU speed, causing the subsequent operations to fetch data from slower memory and execute slower.
 
 == The Task
 
@@ -101,16 +109,24 @@ Serialization of `GregorianCalendar` is used here because it's a relatively heav
 
 == Summary
 
-Testing code performance in isolation may give you a partial picture. Operations like `Thread.sleep()`, I/O activities, or any action affecting CPU caches can slow down the following code. It's crucial to consider how preceding operations impact the overall system performance, not just the execution time of isolated code blocks.
+Testing code performance in isolation may give you a partial picture.
+Operations like `Thread.sleep()`, I/O activities, or any action affecting CPU caches can slow down the following code.
+It's crucial to consider how preceding operations impact the overall system performance, not just the execution time of isolated code blocks.
 
 == Personal Observations
 
-Interestingly, I observed similar results when I ran this experiment in 2011. The effect of cache clearing and power management on code performance remains consistent. You can read more about my previous findings https://blog.vanillajava.blog/2011/05/whatc-make-code-go-faster-and-slower.html[here].
+Interestingly, I observed similar results when I ran this experiment in 2011. The effect of cache clearing and power management on code performance remains consistent.
+You can read more about my previous findings https://blog.vanillajava.blog/2011/05/whatc-make-code-go-faster-and-slower.html[here].
 
 == Final Thoughts
 
-Have you encountered situations where preceding operations affected your code's performance? It's important to be mindful of how system interactions can impact your applications. Feel free to share your experiences or thoughts in the comments below.
+Have you encountered situations where preceding operations affected your code's performance?
+It's important to be mindful of how system interactions can impact your applications.
+Feel free to share your experiences or thoughts in the comments below.
 
 == About the author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].

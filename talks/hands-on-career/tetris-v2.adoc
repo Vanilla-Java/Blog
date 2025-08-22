@@ -8,48 +8,53 @@ Date: 2024-12-17
 
 == Introduction
 
-This document specifies the requirements for a Tetris game implemented using HTML, CSS, and JavaScript. It covers functional and non-functional requirements, including gameplay mechanics, user interface elements, scoring rules, and technical constraints. The goal is to provide a clear, comprehensive set of guidelines to ensure consistent development and a quality user experience.
+This document specifies the requirements for a Tetris game implemented using HTML, CSS, and JavaScript.
+It covers functional and non-functional requirements, including gameplay mechanics, user interface elements, scoring rules, and technical constraints.
+The goal is to provide a clear, comprehensive set of guidelines to ensure consistent development and a quality user experience.
 
 == Project Overview
 
-Tetris is a classic puzzle game where players manipulate falling blocks (called Tetrominoes) to create complete horizontal lines without gaps. When a line is fully filled, it is cleared from the board, and the player earns points. The game speeds up as it progresses, increasing the difficulty. The player aims to achieve the highest possible score before the stack of blocks reaches the top of the playfield.
+Tetris is a classic puzzle game where players manipulate falling blocks (called Tetrominoes) to create complete horizontal lines without gaps.
+When a line is fully filled, it is cleared from the board, and the player earns points.
+The game speeds up as it progresses, increasing the difficulty.
+The player aims to achieve the highest possible score before the stack of blocks reaches the top of the playfield.
 
 == Terminology
 
-*Tetromino*: A shape composed of four connected squares. Standard Tetris includes seven unique Tetromino shapes: I, O, T, J, L, S, and Z.
+_Tetromino_: A shape composed of four connected squares. Standard Tetris includes seven unique Tetromino shapes: I, O, T, J, L, S, and Z.
 
-*Playfield*: The grid-based area in which Tetrominoes fall and are placed by the player.
+_Playfield_: The grid-based area in which Tetrominoes fall and are placed by the player.
 
-*Line clear*: The event of removing one or more fully filled horizontal lines from the playfield.
+_Line clear_: The event of removing one or more fully filled horizontal lines from the playfield.
 
-*Lock down*: The moment when a falling Tetromino can no longer be moved or rotated, and it becomes part of the placed blocks.
+_Lock down_: The moment when a falling Tetromino can no longer be moved or rotated, and it becomes part of the placed blocks.
 
 == Functional Requirements
 
 === Core Gameplay
 
-1. **Tetromino Generation**
+. *Tetromino Generation*
 * The game shall generate new Tetrominoes at the top-center of the playfield.
 * The sequence of Tetrominoes shall be pseudo-random, ensuring each of the seven Tetris shapes appears in a randomized sequence.
 * The next upcoming Tetromino(s) shall be displayed in a "Next" preview area.
 
-2. **Movement and Rotation**
+. *Movement and Rotation*
 * The player shall be able to move the active Tetromino left or right by pressing corresponding arrow keys.
 * The player shall be able to rotate the active Tetromino clockwise and counterclockwise using designated keys.
 * The player shall be able to soft-drop the active Tetromino (faster downward movement) using the down arrow key.
 * The player shall be able to hard-drop the active Tetromino (instantly drop to the lowest valid position) using the space bar.
 
-3. **Gravity and Locking**
+. *Gravity and Locking*
 * Tetrominoes shall fall at a rate based on the current level.
 * Once a Tetromino cannot move further down because of collision with existing blocks or the bottom boundary, it shall lock down into place after a short delay (configurable, e.g., 500 ms).
 * After lock down, a new Tetromino shall appear at the top of the playfield, unless the game is over.
 
-4. **Line Clearing**
+. *Line Clearing*
 * If one or more horizontal lines are fully filled with no gaps after a Tetromino locks down, those lines shall be removed.
 * The playfield shall shift any blocks above the cleared lines down to fill the space.
 * The game shall award points for each cleared line according to the scoring rules.
 
-5. **Scoring and Levels**
+. *Scoring and Levels*
 * Clearing a single line = 40 * (current level + 1) points.
 * Clearing two lines simultaneously = 100 * (current level + 1) points.
 * Clearing three lines simultaneously = 300 * (current level + 1) points.
@@ -57,49 +62,49 @@ Tetris is a classic puzzle game where players manipulate falling blocks (called 
 * The level shall increase after clearing a specific number of lines (e.g., 10 lines per level).
 * As the level increases, the fall speed of Tetrominoes shall also increase.
 
-6. **Game Over Conditions**
+. *Game Over Conditions*
 * The game is over if a newly spawned Tetromino cannot be placed at the top of the playfield without collision.
 * The game can also end if the player chooses to quit or if an error occurs.
 
-7. **Pause and Resume**
+. *Pause and Resume*
 * The player shall be able to pause the game using a designated key (e.g., 'P').
 * While paused, no Tetromino shall move or lock down.
 * The player shall be able to resume the game using the same key.
 
 === User Interface Requirements
 
-1. **Playfield Display**
+. *Playfield Display*
 * The playfield shall be represented as a 2D grid, typically 10 columns wide and 20 rows high.
 * Each cell shall display a background and a colored block if occupied by part of a Tetromino.
 
-2. **Next Piece Preview**
+. *Next Piece Preview*
 * A "Next" section shall show at least one upcoming Tetromino to help the player plan their moves.
 
-3. **Score and Level Display**
+. *Score and Level Display*
 * The current score and current level shall be displayed in real-time on the game screen.
 * The number of cleared lines shall also be displayed.
 
-4. **Controls Display**
+. *Controls Display*
 * The game shall display a small help panel or tooltip indicating the control keys for movement, rotation, and pause.
 
-5. **Responsive Design**
+. *Responsive Design*
 * The UI should adapt to different screen sizes.
 * On smaller screens, the interface should scale appropriately while maintaining readability.
 
 === Audio and Visual Feedback
 
-1. **Animations**
+. *Animations*
 * Tetrominoes shall move smoothly when controlled by the player and when gravity pulls them down.
 * Line clear animations shall highlight the cleared lines before they vanish.
 
-2. **Sound Effects**
+. *Sound Effects*
 * A sound shall play when a Tetromino locks down.
 * A distinct sound shall play when one or more lines are cleared.
 * Background music is optional but recommended for enhanced immersion, with the ability to mute.
 
 === Input and Controls
 
-1. **Keyboard Controls (Default)**
+. *Keyboard Controls (Default)*
 * Left arrow: Move left
 * Right arrow: Move right
 * Up arrow: Rotate clockwise
@@ -109,101 +114,103 @@ Tetris is a classic puzzle game where players manipulate falling blocks (called 
 * P key: Pause/Resume
 * M key: Mute/Unmute audio
 
-2. **Touch Controls (Optional)**
+. *Touch Controls (Optional)*
 * On mobile or touch devices, a simple on-screen control scheme can be provided:
-- Left/Right buttons for horizontal movement
-- A rotate button
-- A separate button for hard drop
+** Left/Right buttons for horizontal movement
+** A rotate button
+** A separate button for hard drop
 
 == Non-Functional Requirements
 
 === Performance and Responsiveness
 
-1. The game shall maintain at least 30 frames per second (FPS) on standard desktop browsers.
-2. UI updates shall be smooth with minimal flickering.
-3. Controls shall be responsive, with minimal latency between input and on-screen action.
+. The game shall maintain at least 30 frames per second (FPS) on standard desktop browsers.
+. UI updates shall be smooth with minimal flickering.
+. Controls shall be responsive, with minimal latency between input and on-screen action.
 
 === Browser Compatibility
 
-1. The game shall run smoothly on modern browsers including Chrome, Firefox, Safari, and Edge.
-2. The game shall function without requiring plugins.
-3. The game shall degrade gracefully on older browsers, at least providing minimal playable functionality if advanced HTML5 features are not supported.
+. The game shall run smoothly on modern browsers including Chrome, Firefox, Safari, and Edge.
+. The game shall function without requiring plugins.
+. The game shall degrade gracefully on older browsers, at least providing minimal playable functionality if advanced HTML5 features are not supported.
 
 === Code Quality and Maintainability
 
-1. The code shall be modular, separating game logic, rendering, and input handling into distinct modules.
-2. Variables, functions, and classes shall have descriptive names.
-3. Comments and documentation shall be provided for complex logic.
-4. The code shall follow standard JavaScript best practices and linting rules.
+. The code shall be modular, separating game logic, rendering, and input handling into distinct modules.
+. Variables, functions, and classes shall have descriptive names.
+. Comments and documentation shall be provided for complex logic.
+. The code shall follow standard JavaScript best practices and linting rules.
 
 === Accessibility
 
-1. The game shall provide text descriptions and instructions for screen readers.
-2. The game shall ensure that the color palette is distinguishable by players with color vision deficiencies.
-3. The game’s controls shall be navigable via keyboard-only input.
+. The game shall provide text descriptions and instructions for screen readers.
+. The game shall ensure that the color palette is distinguishable by players with color vision deficiencies.
+. The game's controls shall be navigable via keyboard-only input.
 
 === Internationalization (Optional)
 
-1. All visible text (instructions, labels, and score displays) shall be easily replaceable with localized strings.
-2. The default language shall be English.
+. All visible text (instructions, labels, and score displays) shall be easily replaceable with localized strings.
+. The default language shall be English.
 
 == Data and Storage
 
-1. The player’s highest score and personal best shall be stored locally (e.g., using `localStorage`).
-2. No sensitive personal data shall be collected.
-3. If multiple profiles are supported in the future, each profile’s data shall be stored separately.
+. The player's highest score and personal best shall be stored locally (e.g., using `localStorage`).
+. No sensitive personal data shall be collected.
+. If multiple profiles are supported in the future, each profile's data shall be stored separately.
 
 == Testing and Quality Assurance
 
-1. The game shall include unit tests for core logic (collision detection, line clearing, scoring).
-2. Integration tests shall ensure that Tetromino generation, movement, rotation, and line clearing work together correctly.
-3. Manual testing shall verify the UI layout, controls on various devices, and accessibility features.
-4. Known issues shall be tracked, and regression tests shall be performed after bug fixes.
+. The game shall include unit tests for core logic (collision detection, line clearing, scoring).
+. Integration tests shall ensure that Tetromino generation, movement, rotation, and line clearing work together correctly.
+. Manual testing shall verify the UI layout, controls on various devices, and accessibility features.
+. Known issues shall be tracked, and regression tests shall be performed after bug fixes.
 
 == Deployment and Distribution
 
-1. The game shall be deployable on any standard web server.
-2. Minimizing file size through asset compression and code minification is recommended for faster loading.
-3. A progressive web app (PWA) option may be offered to allow offline play.
+. The game shall be deployable on any standard web server.
+. Minimizing file size through asset compression and code minification is recommended for faster loading.
+. A progressive web app (PWA) option may be offered to allow offline play.
 
 === Hold Piece Functionality
 
-1. **Basic Concept**
+. *Basic Concept*
 * The player shall have the ability to store one Tetromino in a dedicated "Hold" slot.
 * This "Hold" slot can remain empty until the player decides to store a piece.
 * When the player presses the designated "Hold" key (e.g., 'C'), the currently active Tetromino shall be moved into the Hold slot, and the piece previously in the Hold slot (if any) shall become the new active Tetromino.
 * If the Hold slot is empty when the player presses the Hold key, the current Tetromino shall move into the Hold slot and a new Tetromino shall spawn from the next queue.
 
-2. **Restrictions**
+. *Restrictions*
 * The player shall not be allowed to perform a Hold action twice in a row without placing at least one Tetromino. This prevents indefinite cycling between a held piece and the active piece.
 * If holding a piece is not possible at a given moment, the game shall ignore the hold input or play a slight error sound.
 
-3. **Display**
+. *Display*
 * The UI shall include a visible "Hold" area, displaying the currently held Tetromino (if any).
 * The held Tetromino shall be rendered similarly to the Next Piece preview, using a smaller grid and appropriate scaling.
 
-4. **Scoring and Line Clears**
+. *Scoring and Line Clears*
 * Holding a piece does not directly affect scoring, levels, or line clears. The gameplay mechanics outside of piece swapping remain unchanged.
 
-5. **Controls**
+. *Controls*
 * A new key (e.g., 'C') shall be assigned to trigger the Hold action.
 * This key mapping shall be documented in the controls display area.
 
-6. **Future Considerations**
+. *Future Considerations*
 * Adding the Hold feature will offer advanced strategic options, encouraging players to store favorable Tetrominoes for later use.
 * The Hold feature should be optional: In advanced settings, players can disable or enable the hold feature according to personal preference.
 
 == Future Enhancements
 
-1. Add a "Hold Piece" functionality to store one Tetromino for later use.
-2. Add multiple rotation systems (e.g., SRS, ARS) selectable in the settings.
-3. Include multiplayer modes (competitive head-to-head or cooperative).
-4. Add customizable skins and themes for Tetrominoes and the playfield.
+. Add a "Hold Piece" functionality to store one Tetromino for later use.
+. Add multiple rotation systems (e.g., SRS, ARS) selectable in the settings.
+. Include multiplayer modes (competitive head-to-head or cooperative).
+. Add customizable skins and themes for Tetrominoes and the playfield.
 
 == Approval and Sign-Off
 
-This requirements document shall be reviewed and approved by the project stakeholders before development begins. Any changes made after initial approval shall be documented in a version history and subject to review.
+This requirements document shall be reviewed and approved by the project stakeholders before development begins.
+Any changes made after initial approval shall be documented in a version history and subject to review.
 
 == Conclusion
 
-These requirements provide a clear blueprint for developing a robust, user-friendly Tetris game in HTML/JavaScript. By adhering to these guidelines, developers will ensure a consistent player experience, maintainable code, and a foundation that can support future enhancements.
+These requirements provide a clear blueprint for developing a robust, user-friendly Tetris game in HTML/JavaScript.
+By adhering to these guidelines, developers will ensure a consistent player experience, maintainable code, and a foundation that can support future enhancements.

@@ -2,15 +2,21 @@
 
 Peter Pilgrim interviewed Peter Lawrey to find out how he started out as an IT Consultant.
 
-[Pilgrim] Starting a business for me is pretty scary and crazy s%#t, no offence. I just do not know how to market myself to the key decision-makers for one thing.
+[Pilgrim] Starting a business for me is pretty scary and crazy s%#t, no offence.
+I just do not know how to market myself to the key decision-makers for one thing.
 
-I am unsure if one week going into a site will work for the typical Java EE project that I see. Some clients take at least that much time to set up access to SVN and produce a good enough laptop that works. I assume that this is different in your experience with low-latency trading.
+I am unsure if one week going into a site will work for the typical Java EE project that I see.
+Some clients take at least that much time to set up access to SVN and produce a good enough laptop that works.
+I assume that this is different in your experience with low-latency trading.
 
 [Pilgrim] So Peter, how did you get started?
 
-[Lawrey] I preferred the technically challenging and interesting roles but I was finding the same issues coming up and spending less time solving them. After some short roles, I saw a trend of moving to shorter consulting roles. I have enjoyed consulting and don't feel under-challenged.
+[Lawrey] I preferred the technically challenging and interesting roles but I was finding the same issues coming up and spending less time solving them.
+After some short roles, I saw a trend of moving to shorter consulting roles.
+I have enjoyed consulting and don't feel under-challenged.
 
-I am friends with a couple of guys who have a small startup and have been operating for a few years. We traded knowledge and expertise, and this helped me get started.
+I am friends with a couple of guys who have a small startup and have been operating for a few years.
+We traded knowledge and expertise, and this helped me get started.
 
 In the beginning, I got some work through people I have worked with before and started getting more work from new clients.
 
@@ -18,20 +24,27 @@ I still find technical challenges interesting, but starting a business is an int
 
 == How do you get new work?
 
-Work is erratic. For months I might only have recurring clients, and then suddenly I could get four new clients in the same week. There is no reliable source of work, so I diversify. I get work from these sources:
+Work is erratic.
+For months I might only have recurring clients, and then suddenly I could get four new clients in the same week.
+There is no reliable source of work, so I diversify.
+I get work from these sources:
 
 * Open source projects such as the OpenHFT project.
-* Developers finding me via StackOverflow. I am third for `[Java]` and second for `[concurrency]`.
+* Developers finding me via StackOverflow.
+I am third for `[Java]` and second for `[concurrency]`.
 * People I have worked with before.
 * Recruitment agents.
 
-These all provide about the same amount of new work. About half of my work is repeat business.
+These all provide about the same amount of new work.
+About half of my work is repeat business.
 
-I go to conferences to meet people and to learn something from the talks. I have been told there is a two-to-three-year lag between presenting at conferences and getting work from them.
+I go to conferences to meet people and to learn something from the talks.
+I have been told there is a two-to-three-year lag between presenting at conferences and getting work from them.
 
 == How do you get around the inertia of IT support in your engagements?
 
-[Pilgrim] For instance, it has often taken me one week to get SVN access at any investment bank! One week is not enough time to learn the systems and contribute in a supportable way.
+[Pilgrim] For instance, it has often taken me one week to get SVN access at any investment bank!
+One week is not enough time to learn the systems and contribute in a supportable way.
 
 What I do is take a different approach, such as:
 
@@ -39,37 +52,54 @@ What I do is take a different approach, such as:
 * Training and consulting tailored to the needs of the projects under development.
 * Focusing on the skills left behind, rather than the code left behind.
 
-About half my work is longer engagements of months (e.g., every second week or one week a month). This allows the teams to absorb the changes in skills and code and make them their own.
+About half my work is longer engagements of months (e.g., every second week or one week a month).
+This allows the teams to absorb the changes in skills and code and make them their own.
 
 [Pilgrim] Or another example is the laptop provided has only 4GB of RAM to run an IDE, multiple web browsers, and the application server and is so slow (Intel i3!).
 
-It is frustrating when the client has outdated equipment for you to work on. A year ago, I bought my 8-year-old a PC for him to build, which has 8GB. I don’t think 4GB is sufficient for a child, let alone a professional developer. You can buy 32GB for $400 retail, and when you consider how much your time costs the company over a year, it is a small price to pay IMHO.
+It is frustrating when the client has outdated equipment for you to work on.
+A year ago, I bought my 8-year-old a PC for him to build, which has 8GB.
+I don't think 4GB is sufficient for a child, let alone a professional developer.
+You can buy 32GB for $400 retail, and when you consider how much your time costs the company over a year, it is a small price to pay IMHO.
 
-For development work, you do the best you can, and usually, they have access to decent servers. For training, however, clients rarely have high-performance machines for doing training of high-performance software on, and I have often had to do demonstrations on my own laptop.
+For development work, you do the best you can, and usually, they have access to decent servers.
+For training, however, clients rarely have high-performance machines for doing training of high-performance software on, and I have often had to do demonstrations on my own laptop.
 
 == How do you get repeat business?
 
-I like solving a problem so that it doesn’t need to be done again. This means doing myself out of a job, but it also means being able to move on to new things. I try to move toward my clients not needing me again unless it is for something new.
+I like solving a problem so that it doesn't need to be done again.
+This means doing myself out of a job, but it also means being able to move on to new things.
+I try to move toward my clients not needing me again unless it is for something new.
 
-I would hope this gives me a good reputation. About half my work is repeat business, but I try to ensure what has been done is solid before moving on (so there shouldn't be a need to go over it again).
+I would hope this gives me a good reputation.
+About half my work is repeat business, but I try to ensure what has been done is solid before moving on (so there shouldn't be a need to go over it again).
 
 == Are you traveling around? How much time do you spend on business travel?
 
-I travel outside the UK about two weeks a month. This is to visit clients in Europe and the USA, but also to attend conferences. This year I expect to attend at least six conferences.
+I travel outside the UK about two weeks a month.
+This is to visit clients in Europe and the USA, but also to attend conferences.
+This year I expect to attend at least six conferences.
 
 The rest of the time I am traveling to clients in London.
 
 == Or if working from home, do you get access to your client sites through VPN?
 
-Paid work from home is relatively rare. I got about four weeks last year. Unpaid work from home is also relatively rare as I don't have much free time. The problem is that a week's engagement is often seven days including travel and preparation. If you do lots of these back-to-back, you don't even get weekends really.
+Paid work from home is relatively rare.
+I got about four weeks last year.
+Unpaid work from home is also relatively rare as I don't have much free time.
+The problem is that a week's engagement is often seven days including travel and preparation.
+If you do lots of these back-to-back, you don't even get weekends really.
 
 == How do you get expedited IT access to client systems and programs?
 
-This is where pair programming is brilliant. You train up someone, and you are using their access effectively. Ideally, I get them to drive as well; that way, they own the knowledge transfer.
+This is where pair programming is brilliant.
+You train up someone, and you are using their access effectively.
+Ideally, I get them to drive as well; that way, they own the knowledge transfer.
 
 == Does your consulting style operate like PA or Accenture?
 
-Possibly, I don't know what they do exactly. Some consulting is done in meeting rooms with a few developers and managers, but there is usually a development system in the room we are working on.
+Possibly, I don't know what they do exactly.
+Some consulting is done in meeting rooms with a few developers and managers, but there is usually a development system in the room we are working on.
 
 == And how do you explain and advise client developers what to do and how to build the systems?
 
@@ -77,33 +107,51 @@ I do, but I prefer to show them, or better still, get them to do it.
 
 == Do you think having a business mentor helps?
 
-My business mentor is an old friend of mine. He recently finished an MBA, and we talk every week about plans for the business. I wouldn’t say I have a clear idea of what a business mentor does, but I have found our conversations very useful to have someone experienced in business to sound ideas off. He often has good suggestions, and I value his advice.
+My business mentor is an old friend of mine.
+He recently finished an MBA, and we talk every week about plans for the business.
+I wouldn't say I have a clear idea of what a business mentor does, but I have found our conversations very useful to have someone experienced in business to sound ideas off.
+He often has good suggestions, and I value his advice.
 
 == What is the hardest part of running your business?
 
-Like you said earlier, the first week is the hardest. In my case, nearly every week is the first week, and I need to make a difference to the team/project in that week.
+Like you said earlier, the first week is the hardest.
+In my case, nearly every week is the first week, and I need to make a difference to the team/project in that week.
 
 == Peter, I think you used to come regularly to the JAVAWUG that I ran several years ago. What is your background in Core Java? How did you get into high-performance trading and low latency?
 
 Yes, that is true, I did attend your JAVAWUG many times.
 
-I started in the development of GUI-less server applications. These were not trading systems but were used to provide services to other applications. When I moved to London 11 years ago, I started working on financial applications, first in market data and later trading and order fulfillment. This would not have been called high frequency.
+I started in the development of GUI-less server applications.
+These were not trading systems but were used to provide services to other applications.
+When I moved to London 11 years ago, I started working on financial applications, first in market data and later trading and order fulfillment.
+This would not have been called high frequency.
 
-Systems with high scalability or low latency requirements tend to be more technically driven, which makes them more challenging. In technically driven systems, IT is seen more as a value-add or competitive advantage. Conversely, IT in most environments is treated as a part of facilities management and a cost to be managed. Over time I found the problems in the go-faster domain more challenging/interesting than problems in the scalability domain.
+Systems with high scalability or low latency requirements tend to be more technically driven, which makes them more challenging.
+In technically driven systems, IT is seen more as a value-add or competitive advantage.
+Conversely, IT in most environments is treated as a part of facilities management and a cost to be managed.
+Over time I found the problems in the go-faster domain more challenging/interesting than problems in the scalability domain.
 
-The catch-22 of high frequency is you need to have good experience to get started. As I was interested in high performance, I would try to make systems faster and more scalable than they needed to be, usually by a factor of ten. The main justification was it made the systems more robust at peak usage times. In each project/role I moved to, I would work on faster systems and make them much faster/more scalable than they needed to be. Four years ago, I developed a trading system that had a response time of 60 microseconds external to our network, mostly in Java.
+The catch-22 of high frequency is you need to have good experience to get started.
+As I was interested in high performance, I would try to make systems faster and more scalable than they needed to be, usually by a factor of ten.
+The main justification was it made the systems more robust at peak usage times.
+In each project/role I moved to, I would work on faster systems and make them much faster/more scalable than they needed to be.
+Four years ago, I developed a trading system that had a response time of 60 microseconds external to our network, mostly in Java.
 
 == What are you looking to get out of Java 8 release for 2014 for your business?
 
-Banks tend to be conservative, so I can see Java 7 being used for some time. I can imagine the HFT fund migrating to Java 8 for the JVM pretty quickly, but I suspect it will take a long time (years) before developers are proficient at using closures and Java 8’s new features.
+Banks tend to be conservative, so I can see Java 7 being used for some time.
+I can imagine the HFT fund migrating to Java 8 for the JVM pretty quickly, but I suspect it will take a long time (years) before developers are proficient at using closures and Java 8's new features.
 
-Core Java systems generally don’t need to wait for support from a commercial application server, which means they can adopt new versions faster.
+Core Java systems generally don't need to wait for support from a commercial application server, which means they can adopt new versions faster.
 
-== How do you feel that the up-and-coming Java 8 release will affect your business and your client’s business?
+== How do you feel that the up-and-coming Java 8 release will affect your business and your client's business?
 
-I expect we will see some spectacular misuse of closures. Most examples I have seen for closures don’t improve readability or performance, but allow the problem to be constructed a different way which might be useful but it will take a long time to know for sure.
+I expect we will see some spectacular misuse of closures.
+Most examples I have seen for closures don't improve readability or performance, but allow the problem to be constructed a different way which might be useful but it will take a long time to know for sure.
 
-The biggest feature I want to see in the JVM is a standard `sun.misc.Unsafe`, which is the class that can be used to give you low-level access to the machine. Before Java 8, this class didn’t even exist in the Java Specifications, but in Java 8 it will at least exist and have standard read/write memory barriers. I would hope future versions will have specifications for all the functionality it provides.
+The biggest feature I want to see in the JVM is a standard `sun.misc.Unsafe`, which is the class that can be used to give you low-level access to the machine.
+Before Java 8, this class didn't even exist in the Java Specifications, but in Java 8 it will at least exist and have standard read/write memory barriers.
+I would hope future versions will have specifications for all the functionality it provides.
 
 == What are your definitive plans for this year?
 

@@ -3,11 +3,15 @@ Peter Lawrey, CEO of Chronicle Software
 
 == Exploring Surprising Properties of Extending `Throwable` in Java
 
-In Java, most developers are familiar with extending `Exception` or `Error` to create custom exceptions. However, directly extending `Throwable` can lead to surprising and potentially useful behaviors. In this article, we'll delve into the nuances of extending `Throwable` and explore practical applications that can enhance debugging and monitoring in Java applications. The example code is available at https://github.com/Vanilla-Java/Blog/tree/main/core-concepts/src/main/java/blog/vanillajava/throwable[here].
+In Java, most developers are familiar with extending `Exception` or `Error` to create custom exceptions.
+However, directly extending `Throwable` can lead to surprising and potentially useful behaviors.
+In this article, we'll delve into the nuances of extending `Throwable` and explore practical applications that can enhance debugging and monitoring in Java applications.
+The example code is available at https://github.com/Vanilla-Java/Blog/tree/main/core-concepts/src/main/java/blog/vanillajava/throwable[here].
 
 == Extending `Throwable`
 
-At first glance, extending `Throwable` might seem unusual. Unlike `Exception`, which is checked, or `Error`, which is unchecked, `Throwable` itself can be extended to create a new checked throwable that is neither an exception nor an error.
+At first glance, extending `Throwable` might seem unusual.
+Unlike `Exception`, which is checked, or `Error`, which is unchecked, `Throwable` itself can be extended to create a new checked throwable that is neither an exception nor an error.
 
 [source,java]
 ----
@@ -23,7 +27,9 @@ In this example, `MyThrowable` is a checked throwable, and the compiler enforces
 
 == Practical Uses of Extending `Throwable`
 
-While these behaviors are interesting, you might wonder about practical applications. One such use is creating a custom `StackTrace` class that extends `Throwable` but is not intended to be thrown or caught. This can be incredibly useful for debugging and monitoring purposes.
+While these behaviors are interesting, you might wonder about practical applications.
+One such use is creating a custom `StackTrace` class that extends `Throwable` but is not intended to be thrown or caught.
+This can be incredibly useful for debugging and monitoring purposes.
 
 === Creating a Custom `StackTrace` Class
 
@@ -49,7 +55,8 @@ public class StackTrace extends Throwable {
 ----
 
 Some important points to consider:
-* This class is not meant to be thrown. Since it extends `Throwable` directly, it's checked by the compiler.
+* This class is not meant to be thrown.
+Since it extends `Throwable` directly, it's checked by the compiler.
 * The stack trace is captured when the `Throwable` is created, not when it's thrown.
 * The actual `StackTraceElement` objects are created lazily, reducing overhead until they're needed.
 
@@ -129,17 +136,23 @@ Caused by: net.openhft.chronicle.core.StackTrace: Resource closed here on Closer
 	at blog.vanillajava.throwable.TracingCloseable.lambda$main$0(TracingCloseable.java:51)
 ----
 
-You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread. This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
+You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread.
+This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
 
 === Monitoring Critical Threads in Production
 
-In production environments, profiling can be intrusive. However, you might still need to monitor critical threads for performance issues. By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
+In production environments, profiling can be intrusive.
+However, you might still need to monitor critical threads for performance issues.
+By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
 
-You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread. This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
+You can see that this resource was previously closed on line `TracingCloseable.java:51`, in the "CloserThread" thread.
+This information is invaluable when debugging resource management issues, especially in multi-threaded environments.
 
 === Monitoring Critical Threads in Production
 
-In production environments, profiling can be intrusive. However, you might still need to monitor critical threads for performance issues. By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
+In production environments, profiling can be intrusive.
+However, you might still need to monitor critical threads for performance issues.
+By capturing stack traces when a thread's execution exceeds a certain threshold, you can identify bottlenecks without significant overhead.
 
 [source,java]
 ----
@@ -238,7 +251,8 @@ public class CriticalTask implements Runnable {
 }
 ----
 
-The log will include the stack trace of the worker thread when it exceeds the execution time threshold, aiding in performance diagnostics. In the messages below it caught the critical thread in line 40 and 39.
+The log will include the stack trace of the worker thread when it exceeds the execution time threshold, aiding in performance diagnostics.
+In the messages below it caught the critical thread in line 40 and 39.
 
 [source]
 ----
@@ -259,7 +273,9 @@ net.openhft.chronicle.core.StackTrace: Thread[#23,WorkerThread,5,main] on main
 
 === Detecting Concurrent Access to Single-Threaded Resources
 
-Some resources are designed to be accessed by a single thread. If accessed concurrently, it can lead to undefined behaviour. By tracking the thread that first used the resource, you can detect and prevent concurrent access.
+Some resources are designed to be accessed by a single thread.
+If accessed concurrently, it can lead to undefined behaviour.
+By tracking the thread that first used the resource, you can detect and prevent concurrent access.
 
 [source,java]
 ----
@@ -355,7 +371,8 @@ Caused by: net.openhft.chronicle.core.StackTrace: Resource first accessed here o
 
 === Disabling Stack Trace Collection
 
-While collecting stack traces is useful, it can introduce overhead. You can conditionally disable stack trace creation using a control flag or system property:
+While collecting stack traces is useful, it can introduce overhead.
+You can conditionally disable stack trace creation using a control flag or system property:
 
 [source,java]
 ----
@@ -370,6 +387,11 @@ assert (createdHere = new StackTrace(getClass().getName() + " created here")) !=
 
 == About the Author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specializes in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specializes in delivering ultra-efficient enabling technology which empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
 
-Have you tried extending `Throwable` in your projects? What are your thoughts on this approach? Share your experiences or questions in the comments below.
+Have you tried extending `Throwable` in your projects?
+What are your thoughts on this approach?
+Share your experiences or questions in the comments below.

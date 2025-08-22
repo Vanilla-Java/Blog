@@ -3,15 +3,22 @@
 
 == Overview
 
-Many developers consider `BigDecimal` the go-to solution for handling money in Java. They often claim that replacing `double` with `BigDecimal` has fixed one or more bugs in their applications. However, I find this reasoning unconvincing. The issue may lie not with `double` but rather with how it was handled. Additionally, `BigDecimal` introduces significant overhead that may not justify its use.
+Many developers consider `BigDecimal` the go-to solution for handling money in Java.
+They often claim that replacing `double` with `BigDecimal` has fixed one or more bugs in their applications.
+However, I find this reasoning unconvincing.
+The issue may lie not with `double` but rather with how it was handled.
+Additionally, `BigDecimal` introduces significant overhead that may not justify its use.
 
-When asked to improve the performance of a financial application, I know that if `BigDecimal` is involved, it will eventually need to be removed. While it may not be the largest performance bottleneck initially, as we optimise the system, `BigDecimal` often becomes one of the main culprits.
+When asked to improve the performance of a financial application, I know that if `BigDecimal` is involved, it will eventually need to be removed.
+While it may not be the largest performance bottleneck initially, as we optimise the system, `BigDecimal` often becomes one of the main culprits.
 
 == BigDecimal is Not an Improvement
 
-`BigDecimal` comes with several drawbacks. Here are some of its key issues:
+`BigDecimal` comes with several drawbacks.
+Here are some of its key issues:
 
-* It has an unnatural syntax. The API is verbose and can be cumbersome to use.
+* It has an unnatural syntax.
+The API is verbose and can be cumbersome to use.
 * It uses more memory. `BigDecimal` objects consume more memory compared to primitive types.
 * It creates more garbage (i.e., it causes more frequent garbage collection).
 * It is significantly slower for most operations, although there are exceptions.
@@ -20,14 +27,16 @@ The following JMH benchmark demonstrates two of the most prominent issues with `
 
 == Code Comparison
 
-The core task is to take an average of two values. Here's how it looks when using `double`:
+The core task is to take an average of two values.
+Here's how it looks when using `double`:
 
 [source,java]
 ----
 mp[i] = round6((ap[i] + bp[i]) / 2);
 ----
 
-Notice the need for rounding. Now, the same operation using `BigDecimal` requires much more verbose code:
+Notice the need for rounding.
+Now, the same operation using `BigDecimal` requires much more verbose code:
 
 [source,java]
 ----
@@ -35,11 +44,15 @@ mp2[i] = ap2[i].add(bp2[i])
      .divide(BigDecimal.valueOf(2), 6, BigDecimal.ROUND_HALF_UP);
 ----
 
-Does this give you different results? For the most part, `double` provides 15 digits of precision, which is more than enough for typical monetary values. If these prices had 17 digits, `BigDecimal` might be more appropriate. However, the complexity it adds to the code is unnecessary for most practical use cases—it’s a poor trade-off for the developer who has to maintain and comprehend the code.
+Does this give you different results?
+For the most part, `double` provides 15 digits of precision, which is more than enough for typical monetary values.
+If these prices had 17 digits, `BigDecimal` might be more appropriate.
+However, the complexity it adds to the code is unnecessary for most practical use cases-it's a poor trade-off for the developer who has to maintain and comprehend the code.
 
 == Performance
 
-If you have to incur coding overhead, it’s usually done for performance reasons. However, using `BigDecimal` for simple arithmetic does not make sense in this case.
+If you have to incur coding overhead, it's usually done for performance reasons.
+However, using `BigDecimal` for simple arithmetic does not make sense in this case.
 
 The following JMH benchmark results show a significant performance difference between `BigDecimal` and `double`:
 
@@ -74,13 +87,16 @@ MyBenchmark.bigDecimalMidPrice  thrpt    20          23638.568    590.094      o
 MyBenchmark.doubleMidPrice      thrpt    20          123208.083   2109.738     ops/s
 ----
 
-As you can see, the `double` implementation outperforms the `BigDecimal` implementation by a factor of more than five. Note: using `double` made more difference than ten years of processor and JVM improvements.
+As you can see, the `double` implementation outperforms the `BigDecimal` implementation by a factor of more than five.
+Note: using `double` made more difference than ten years of processor and JVM improvements.
 
-*NOTE*: Rounding makes a big difference (a factor of ten) for `double` as it involves a division.
+_NOTE_: Rounding makes a big difference (a factor of ten) for `double` as it involves a division.
 
 == Conclusion
 
-If you’re unsure about how to properly handle rounding with `double`, or if your project mandates the use of `BigDecimal`, then by all means, use `BigDecimal`. However, if you have a choice, don’t just assume that `BigDecimal` is the right way to go. The additional complexity and performance overhead may not be worth it in many cases.
+If you're unsure about how to properly handle rounding with `double`, or if your project mandates the use of `BigDecimal`, then by all means, use `BigDecimal`.
+However, if you have a choice, don't just assume that `BigDecimal` is the right way to go.
+The additional complexity and performance overhead may not be worth it in many cases.
 
 The benchmark is available for you to run here: https://github.com/Vanilla-Java/Blog/blob/main/performance-optimizations/src/main/java/blog/vanillajava/decimal/MyBenchmark.java[MyBenchmark].
 
@@ -94,16 +110,19 @@ The benchmark is available for you to run here: https://github.com/Vanilla-Java/
 
 == About the Author
 
-As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks]. With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability. Peter’s deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities. Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
+As the CEO of https://chronicle.software/[Chronicle Software], https://www.linkedin.com/in/peterlawrey/[Peter Lawrey] leads the development of cutting-edge, low-latency solutions trusted by https://chronicle.software/8-out-of-11-investment-banks/[8 out of the top 11 global investment banks].
+With decades of experience in the financial technology sector, he specialises in delivering ultra-efficient enabling technology that empowers businesses to handle massive volumes of data with unparalleled speed and reliability.
+Peter's deep technical expertise and passion for sharing knowledge have established him as a thought leader and mentor in the Java and FinTech communities.
+Follow Peter on https://bsky.app/profile/peterlawrey.bsky.social[BlueSky] or https://mastodon.social/@PeterLawrey[Mastodon].
 
 == References
 
-1. **Java Platform, Standard Edition Documentation**
-Oracle. *BigDecimal Class*.
+. *Java Platform, Standard Edition Documentation*
+Oracle.
+_BigDecimal Class_.
 https://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html
 
-2. **Java Platform, Standard Edition Documentation**
-Oracle. *Double Class*.
+. *Java Platform, Standard Edition Documentation*
+Oracle.
+_Double Class_.
 https://docs.oracle.com/javase/8/docs/api/java/lang/Double.html
-
-

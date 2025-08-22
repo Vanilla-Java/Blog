@@ -6,79 +6,88 @@ Peter lawrey
 
 // tag::readme[]
 
-This guide covers the fundamental concepts of Java programming. You will learn about:
+This guide covers the fundamental concepts of Java programming.
+You will learn about:
 
-- The basics of Java syntax and data types.
-- Memory management, error handling, and best practices.
-- Core concepts such as the JDK, JRE, JVM, and the Java Memory Model.
-- Performance considerations for low‑latency and low‑garbage environments.
-- Practical techniques for coding, testing, debugging, and optimising Java applications.
+* The basics of Java syntax and data types.
+* Memory management, error handling, and best practices.
+* Core concepts such as the JDK, JRE, JVM, and the Java Memory Model.
+* Performance considerations for low-latency and low-garbage environments.
+* Practical techniques for coding, testing, debugging, and optimising Java applications.
 
-Whether you are new to Java or looking to refresh your core knowledge, this guide provides clear explanations, code examples, and best‑practice advice.
+Whether you are new to Java or looking to refresh your core knowledge, this guide provides clear explanations, code examples, and best-practice advice.
 
 == Part 1: Java Fundamentals
 
-=== 1. What is Java, and why is it considered platform‑independent?
+=== 1. What is Java, and why is it considered platform-independent?
 
-Java is a high‑level, object‑oriented programming language designed for simplicity, reliability, and security. It is considered platform‑independent because:
+Java is a high-level, object-oriented programming language designed for simplicity, reliability, and security.
+It is considered platform-independent because:
 
-- *Compilation to Bytecode:* Java source code is compiled into an intermediate form called bytecode.
-- *Execution via the JVM:* The Java Virtual Machine (JVM) runs this bytecode on any operating system, fulfilling the “write once, run anywhere” philosophy.
+* _Compilation to Bytecode:_ Java source code is compiled into an intermediate form called bytecode.
+* _Execution via the JVM:_ The Java Virtual Machine (JVM) runs this bytecode on any operating system, fulfilling the "write once, run anywhere" philosophy.
 
 === 2. What are the main differences between the JDK, JRE, and JVM?
 
-- *JDK (Java Development Kit):* Includes tools for developing Java applications (compiler, debugger, etc.) and the JRE.
-- *JRE (Java Runtime Environment):* Provides the libraries and JVM needed to run Java applications but does not include development tools.
-- *JVM (Java Virtual Machine):* The runtime engine that interprets or JIT‑compiles Java bytecode into native machine code and manages memory, garbage collection, and other system‑level tasks.
+* _JDK (Java Development Kit):_ Includes tools for developing Java applications (compiler, debugger, etc.) and the JRE.
+* _JRE (Java Runtime Environment):_ Provides the libraries and JVM needed to run Java applications but does not include development tools.
+* _JVM (Java Virtual Machine):_ The runtime engine that interprets or JIT-compiles Java bytecode into native machine code and manages memory, garbage collection, and other system-level tasks.
 
 Think of the JDK as your complete toolkit, the JRE as the toolbox needed to run applications, and the JVM as the skilled craftsman executing the work.
 
-=== 3. How does Java achieve the “write once, run anywhere” philosophy?
+=== 3. How does Java achieve the "write once, run anywhere" philosophy?
 
-Java source code is compiled into bytecode, which is platform‑independent. The JVM implemented for different operating systems interprets or compiles this bytecode into native instructions at runtime. This separation between compilation and execution allows the same Java program to run unaltered across multiple platforms.
+Java source code is compiled into bytecode, which is platform-independent.
+The JVM implemented for different operating systems interprets or compiles this bytecode into native instructions at runtime.
+This separation between compilation and execution allows the same Java program to run unaltered across multiple platforms.
 
 === 4. What is Java bytecode, and how does the JVM execute it?
 
-- *Java Bytecode:* The intermediate, platform‑neutral representation of Java source code produced by the compiler.
-- *JVM Execution:* The JVM reads the bytecode and either interprets it or compiles it on the fly (using Just‑In‑Time compilation) into native machine code.
+* _Java Bytecode:_ The intermediate, platform-neutral representation of Java source code produced by the compiler.
+* _JVM Execution:_ The JVM reads the bytecode and either interprets it or compiles it on the fly (using Just-In-Time compilation) into native machine code.
 
-Bytecode is the “universal language” of Java, translated by the JVM into the specific language of your computer’s hardware.
+Bytecode is the "universal language" of Java, translated by the JVM into the specific language of your computer's hardware.
 
 === 5. What are the primitive data types in Java, and how do they differ from their wrapper classes?
 
-Java’s eight primitive data types include:
+Java's eight primitive data types include:
 
-- *Numeric:* `byte` 1-byte, `short` 2-byte, `int` 4-byte, `long` 8-byte, `float` 4-byte, `double` 8-byte
-- *Non‑numeric:* `char` 2-byte unsigned integer and `boolean` 1-byte (not one bit as you might expect)
+* _Numeric:_ `byte` 1-byte, `short` 2-byte, `int` 4-byte, `long` 8-byte, `float` 4-byte, `double` 8-byte
+* _Non-numeric:_ `char` 2-byte unsigned integer and `boolean` 1-byte (not one bit as you might expect)
 
-Primitives are stored directly in memory and are generally more efficient. Their corresponding wrapper classes (e.g., `Integer`, `Double`) are objects that encapsulate these values, offering methods for conversion and manipulation, but they incur additional overhead due to object allocation.
+Primitives are stored directly in memory and are generally more efficient.
+Their corresponding wrapper classes (e.g., `Integer`, `Double`) are objects that encapsulate these values, offering methods for conversion and manipulation, but they incur additional overhead due to object allocation.
 
-Primitives are like raw ingredients, while wrapper classes are prepared dishes. Both serve important roles, but one is leaner and faster.
+Primitives are like raw ingredients, while wrapper classes are prepared dishes.
+Both serve important roles, but one is leaner and faster.
 
-NOTE: `void` is special in that its only legitimate uses are as a method return type and as a type literal `void.class`. It has a "wrapper" called `Void` but is rarely used.
+NOTE: `void` is special in that its only legitimate uses are as a method return type and as a type literal `void.class`.
+It has a "wrapper" called `Void` but is rarely used.
 
 === 6. What is a literal in Java, and how do you represent numbers, strings, booleans, and null?
 
-A literal is a fixed value directly embedded in the source code. Examples include:
+A literal is a fixed value directly embedded in the source code.
+Examples include:
 
-- *Numbers:* `42`, `314L`
-- *Strings:* `"Hello, world!"`
-- *Booleans:* `true` or `false`
-- *Characters:* `'a'`, `'b'`, `'c'`
-- *Floating‑point:* `3.14f` (float), `3.14d` (double)
-- *Null:* `null` indicates the absence of a value.
+* _Numbers:_ `42`, `314L`
+* _Strings:_ `"Hello, world!"`
+* _Booleans:_ `true` or `false`
+* _Characters:_ `'a'`, `'b'`, `'c'`
+* _Floating-point:_ `3.14f` (float), `3.14d` (double)
+* _Null:_ `null` indicates the absence of a value.
 
 NOTE: Literals are not keywords or variables; they are the raw data on which your program operates.
 
 === 7. Why must every standalone Java application include a `public static void main(String[] args)` method?
 
-The `main` method is the entry point for Java applications. Its signature ensures:
+The `main` method is the entry point for Java applications.
+Its signature ensures:
 
-- It is accessible without an instance of the class (`static`).
-- It accepts command‑line arguments.
-- It does not return a value (`void`).
+* It is accessible without an instance of the class (`static`).
+* It accepts command-line arguments.
+* It does not return a value (`void`).
 
-NOTE: You can also write `public static void main(String... args)` to accept variable‑length argument lists, making your program more flexible.
+NOTE: You can also write `public static void main(String... args)` to accept variable-length argument lists, making your program more flexible.
 
 You can write a program without a `main` method, but it is more confusing than helpful.
 
@@ -95,11 +104,12 @@ public class MyProgram {
 
 === 8. How do you compile a Java program?
 
-While you can use `javac`, a modern build tool like Maven or Gradle makes more sense. However, to compile a Java program manually:
+While you can use `javac`, a modern build tool like Maven or Gradle makes more sense.
+However, to compile a Java program manually:
 
-1. Write your Java code in a `.java` file (e.g., `MyProgram.java`).
-2. Open a terminal and navigate to the directory containing the file.
-3. Compile the code using:
+. Write your Java code in a `.java` file (e.g., `MyProgram.java`).
+. Open a terminal and navigate to the directory containing the file.
+. Compile the code using:
 
 [,bash]
 ----
@@ -121,32 +131,40 @@ This instructs the JVM to load the compiled bytecode (from `MyProgram.class`) an
 
 === 10. What is the significance of the classpath in Java applications?
 
-The classpath tells the Java compiler and JVM where to look for class files and libraries. It can include directories and JAR files. Proper classpath configuration ensures that all necessary classes and dependencies are found at compile time and runtime, preventing ClassNotFoundExceptions.
+The classpath tells the Java compiler and JVM where to look for class files and libraries.
+It can include directories and JAR files.
+Proper classpath configuration ensures that all necessary classes and dependencies are found at compile time and runtime, preventing ClassNotFoundExceptions.
 
 === 11. How does the Java Memory Model (JMM) affect concurrent programming?
 
-The JMM specifies how threads interact through memory and provides rules about visibility and ordering (the “happens‑before” relationship). This model is crucial for writing thread‑safe code, as it guides the proper use of synchronisation, volatile variables, and concurrent utilities to ensure that changes made by one thread become visible to others in a predictable manner.
+The JMM specifies how threads interact through memory and provides rules about visibility and ordering (the "happens-before" relationship).
+This model is crucial for writing thread-safe code, as it guides the proper use of synchronisation, volatile variables, and concurrent utilities to ensure that changes made by one thread become visible to others in a predictable manner.
 
 === 12. What are checked and unchecked exceptions, and how does Java enforce error handling?
 
-- *Checked exceptions:* Must be caught or declared in the method’s signature (e.g., `IOException`), ensuring that developers handle recoverable conditions.
-- *Unchecked exceptions:* Subclasses of `RuntimeException` that represent programming errors (e.g., `NullPointerException`). They do not require explicit handling by the compiler, though it is good practice to anticipate them.
+* _Checked exceptions:_ Must be caught or declared in the method's signature (e.g., `IOException`), ensuring that developers handle recoverable conditions.
+* _Unchecked exceptions:_ Subclasses of `RuntimeException` that represent programming errors (e.g., `NullPointerException`). They do not require explicit handling by the compiler, though it is good practice to anticipate them.
 
-NOTE: As checked exceptions are a compile-time check, you can throw a checked exception without declaring it in the method signature using a vacuous cast. See `Jvm.rethrow` in Chronicle-Core for an example.
+NOTE: As checked exceptions are a compile-time check, you can throw a checked exception without declaring it in the method signature using a vacuous cast.
+See `Jvm.rethrow` in Chronicle-Core for an example.
 
 === 13. How does Java perform garbage collection, and what are some of the main garbage collectors?
 
-Garbage collection (GC) in Java is an automated process that reclaims memory used by objects that are no longer accessible by the application. Modern collectors include:
+Garbage collection (GC) in Java is an automated process that reclaims memory used by objects that are no longer accessible by the application.
+Modern collectors include:
 
-- *G1 (Garbage‑First):* Divides the heap into regions and collects those with the most garbage to reduce pause times.
-- *ZGC (Z Garbage Collector):* Designed for extremely low‑latency operations on large heaps with minimal pause times.
-- *CMS/Parallel GC:* Balance throughput and pause time based on application needs.
+* _G1 (Garbage-First):_ Divides the heap into regions and collects those with the most garbage to reduce pause times.
+* _ZGC (Z Garbage Collector):_ Designed for extremely low-latency operations on large heaps with minimal pause times.
+* _CMS/Parallel GC:_ Balance throughput and pause time based on application needs.
 
-NOTE: In low-latency environments, you want to minimise garbage production and collection to reduce the risk of pauses. Reducing the garbage collector load can also achieve more predictable performance.
+NOTE: In low-latency environments, you want to minimise garbage production and collection to reduce the risk of pauses.
+Reducing the garbage collector load can also achieve more predictable performance.
 
 === 14. What is autoboxing and unboxing in Java?
 
-Autoboxing automatically converts a primitive (like `int`) to its corresponding wrapper object (`Integer`) when an object is required. Unboxing is the reverse process. This feature simplifies coding by reducing explicit conversions, though it may introduce performance overhead in performance‑critical areas.
+Autoboxing automatically converts a primitive (like `int`) to its corresponding wrapper object (`Integer`) when an object is required.
+Unboxing is the reverse process.
+This feature simplifies coding by reducing explicit conversions, though it may introduce performance overhead in performance-critical areas.
 
 Autoboxing might use a cached value for small integers, but if not handled correctly, this can lead to subtle bugs.
 
@@ -164,25 +182,28 @@ Character e2 = '£', f2 = '£';
 assert e2 == f2; // false, different objects
 ----
 
-*TIP:* Be mindful of performance in critical sections when autoboxing occurs frequently.
+_TIP:_ Be mindful of performance in critical sections when autoboxing occurs frequently.
 
-=== 15. How does the JVM’s Just‑In‑Time (JIT) compilation work, and what benefits does it provide?
+=== 15. How does the JVM's Just-In-Time (JIT) compilation work, and what benefits does it provide?
 
-The JIT compiler converts frequently executed bytecode into native machine code at runtime. Optimisations like inlining, loop unrolling, and escape analysis are applied by analysing runtime behaviour. The benefit is improved performance, as the optimised native code runs much faster than interpreted bytecode.
+The JIT compiler converts frequently executed bytecode into native machine code at runtime.
+Optimisations like inlining, loop unrolling, and escape analysis are applied by analysing runtime behaviour.
+The benefit is improved performance, as the optimised native code runs much faster than interpreted bytecode.
 
-=== 16. What are annotations in Java, and how are they used to influence compile‑time or runtime behaviour?
+=== 16. What are annotations in Java, and how are they used to influence compile-time or runtime behaviour?
 
-Annotations provide metadata for Java code. They can:
+Annotations provide metadata for Java code.
+They can:
 
-- Guide the compiler (e.g., `@Override`).
-- Influence runtime behavior (e.g., `@Deprecated`).
-- Enable frameworks (e.g., Spring) to perform dependency injection.
+* Guide the compiler (e.g., `@Override`).
+* Influence runtime behavior (e.g., `@Deprecated`).
+* Enable frameworks (e.g., Spring) to perform dependency injection.
 
 Annotations are like the sticky notes on your code they provide essential context and reminders.
 
 === 17. How do you configure environment variables such as JAVA_HOME and PATH on Linux or Windows?
 
-- *Linux/macOS:* Add export commands to your shell configuration file (e.g., `~/.bashrc` or `~/.zshrc`):
+* _Linux/macOS:_ Add export commands to your shell configuration file (e.g., `~/.bashrc` or `~/.zshrc`):
 [,bash]
 ----
 export JAVA_HOME=/path/to/jdk
@@ -193,19 +214,20 @@ Reload the file with:
 ----
 source ~/.bashrc
 ----
-- *Windows:* Set the variables via System Properties → Advanced → Environment Variables, and update the PATH to include `%JAVA_HOME%\bin`.
-- *IDEs:* Configure the JDK location in the IDE settings to ensure the correct Java version is used for compilation and execution.
+* _Windows:_ Set the variables via System Properties -> Advanced -> Environment Variables, and update the PATH to include `%JAVA_HOME%\bin`.
+* _IDEs:_ Configure the JDK location in the IDE settings to ensure the correct Java version is used for compilation and execution.
 
 === 18. What is the role of a package in Java, and how do you define one?
 
-A package groups related classes and interfaces into a namespace, helping organise code, avoid naming conflicts, and control access. Define a package at the top of a Java file using the `package` keyword:
+A package groups related classes and interfaces into a namespace, helping organise code, avoid naming conflicts, and control access.
+Define a package at the top of a Java file using the `package` keyword:
 [,java]
 ----
 package com.example.myapp;
 ----
-This statement must be the first non‑comment line in the file.
+This statement must be the first non-comment line in the file.
 
-NOTE: In a `package-info.java` file, you can define package‑level annotations, comments, and other metadata.
+NOTE: In a `package-info.java` file, you can define package-level annotations, comments, and other metadata.
 
 === 19. How do you import classes from different packages?
 
@@ -219,28 +241,29 @@ You can also import all classes in a package using a wildcard (`import java.util
 
 === 20. What is a Java API, and how do you access its documentation?
 
-The Java API is a collection of pre‑written classes and interfaces providing standard functionality (e.g., collections, networking, I/O). Official documentation is available on Oracle’s website and is integrated into most IDEs via Javadoc support, offering detailed descriptions, examples, and method references.
+The Java API is a collection of pre-written classes and interfaces providing standard functionality (e.g., collections, networking, I/O).
+Official documentation is available on Oracle's website and is integrated into most IDEs via Javadoc support, offering detailed descriptions, examples, and method references.
 
 The Official Java 21 Javadoc is available at: https://docs.oracle.com/en/java/javase/21/docs/api/index.html[https://docs.oracle.com/en/java/javase/21/docs/api/index.html]
 
 === 21. What are the benefits and limitations of using the `var` keyword for type inference?
 
-*Benefits:*
+_Benefits:_
 
-- Reduces verbosity by letting the compiler infer the variable’s type.
-- Can improve readability when the type is evident from context.
-- Facilitates refactoring by decoupling variable declarations from specific types.
-- Supports complex generic types without repeating them.
-- Enhances code maintainability by focusing on intent rather than implementation details.
+* Reduces verbosity by letting the compiler infer the variable's type.
+* Can improve readability when the type is evident from context.
+* Facilitates refactoring by decoupling variable declarations from specific types.
+* Supports complex generic types without repeating them.
+* Enhances code maintainability by focusing on intent rather than implementation details.
 
-*Limitations:*
+_Limitations:_
 
-- Only available for local variables, not for fields, method parameters, or return types.
-- Overuse may obscure the code’s intent if the inferred type isn’t immediately apparent.
-- Can lead to less readable code when used excessively or inappropriately.
-- Additional comments or documentation may be required to clarify the variable’s purpose.
+* Only available for local variables, not for fields, method parameters, or return types.
+* Overuse may obscure the code's intent if the inferred type isn't immediately apparent.
+* Can lead to less readable code when used excessively or inappropriately.
+* Additional comments or documentation may be required to clarify the variable's purpose.
 
-=== 22. How do you handle errors using try‑catch‑finally blocks?
+=== 22. How do you handle errors using try-catch-finally blocks?
 
 Enclose code that might throw an exception in a `try` block, catch specific exceptions in `catch` blocks, and optionally execute a `finally` block for cleanup, regardless of whether an exception was thrown:
 [,java]
@@ -270,35 +293,39 @@ try (BufferedReader reader = new BufferedReader(new FileReader("file.txt"))) {
 
 === 23. What is a stack trace, and how is it useful for diagnosing errors?
 
-A stack trace is a report that shows the sequence of method calls leading up to an exception, including class names, method names, and line numbers. It is invaluable for debugging because it pinpoints where the error occurred and helps trace the flow of execution that led to it.
+A stack trace is a report that shows the sequence of method calls leading up to an exception, including class names, method names, and line numbers.
+It is invaluable for debugging because it pinpoints where the error occurred and helps trace the flow of execution that led to it.
 
-Stack traces are like breadcrumbs they guide you back through the code’s execution path, helping you identify where things went wrong.
+Stack traces are like breadcrumbs they guide you back through the code's execution path, helping you identify where things went wrong.
 
 === 24. How do you create and use arrays and collections in Java?
 
-- *Arrays:* Declared with a fixed size, e.g., `int[] numbers = new int[5];` or using an initializer (`int[] numbers = {1, 2, 3};`).
-- *Collections:* Part of the Java Collections Framework (e.g., `ArrayList`, `ArrayDeque`), they support dynamic sizing and provide useful methods for manipulating groups of objects.
-- *Varargs:* Allow methods to accept a variable number of arguments, simplifying the handling of multiple values.
+* _Arrays:_ Declared with a fixed size, e.g., `int[] numbers = new int[5];` or using an initializer (`int[] numbers = {1, 2, 3};`).
+* _Collections:_ Part of the Java Collections Framework (e.g., `ArrayList`, `ArrayDeque`), they support dynamic sizing and provide useful methods for manipulating groups of objects.
+* _Varargs:_ Allow methods to accept a variable number of arguments, simplifying the handling of multiple values.
 
 Utilities such as `Arrays` and `Array` provide methods for sorting, searching, and manipulating arrays.
 
 === 25. What is the difference between mutable and immutable objects, and why is immutability important?
 
-Mutable objects can change their state after creation, while immutable objects cannot. Immutability is important because it:
+Mutable objects can change their state after creation, while immutable objects cannot.
+Immutability is important because it:
 
-- Simplifies reasoning about code.
-- Enhances thread safety.
-- Reduces unintended side effects.
-- Facilitates caching and reuse.
+* Simplifies reasoning about code.
+* Enhances thread safety.
+* Reduces unintended side effects.
+* Facilitates caching and reuse.
 
-Java’s `String` class is immutable, contributing to its security and reliability.
-Many classes are virtually immutable, such as, `String` which has a hash code that is calculated once and cached. This means the first time `hashCode()` is called, it is more expensive, but subsequent calls are faster.
+Java's `String` class is immutable, contributing to its security and reliability.
+Many classes are virtually immutable, such as, `String` which has a hash code that is calculated once and cached.
+This means the first time `hashCode()` is called, it is more expensive, but subsequent calls are faster.
 
 NOTE: The downside of immutable objects is that they create garbage which is to be avoided in low latency systems.
 
 === 26. What is a Java property file, and how is it typically used?
 
-A property file is a simple text file containing key‑value pairs to store configuration settings. It allows developers to externalise configuration (such as database settings or application parameters) and can be loaded at runtime using the java.util.Properties class, facilitating changes without recompiling the code.
+A property file is a simple text file containing key-value pairs to store configuration settings.
+It allows developers to externalise configuration (such as database settings or application parameters) and can be loaded at runtime using the java.util.Properties class, facilitating changes without recompiling the code.
 
 [,properties]
 ----
@@ -310,56 +337,73 @@ db.password=secret
 
 === 27. How does Java handle internationalisation (i18n) and localisation (l10n)?
 
-Java supports internationalisation by separating locale‑dependent data from code. The `ResourceBundle` class loads locale‑specific property files, and classes like `Locale`, `NumberFormat`, and `DateFormat` help format data according to cultural norms. This separation allows applications to adapt to various languages and regional settings without altering the underlying logic.
+Java supports internationalisation by separating locale-dependent data from code.
+The `ResourceBundle` class loads locale-specific property files, and classes like `Locale`, `NumberFormat`, and `DateFormat` help format data according to cultural norms.
+This separation allows applications to adapt to various languages and regional settings without altering the underlying logic.
 
 === 28. What is the role of the Java Virtual Machine in executing applications?
 
-The JVM is the runtime engine that loads, verifies, and executes Java bytecode. It abstracts away the underlying hardware and operating system, manages memory (including garbage collection), performs JIT compilation, and enforces security policies. This makes Java applications portable and efficient.
+The JVM is the runtime engine that loads, verifies, and executes Java bytecode.
+It abstracts away the underlying hardware and operating system, manages memory (including garbage collection), performs JIT compilation, and enforces security policies.
+This makes Java applications portable and efficient.
 
 === 29. How do you convert between primitive types and objects in Java?
 
-Java uses autoboxing to convert primitives (e.g., `int`) to their corresponding wrapper classes (e.g., `Integer`) when needed and unboxing to convert them back. This process reduces the need for explicit casting but may introduce performance overhead in critical sections.
+Java uses autoboxing to convert primitives (e.g., `int`) to their corresponding wrapper classes (e.g., `Integer`) when needed and unboxing to convert them back.
+This process reduces the need for explicit casting but may introduce performance overhead in critical sections.
 
 === 30. How are string concatenation and the use of StringBuilder/Buffer different?
 
-Using the `+` operator for string concatenation is simple and intuitive but inefficient for multiple concatenations since it creates new `String` objects each time. `StringBuilder` provides a mutable sequence of characters that can be modified without creating many temporary objects, making it more efficient for frequent modifications.
+Using the `+` operator for string concatenation is simple and intuitive but inefficient for multiple concatenations since it creates new `String` objects each time.
+`StringBuilder` provides a mutable sequence of characters that can be modified without creating many temporary objects, making it more efficient for frequent modifications.
 
-NOTE: Don't use `StringBuffer` even for thread-safe operations, as it is error-prone and difficult to get right. You are much better off using `StringBuilder` and synchronising access to it if necessary.
+NOTE: Don't use `StringBuffer` even for thread-safe operations, as it is error-prone and difficult to get right.
+You are much better off using `StringBuilder` and synchronising access to it if necessary.
 
 === 31. Are subclasses of Throwable checked or unchecked exceptions in Java?
 
-Direct subclasses of `Throwable` are checked exceptions. However, subclasses of `Error` and `RuntimeException` are not. Checked exceptions must be caught or declared in the method signature, while unchecked exceptions do not require explicit handling.
+Direct subclasses of `Throwable` are checked exceptions.
+However, subclasses of `Error` and `RuntimeException` are not.
+Checked exceptions must be caught or declared in the method signature, while unchecked exceptions do not require explicit handling.
 
 === 32. How do you use the Optional class to avoid null pointer exceptions?
 
-The `Optional` class (introduced in Java 8) encapsulates a value that might be null, providing methods like `ifPresent()`, `orElse()`, and `map()` to gracefully handle the absence of a value. This reduces the risk of null pointer exceptions by making the presence or absence of a value explicit.
+The `Optional` class (introduced in Java 8) encapsulates a value that might be null, providing methods like `ifPresent()`, `orElse()`, and `map()` to gracefully handle the absence of a value.
+This reduces the risk of null pointer exceptions by making the presence or absence of a value explicit.
 
-=== 33. What are the key differences between pass‑by‑value and pass‑by‑reference in Java?
+=== 33. What are the key differences between pass-by-value and pass-by-reference in Java?
 
-Java is strictly pass‑by‑value. When you pass a primitive type, its actual value is copied; when you pass an object, the reference (pointer) to the object is copied, not the object itself. This means you can modify the object’s internal state via its reference, but you cannot change the reference itself in the caller’s context.
+Java is strictly pass-by-value.
+When you pass a primitive type, its actual value is copied; when you pass an object, the reference (pointer) to the object is copied, not the object itself.
+This means you can modify the object's internal state via its reference, but you cannot change the reference itself in the caller's context.
 
 What is confusing is that object types are implicit references, and the reference is passed by value.
 
 === 34. How do you document Java code effectively using Javadoc comments?
 
-Javadoc comments start with `/*` and include detailed descriptions, usage examples, and annotations like `@param`, `@return`, and `@throws`. They should be placed immediately before class, method, or field declarations. Running the Javadoc tool generates comprehensive HTML documentation from these comments.
+Javadoc comments start with `/*` and include detailed descriptions, usage examples, and annotations like `@param`, `@return`, and `@throws`.
+They should be placed immediately before class, method, or field declarations.
+Running the Javadoc tool generates comprehensive HTML documentation from these comments.
 
 === 35. How do you implement basic I/O operations in Java?
 
 Basic I/O in Java is achieved using:
 
-- The `java.io` package (e.g., `FileInputStream`, `BufferedReader` for reading; `FileOutputStream`, `BufferedWriter` for writing).
-- The newer `java.nio` package provides non‑blocking I/O operations using channels and buffers.
+* The `java.io` package (e.g., `FileInputStream`, `BufferedReader` for reading; `FileOutputStream`, `BufferedWriter` for writing).
+* The newer `java.nio` package provides non-blocking I/O operations using channels and buffers.
 
 These APIs allow you to read from and write to files, network sockets, and other data sources.
 
 === 36. What is serialisation, and what is the purpose of `serialVersionUID`?
 
-Serialisation converts an object into a byte stream, enabling it to be stored or transmitted and later reconstructed (deserialised). The `serialVersionUID` is a unique identifier for each Serialisable class, ensuring a loaded class is compatible with the serialised object. Mismatches can lead to `InvalidClassException` during deserialisation.
+Serialisation converts an object into a byte stream, enabling it to be stored or transmitted and later reconstructed (deserialised).
+The `serialVersionUID` is a unique identifier for each Serialisable class, ensuring a loaded class is compatible with the serialised object.
+Mismatches can lead to `InvalidClassException` during deserialisation.
 
-=== 37. How do you use try‑with‑resources to manage external resources?
+=== 37. How do you use try-with-resources to manage external resources?
 
-The try‑with‑resources statement automatically closes resources that implement `AutoCloseable` or `Closeable`. For example:
+The try-with-resources statement automatically closes resources that implement `AutoCloseable` or `Closeable`.
+For example:
 [,java]
 ----
 try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
@@ -368,15 +412,16 @@ try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
 ----
 This ensures that resources are correctly released even if an exception occurs.
 
-Some resources are closable but are not obvious. e.g. Most `Stream` don't need to be closed; however, some do.
+Some resources are closable but are not obvious.
+e.g. Most `Stream` don't need to be closed; however, some do.
 
-- `Files.lines` returns a `Stream` that needs to be closed.
-- `Files.newDirectoryStream` returns a `DirectoryStream`
-- `Files.newBufferedReader` returns a `BufferedReader`
-- `Files.newBufferedWriter` returns a `BufferedWriter`
-- `Files.newInputStream` returns a `InputStream`
-- `Files.newOutputStream` returns a `OutputStream`
-- `Files.newByteChannel` returns a `SeekableByteChannel`
+* `Files.lines` returns a `Stream` that needs to be closed.
+* `Files.newDirectoryStream` returns a `DirectoryStream`
+* `Files.newBufferedReader` returns a `BufferedReader`
+* `Files.newBufferedWriter` returns a `BufferedWriter`
+* `Files.newInputStream` returns a `InputStream`
+* `Files.newOutputStream` returns a `OutputStream`
+* `Files.newByteChannel` returns a `SeekableByteChannel`
 
 [,java]
 ----
@@ -387,10 +432,10 @@ try (Stream<String> lines = Files.lines(Paths.get("file.txt"))) {
 
 === 38. How do you compare objects using the `equals()` method versus the `==` operator?
 
-- The `==` operator checks whether two references point to the same object in memory.
-- The `equals()` method, which should be overridden for custom classes, checks whether two objects are logically equivalent based on their state.
+* The `==` operator checks whether two references point to the same object in memory.
+* The `equals()` method, which should be overridden for custom classes, checks whether two objects are logically equivalent based on their state.
 For example, two distinct `String` objects containing the same characters will be considered equal by `equals()`, but not by `==`.
-- The `compareTo()` method is used to order objects, such as sorting collections.
+* The `compareTo()` method is used to order objects, such as sorting collections.
 
 [,java]
 ----
@@ -408,7 +453,8 @@ assert b.compareTo(c) == 0; // 0, same value
 
 === 39. How does Java handle type conversion and casting between different data types?
 
-Java supports implicit widening conversions (e.g., from `int` to `long`) that do not require a cast and explicit narrowing conversions (e.g., from `double` to `int`) that require a cast. The casting uses parentheses, for example, `(int) someDouble`, which informs the compiler that you are aware of possible precision loss or truncation.
+Java supports implicit widening conversions (e.g., from `int` to `long`) that do not require a cast and explicit narrowing conversions (e.g., from `double` to `int`) that require a cast.
+The casting uses parentheses, for example, `(int) someDouble`, which informs the compiler that you are aware of possible precision loss or truncation.
 
 NOTE: the 4-byte `float` is considered wider than the 8-byte `long` because it has a larger range.
 
@@ -416,21 +462,22 @@ WARNING: Casting may result in precision loss, even when widening e.g. `float f 
 
 === 40. What is a transient variable, and how does it interact with serialisation?
 
-A transient variable is declared with the `transient` keyword, indicating that it should not be included in the serialisation process. When an object is serialised, transient fields are ignored, which is helpful for sensitive or derived data that should not be persisted.
+A transient variable is declared with the `transient` keyword, indicating that it should not be included in the serialisation process.
+When an object is serialised, transient fields are ignored, which is helpful for sensitive or derived data that should not be persisted.
 
 === 41. How do you perform basic arithmetic, relational, and logical operations in Java?
 
 Java supports standard operators:
 
-- *Arithmetic:* `+`, `-`, `*`, `/`, `%`
-- *Relational:* `<`, `>`, `<=`, `>=`, `==`, `!=`
-- *Logical:* `&&`, `||`, `!`
-- *Bitwise:* `&`, `|`, `^`, `~`, `<<`, `>>`, `>>>`
-- *Assignment:* `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `|=`, `^=`, `<<=`, `>>=`, `>>>=`
-- *Increment/Decrement:* `++`, `--`
-- *Conditional (Ternary):* `condition ? value1 : value2`
-- *Instanceof:* `object instanceof Type`
-- *Type Cast:* `(Type) object`
+* _Arithmetic:_ `+`, `-`, `*`, `/`, `%`
+* _Relational:_ `<`, `>`, `<=`, `>=`, `==`, `!=`
+* _Logical:_ `&&`, `||`, `!`
+* _Bitwise:_ `&`, `|`, `^`, `~`, `<<`, `>>`, `>>>`
+* _Assignment:_ `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&=`, `|=`, `^=`, `<<=`, `>>=`, `>>>=`
+* _Increment/Decrement:_ `++`, `--`
+* _Conditional (Ternary):_ `condition ? value1 : value2`
+* _Instanceof:_ `object instanceof Type`
+* _Type Cast:_ `(Type) object`
 
 These operators form the basis of expressions and control flow in Java programs.
 
@@ -438,34 +485,39 @@ WARNING: While you can use `%` with floating point, you probably shouldn't, as i
 
 === 42. What is a Java interface, and how does it differ from an abstract class?
 
-A Java interface defines a contract (a set of abstract methods) a class can implement. An abstract class can have concrete methods and states (member variables). Interfaces support multiple inheritance of type, whereas a class may extend only one abstract class.
+A Java interface defines a contract (a set of abstract methods) a class can implement.
+An abstract class can have concrete methods and states (member variables).
+Interfaces support multiple inheritance of type, whereas a class may extend only one abstract class.
 
 === 43. How does exception propagation work in nested method calls?
 
-If a method throws an exception and does not catch it, the exception propagates up the call stack to its caller. This continues until the exception is caught by a try‑catch block or reaches the top level, potentially terminating the program. This propagation mechanism allows centralised handling of errors.
+If a method throws an exception and does not catch it, the exception propagates up the call stack to its caller.
+This continues until the exception is caught by a try-catch block or reaches the top level, potentially terminating the program.
+This propagation mechanism allows centralised handling of errors.
 
 === 44. What are the benefits of using the Java Collections Framework?
 
-The Java Collections Framework provides a standardised set of interfaces and classes (such as List, Set, and Map) for storing and manipulating groups of objects. Benefits include:
+The Java Collections Framework provides a standardised set of interfaces and classes (such as List, Set, and Map) for storing and manipulating groups of objects.
+Benefits include:
 
-- Dynamic sizing and flexibility.
-- A standardized set of interfaces and classes (e.g., List, Set, Map) for managing groups of objects.
-- Type safety with generics.
-- Built‑in methods for searching, sorting, and iterating.
-- Improved code readability and maintainability.
+* Dynamic sizing and flexibility.
+* A standardized set of interfaces and classes (e.g., List, Set, Map) for managing groups of objects.
+* Type safety with generics.
+* Built-in methods for searching, sorting, and iterating.
+* Improved code readability and maintainability.
 
-=== 45. How do you iterate over collections using loops and enhanced for‑loops?
+=== 45. How do you iterate over collections using loops and enhanced for-loops?
 
 You can iterate over collections using:
 
-- *Traditional for loop:* Using an iterator explicitly.
-- *Enhanced for loop (for‑each):* Simplifies syntax and automatically handles the iterator.
-- *Iterator:* Provides fine‑grained control over the iteration process.
-- *Stream API:* Introduced in Java 8, it offers functional‑style operations for processing collections.
-- *forEach method:* Available on collections, it accepts a lambda expression for processing each element.
-- *ListIterator:* Allows bidirectional traversal of lists.
-- *Spliterator:* Introduced in Java 8, it supports parallel processing of collections.
-- *Enumeration:* Legacy interface for iterating over collections.
+* _Traditional for loop:_ Using an iterator explicitly.
+* _Enhanced for loop (for-each):_ Simplifies syntax and automatically handles the iterator.
+* _Iterator:_ Provides fine-grained control over the iteration process.
+* _Stream API:_ Introduced in Java 8, it offers functional-style operations for processing collections.
+* _forEach method:_ Available on collections, it accepts a lambda expression for processing each element.
+* _ListIterator:_ Allows bidirectional traversal of lists.
+* _Spliterator:_ Introduced in Java 8, it supports parallel processing of collections.
+* _Enumeration:_ Legacy interface for iterating over collections.
 
 === 46. Give examples of each type of loop used for iterating over collections in Java.
 
@@ -478,7 +530,7 @@ for (Type element : collection) {
 ----
 This reduces boilerplate code and improves readability.
 
-.Enhanced for loop (for‑each)
+.Enhanced for loop (for-each)
 [,java]
 ----
 for (Iterator<Type> iterator = collection.iterator(); iterator.hasNext(); ) {
@@ -544,19 +596,22 @@ while (enumeration.hasMoreElements()) {
 
 === 47. How do you compare and contrast arrays with ArrayLists in Java?
 
-- *[] arrays:* They have a fixed size and are faster for indexed access but lack many utility methods. They even lack a reasonable `toString`, `equals`, or `hashCode` method. The support arrays of primitives and references to objects.
-- *ArrayList(s):* Are dynamic in size, offer many convenient methods (e.g., add, remove, and contains), and are part of the Collections Framework. They only support references to objects for now; in the future, they might also support primitives.
-- *BitSet:* Is a special type of array that can be used to store bits, which can be more memory efficient than a boolean array.
+* _[] arrays:_ They have a fixed size and are faster for indexed access but lack many utility methods. They even lack a reasonable `toString`, `equals`, or `hashCode` method. The support arrays of primitives and references to objects.
+* _ArrayList(s):_ Are dynamic in size, offer many convenient methods (e.g., add, remove, and contains), and are part of the Collections Framework. They only support references to objects for now; in the future, they might also support primitives.
+* _BitSet:_ Is a special type of array that can be used to store bits, which can be more memory efficient than a boolean array.
 
 === 48. What is the purpose of generics in Java, and how do they improve type safety?
 
-Generics allow you to parameterise classes and methods with types, enabling compile‑time type checking and reducing the need for explicit casts. This leads to safer, more maintainable code, as errors related to incompatible types are caught early in the development cycle.
+Generics allow you to parameterise classes and methods with types, enabling compile-time type checking and reducing the need for explicit casts.
+This leads to safer, more maintainable code, as errors related to incompatible types are caught early in the development cycle.
 
-NOTE: Generics are a compile-time feature that are erased at runtime. This means you can't use `instanceof` with a generic type.
+NOTE: Generics are a compile-time feature that are erased at runtime.
+This means you can't use `instanceof` with a generic type.
 
 === 49. How does Java handle multithreading at a basic level?
 
-Java supports multithreading via the `Thread` class and the `Runnable` interface, enabling concurrent code execution. Synchronisation constructs (e.g., the `synchronised` keyword, volatile variables, and classes in `java.util.concurrent`) help manage access to shared resources, ensuring thread safety and consistency.
+Java supports multithreading via the `Thread` class and the `Runnable` interface, enabling concurrent code execution.
+Synchronisation constructs (e.g., the `synchronised` keyword, volatile variables, and classes in `java.util.concurrent`) help manage access to shared resources, ensuring thread safety and consistency.
 
 ExecutorService and ForkJoinPool are higher-level abstractions that simplify thread management and parallel processing.
 
@@ -571,31 +626,31 @@ list.parallelStream().forEach(System.out::println);
 
 Portability is ensured by:
 
-- Using standard Java APIs and avoiding platform‑specific code.
-- Externalising configuration (e.g. properties files).
-- Adhering to established coding standards and style guides.
-- Writing modular, well‑documented code.
-- Thoroughly testing on multiple platforms.
+* Using standard Java APIs and avoiding platform-specific code.
+* Externalising configuration (e.g. properties files).
+* Adhering to established coding standards and style guides.
+* Writing modular, well-documented code.
+* Thoroughly testing on multiple platforms.
 
 Best practices include:
 
-- Following the SOLID principles. SOLID is an acronym for Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. In simple terms, Liskov Substitution is if you have a method that takes a base class, it should be able to take any subclass without breaking.
-- Writing clean, readable code.
-- Using meaningful variable and method names.
-- Employing design patterns where appropriate.
-- Regularly refactoring and optimising code.
+* Following the SOLID principles. SOLID is an acronym for Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. In simple terms, Liskov Substitution is if you have a method that takes a base class, it should be able to take any subclass without breaking.
+* Writing clean, readable code.
+* Using meaningful variable and method names.
+* Employing design patterns where appropriate.
+* Regularly refactoring and optimising code.
 
 == Part 2: Additional Core Topics
 
-Below are additional questions covering topics that further enrich your understanding of Java’s core concepts:
+Below are additional questions covering topics that further enrich your understanding of Java's core concepts:
 
-=== 1. What are the four pillars of object‑oriented programming (OOP) in Java, and how are they implemented?
+=== 1. What are the four pillars of object-oriented programming (OOP) in Java, and how are they implemented?
 
 OOP in Java is based on:
-- **Encapsulation:** Bundling data (fields) and methods, and restricting direct access to some of an object's components.
-- **Inheritance:** Allowing classes to inherit fields and methods from parent classes.
-- **Polymorphism:** Enabling objects to be treated as instances of their parent class rather than their actual class.
-- **Abstraction:** Hiding complex implementation details behind simpler interfaces.
+* *Encapsulation:* Bundling data (fields) and methods, and restricting direct access to some of an object's components.
+* *Inheritance:* Allowing classes to inherit fields and methods from parent classes.
+* *Polymorphism:* Enabling objects to be treated as instances of their parent class rather than their actual class.
+* *Abstraction:* Hiding complex implementation details behind simpler interfaces.
 
 These principles are implemented through class design, access modifiers, method overriding, and interface usage.
 
@@ -617,22 +672,23 @@ List<String> list = Arrays.asList("a", "b", "c");
 list.forEach(System.out::println);
 ----
 
-**Advantages:**
+*Advantages:*
 
-- Reduced boilerplate code.
-- Enables functional programming styles.
-- Simplifies event handling and callbacks.
-- Improves readability and maintainability.
+* Reduced boilerplate code.
+* Enables functional programming styles.
+* Simplifies event handling and callbacks.
+* Improves readability and maintainability.
 
-*Disadvantages:*
+_Disadvantages:_
 
-- Can be less readable for complex logic.
-- May require additional learning for developers unfamiliar with functional programming.
-- Can be harder to debug due to the lack of explicit method names.
+* Can be less readable for complex logic.
+* May require additional learning for developers unfamiliar with functional programming.
+* Can be harder to debug due to the lack of explicit method names.
 
 === 3. What are Functional Interfaces in Java, and how do they relate to lambda expressions?
 
-Functional interfaces are interfaces with a single abstract method, such as `Runnable` or `Comparator`. They are used to represent lambda expressions and method references, enabling functional programming in Java.
+Functional interfaces are interfaces with a single abstract method, such as `Runnable` or `Comparator`.
+They are used to represent lambda expressions and method references, enabling functional programming in Java.
 
 [,java]
 ----
@@ -646,40 +702,41 @@ Not all functional interfaces have to have the annotation `@FunctionalInterface`
 
 === 4. What is the Stream API in Java, and how does it facilitate functional programming and parallel processing?
 
-The Stream API provides a high‑level abstraction for processing sequences of elements using functional operations such as filter, map, and reduce. It enables:
+The Stream API provides a high-level abstraction for processing sequences of elements using functional operations such as filter, map, and reduce.
+It enables:
 
-- Declarative code style.
-- Easy parallelization via `parallelStream()`.
-- Improved readability and maintainability of data processing code.
-- Lazy evaluation, allowing operations to be chained without evaluating intermediate results.
+* Declarative code style.
+* Easy parallelization via `parallelStream()`.
+* Improved readability and maintainability of data processing code.
+* Lazy evaluation, allowing operations to be chained without evaluating intermediate results.
 
 === 5. How do you use reflection in Java, and what are its performance and security implications?
 
 Reflection allows you to inspect and manipulate classes, methods, and fields at runtime.
 
-**Benefits:**
+*Benefits:*
 
-- Dynamic class loading
-- Method invocation
-- Object inspection.
-- Annotation processing.
-- Code generation.
-- Testing frameworks.
+* Dynamic class loading
+* Method invocation
+* Object inspection.
+* Annotation processing.
+* Code generation.
+* Testing frameworks.
 
-**Implications:**
+*Implications:*
 
-- Slower than direct method calls due to overhead.
-- Can pose security risks if misused.
-- May break encapsulation and increase complexity.
-- Can lead to less readable and maintainable code.
-- Can be used to create objects without calling constructors or call private constructors.
-- Can be used to access private fields and modify final fields.
-- Can be used to access private classes, and methods.
+* Slower than direct method calls due to overhead.
+* Can pose security risks if misused.
+* May break encapsulation and increase complexity.
+* Can lead to less readable and maintainable code.
+* Can be used to create objects without calling constructors or call private constructors.
+* Can be used to access private fields and modify final fields.
+* Can be used to access private classes, and methods.
 
 === 6. What is the difference between method overloading and method overriding in Java?
 
-- **Method Overloading:** Multiple methods in the same class share the same name but have different parameter lists (compile-time polymorphism).
-- **Method Overriding:** A subclass provides its own implementation for a method defined in a parent class, maintaining the same signature (runtime polymorphism).
+* *Method Overloading:* Multiple methods in the same class share the same name but have different parameter lists (compile-time polymorphism).
+* *Method Overriding:* A subclass provides its own implementation for a method defined in a parent class, maintaining the same signature (runtime polymorphism).
 
 [cols="1,^2,^2",options="header"]
 |===
@@ -697,98 +754,98 @@ Reflection allows you to inspect and manipulate classes, methods, and fields at 
 
 Properly overriding `equals()` and `hashCode()` ensures that objects can be compared based on their state and work correctly in collections like HashMap.
 
-**Guidelines:**
+*Guidelines:*
 
-- Follow the contract: equal objects must have equal hash codes.
-- If a class is `Comparable` or `Comparator` is used, ensure `equals()` is consistent with the comparison.
-- Use all significant fields. ie non transient fields.
-- Consider using IDE-generated code or libraries.
+* Follow the contract: equal objects must have equal hash codes.
+* If a class is `Comparable` or `Comparator` is used, ensure `equals()` is consistent with the comparison.
+* Use all significant fields. ie non transient fields.
+* Consider using IDE-generated code or libraries.
 
 === 8. What is dependency injection, and which frameworks support it in Java?
 
 Dependency injection (DI) is a design pattern that decouples object creation from business logic by injecting required dependencies into a class.
 
-- **Frameworks:** Spring, CDI (Contexts and Dependency Injection), and Guice are commonly used to manage DI in Java applications.
-- **Benefits:** Promotes loose coupling, enhances testability, and simplifies object creation.
-- **Types:** Constructor injection, setter injection, and field injection.
+* *Frameworks:* Spring, CDI (Contexts and Dependency Injection), and Guice are commonly used to manage DI in Java applications.
+* *Benefits:* Promotes loose coupling, enhances testability, and simplifies object creation.
+* *Types:* Constructor injection, setter injection, and field injection.
 
 === 9. What are the key principles of unit testing in Java using frameworks like JUnit?
 
 Effective unit testing in Java involves:
 
-- Writing small, focused test methods that cover one specific behavior.
-- Using annotations such as `@Test`, `@BeforeEach`, and `@AfterEach` to manage test lifecycle.
-- Isolating tests using mocks and stubs.
-- Following clear naming conventions to describe test purposes.
-- Ensuring tests are repeatable and independent.
-- Using `@ParameterizedTest` to run the same test with different parameters where appropriate.
+* Writing small, focused test methods that cover one specific behavior.
+* Using annotations such as `@Test`, `@BeforeEach`, and `@AfterEach` to manage test lifecycle.
+* Isolating tests using mocks and stubs.
+* Following clear naming conventions to describe test purposes.
+* Ensuring tests are repeatable and independent.
+* Using `@ParameterizedTest` to run the same test with different parameters where appropriate.
 
-== Part 3: Performance, Low‑Latency, and Memory Optimisation
+== Part 3: Performance, Low-Latency, and Memory Optimisation
 
-For performance‑sensitive applications, consider these advanced guidelines:
+For performance-sensitive applications, consider these advanced guidelines:
 
 === Considerations for Low Latency and Low Garbage Environments
 
-For developers working on performance‑sensitive Java applications (e.g., high‑frequency trading, real‑time processing, gaming engines), consider the following guidelines:
+For developers working on performance-sensitive Java applications (e.g., high-frequency trading, real-time processing, gaming engines), consider the following guidelines:
 
 ==== Minimise Object Allocation
 
-- *Reuse Objects:* Implement object pooling or caching to avoid repeated allocation.
-- *Avoid Autoboxing:* Prefer primitives over wrapper classes to reduce unnecessary object creation.
-- *String Concatenation:* Use `StringBuilder` for efficient string concatenation in loops instead of multiple `\+` appends. If you have a simple String concatenation, it will use one `StringBuilder` and `append` for each `\+` operator in the code.
-- *Avoid Temporary Objects:* Be mindful of temporary objects created during method calls or operations.
-- *Avoid Excessive Collections:* Use primitive arrays or specialised collections to reduce object overhead.
-- *Avoid Premature Optimisation:* Profile your application to identify bottlenecks before optimising object allocation.
-- *Avoid String Interning:* While it can save memory, it can also lead to performance issues due to the overhead of maintaining the interned string pool.
+* _Reuse Objects:_ Implement object pooling or caching to avoid repeated allocation.
+* _Avoid Autoboxing:_ Prefer primitives over wrapper classes to reduce unnecessary object creation.
+* _String Concatenation:_ Use `StringBuilder` for efficient string concatenation in loops instead of multiple `\+` appends. If you have a simple String concatenation, it will use one `StringBuilder` and `append` for each `\+` operator in the code.
+* _Avoid Temporary Objects:_ Be mindful of temporary objects created during method calls or operations.
+* _Avoid Excessive Collections:_ Use primitive arrays or specialised collections to reduce object overhead.
+* _Avoid Premature Optimisation:_ Profile your application to identify bottlenecks before optimising object allocation.
+* _Avoid String Interning:_ While it can save memory, it can also lead to performance issues due to the overhead of maintaining the interned string pool.
 
 ==== Optimise Memory Usage
 
-- *Off‑Heap Memory:* Leverage direct ByteBuffers or off‑heap data structures to lessen GC pressure.
-- *Immutable Objects:* Use immutability to reduce accidental object creation.
-- *Memory‑Mapped Files:* Utilize memory‑mapped files for efficient I/O operations and data sharing. e.g. Chronicle Queue and Map.
-- *Compressed Data Structures:* Employ compressed data structures (e.g., RoaringBitmaps) to reduce memory footprint.
-- *Memory‑Efficient Libraries:* Choose libraries optimised for low memory usage (e.g., FastUtil, Trove).
-- *Memory Leak Detection:* Monitor memory usage and detect leaks using profilers or tools like Flight Recorder.
+* _Off-Heap Memory:_ Leverage direct ByteBuffers or off-heap data structures to lessen GC pressure.
+* _Immutable Objects:_ Use immutability to reduce accidental object creation.
+* _Memory-Mapped Files:_ Utilize memory-mapped files for efficient I/O operations and data sharing. e.g. Chronicle Queue and Map.
+* _Compressed Data Structures:_ Employ compressed data structures (e.g., RoaringBitmaps) to reduce memory footprint.
+* _Memory-Efficient Libraries:_ Choose libraries optimised for low memory usage (e.g., FastUtil, Trove).
+* _Memory Leak Detection:_ Monitor memory usage and detect leaks using profilers or tools like Flight Recorder.
 
-==== Select a Low‑Latency Garbage Collector
+==== Select a Low-Latency Garbage Collector
 
-- *GC Tuning:* Use collectors like ZGC or Shenandoah designed for low‑latency scenarios and fine‑tune GC parameters (e.g., `-XX:MaxGCPauseMillis=...`).
-- *GC Profiling:* Analyse GC logs to identify bottlenecks and optimise heap settings accordingly.
-- *GC‑Free Data Structures:* Use GC‑free data structures (e.g., ObjectPool, RingBuffer) to minimise GC impact.
-- *Avoid Stop‑The‑World Events:* Optimise your application to reduce the frequency and duration of stop‑the‑world pauses.
-- *GC‑Friendly Design:* Structure your application to minimise object churn and promote efficient memory management.
-- *Azul Pauseless GC:* Consider using Azul’s Pauseless GC for low‑latency requirements.
+* _GC Tuning:_ Use collectors like ZGC or Shenandoah designed for low-latency scenarios and fine-tune GC parameters (e.g., `-XX:MaxGCPauseMillis=...`).
+* _GC Profiling:_ Analyse GC logs to identify bottlenecks and optimise heap settings accordingly.
+* _GC-Free Data Structures:_ Use GC-free data structures (e.g., ObjectPool, RingBuffer) to minimise GC impact.
+* _Avoid Stop-The-World Events:_ Optimise your application to reduce the frequency and duration of stop-the-world pauses.
+* _GC-Friendly Design:_ Structure your application to minimise object churn and promote efficient memory management.
+* _Azul Pauseless GC:_ Consider using Azul's Pauseless GC for low-latency requirements.
 
 ==== Write Efficient Code
 
-- *Lock-Free Algorithms:* Employ concurrent data structures and non‑blocking algorithms to minimise synchronisation overhead.
-- *Minimise Synchronisation:* Use advanced concurrency utilities (e.g., those in `java.util.concurrent`) to reduce thread contention.
-- *Inline Critical Code:* Manually inline performance‑critical code sections to eliminate method call overhead. The JVM should always do this for you, but sometime it doesn't. Always benchmark before and after to confirm it is an improvement.
-- *Avoid Reflection:* Limit reflection to improve performance and maintainability.
+* _Lock-Free Algorithms:_ Employ concurrent data structures and non-blocking algorithms to minimise synchronisation overhead.
+* _Minimise Synchronisation:_ Use advanced concurrency utilities (e.g., those in `java.util.concurrent`) to reduce thread contention.
+* _Inline Critical Code:_ Manually inline performance-critical code sections to eliminate method call overhead. The JVM should always do this for you, but sometime it doesn't. Always benchmark before and after to confirm it is an improvement.
+* _Avoid Reflection:_ Limit reflection to improve performance and maintainability.
 
 ==== Profile and Monitor
 
-- *Continuous Profiling:* Utilise tools like Java Flight Recorder, JVisualVM, or dedicated low‑latency profilers to monitor GC pauses, allocation rates, and thread contention.
-- *Benchmarking:* Use microbenchmarking frameworks (e.g., JMH) to evaluate critical code sections and detect performance bottlenecks.
-- *Heap Analysis:* Analyse heap dumps to identify memory leaks, inefficient data structures, and opportunities for optimisation.
-- *Latency Monitoring:* Implement latency‑aware metrics and monitoring to track real-time application performance.
-- *High-resolution timers:* Use high-resolution timers to measure latency and throughput accurately. For example, Chronicle Core's `SystemTimeProvider.currentTimeNanos()` is a high-resolution timer and wall clock.
+* _Continuous Profiling:_ Utilise tools like Java Flight Recorder, JVisualVM, or dedicated low-latency profilers to monitor GC pauses, allocation rates, and thread contention.
+* _Benchmarking:_ Use microbenchmarking frameworks (e.g., JMH) to evaluate critical code sections and detect performance bottlenecks.
+* _Heap Analysis:_ Analyse heap dumps to identify memory leaks, inefficient data structures, and opportunities for optimisation.
+* _Latency Monitoring:_ Implement latency-aware metrics and monitoring to track real-time application performance.
+* _High-resolution timers:_ Use high-resolution timers to measure latency and throughput accurately. For example, Chronicle Core's `SystemTimeProvider.currentTimeNanos()` is a high-resolution timer and wall clock.
 
 ==== Consider Application Architecture
 
-- *Event‑Driven Models:* Architect systems to use asynchronous, event‑driven paradigms that naturally reduce latency.
-- *Batch Processing:* Process data in batches where feasible to amortise the cost of object allocation and reduce GC overhead.
-- *Data‑Oriented Design:* Structure your application around data‑oriented design principles to improve cache coherence and reduce memory access latency.
-- *Low‑Latency Messaging:* Use low‑latency messaging systems (e.g., Chronicle Queue) to minimise message processing times.
-- *Zero‑Copy I/O:* Implement zero‑copy I/O techniques to reduce data copying and improve throughput.
+* _Event-Driven Models:_ Architect systems to use asynchronous, event-driven paradigms that naturally reduce latency.
+* _Batch Processing:_ Process data in batches where feasible to amortise the cost of object allocation and reduce GC overhead.
+* _Data-Oriented Design:_ Structure your application around data-oriented design principles to improve cache coherence and reduce memory access latency.
+* _Low-Latency Messaging:_ Use low-latency messaging systems (e.g., Chronicle Queue) to minimise message processing times.
+* _Zero-Copy I/O:_ Implement zero-copy I/O techniques to reduce data copying and improve throughput.
 
 ==== JVM and OS Tuning
 
-- *JVM Flags:* Experiment with JVM flags like `-XX:+UseCompactObjectHeaders` in Java 25, and tune parameters specific to your low‑latency requirements.
-- *System-Level Optimizations:* Adjust OS-level settings (e.g., thread priorities, NUMA configurations) to complement your application’s performance goals.
-- *Hardware Acceleration:* Leverage hardware acceleration features (e.g., SIMD instructions) to boost computational performance.
-- *Memory Management:* Optimise memory allocation patterns to reduce fragmentation and improve cache utilisation.
-- *Low‑Latency Networking:* Utilise low‑latency networking libraries and protocols to minimise network‑related delays.
-- *CPU Affinity:* Assign threads to specific CPU cores to reduce context switching and improve cache locality.
+* _JVM Flags:_ Experiment with JVM flags like `-XX:+UseCompactObjectHeaders` in Java 25, and tune parameters specific to your low-latency requirements.
+* _System-Level Optimizations:_ Adjust OS-level settings (e.g., thread priorities, NUMA configurations) to complement your application's performance goals.
+* _Hardware Acceleration:_ Leverage hardware acceleration features (e.g., SIMD instructions) to boost computational performance.
+* _Memory Management:_ Optimise memory allocation patterns to reduce fragmentation and improve cache utilisation.
+* _Low-Latency Networking:_ Utilise low-latency networking libraries and protocols to minimise network-related delays.
+* _CPU Affinity:_ Assign threads to specific CPU cores to reduce context switching and improve cache locality.
 
 // end::readme[]
