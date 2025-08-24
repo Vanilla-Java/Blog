@@ -1,0 +1,189 @@
+= Company Presentation
+:toc:
+:sectnums:
+
+This is a presentation for the company, covering our vision, and how we will respond to the challenges in the age of AI. Each section is a slide in the presentation.
+
+NOTE: Many of these slides have too many words and will need to be summarised
+
+// new slide
+
+== Executive Summary
+
+Chronicle Software is a leading provider of high-performance trading system components. Through our open-source Chronicle Queue, we are trusted by eight of the top eleven investment banks and approximately 80% of trading firms. Our mission is to accelerate the deployment of reliable, low-latency, and scalable systems for financial institutions.
+
+// two new slide
+
+== Company Values
+
+Our core values are deeply integrated with our strategic purpose, guiding our approach to delivering exceptional, performance-focused solutions:
+
+Aligned with Customer Outcomes ::
+We start with client objectives and build from there. Our agile, iterative approach means continuously refining our products in close collaboration with clients, ensuring every feature directly supports their success.
+
+Operational Resilience ::
+Chronicle’s solutions are engineered for stability, scalability, and longevity. Proactive risk identification and management ensure that our systems perform reliably under the most demanding financial market conditions.
+
+Collective Problem-Solving ::
+The strongest solutions arise from collaboration, both internally and with clients. By co-developing products, sharing expertise, and actively engaging in peer review, we elevate our collective capability and ensure our solutions effectively address real-world complexity.
+
+Consistently Raising Standards ::
+Innovation at Chronicle isn’t about novelty but continually setting higher benchmarks in low-latency performance and quality. Our engineering practices emphasise precise analysis, disciplined execution, and rigorous performance standards.
+
+Growth from Insight ::
+Our commitment to continuous learning and improvement drives informed innovation. Regularly incorporating feedback loops from client and peer interactions, industry engagement, and market insights ensures that our growth remains pragmatic, targeted, and impactful.
+
+Ready to Evolve ::
+Chronicle remains adaptive and responsive, structured to pivot swiftly as market dynamics and client needs shift. Our modular architectures and flexible approach to design ensure our solutions remain relevant and future-ready.
+
+Open and Accountable ::
+Integrity guides our interactions internally and externally. Clear, transparent communication and accountability underpin our client relationships, fostering trust, effective decision-making, and lasting partnerships.
+
+// new slide
+== Strategic Focus
+
+Our hybrid buy-vs-build model enables clients to "Build It Fast, Quickly, and Safely" by integrating proven components that foster innovation. Our offerings include a high-performance FIX engine, deterministic event-driven state machines, and distributed, durable messaging frameworks. These deliver essential functions for trading systems across asset classes such as equities, FX, crypto, and regulatory markets. These modular solutions empower clients to customise their systems efficiently.
+
+Focusing on recurring revenue, we are committed to delivering long-term value and operational efficiency. Through expert consulting, we ensure clients can swiftly deploy new trading capabilities and achieve a return on investment, often within 3 to 6 months. This approach reduces the risks and costs associated with in-house development, expediting the launch of innovative trading platforms.
+
+// new slide
+
+== Future Vision
+
+With our resources, we continue to enhance and expand our suite of accelerators for bespoke trading systems in equities and FX. We aim to integrate more deeply into clients' trading workflows, extending our reach into matching engines, smart order routing, OMS, EMS, market data aggregation, client pricing, market making, DMA gateways, algorithmic trading and automated trading components. This allows clients to develop strategies with minimal consultancy costs, focusing on custom business logic.
+
+At Chronicle Software, combining cutting-edge technology with proven expertise gives our clients the competitive edge needed to excel in today's dynamic financial markets. As a strategic partner, we enable clients to unlock unparalleled market potential through innovation, agility, and performance.
+
+// new slide
+
+== Delivering Value to Clients
+
+Modern software engineering places a premium on delivering clear customer value at every step. *Lean development* principles, for instance, centre on providing value faster and with less waste and risk. This means prioritising features and improvements that benefit users or clients. Agile frameworks like Scrum emphasise delivering working software in short iterations to add value throughout a project’s life cycle continuously. Chronicle Software embraces this customer-centric mindset by *co-developing solutions with clients*. This ensures the end product directly addresses client needs and provides immediate business value. By treating value delivery as the ultimate goal, teams focus on outcomes that matter, reducing latency in a trading system or streamlining a user workflow and avoiding getting lost in technically interesting but non-essential work.
+
+// new slide
+
+== Continuous Improvement: Plan, Prototype, Iterate
+
+Continuous improvement is at the heart of Chronicle’s iterative engineering approach. Agile methodologies promote a flexible, iterative planning, prototyping, and refinement cycle. Rather than attempting to build a perfect system in one pass, teams plan small changes, build prototypes, gather feedback, and iterate. Techniques like the Plan-Do-Check-Act (PDCA) cycle formalise this process: teams plan a change, implement a small prototype, check results with data and feedback, and then act by rolling out the improvement or adjusting course.
+
+An essential part of this cycle is the early identification of significant risks. By continuously examining each iteration, teams can spot pitfalls, technical challenges, integration issues, or performance bottlenecks. The earlier they are identified, the easier it is to change the project and resolve them. Chronicle’s engineering culture similarly encourages building proof-of-concept implementations to validate ideas and uncover issues early, then iterating.
+
+// new slide
+
+== Deep Problem Analysis Before Execution
+
+Successful engineers invest time in deep problem analysis before writing code. Chronicle Software’s philosophy stresses understanding a challenge as much as possible before attempting to solve it. Proper problem analysis means breaking down the issue, pinpointing root causes, and mapping out requirements and constraints. It’s essentially “measure twice, cut once.”
+
+A critical component of deep analysis is identifying the most significant risks early. By doing so, teams can design the system to explicitly address these risks, ensuring that the architecture remains flexible and that early iterations include simple, focused implementations.
+
+In practice, this involves collaborating with stakeholders to gather requirements, defining the scope clearly, and performing root-cause analysis (often using techniques like the “5 Whys” to dig into underlying issues).
+
+// new slide
+
+== Collaboration and Elevating Teams & Clients
+
+Chronicle’s philosophy extends beyond technology; it’s about *people and collaboration*. Great software isn’t built in a vacuum; it emerges from strong teams and often in client partnerships. Chronicle actively collaborates with client teams, effectively *elevating their engineers and the client’s developers* through shared insight. This collaborative approach can be seen in how Chronicle engages clients in co-development, a practice where the client’s domain experts and Chronicle’s engineers design solutions side by side. The benefit is twofold: Chronicle gains a deeper understanding of the client’s problem, and the client team learns modern engineering techniques and best practices from Chronicle. This echoes a broader industry trend of *co-creation* in product development.
+
+Lean development advocates *respect for people*, empowers team members, and fosters an environment of continuous learning.
+
+Chronicle’s clients have attested to this uplift. For instance, a trading firm (StoneX Markets) noted, _"Chronicle helped us design latency-sensitive, deterministic, testable components that we will be using for years to come."_ This feedback speaks to how Chronicle’s collaborative approach strengthens clients.
+
+// new slide
+
+== Technology Hype curve
+
+image::https://emt.gartnerweb.com/ngw/globalassets/en/articles/infographics/hype-cycle-for-artificial-intelligence-2024.jpg[]
+
+link:https://www.gartner.com/en/articles/hype-cycle-for-artificial-intelligence[]
+
+The Gartner Hype Cycle for Artificial Intelligence for 2024 indicates that while Generative AI (GenAI) continues to be a major focus, it has moved past the "Peak of Inflated Expectations." This means that while there is still a lot of hype, the initial, inflated expectations are now being tempered with a dose of reality. For 2024, more value is expected to be derived from more established AI techniques, used either on their own or in combination with GenAI.
+
+// new slide
+
+== In the medium term, AI won't reduce the need for human expertise
+
+As ATMs were introduced, there were concerns that they would replace bank tellers. However, ATMs did not eliminate the need for human expertise; instead, they transformed the role of tellers, allowing them to focus on more complex tasks and customer service. Similarly, AI will not replace human expertise but will augment it, enabling professionals to focus on higher-value activities.
+
+image::https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQNFwTimfPu8cSmR4j2xAYxe7RIR4GbZeaN_k9vbFRL5fXgtk61w0SMKq0OheZXEbKBrRqAKcpEmSUpmHXzZKUFYELP2iuw3uHqiy7WEh29vD8rhsmwTzNKVoLq06VbZ4hzvHapWOnHqK0/s1600/bessen+1.jpg[]
+
+// new slide
+
+== Chronicle's Response to AI Challenges
+
+*   *Human-in-the-loop* is essential; AI offers probability, *not* certainty.
+*   AI excels at *word-smithing*, so spend more time on documentation and context.
+*   *Leverage diverse AI models* for varied research, improvements, and analysis.
+*   Be wary of *deskilling*: if AI makes a task trivial, agents may soon replace it.
+*   You should feel like you are *testing the boundaries* of what AI is capable of for at least some tasks.
+
+// new slide
+
+== Practical AI Use Cases
+
+[cols="3,1,1",frame=none,grid=rows,options="header"]
+|===
+| Use Case | Manual | AI
+| Reproducers, Something is better than nothing | 10% | 90%
+| Mock Systems, Throwaway Examples, Boiler Plate | 20% | 80%
+| Documentation, Detailed Examples | 50% | 50%
+| Specialist Knowledge, Domain Expertise e.g. Low latency | 80% | 20%
+|===
+
+// new slide
+
+== Perceived Productivity Gains
+
+Developers often overestimate AI's productivity gains, especially in complex tasks. They can feel like it double or mroe but in terms of value I would estimate it's about a 20% gain. AI is great at low hanging fruit which is also where the least value is.
+
+Where AI excels is unblocking developers in tasks that are not their core expertise. This is where having an AI which is very well read, but no experience is better than having to learn from scratch. SOme developers see this as being a 10X developer.
+
+IMHO the biggest driver of adoption of AI will be how it makes developers feel, rather than the actual productivity gains. If it makes them feel like they are more productive, then they will use it more.
+
+// new slide
+
+== Underestimating the importance of understanding the problem
+
+Developers consistently fail to realise that understanding the problem is 90% of the effort, and writing code is only 10%.
+They compound that mistake when using generative AI, making the writing code easier at the expense of understanding.
+Use multiple AIs to explore the problem and gain a deeper understanding, e.g., detailed requirements (wordsmithing), cross-checking (review), edge case unit tests (unknown unknowns), and techniques and libraries you might have missed (learning)
+In a good week, I add or update around 3,000 lines that will be retained long-term, using an IDE and AI, which takes ~4 hours, or 10% of the week.
+The rest of the time was spent determining what needed to be changed where.
+
+// image::https://media.licdn.com/dms/image/v2/D4D22AQH1MapPV5ARSQ/feedshare-shrink_800/B4DZeCP4JRGYAg-/0/1750236891659?e=1753315200&v=beta&t=zKP-lGvnxHpEgbwvPEOyULFgFXee1w1ibLhZwTYeiHQ[]
+
+// new slide
+== Correct vs Useful
+
+For a moderately complex problem we have, generative AI is ~80% accurate, but only ~20% useful. You want to minimise the unhelpful, remove the incorrect, and keep the correct and helpful. The most significant wins are the insightfully incorrect ones, as this can indicate a need for more precise requirements.
+For easy, repetitive problems, the accuracy is close to 100%. However, for more complex issues, the accuracy ranges from 20% to 50%.
+
+TL;DR Be ready to review and delete most of what AI produces.
+
+// image::https://media.licdn.com/dms/image/v2/D4D22AQF78NdAko8nnQ/feedshare-shrink_2048_1536/B4DZeHR1YkH4Aw-/0/1750321289104?e=1753315200&v=beta&t=ntO515vDfQdODH6254RJGvGzHBpK6SLS4yz_nKl-GMQ[]
+
+// new slide
+
+== Assume that AI is wrong or not adding value
+
+Hot take: If AI can generate documentation, there is >80% chance it isn't worth writing.
+
+a. It's something an expert will already know, or
+b. You can ask an AI to produce that content.
+
+Start with essential details and ask an AI to expand on them. If it misses crucial details, gets them wrong, or makes a really compelling point, you can update the source details.
+Treat AI output as an indicator that it *doesn't* need to be explained, rather than something to pad out your documentation
+
+// image::https://media.licdn.com/dms/image/v2/D4E22AQFNzGhwFWTNYQ/feedshare-shrink_800/B4EZeCp6DdHIAk-/0/1750243713786?e=1753315200&v=beta&t=u16vLCbSooqCGCBZx38N5oBnnwY-5FudWSnPuqwd3Cc[]
+
+// new slide
+
+== Secret Sauce
+
+If AI can generate code or documentation, it is not secret sauce. It is something that can be easily copied and pasted, and it is not a competitive advantage. The areas where AI can't help, do have value.
+
+This makes it relatively easy to test whether something is secret sauce or not. If you can ask an AI to generate it, it is not secret sauce. If you can't, then it is.
+
+image::https://eddierocketsathome.ie/wp-content/uploads/2023/10/secret-sauce-img1.jpg[]
+
+// new slide
+
