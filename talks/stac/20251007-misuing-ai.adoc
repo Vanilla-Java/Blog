@@ -1,0 +1,93 @@
+= Why Most Teams Misuse Gen AI (and how to fix it)
+Peter Lawrey <peter.lawrey@chronicle.software>
+
+TL;DR
+
+* 90% - 98% is understanding the problem and 2% - 10% is time writing the solution.
+* GenAI *cheapens typing* but often *raises the cost of thinking, testing, and proving*.
+* Treat LLMs as *context amplifiers* (docs, tests, examples), not decision engines.
+* Use *HITL gates* where there is risk/novelty.
+
+== Use AI to help you with the hard parts
+
+There is a misconception that developers spend a lot of their time writing code. They don't. Most of their time is spent understanding the problem, designing a solution, and debugging. Generative AI can be a powerful tool to assist with these tasks, but it should not be seen as a replacement for critical thinking and problem-solving skills.
+
+[cols="1,1,1",options="header"]
+|===
+| | A good week | An average week
+| Code/Docs added/updated | 2,500 lines | 500 lines
+| Time to write | 4 hours | 1 hour
+| Time understanding/debugging/design | 90% | 98%
+|===
+
+Using AI to generate code is likely to make the 2% of writing easier, and the 98% of understanding harder.
+
+== Correctness vs Value
+
+Generative AI can produce content that is correct but not valuable. Conversely, it can also produce content that provides valuable even though it is not correct.
+
+[cols="1,4,1"]
+|===
+| | 80% Correct | 20% Incorrect
+| 80% No Value | 64% Correct
+
+but
+
+not
+
+insightful| 16% Wrong but trivial
+| 20% Valuable | 16% Correct and compelling to keep | 4% Wrong but insightful
+|===
+
+It is the "Incorrect but Insightful" where I learn the most.
+
+I asked AI to write documentation for a `StackTrace` class of mine, and it gave me a description for a method to get the time of the stack trace that didn't exist. I thought that was a good idea, so I added it.
+
+[quote, Ward Cunningham, Cunningham's Law]
+The best way to get the right answer on the Internet is not to ask a question; it's to post the wrong answer.
+
+== Reframing best practices
+
+Documentation-Primed Development ::
+AI is a word smithing tool, and it works best with documentation. This leads to spending more time writing documentation and using AI to keep the tests and code in sync. This can be reframed as RAG (Retrieval Augmented Generation) or careful and detailed Prompt Engineering / Prompt Driven Development.
+
+A key difference is much of the documentation is targeted at an AI rather than a human.
+
+Rapid Prototyping and MVPs ::
+"Vibe Coding" is the recent slang, but it is "build something tangible first and refine later". It has all the benefits of Rapid Prototyping, but comes with the same shortcomings.
+
+Pair Programming ::
+You can think of AI as a pair programmer with a well read developer with no experience.
+
+DevOps & CI/CD ::
+LLMOps is using AI to automate DevOps tasks, such as Continuous Integration and Continuous Deployment. This can help streamline the development process, but it should not replace human oversight and decision-making.
+
+Code Reviews / Four-Eyes Principle ::
+HITL (Human in the Loop) is a common pattern where AI assists with code reviews, but it should not replace human judgment. AI can help identify potential issues, but it is still important for developers to review and understand the code.
+
+== Is AI more productive?
+
+For tedious, repetitive tasks, AI can be more productive. However, these are good candidate for using an AI Agent in the near future.
+
+Some studies have shown senior developers can end up spending more time with AI. I would say I spend 20% longer on average.
+
+This is because I am trying to develop best of breed solutions. I am using AI to help me with anything I might not have thought about, rather than using AI to make my job easier.
+
+== Green Field Using Documentation Drive Development (DDD)
+
+Recently I use AI to help me design a new JDBC/JMS Gateways.
+
+- I was able to build detailed documentation before coding.
+- It produced a 70% complete solution.
+- I reached the point where I felt I needed to rewrite them.
+- After doing so, the AI helped improve it further.
+- The solution felt more complete and mature than I could have achieved on my own.
+
+== Brown Field Using AI to Enhance Existing Code
+
+Recently I added functionality to our FIX Router. I started with an implementation I wrote and asked four AIs for suggested improvements which resulted in 5 different changes. This lead to a more complete and mature solution.
+
+== Use AI to learn, not just code
+
+[quote, Harper Lee]
+The book to read is not the one that thinks for you, but the one which makes you think.
