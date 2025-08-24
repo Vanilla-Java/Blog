@@ -8,43 +8,12 @@ TL;DR
 * Treat LLMs as *context amplifiers* (docs, tests, examples), not decision engines.
 * Use *HITL gates* where there is risk/novelty.
 
-== Use AI to help you with the hard parts
+== It's only worth automatic tasks that have value
 
-There is a misconception that developers spend a lot of their time writing code. They don't. Most of their time is spent understanding the problem, designing a solution, and debugging. Generative AI can be a powerful tool to assist with these tasks, but it should not be seen as a replacement for critical thinking and problem-solving skills.
+[quote, Unknown]
+Everything old is new again.
 
-[cols="1,1,1",options="header"]
-|===
-| | A good week | An average week
-| Code/Docs added/updated | 2,500 lines | 500 lines
-| Time to write | 4 hours | 1 hour
-| Time understanding/debugging/design | 90% | 98%
-|===
-
-Using AI to generate code is likely to make the 2% of writing easier, and the 98% of understanding harder.
-
-== Correctness vs Value
-
-Generative AI can produce content that is correct but not valuable. Conversely, it can also produce content that provides valuable even though it is not correct.
-
-[cols="1,4,1"]
-|===
-| | 80% Correct | 20% Incorrect
-| 80% No Value | 64% Correct
-
-but
-
-not
-
-insightful| 16% Wrong but trivial
-| 20% Valuable | 16% Correct and compelling to keep | 4% Wrong but insightful
-|===
-
-It is the "Incorrect but Insightful" where I learn the most.
-
-I asked AI to write documentation for a `StackTrace` class of mine, and it gave me a description for a method to get the time of the stack trace that didn't exist. I thought that was a good idea, so I added it.
-
-[quote, Ward Cunningham, Cunningham's Law]
-The best way to get the right answer on the Internet is not to ask a question; it's to post the wrong answer.
+If it didn't have value before AI, it probably won't have value with AI. Look for ways to automate tasks that have already been identified as having value, and strategies that are already understood to be effective.
 
 == Reframing best practices
 
@@ -65,6 +34,50 @@ LLMOps is using AI to automate DevOps tasks, such as Continuous Integration and 
 Code Reviews / Four-Eyes Principle ::
 HITL (Human in the Loop) is a common pattern where AI assists with code reviews, but it should not replace human judgment. AI can help identify potential issues, but it is still important for developers to review and understand the code.
 
+== Use AI to help you with the hard parts
+
+There is a misconception that developers spend a lot of their time writing code. They don't. Most of their time is spent understanding the problem, designing a solution, and debugging. Generative AI can be a useful tool to assist with these tasks, but it should not be seen as a replacement for critical thinking and problem-solving skills.
+
+[cols="1,1,1",options="header"]
+|===
+| | A good week | An average week
+| Code/Docs added/updated | 2,500 lines | 500 lines
+| Time to write | 4 hours | 1 hour
+| Time understanding/debugging/design | 90% | 98%
+|===
+
+Using AI to generate code is likely to make the 2% of writing easier, and the 98% of understanding harder.
+
+== Correctness vs Value
+
+Generative AI can produce content that is correct but not valuable. Conversely, it can also produce content that provides valuable even though it is not correct.
+
+[cols="1,4,1"]
+|===
+| | 80% Correct | 20% Incorrect
+| 80% No Value | 64%
+
+Correct
+
+but not
+
+insightful| 16%
+
+Wrong
+
+but
+
+trivial
+| 20% Valuable | 16% Correct and compelling to keep | 4% Wrong but insightful
+|===
+
+It is the "Incorrect but Insightful" where I learn the most.
+
+I asked AI to write documentation for a `StackTrace` class of mine, and it gave me a description for a method to get the time of the stack trace that didn't exist. I thought that was a good idea, so I added it.
+
+[quote, Ward Cunningham, Cunningham's Law]
+The best way to get the right answer on the Internet is not to ask a question; it's to post the wrong answer.
+
 == Is AI more productive?
 
 For tedious, repetitive tasks, AI can be more productive. However, these are good candidate for using an AI Agent in the near future.
@@ -77,15 +90,33 @@ This is because I am trying to develop best of breed solutions. I am using AI to
 
 Recently I use AI to help me design a new JDBC/JMS Gateways.
 
-- I was able to build detailed documentation before coding.
-- It produced a 70% complete solution.
-- I reached the point where I felt I needed to rewrite them.
-- After doing so, the AI helped improve it further.
-- The solution felt more complete and mature than I could have achieved on my own.
+* I was able to build detailed documentation before coding.
+* It produced a 70% complete solution.
+* I reached the point where I felt I needed to rewrite all the code.
+* After doing so, the AI helped improve it further.
+* The solution felt more complete and mature than I could have achieved on my own.
 
 == Brown Field Using AI to Enhance Existing Code
 
 Recently I added functionality to our FIX Router. I started with an implementation I wrote and asked four AIs for suggested improvements which resulted in 5 different changes. This lead to a more complete and mature solution.
+
+== Before and After AI
+
+This is the approximate number of lines for 6 months of work on a new product comparing before and after using AI.
+
+[cols=">1,^1,^1,^1",options="header"]
+|===
+| | Before AI | After AI | User Written
+| User Docs | 3,520 | 2,100 | 80%
+| AI-targeted Docs |  | 9,000 | 40%
+| Release Code | 10,000 | 12,000 | 80%
+| Use Case Demos | 9,500 | 8,500 | 50%
+| Unit Tests | 7,500 | 25,000 | 25%
+| Total | 30,520 | 56,600 | 45%
+|===
+
+The number of tests increased from 75 to 430, the average size reduced from 100 lines to 58 lines per test.
+
 
 == Use AI to learn, not just code
 
