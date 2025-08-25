@@ -9,13 +9,13 @@ Feeling like a 10x developer ::
 AI acts as a gap filler, helping with road blocks, unknown libraries, and techniques. This can make you feel far more productive.
 
 100% increase in productivity ::
-AI tends to result in much more code, tests, and documentation. This can lead to a 20% increase in productivity.
+AI tends to result in much more documentation and tests. They can easily quadruple in line count. In the interests of maintainability, try to ensure you code doesn't increase significantly e.g. +20%.
 
 20% increase in value ::
-However, this translates to around a 20% increase in value delivered. The increased volume translates in a more complete solution, including much of the lower values content that you might have previously just not done.
+This extra content translates to only around a 20% increase in value delivered. The increased volume translates in a more complete solution, including much of the lower values content that you might have previously just not done.
 
 20% increase in time spent ::
-However, the time spent can increase by 20% as you spend more time as AI can result in a more upfront requirements and edge cases considered from the start, taking more time to feel like a complete solution.
+The time spent can increase by 20% as AI can result in a more upfront requirements and edge cases considered from the start, setting higher expectations for the first iteration of development.
 
 When your goal is a Best Of Breed solution, use AI elevates your expectations and the first iteration is likely to be far more involved and complete than you would have done on without it.
 
