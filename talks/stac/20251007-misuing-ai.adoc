@@ -6,16 +6,30 @@ Peter Lawrey <peter.lawrey@chronicle.software>
 There are apparently contradictory reports on whether AI makes developers more or less productive.
 
 Feeling like a 10x developer ::
-AI acts as a gap filler, helping with road blocks, unknown libraries, and techniques. This can make you feel far more productive.
+AI acts as a gap filler, helping unblock problems, suggesting unknown libraries and techniques. Developers report feeling like they have more mental energy, maintaining momentum. This can give you confidence to tackle tasks you might have avoided, or would have been more mentally draining to start.
 
 100% increase in productivity ::
-AI tends to result in much more documentation and tests. They can easily quadruple in line count. In the interests of maintainability, try to ensure you code doesn't increase significantly e.g. +20%.
+Gen AI tends to result in much more documentation and tests unless heavily curated. AI can easily quadruple your line count in these areas.
+
+TIP: In the interests of maintainability, try to ensure you code doesn't increase significantly e.g. +20%.
+
+[quote, The British Museum]
+Roughly 80,000 objects are on public display at the British Museum in
+Bloomsbury at any one time. This is 1% of the collection, however, the
+displays include many of the most important items.
 
 20% increase in value ::
-This extra content translates to only around a 20% increase in value delivered. The increased volume translates in a more complete solution, including much of the lower values content that you might have previously just not done.
+IMHO, This extra content translates to only around a 20% increase in value delivered in a given time. The increased volume translates in a more complete solution, including much of the lower value content that you might have previously left for later phases.
+
+"Citizens Bank observed a productivity boost of 20% among a group of engineers using generative AI in a test case"
+https://www.deloitte.com/us/en/insights/industry/financial-services/financial-services-industry-predictions/2025/ai-and-bank-software-development.html[AI can help banks unleash a new era of software engineering productivity]
 
 20% increase in time spent ::
 The time spent can increase by 20% as AI can result in a more upfront requirements and edge cases considered from the start, setting higher expectations for the first iteration of development.
+
+image::https://metr.org/assets/images/downlift/forecasted-vs-observed.png[]
+
+https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/[Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity]
 
 When your goal is a Best Of Breed solution, use AI elevates your expectations and the first iteration is likely to be far more involved and complete than you would have done on without it.
 
@@ -44,7 +58,7 @@ Rapid Prototyping and MVPs ::
 "Vibe Coding" is the recent slang, but it is "build something tangible first and refine later". It has all the benefits of Rapid Prototyping, but comes with the same shortcomings.
 
 Pair Programming ::
-You can think of AI as a pair programmer with a well read developer with no experience.
+You can think of AI as a pair programmer with a well-read developer with no experience.
 
 DevOps & CI/CD ::
 LLMOps is using AI to automate DevOps tasks, such as Continuous Integration and Continuous Deployment. This can help streamline the development process, but it should not replace human oversight and decision-making.
@@ -70,23 +84,30 @@ Using AI to generate code is likely to make the 2% of writing easier, and the 98
 
 Generative AI can produce content that is correct but not valuable. Conversely, it can also produce content that provides valuable even though it is not correct.
 
-[cols="1,4,1"]
+[cols=">1,^4,^1"]
 |===
-| | 80% Correct | 20% Incorrect
-| 80% No Value | 64%
+|
+| 80% Correct
+| 20% Incorrect
+
+| 80% No Value
+| 64%
 
 Correct
 
 but not
 
-insightful| 16%
+insightful
+| 16%
 
 Wrong
 
 but
 
 trivial
-| 20% Valuable | 16% Correct and compelling to keep | 4% Wrong but insightful
+| 20% Valuable
+| 16% Correct and compelling to keep
+| 4% Wrong but insightful
 |===
 
 It is the "Incorrect but Insightful" where I learn the most.
@@ -133,7 +154,7 @@ This is the approximate number of lines for 6 months of work on a new product co
 | Total | 30,520 | 56,600 | 45%
 |===
 
-The number of tests increased from 75 to 430, the average size reduced from 100 lines to 58 lines per test.
+The number of tests increased from 75 to 430, the average test size reduced from 100 lines to 58 lines.
 
 
 == Use AI to learn, not just code
