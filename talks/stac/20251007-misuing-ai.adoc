@@ -36,8 +36,8 @@ When your goal is a Best Of Breed solution, use AI elevates your expectations an
 TL;DR
 
 * 90% - 98% is understanding the problem and 2% - 10% is time writing the solution.
-* GenAI *cheapens typing* but often *raises the cost of thinking, testing, and proving*.
-* Treat LLMs as *context amplifiers* (docs, tests, examples), not decision engines.
+* GenAI to one shot the solution *cheapens typing* but often *raises the cost of thinking, testing, and proving*.
+* Treat LLMs as *context amplifiers*, force multiplier, and gap filler (requirements, user docs, tests, examples), not decision engines.
 * Use *HITL gates* where there is risk/novelty.
 
 == It's only worth automatic tasks that have value
@@ -121,11 +121,17 @@ The best way to get the right answer on the Internet is not to ask a question; i
 
 For tedious, repetitive tasks, AI can be more productive. However, these are good candidate for using an AI Agent in the near future.
 
-Some studies have shown senior developers can end up spending more time with AI. I would say I spend 20% longer on average.
+Some studies have shown senior developers can end up spending more time with AI. From my own experience, I would say I spend 20% longer on average.
 
-This is because I am trying to develop best of breed solutions. I am using AI to help me with anything I might not have thought about, rather than using AI to make my job easier.
+This is because I am trying to develop best of breed solutions. I am using AI to help me with anything I might not have thought about (resulting in more work), rather than using AI to make my job easier.
 
-== Green Field Using Documentation Drive Development (DDD)
+== Brown Field Using AI to Enhance Existing Code
+
+Recently I added functionality to our FIX Router. I started with an implementation I wrote and asked four AIs for suggested improvements which resulted in 5 different changes. This lead to a more complete and mature solution.
+
+It was worth it as the solution was more complete and robust, but it probably took 40% longer.
+
+== Green Field Using Documentation Primed Development (DPD)
 
 Recently I use AI to help me design a new JDBC/JMS Gateways.
 
@@ -135,9 +141,37 @@ Recently I use AI to help me design a new JDBC/JMS Gateways.
 * After doing so, the AI helped improve it further.
 * The solution felt more complete and mature than I could have achieved on my own.
 
-== Brown Field Using AI to Enhance Existing Code
+== The difference in 6 months of work
 
-Recently I added functionality to our FIX Router. I started with an implementation I wrote and asked four AIs for suggested improvements which resulted in 5 different changes. This lead to a more complete and mature solution.
+[cols="1,>1,<1,1", options="header"]
+|===
+|Category |Before |After |Increase
+|Documentation |3520 |2100 + 9000 (User + for AI) |+215%
+|Tests |7500 |25000 |+233%
+|Demos |9500 |8500 |-11%
+|Release Code |10000 |12000 |+20%
+|Total |30520 |56600 |+85%
+|===
+
+I spend far more time in the documenting the requirements.
+
+Once you have documentation, tests, and examples, writing or rewriting the release code is much easier. In the above example, rewriting 12K lines likes takes about 3 days out of 6 months.
+
+== How will work change for Junior Developers?
+
+- Studies have shown Junior Developers benefit the most from using AI.
+- The number of Junior Developer roles in shrinking.
+
+I see a shift in expectations. The work a developer with 5 years experience used to do, a developer 3 years will be expected to do. i.e. the bar is being raised, without reducing the intake of first year Junior Developers.
+
+== Meta-Skills
+
+The most important skill is the ability to learn and adapt.
+
+- Adaptability & Learning Agility
+- Create Problem Solving & Lifelong Learning
+- Collaboration & Communication
+- Emotional Intelligence
 
 == Before and After AI
 

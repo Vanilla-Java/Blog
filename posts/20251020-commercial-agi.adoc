@@ -1,0 +1,15 @@
+= We already have commercial AGI
+
+Much of the discussion around artificial general intelligence (AGI) ignores the practical considerations. I believe in a practical sense, we already have commercial AGI today and that the AGI often talked about isn't that interesting.
+
+== What is AGI?
+
+> Artificial general intelligence (AGI) is a hypothetical stage in the development of machine learning (ML) in which an artificial intelligence (AI) system can match or exceed the cognitive abilities of human beings across any task
+
+This considers only an individual human, and ignores the fact that humans work together in groups, and that these groups have access to tools and resources that individuals do not. This also ignores return on investment (ROI). An AI system doesn't need to cost as much as a human, so doesn't need to provide as much benefit as a human to make commercial sense.
+
+In a team, you don't expect everyone to do everything equally well, nor should you expect AI to do everything a human could do either. Instead, you want AI to complement the team, filling in gaps and amplifying the strengths of the team members. This plays to AI strengths.
+
+If your team is a cost centre and you goal is to complete tasks to a fixed standard at the lowest cost, it could make sense to use AI to reduce costs.
+
+However, if your team is a value centre, and your competitors are also using AI, you need AI just to keep in line with them, and elevate your solutions. This is likely to result in growing your business and the size of your team as you are creating more value.
